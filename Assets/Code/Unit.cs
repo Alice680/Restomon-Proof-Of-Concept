@@ -7,6 +7,8 @@ public class Unit
     private static int current_id;
     private int id;
 
+    private int hp, mp, sp;
+
     private Vector3Int model_position;
     private Actor owner;
     private GameObject model;
@@ -14,6 +16,10 @@ public class Unit
     public Unit(GameObject model_path, Actor owner)
     {
         id = ++current_id;
+
+        hp = 2;
+        mp = 1;
+        sp = 1;
 
         this.owner = owner;
 
@@ -29,6 +35,16 @@ public class Unit
     public int GetID()
     {
         return id;
+    }
+
+    public void ChangeHp(int num)
+    {
+        hp += num;
+    }
+
+    public int GetHp()
+    {
+        return hp;
     }
 
     public void SetPosition(Vector3Int new_position)

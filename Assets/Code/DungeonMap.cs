@@ -8,6 +8,7 @@ public class DungeonMap
     {
         public DungeonTileType type;
         public GameObject model;
+        public GameObject marker;
         public Unit current_unit;
 
         public int x, y;
@@ -28,8 +29,33 @@ public class DungeonMap
             current_unit = null;
         }
 
+        public void SetMarker(int id)
+        {
+            ClearMarker();
+            GameObject obj;
+
+            if (id == 0)
+                obj = Resources.Load<GameObject>("white");
+            else if (id == 1)
+                obj = Resources.Load<GameObject>("blue");
+            else if (id == 2)
+                obj = Resources.Load<GameObject>("green");
+            else
+                obj = Resources.Load<GameObject>("red");
+            marker = GameObject.Instantiate(obj);
+            marker.transform.position = new Vector3Int(x, y, 0);
+        }
+
+        public void ClearMarker()
+        {
+            if (marker != null)
+                GameObject.Destroy(marker);
+        }
+
         public void Clear()
         {
+            ClearMarker();
+
             if (model != null)
                 GameObject.Destroy(model);
         }
@@ -38,6 +64,7 @@ public class DungeonMap
     private int x_size, y_size;
     private Node[,] nodes;
 
+    //Node and Map editing
     public DungeonMap(int x, int y)
     {
         x_size = x;
@@ -52,29 +79,11 @@ public class DungeonMap
 
     public void SetNode(int x, int y, DungeonTileType type, GameObject model)
     {
-        nodes[x, y].Clear();
-        nodes[x, y] = new Node(type, model, x, y);
-    }
-
-    public void MoveUnit(Vector3Int vec, Unit unit) { MoveUnit(vec.x, vec.y, unit); }
-    public void MoveUnit(int x, int y, Unit unit)
-    {
-        RemoveUnit(unit);
-
-        nodes[x, y].current_unit = unit;
-        unit.SetPosition(new Vector3Int(x, y, 0));
-    }
-
-    public void RemoveUnit(Unit unit)
-    {
-        Vector3Int vec = unit.GetPosition();
-
-        if (vec.x < 0 || vec.x >= x_size || vec.y < 0 || vec.y >= y_size)
+        if (!IsInMap(x, y))
             return;
 
-        nodes[vec.x, vec.y].current_unit = null;
-
-        unit.SetPosition(new Vector3Int(-1, -1, 0));
+        nodes[x, y].Clear();
+        nodes[x, y] = new Node(type, model, x, y);
     }
 
     public DungeonTileType GetTileType(int x, int y)
@@ -87,5 +96,94 @@ public class DungeonMap
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
                 nodes[i, e].Clear();
+    }
+
+    //Units
+    public void MoveUnit(Vector3Int vec, Unit unit) { MoveUnit(vec.x, vec.y, unit); }
+    public void MoveUnit(int x, int y, Unit unit)
+    {
+        if (!IsInMap(x, y))
+            return;
+
+        RemoveUnit(unit);
+
+        nodes[x, y].current_unit = unit;
+        unit.SetPosition(new Vector3Int(x, y, 0));
+    }
+
+    public Unit GetUnit(Vector3Int vec)
+    {
+        return GetUnit(vec.x, vec.y);
+    }
+    public Unit GetUnit(int x, int y)
+    {
+        return nodes[x, y].current_unit;
+    }
+
+    public void RemoveUnit(Unit unit)
+    {
+        Vector3Int vec = unit.GetPosition();
+
+        if (!IsInMap(vec))
+            return;
+
+        nodes[vec.x, vec.y].current_unit = null;
+
+        unit.SetPosition(new Vector3Int(-1, -1, 0));
+    }
+
+    //Markers
+    public void SetMarker(int x, int y, int index)
+    {
+        if (!IsInMap(x, y))
+            return;
+
+        nodes[x, y].SetMarker(index);
+    }
+
+    public void RemoveMarker(int x, int y)
+    {
+        if (!IsInMap(x, y))
+            return;
+
+        nodes[x, y].ClearMarker();
+    }
+
+    public void RemoveAllMarker()
+    {
+        for (int i = 0; i < x_size; ++i)
+            for (int e = 0; e < y_size; ++e)
+                RemoveMarker(i, e);
+    }
+
+    //Checks
+    public bool IsInMap(Vector3Int vec)
+    {
+        return IsInMap(vec.x, vec.y);
+    }
+    public bool IsInMap(int x, int y)
+    {
+        if (x < 0 || x >= x_size || y < 0 || y >= y_size)
+            return false;
+
+        return true;
+    }
+
+    public bool IsValidMove(Unit unit, Vector3Int vec)
+    {
+        return IsValidMove(unit, vec.x, vec.y);
+    }
+    public bool IsValidMove(Unit unit, int x, int y)
+    {
+        if (!IsInMap(x, y))
+            return false;
+
+        if (nodes[x, y].current_unit != null)
+            return false;
+
+        if (nodes[x, y].type == DungeonTileType.Wall)
+            return false;
+
+        return true;
     }
 }
