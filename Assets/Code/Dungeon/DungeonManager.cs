@@ -11,13 +11,14 @@ public class DungeonManager : MonoBehaviour
     private Unit current_unit;
 
     //temp
-    public GameObject[] tile_markers;
+    public Player controller;
 
     public Attack attack;
 
     public DungeonLayout layout;
-    public GameObject player_model;
-    public Player controller;
+
+    public RestomonBase player_temp;
+    public MonsterStats enemy_temp;
 
     //Unit calls
     private void Start()
@@ -29,10 +30,10 @@ public class DungeonManager : MonoBehaviour
 
         controller = new Player(this);
 
-        current_unit = new Unit(player_model, controller);
+        current_unit = new Unit(player_temp.GetRestomon(5), controller);
         map.MoveUnit(5, 5, current_unit);
 
-        Unit temp_unit = new Unit(player_model, controller);
+        Unit temp_unit = new Unit(enemy_temp.GetMonster(), controller);
         map.MoveUnit(7, 5, temp_unit);
 
         units.Add(current_unit);
