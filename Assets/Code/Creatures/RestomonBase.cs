@@ -13,11 +13,16 @@ public class RestomonBase : ScriptableObject
     }
 
     [SerializeField] private int id;
+
     [SerializeField] private StatHolder base_stats;
     [SerializeField] private StatHolder growth_stats;
+
+    [SerializeField] private Attack[] base_attack;
+    [SerializeField] private Attack[] attack;
+
     [SerializeField] private GameObject model;
 
-    public Restomon GetRestomon(int lv)
+    public Restomon GetRestomon(int lv, int base_attack_id, int[] attack_id)
     {
         int[] core_stats = new int[12];
 
@@ -34,6 +39,12 @@ public class RestomonBase : ScriptableObject
         core_stats[10] = base_stats.Mov + (growth_stats.Mov * lv);
         core_stats[11] = base_stats.Act + (growth_stats.Act * lv);
 
-        return new Restomon(id,lv, core_stats, model);
+        Attack[] core_attack = new Attack[9];
+        core_attack[0] = this.base_attack[base_attack_id];
+
+        for (int i = 0; i < 4; ++i)
+            core_attack[i + 1] = attack[attack_id[i]];
+
+        return new Restomon(id,lv, core_stats, core_attack, model);
     }
 }

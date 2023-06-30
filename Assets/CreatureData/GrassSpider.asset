@@ -15,6 +15,8 @@ MonoBehaviour:
   id: 1
   base_stats:
     Hp: 3
+    Sp: 3
+    Mp: 3
     Atk: 3
     Mag: 3
     Frc: 3
@@ -26,6 +28,8 @@ MonoBehaviour:
     Act: 3
   growth_stats:
     Hp: 1
+    Sp: 1
+    Mp: 1
     Atk: 1
     Mag: 1
     Frc: 1
@@ -35,4 +39,10 @@ MonoBehaviour:
     Spd: 1
     Mov: 1
     Act: 1
+  base_attack:
+  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  attack:
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}

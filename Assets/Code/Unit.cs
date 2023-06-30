@@ -33,6 +33,8 @@ public class Unit
                 break;
         }
 
+        this.creature = creature;
+
         SetPosition(new Vector3Int(-1, -1, 0));
     }
 
@@ -87,6 +89,11 @@ public class Unit
     public int GetStat(int index)
     {
         return creature.GetStat(index);
+    }
+
+    public Attack GetAttack(int index)
+    {
+        return creature.GetAttack(index);
     }
 
     public Vector3Int GetPosition()

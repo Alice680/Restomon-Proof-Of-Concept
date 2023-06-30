@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc7dcf59c6821a49949e5a3a6802dfa, type: 3}
   m_Name: TestDummy
   m_EditorClassIdentifier: 
+  attacks:
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   stats:
     Hp: 3
     Atk: 0
@@ -23,4 +33,4 @@ MonoBehaviour:
     Spd: 0
     Mov: 0
     Act: 0
-  model: {fileID: 0}
+  model: {fileID: 4490433475202409575, guid: 0045d53b82c7b1c42b967fe55fca5ed6, type: 3}

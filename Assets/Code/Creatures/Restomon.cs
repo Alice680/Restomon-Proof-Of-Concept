@@ -7,13 +7,16 @@ public class Restomon : Creature
     private int id, lv;
     private int[] stats; //Hp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
 
+    private Attack[] attacks;
+
     private GameObject model;
 
-    public Restomon(int id, int lv, int[] stats, GameObject model)
+    public Restomon(int id, int lv, int[] stats, Attack[] attacks, GameObject model)
     {
         this.id = id;
         this.lv = lv;
         this.stats = stats;
+        this.attacks = attacks;
         this.model = model;
     }
 
@@ -42,7 +45,15 @@ public class Restomon : Creature
         if (index < 0 || index > 8)
             return -1;
 
-        return stats[index - 3];
+        return stats[index + 3];
+    }
+
+    public override Attack GetAttack(int index)
+    {
+        if (index < 0 || index > 8)
+            return null;
+
+        return attacks[index];
     }
 
     public override GameObject GetModel()

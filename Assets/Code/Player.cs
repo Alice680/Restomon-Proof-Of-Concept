@@ -62,6 +62,8 @@ public class Player : Actor
 
     private Vector3Int target;
 
+    private int attack_num;
+
     private DungeonManager manager_ref;
     private Inputer inputer;
 
@@ -115,7 +117,9 @@ public class Player : Actor
         {
             target = manager_ref.GetPosition(0);
 
-            manager_ref.ShowAttackArea(target);
+            attack_num = 0;
+
+            manager_ref.ShowAttackArea(target, attack_num);
 
             state = State.aim_attack;
             return;
@@ -135,18 +139,18 @@ public class Player : Actor
             else if (inputer.GetDir() == Direction.Left && manager_ref.PositionValid(target + new Vector3Int(-1, 0, 0)))
                 target += new Vector3Int(-1, 0, 0);
 
-            manager_ref.ShowAttackArea(target);
+            manager_ref.ShowAttackArea(target, attack_num);
 
             return;
         }
 
         if (inputer.GetEnter())
         {
-            if (manager_ref.AttackTargetValid(target))
+            if (manager_ref.AttackTargetValid(target, attack_num))
             {
                 manager_ref.RemoveMarker();
 
-                manager_ref.ShowAttackTarget(target);
+                manager_ref.ShowAttackTarget(target, attack_num);
 
                 state = State.view_attack;
             }
@@ -169,7 +173,7 @@ public class Player : Actor
     {
         if (inputer.GetEnter())
         {
-            manager_ref.Attack(target);
+            manager_ref.Attack(target, attack_num);
 
             manager_ref.RemoveMarker();
 
@@ -180,7 +184,7 @@ public class Player : Actor
         {
             manager_ref.RemoveMarker();
 
-            manager_ref.ShowAttackArea(target);
+            manager_ref.ShowAttackArea(target, attack_num);
 
             state = State.aim_attack;
             return;

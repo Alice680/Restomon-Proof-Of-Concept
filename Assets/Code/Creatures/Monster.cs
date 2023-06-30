@@ -5,11 +5,13 @@ using UnityEngine;
 public class Monster : Creature
 {
     private int[] stats; //Hp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
+    private Attack[] attacks;
     private GameObject model;
 
-    public Monster(int[] stats, GameObject model)
+    public Monster(int[] stats, Attack[] attacks, GameObject model)
     {
         this.stats = stats;
+        this.attacks = attacks;
         this.model = model;
     }
 
@@ -29,7 +31,15 @@ public class Monster : Creature
         if (index < 0 || index > 8)
             return -1;
 
-        return stats[index - 1];
+        return stats[index + 1];
+    }
+
+    public override Attack GetAttack(int index)
+    {
+        if (index < 0 || index > 8)
+            return null;
+
+        return attacks[index];
     }
 
     public override GameObject GetModel()

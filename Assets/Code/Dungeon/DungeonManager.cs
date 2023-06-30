@@ -10,10 +10,11 @@ public class DungeonManager : MonoBehaviour
 
     private Unit current_unit;
 
+    private float attack_time;
+    private List<GameObject> attack_moddels;
+
     //temp
     public Player controller;
-
-    public Attack attack;
 
     public DungeonLayout layout;
 
@@ -30,7 +31,7 @@ public class DungeonManager : MonoBehaviour
 
         controller = new Player(this);
 
-        current_unit = new Unit(player_temp.GetRestomon(5), controller);
+        current_unit = new Unit(player_temp.GetRestomon(5, 0, new int[4] { 0, 0, 0, 0 }), controller);
         map.MoveUnit(5, 5, current_unit);
 
         Unit temp_unit = new Unit(enemy_temp.GetMonster(), controller);
@@ -39,10 +40,16 @@ public class DungeonManager : MonoBehaviour
         units.Add(current_unit);
         units.Add(temp_unit);
         actors.Add(controller);
+
+        attack_time = -1;
+        attack_moddels = new List<GameObject>();
     }
 
     private void Update()
     {
+        if (attack_time != -1 && Time.time - attack_time > 0.1f)
+            RemoveAttackModels();
+
         current_unit.GetOwner().Run();
     }
 
@@ -66,16 +73,31 @@ public class DungeonManager : MonoBehaviour
         map.MoveUnit(new_position, current_unit);
     }
 
-    public void Attack(Vector3Int target)
+    public void Attack(Vector3Int target, int index)
     {
-        if (!AttackTargetValid(target))
+        if (!AttackTargetValid(target, index))
             return;
 
-        List<Unit> attack_targets = new List<Unit>();
-        List<Unit> dead_unit = new List<Unit>();
+        Attack attack = current_unit.GetAttack(index);
+        GameObject marker = attack.GetModel();
 
-        if (map.GetUnit(target) != null)
-            attack_targets.Add(map.GetUnit(target));
+        List<Unit> attack_targets = new List<Unit>();
+
+        RemoveAttackModels();
+        attack_time = Time.time;
+
+        Vector3Int[] positions = attack.GetTarget(Direction.None);
+
+        for (int i = 0; i < positions.Length; ++i)
+            positions[i] += target;
+
+        for (int i = 0; i < positions.Length; ++i)
+        {
+            attack_moddels.Add(Instantiate(marker, positions[i], new Quaternion()));
+
+            if (map.GetUnit(target) != null)
+                attack_targets.Add(map.GetUnit(target));
+        }
 
         foreach (Unit unit in attack_targets)
         {
@@ -93,10 +115,22 @@ public class DungeonManager : MonoBehaviour
         map.RemoveUnit(unit);
     }
 
+    private void RemoveAttackModels()
+    {
+        attack_time = -1;
+
+        foreach (GameObject obj in attack_moddels)
+            Destroy(obj);
+
+        attack_moddels.Clear();
+    }
+
     //Edit Markers
-    public void ShowAttackArea(Vector3Int target)
+    public void ShowAttackArea(Vector3Int target, int index)
     {
         map.RemoveAllMarker();
+
+        Attack attack = current_unit.GetAttack(index);
 
         Vector3Int[] positions = attack.GetArea(Direction.None);
         Vector3Int unit_position = current_unit.GetPosition();
@@ -119,9 +153,11 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    public void ShowAttackTarget(Vector3Int target)
+    public void ShowAttackTarget(Vector3Int target, int index)
     {
         map.RemoveAllMarker();
+
+        Attack attack = current_unit.GetAttack(index);
 
         Vector3Int[] positions = attack.GetTarget(Direction.None);
 
@@ -161,8 +197,10 @@ public class DungeonManager : MonoBehaviour
         return map.IsValidMove(current_unit, new_position);
     }
 
-    public bool AttackTargetValid(Vector3Int target)
+    public bool AttackTargetValid(Vector3Int target, int index)
     {
+        Attack attack = current_unit.GetAttack(index);
+
         Vector3Int[] positions = attack.GetArea(Direction.None);
         Vector3Int unit_position = current_unit.GetPosition();
 

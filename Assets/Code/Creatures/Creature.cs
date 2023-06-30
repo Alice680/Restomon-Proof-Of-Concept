@@ -19,6 +19,11 @@ public class Creature
         return -1;
     }
 
+    public virtual Attack GetAttack(int index)
+    {
+        return null;
+    }
+
     public virtual GameObject GetModel()
     {
         return null;

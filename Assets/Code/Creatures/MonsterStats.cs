@@ -12,11 +12,13 @@ public class MonsterStats : ScriptableObject
         public int Hp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act;
     }
 
+
+    [SerializeField] private Attack[] attacks = new Attack[9];
     [SerializeField] private StatHolder stats;
     [SerializeField] private GameObject model;
     public Monster GetMonster()
     {
         int[] core_stats = new int[] { stats.Hp, stats.Atk, stats.Mag, stats.Frc, stats.Def, stats.Shd, stats.Wil, stats.Spd, stats.Mov, stats.Act };
-        return new Monster(core_stats, model);
+        return new Monster(core_stats, attacks, model);
     }
 }

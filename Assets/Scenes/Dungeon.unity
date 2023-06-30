@@ -152,14 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1175724dd62b9478a7a2a5423aaf95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile_markers:
-  - {fileID: 4248274057215805824, guid: 6d076bfbb2baf4042ad128da00142ea0, type: 3}
-  - {fileID: 4248274057215805824, guid: de3342e8ccc6cff4197e93833fc38251, type: 3}
-  - {fileID: 4248274057215805824, guid: 342e5d0fd7d0f7c44ada53576e8df51f, type: 3}
-  - {fileID: 3854793165384413137, guid: c126d68f892ba4347b7f1e2f7726e84b, type: 3}
-  attack: {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
   layout: {fileID: 11400000, guid: e47c8ae23fc72de4e90937fdaa29864f, type: 2}
-  player_model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
+  player_temp: {fileID: 11400000, guid: b221d634731003141852345e3d0705f7, type: 2}
+  enemy_temp: {fileID: 11400000, guid: 54c20f9ea53b0514ca5a1b0ce9cb987c, type: 2}
 --- !u!4 &1969286633
 Transform:
   m_ObjectHideFlags: 0
