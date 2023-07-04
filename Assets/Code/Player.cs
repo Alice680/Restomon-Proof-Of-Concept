@@ -58,14 +58,15 @@ public class Player : Actor
 
     private enum State { startup, idle, aim_attack, view_attack };
 
+    private DungeonManager manager_ref;
+
+    private Inputer inputer;
+
     private State state;
 
     private Vector3Int target;
 
     private int attack_num;
-
-    private DungeonManager manager_ref;
-    private Inputer inputer;
 
     public Player(DungeonManager manager_ref)
     {
@@ -115,6 +116,9 @@ public class Player : Actor
 
         if (inputer.GetEnter())
         {
+            if (manager_ref.GetActions() == 0)
+                return;
+            
             target = manager_ref.GetPosition(0);
 
             attack_num = 0;
@@ -123,6 +127,11 @@ public class Player : Actor
 
             state = State.aim_attack;
             return;
+        }
+
+        if(inputer.GetBack())
+        {
+            manager_ref.EndTurn();
         }
     }
 

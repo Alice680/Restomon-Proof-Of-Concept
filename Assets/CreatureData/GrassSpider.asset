@@ -25,7 +25,7 @@ MonoBehaviour:
     Wil: 3
     Spd: 3
     Mov: 3
-    Act: 3
+    Act: 1
   growth_stats:
     Hp: 1
     Sp: 1
@@ -37,8 +37,8 @@ MonoBehaviour:
     Shd: 1
     Wil: 1
     Spd: 1
-    Mov: 1
-    Act: 1
+    Mov: 0
+    Act: 0
   base_attack:
   - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}

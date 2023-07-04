@@ -5,8 +5,12 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
     private DungeonMap map;
+    private TurnKeeper turn_keeper;
+
     private List<Unit> units;
     private List<Actor> actors;
+
+    private int moves, actions;
 
     private Unit current_unit;
 
@@ -15,34 +19,47 @@ public class DungeonManager : MonoBehaviour
 
     //temp
     public Player controller;
+    public AICore controller_enemy;
 
     public DungeonLayout layout;
 
     public RestomonBase player_temp;
     public MonsterStats enemy_temp;
 
+    public AIBase ai;
+
     //Unit calls
     private void Start()
     {
         map = layout.GenerateDungeon();
+        turn_keeper = new TurnKeeper();
 
         units = new List<Unit>();
         actors = new List<Actor>();
 
         controller = new Player(this);
+        controller_enemy = new AICore(ai, this);
 
-        current_unit = new Unit(player_temp.GetRestomon(5, 0, new int[4] { 0, 0, 0, 0 }), controller);
-        map.MoveUnit(5, 5, current_unit);
-
-        Unit temp_unit = new Unit(enemy_temp.GetMonster(), controller);
-        map.MoveUnit(7, 5, temp_unit);
-
-        units.Add(current_unit);
-        units.Add(temp_unit);
         actors.Add(controller);
+        actors.Add(controller_enemy);
+
+        Unit temp_unit = null;
+
+        temp_unit = new Unit(player_temp.GetRestomon(5, 0, new int[4] { 0, 0, 0, 0 }), controller);
+        map.MoveUnit(5, 5, temp_unit);
+        turn_keeper.AddUnit(temp_unit);
+        units.Add(temp_unit);
+
+        temp_unit = new Unit(enemy_temp.GetMonster(), controller_enemy);
+        map.MoveUnit(7, 5, temp_unit);
+        turn_keeper.AddUnit(temp_unit);
+        units.Add(temp_unit);
 
         attack_time = -1;
         attack_moddels = new List<GameObject>();
+
+
+        EndTurn();
     }
 
     private void Update()
@@ -56,7 +73,7 @@ public class DungeonManager : MonoBehaviour
     //Actions
     public void Move(Direction dir)
     {
-        if (dir == Direction.None || !MoveValid(dir))
+        if (dir == Direction.None || !MoveValid(dir) || moves == 0)
             return;
 
         Vector3Int new_position = current_unit.GetPosition();
@@ -71,11 +88,14 @@ public class DungeonManager : MonoBehaviour
             new_position += new Vector3Int(-1, 0, 0);
 
         map.MoveUnit(new_position, current_unit);
+
+        --moves;
+        Debug.Log("Moves: " + moves);
     }
 
     public void Attack(Vector3Int target, int index)
     {
-        if (!AttackTargetValid(target, index))
+        if (!AttackTargetValid(target, index) || actions == 0)
             return;
 
         Attack attack = current_unit.GetAttack(index);
@@ -99,13 +119,31 @@ public class DungeonManager : MonoBehaviour
                 attack_targets.Add(map.GetUnit(target));
         }
 
-        foreach (Unit unit in attack_targets)
-        {
-            attack.ApplyEffect(current_unit, unit);
+        attack.ApplyEffect(current_unit, attack_targets.ToArray(), positions, map);
 
+        foreach (Unit unit in attack_targets)
             if (unit.GetHp() <= 0)
                 RemoveUnit(unit);
-        }
+
+        --actions;
+        Debug.Log("Actions: " + actions);
+    }
+
+    public void EndTurn()
+    {
+        RemoveAttackModels();
+        RemoveMarker();
+
+        turn_keeper.NextTurn();
+
+        current_unit = turn_keeper.Peak();
+
+        moves = current_unit.GetStat(7);
+        actions = current_unit.GetStat(8);
+
+        Debug.Log(turn_keeper.Peak().GetID());
+        Debug.Log("Moves: " + moves);
+        Debug.Log("Actions: " + actions);
     }
 
     //Internal data edit
@@ -209,6 +247,16 @@ public class DungeonManager : MonoBehaviour
                 return true;
 
         return false;
+    }
+
+    public int GetMoves()
+    {
+        return moves;
+    }
+
+    public int GetActions()
+    {
+        return actions;
     }
 
     //Grab Data From Unit

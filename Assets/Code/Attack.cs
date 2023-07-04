@@ -37,31 +37,32 @@ public class Attack : ScriptableObject
         return model;
     }
 
-    public void ApplyEffect(Unit user, Unit target)
+    public void ApplyEffect(Unit user, Unit[] targets, Vector3Int[] tiles, DungeonMap map)
     {
         if (target == null)
             return;
 
         foreach (Effect eff in effects)
         {
-            Unit effect_target = target;
+            Unit[] units;
 
-            if (eff.target == Target.Self && user.GetID() != target.GetID())
-                continue;
-            else if (eff.target == Target.Self)
-                effect_target = user;
+            if (eff.target == Target.Self)
+                units = new Unit[1] { user };
+            else
+                units = targets;
 
             switch (eff.type)
             {
                 case AttackEffect.DamageAtk:
-                    Damage(user, effect_target, eff.variables[0]);
+                    Damage(user, units, eff.variables[0]);
                     break;
             }
         }
     }
 
-    private void Damage(Unit user, Unit target, int scale)
+    private void Damage(Unit user, Unit[] targets, int scale)
     {
-        target.ChangeHp(-user.GetStat(0));
+        foreach (Unit target in targets)
+            target.ChangeHp(-user.GetStat(0));
     }
 }
