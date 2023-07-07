@@ -24,7 +24,7 @@ MonoBehaviour:
     Shd: 3
     Wil: 3
     Spd: 3
-    Mov: 3
+    Mov: 5
     Act: 1
   growth_stats:
     Hp: 1

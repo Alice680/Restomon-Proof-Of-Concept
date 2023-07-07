@@ -21,6 +21,8 @@ public class DungeonManager : MonoBehaviour
     public Player controller;
     public AICore controller_enemy;
 
+    public DungeonUI dungeon_ui;
+
     public DungeonLayout layout;
 
     public RestomonBase player_temp;
@@ -90,7 +92,7 @@ public class DungeonManager : MonoBehaviour
         map.MoveUnit(new_position, current_unit);
 
         --moves;
-        Debug.Log("Moves: " + moves);
+        dungeon_ui.UpdateUI(moves, actions);
     }
 
     public void Attack(Vector3Int target, int index)
@@ -126,7 +128,7 @@ public class DungeonManager : MonoBehaviour
                 RemoveUnit(unit);
 
         --actions;
-        Debug.Log("Actions: " + actions);
+        dungeon_ui.UpdateUI(moves, actions);
     }
 
     public void EndTurn()
@@ -142,8 +144,8 @@ public class DungeonManager : MonoBehaviour
         actions = current_unit.GetStat(8);
 
         Debug.Log(turn_keeper.Peak().GetID());
-        Debug.Log("Moves: " + moves);
-        Debug.Log("Actions: " + actions);
+
+        dungeon_ui.UpdateUI(moves, actions);
     }
 
     //Internal data edit
