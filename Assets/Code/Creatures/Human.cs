@@ -4,5 +4,60 @@ using UnityEngine;
 
 public class Human : Creature
 {
+    private string class_name, sub_name;
+    private int[] stats;
+    private Attack[] attacks;
+    private Trait[] traits;
+    private GameObject model;
 
+    public Human(string class_name, string sub_name, int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
+    {
+        this.class_name = class_name;
+        this.sub_name = sub_name;
+        this.stats = stats;
+        this.attacks = attacks;
+        this.traits = traits;
+        this.model = model;
+    }
+
+    public override CreatureType GetCreatureType()
+    {
+        return CreatureType.Human;
+    }
+
+    public override int GetHp()
+    {
+        return stats[0];
+    }
+
+    public int GetAp()
+    {
+        return stats[1];
+    }
+
+    public int GetApr()
+    {
+        return stats[2];
+    }
+
+    public override int GetStat(int index)
+    {
+        if (index < 0 || index > 8)
+            return -1;
+
+        return stats[index + 3];
+    }
+
+    public override Attack GetAttack(int index)
+    {
+        if (index < 0 || index >= 9)
+            return null;
+
+        return attacks[index];
+    }
+
+    public override GameObject GetModel()
+    {
+        return GameObject.Instantiate(model);
+    }
 }

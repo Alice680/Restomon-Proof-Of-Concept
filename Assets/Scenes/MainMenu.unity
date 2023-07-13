@@ -3541,6 +3541,13 @@ MonoBehaviour:
     y_value: 0
     x_size: 0
     y_size: 0
+  dungeon_layouts:
+  - {fileID: 11400000, guid: e47c8ae23fc72de4e90937fdaa29864f, type: 2}
+  human_classes:
+  - {fileID: 11400000, guid: 16badff5bf9b63c4488c0a9392412c3c, type: 2}
+  - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}
+  - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
+  restomon_types: []
 --- !u!1 &2053344429
 GameObject:
   m_ObjectHideFlags: 0

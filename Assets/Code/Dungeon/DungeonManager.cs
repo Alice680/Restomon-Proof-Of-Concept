@@ -17,15 +17,14 @@ public class DungeonManager : MonoBehaviour
     private float attack_time;
     private List<GameObject> attack_moddels;
 
+    private PermDataHolder data_holder;
+
     //temp
     public Player controller;
     public AICore controller_enemy;
 
     public DungeonUI dungeon_ui;
 
-    public DungeonLayout layout;
-
-    public RestomonBase player_temp;
     public MonsterStats enemy_temp;
 
     public AIBase ai;
@@ -33,7 +32,9 @@ public class DungeonManager : MonoBehaviour
     //Unit calls
     private void Start()
     {
-        map = layout.GenerateDungeon();
+        data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
+
+        map = data_holder.GetDungeon().GenerateDungeon();
         turn_keeper = new TurnKeeper();
 
         units = new List<Unit>();
@@ -47,7 +48,7 @@ public class DungeonManager : MonoBehaviour
 
         Unit temp_unit = null;
 
-        temp_unit = new Unit(player_temp.GetRestomon(5, 0, new int[4] { 0, 0, 0, 0 }), controller);
+        temp_unit = new Unit(data_holder.GetPlayer(), controller);
         map.MoveUnit(5, 5, temp_unit);
         turn_keeper.AddUnit(temp_unit);
         units.Add(temp_unit);

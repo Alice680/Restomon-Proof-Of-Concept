@@ -9,7 +9,43 @@ public class RestomonBase : ScriptableObject
     [Serializable]
     private class StatHolder
     {
-        public int Hp, Sp, Mp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act;
+        public int hp, sp, mp, atk, mag, frc, def, shd, wil, spd, mov, act;
+
+        public int GetStats(int index)
+        {
+            if (index < 0 || index >= 12)
+                return -1;
+
+            switch (index)
+            {
+                case 0:
+                    return hp;
+                case 1:
+                    return sp;
+                case 2:
+                    return mp;
+                case 3:
+                    return atk;
+                case 4:
+                    return mag;
+                case 5:
+                    return frc;
+                case 6:
+                    return def;
+                case 7:
+                    return shd;
+                case 8:
+                    return wil;
+                case 9:
+                    return spd;
+                case 10:
+                    return mov;
+                case 11:
+                    return act;
+            }
+
+            return -1;
+        }
     }
 
     [SerializeField] private int id;
@@ -26,18 +62,8 @@ public class RestomonBase : ScriptableObject
     {
         int[] core_stats = new int[12];
 
-        core_stats[0] = base_stats.Hp + (growth_stats.Hp * lv);
-        core_stats[2] = base_stats.Sp + (growth_stats.Sp * lv);
-        core_stats[1] = base_stats.Mp + (growth_stats.Mp * lv);
-        core_stats[3] = base_stats.Atk + (growth_stats.Atk * lv);
-        core_stats[4] = base_stats.Mag + (growth_stats.Mag * lv);
-        core_stats[5] = base_stats.Frc + (growth_stats.Frc * lv);
-        core_stats[6] = base_stats.Def + (growth_stats.Def * lv);
-        core_stats[7] = base_stats.Shd + (growth_stats.Shd * lv);
-        core_stats[8] = base_stats.Wil + (growth_stats.Wil * lv);
-        core_stats[9] = base_stats.Spd + (growth_stats.Spd * lv);
-        core_stats[10] = base_stats.Mov + (growth_stats.Mov * lv);
-        core_stats[11] = base_stats.Act + (growth_stats.Act * lv);
+        for (int i = 0; i < 12; ++i)
+            core_stats[i] = base_stats.GetStats(i) + (growth_stats.GetStats(i) * lv);
 
         Attack[] core_attack = new Attack[9];
         core_attack[0] = this.base_attack[base_attack_id];
@@ -45,6 +71,6 @@ public class RestomonBase : ScriptableObject
         for (int i = 0; i < 4; ++i)
             core_attack[i + 1] = attack[attack_id[i]];
 
-        return new Restomon(id,lv, core_stats, core_attack, model);
+        return new Restomon(id, lv, core_stats, core_attack, model);
     }
 }

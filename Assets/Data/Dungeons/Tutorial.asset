@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c84c7c6095eddd4ba28b012b31a0b1f, type: 3}
-  m_Name: LevelTest
+  m_Name: Tutorial
   m_EditorClassIdentifier: 
   tile_types:
   - model: {fileID: 3854793165384413137, guid: c126d68f892ba4347b7f1e2f7726e84b, type: 3}

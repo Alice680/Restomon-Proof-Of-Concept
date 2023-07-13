@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private enum State { core, dungeon, armory, team, achievements, options}
+    private enum State { core, dungeon, armory, team, achievements, options }
+
+    private PermDataHolder data_holder;
 
     [SerializeField] MenuMovingIcon core_menu;
     [SerializeField] MenuSwapIcon dungeon_menu;
@@ -18,19 +20,29 @@ public class MainMenu : MonoBehaviour
 
     private State state;
 
+    [SerializeField] private DungeonLayout[] dungeon_layouts;
+    [SerializeField] private HumanClass[] human_classes;
+    [SerializeField] private RestomonBase[] restomon_types;
+
     private void Start()
     {
+        data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
+
         inputer = new Inputer();
         state = State.core;
 
         core_menu.Activate();
+
+        //Temp
+        data_holder.SetDungeon(dungeon_layouts[0]);
+        data_holder.SetPlayer(human_classes[2].GetHuman(1, 0, 0, 0, 0, 0, new int[0], new int[0]));
     }
 
     private void Update()
     {
         inputer.Run();
 
-       switch(state)
+        switch (state)
         {
             case State.core:
                 CoreMenu();

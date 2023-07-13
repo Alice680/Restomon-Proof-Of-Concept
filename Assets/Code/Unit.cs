@@ -31,6 +31,9 @@ public class Unit
             case CreatureType.Restomon:
                 SetupRestomon((Restomon)creature);
                 break;
+            case CreatureType.Human:
+                SetupHuman((Human)creature);
+                break;
         }
 
         this.creature = creature;
@@ -38,7 +41,7 @@ public class Unit
         SetPosition(new Vector3Int(-1, -1, 0));
     }
 
-    public void SetupMonster(Monster monster)
+    private void SetupMonster(Monster monster)
     {
         type = monster.GetCreatureType();
 
@@ -47,7 +50,7 @@ public class Unit
         model = monster.GetModel();
     }
 
-    public void SetupRestomon(Restomon restomon)
+    private void SetupRestomon(Restomon restomon)
     {
         type = restomon.GetCreatureType();
 
@@ -56,6 +59,15 @@ public class Unit
         mp = restomon.GetMp();
 
         model = restomon.GetModel();
+    }
+
+    private void SetupHuman(Human human)
+    {
+        type = human.GetCreatureType();
+
+        hp = human.GetHp();
+
+        model = human.GetModel();
     }
 
     //Update Data
