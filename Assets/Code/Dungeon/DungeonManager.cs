@@ -4,65 +4,38 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    private PermDataHolder data_holder;
+    private DungeonUI dungeon_ui;
+
     private DungeonMap map;
     private TurnKeeper turn_keeper;
 
-    private List<Unit> units;
-    private List<Actor> actors;
-
     private int moves, actions;
 
+    private Unit player;
     private Unit current_unit;
+    private List<Unit> units;
 
     private float attack_time;
     private List<GameObject> attack_moddels;
 
-    private PermDataHolder data_holder;
-
-    //temp
-    public Player controller;
-    public AICore controller_enemy;
-
-    public DungeonUI dungeon_ui;
-
-    public MonsterStats enemy_temp;
-
-    public AIBase ai;
+    private Actor player_controller;
+    private Actor enemy_controller;
 
     //Unit calls
     private void Start()
     {
         data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
+        dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
 
-        map = data_holder.GetDungeon().GenerateDungeon();
         turn_keeper = new TurnKeeper();
-
         units = new List<Unit>();
-        actors = new List<Actor>();
-
-        controller = new Player(this);
-        controller_enemy = new AICore(ai, this);
-
-        actors.Add(controller);
-        actors.Add(controller_enemy);
-
-        Unit temp_unit = null;
-
-        temp_unit = new Unit(data_holder.GetPlayer(), controller);
-        map.MoveUnit(5, 5, temp_unit);
-        turn_keeper.AddUnit(temp_unit);
-        units.Add(temp_unit);
-
-        temp_unit = new Unit(enemy_temp.GetMonster(), controller_enemy);
-        map.MoveUnit(7, 5, temp_unit);
-        turn_keeper.AddUnit(temp_unit);
-        units.Add(temp_unit);
-
-        attack_time = -1;
         attack_moddels = new List<GameObject>();
 
+        player_controller = new Player(this);
+        player = new Unit(data_holder.GetPlayer(), player_controller);
 
-        EndTurn();
+        StartNewArea(data_holder.GetDungeon());
     }
 
     private void Update()
@@ -91,6 +64,8 @@ public class DungeonManager : MonoBehaviour
             new_position += new Vector3Int(-1, 0, 0);
 
         map.MoveUnit(new_position, current_unit);
+
+        dungeon_ui.UpdateCam(new_position);
 
         --moves;
         dungeon_ui.UpdateUI(moves, actions);
@@ -150,6 +125,27 @@ public class DungeonManager : MonoBehaviour
     }
 
     //Internal data edit
+    private void StartNewArea(DungeonLayout layout)
+    {
+        map = layout.GenerateDungeon();
+
+        enemy_controller = new AICore(layout.GetAI(), this);
+
+        units.Add(player);
+        map.MoveUnit(layout.GetStartPosition(), player);
+        turn_keeper.AddUnit(player);
+
+        dungeon_ui.Reset(map);
+        dungeon_ui.UpdateCam(player.GetPosition());
+
+        EndTurn();
+    }
+
+    private void ClearCurrentArea()
+    {
+
+    }
+
     private void RemoveUnit(Unit unit)
     {
         units.Remove(unit);

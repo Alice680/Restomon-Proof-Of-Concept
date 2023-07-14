@@ -186,4 +186,9 @@ public class DungeonMap
 
         return true;
     }
+
+    public Vector3Int GetSize()
+    {
+        return new Vector3Int(x_size, y_size, 0);
+    }
 }

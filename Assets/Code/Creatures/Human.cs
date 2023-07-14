@@ -30,14 +30,9 @@ public class Human : Creature
         return stats[0];
     }
 
-    public int GetAp()
-    {
-        return stats[1];
-    }
-
     public int GetApr()
     {
-        return stats[2];
+        return stats[1];
     }
 
     public override int GetStat(int index)
@@ -45,7 +40,7 @@ public class Human : Creature
         if (index < 0 || index > 8)
             return -1;
 
-        return stats[index + 3];
+        return stats[index + 2];
     }
 
     public override Attack GetAttack(int index)

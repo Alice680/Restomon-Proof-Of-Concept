@@ -34,7 +34,6 @@ public class MainMenu : MonoBehaviour
         core_menu.Activate();
 
         //Temp
-        data_holder.SetDungeon(dungeon_layouts[0]);
         data_holder.SetPlayer(human_classes[2].GetHuman(1, 0, 0, 0, 0, 0, new int[0], new int[0]));
     }
 
@@ -124,6 +123,12 @@ public class MainMenu : MonoBehaviour
             //Enter Dungeon
             if (y == 0)
             {
+                data_holder.SetDungeon(dungeon_layouts[1]);
+                SceneManager.LoadScene(2);
+            }
+            else if (y == 3)
+            {
+                data_holder.SetDungeon(dungeon_layouts[0]);
                 SceneManager.LoadScene(2);
             }
         }

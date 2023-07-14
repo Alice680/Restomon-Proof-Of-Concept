@@ -9,7 +9,7 @@ public class HumanClass : ScriptableObject
     [Serializable]
     private class StatHolder
     {
-        public int hp, ap, apr, atk, mag, frc, def, shd, wil, spd, mov, act;
+        public int hp, apr, atk, mag, frc, def, shd, wil, spd, mov, act;
 
         public int GetStats(int index)
         {
@@ -21,26 +21,24 @@ public class HumanClass : ScriptableObject
                 case 0:
                     return hp;
                 case 1:
-                    return ap;
-                case 2:
                     return apr;
-                case 3:
+                case 2:
                     return atk;
-                case 4:
+                case 3:
                     return mag;
-                case 5:
+                case 4:
                     return frc;
-                case 6:
+                case 5:
                     return def;
-                case 7:
+                case 6:
                     return shd;
-                case 8:
+                case 7:
                     return wil;
-                case 9:
+                case 8:
                     return spd;
-                case 10:
+                case 9:
                     return mov;
-                case 11:
+                case 10:
                     return act;
             }
 
@@ -146,8 +144,8 @@ public class HumanClass : ScriptableObject
         string t_sub_name = temp_sub_class.subclass_name;
 
         //Set Stats
-        int[] t_stats = new int[12];
-        for (int i = 0; i < 12; ++i)
+        int[] t_stats = new int[11];
+        for (int i = 0; i < 11; ++i)
             t_stats[i] = base_stats.GetStats(i) + (lv * stat_growth.GetStats(i)) + temp_sub_class.GetStats(i);
 
         //Set Attacks

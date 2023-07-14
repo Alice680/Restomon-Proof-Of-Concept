@@ -13,6 +13,9 @@ public class DungeonLayoutPreset : DungeonLayout
         public DungeonTileType tile_type;
     }
 
+    [SerializeField] private Vector3Int start_position;
+    [SerializeField] private AIBase ai;
+
     [SerializeField] private Node[] tile_types;
     [SerializeField] private int x_size, y_size;
     [SerializeField] private int[] tiles;
@@ -37,6 +40,16 @@ public class DungeonLayoutPreset : DungeonLayout
             }
 
         return map;
+    }
+
+    public override Vector3Int GetStartPosition()
+    {
+        return start_position;
+    }
+
+    public override AIBase GetAI()
+    {
+        return ai;
     }
 
     //Backend
