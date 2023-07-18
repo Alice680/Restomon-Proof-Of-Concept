@@ -205,9 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb796dcd29be4548a3e514ca16beb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layout: {fileID: 11400000, guid: 0621bafd34c080145ac312b2a87b8114, type: 2}
-  new_layout: 0
-  x_size: 33
-  y_size: 33
+  layout: {fileID: 11400000, guid: 372d1ebe2c9ffe74d8021f4ed1cc12a1, type: 2}
+  new_layout: 1
+  x_size: 21
+  y_size: 21
   current_tile: 0
   last_input: 0

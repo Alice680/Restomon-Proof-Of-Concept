@@ -12,7 +12,7 @@ public class TurnKeeper
         public Node(Unit u)
         {
             unit = u;
-            placement = -75;
+            placement = -15;
         }
 
         public Node(Unit u, int i)
@@ -63,13 +63,15 @@ public class TurnKeeper
 
         next_unit = null;
 
-        foreach (Node node in nodes)
-        {
-            node.Increment();
+        do
+            foreach (Node node in nodes)
+            {
+                node.Increment();
 
-            if (next_unit == null || next_unit.GetPlacement() < node.GetPlacement())
-                next_unit = node;
-        }
+                if (next_unit == null || next_unit.GetPlacement() < node.GetPlacement())
+                    next_unit = node;
+            }
+        while (next_unit.GetPlacement() < 10);
     }
 
     public void AddUnit(Unit unit)

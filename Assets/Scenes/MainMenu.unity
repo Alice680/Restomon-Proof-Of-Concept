@@ -3904,7 +3904,7 @@ MonoBehaviour:
     y_size: 0
   dungeon_layouts:
   - {fileID: 11400000, guid: e47c8ae23fc72de4e90937fdaa29864f, type: 2}
-  - {fileID: 11400000, guid: 0621bafd34c080145ac312b2a87b8114, type: 2}
+  - {fileID: 11400000, guid: 372d1ebe2c9ffe74d8021f4ed1cc12a1, type: 2}
   human_classes:
   - {fileID: 11400000, guid: 16badff5bf9b63c4488c0a9392412c3c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}

@@ -16,6 +16,7 @@ public class AICore : Actor
 
     public override void Run()
     {
-        ai.Run(manager_ref, 0);
+        if (ai.PreRun(manager_ref))
+            ai.Run(manager_ref, 0);
     }
 }

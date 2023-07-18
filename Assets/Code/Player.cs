@@ -66,8 +66,6 @@ public class Player : Actor
         {
             if (manager_ref.GetActions() == 0)
                 return;
-            
-            target = manager_ref.GetPosition(0);
 
             attack_num = 0;
 

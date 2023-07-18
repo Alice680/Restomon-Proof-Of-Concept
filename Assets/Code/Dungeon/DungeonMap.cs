@@ -86,6 +86,10 @@ public class DungeonMap
         nodes[x, y] = new Node(type, model, x, y);
     }
 
+    public DungeonTileType GetTileType(Vector3Int vec)
+    {
+        return GetTileType(vec.x, vec.y);
+    }
     public DungeonTileType GetTileType(int x, int y)
     {
         return nodes[x, y].type;

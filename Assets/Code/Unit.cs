@@ -7,7 +7,7 @@ public class Unit
     private static int current_id;
     private int id;
 
-    private CreatureType type;
+    private CreatureType creature_type;
     private Creature creature;
 
     private int hp, mp, sp;
@@ -34,6 +34,9 @@ public class Unit
             case CreatureType.Human:
                 SetupHuman((Human)creature);
                 break;
+            case CreatureType.Arena:
+                SetupArena((ArenaStats)creature);
+                break;
         }
 
         this.creature = creature;
@@ -43,7 +46,7 @@ public class Unit
 
     private void SetupMonster(Monster monster)
     {
-        type = monster.GetCreatureType();
+        creature_type = monster.GetCreatureType();
 
         hp = monster.GetHp();
 
@@ -52,7 +55,7 @@ public class Unit
 
     private void SetupRestomon(Restomon restomon)
     {
-        type = restomon.GetCreatureType();
+        creature_type = restomon.GetCreatureType();
 
         hp = restomon.GetHp();
         sp = restomon.GetSp();
@@ -63,11 +66,20 @@ public class Unit
 
     private void SetupHuman(Human human)
     {
-        type = human.GetCreatureType();
+        creature_type = human.GetCreatureType();
 
         hp = human.GetHp();
 
         model = human.GetModel();
+    }
+
+    private void SetupArena(ArenaStats arena)
+    {
+        creature_type = CreatureType.Arena;
+
+        hp = -1;
+
+        model = null;
     }
 
     //Update Data
@@ -78,6 +90,9 @@ public class Unit
 
     public void SetPosition(Vector3Int new_position)
     {
+        if (creature_type == CreatureType.Arena)
+            return;
+
         model_position = new_position;
         model.transform.position = model_position;
     }
@@ -91,6 +106,11 @@ public class Unit
     public int GetID()
     {
         return id;
+    }
+
+    public CreatureType GetCreatureType()
+    {
+        return creature_type;
     }
 
     public int GetHp()

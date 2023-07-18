@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DungeonLayout : ScriptableObject
 {
+    [SerializeField] protected Vector3Int start_position;
+    [SerializeField] protected AIBase ai;
+
     public virtual DungeonMap GenerateDungeon()
     {
         return new DungeonMap(0, 0);
@@ -14,8 +17,28 @@ public class DungeonLayout : ScriptableObject
         return new Vector3Int(-1, -1,0);
     }
 
+    public virtual Creature GetDungeonManager()
+    {
+        return new Creature();
+    }
+
+    public virtual Creature[] GetStartUnits()
+    {
+        return new Creature[0];
+    }
+
+    public virtual Creature GetRandomCreature()
+    {
+        return null;
+    }
+
     public virtual AIBase GetAI()
     {
         return null;
+    }
+
+    public virtual DungeonType GetDungeonType()
+    {
+        return DungeonType.None;
     }
 }

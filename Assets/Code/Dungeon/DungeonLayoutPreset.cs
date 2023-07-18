@@ -3,22 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
+[CreateAssetMenu(fileName = "Preset", menuName = "ScriptableObjects/Dungeons/Preset")]
 public class DungeonLayoutPreset : DungeonLayout
 {
     [Serializable]
-    private class Node
+    protected class Node
     {
         public GameObject model;
         public DungeonTileType tile_type;
     }
 
-    [SerializeField] private Vector3Int start_position;
-    [SerializeField] private AIBase ai;
-
-    [SerializeField] private Node[] tile_types;
-    [SerializeField] private int x_size, y_size;
-    [SerializeField] private int[] tiles;
+    [SerializeField] protected Node[] tile_types;
+    [SerializeField] protected int x_size, y_size;
+    [SerializeField] protected int[] tiles;
 
     //Run time
     public override DungeonMap GenerateDungeon()

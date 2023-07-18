@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class DungeonManager : MonoBehaviour
 {
     private PermDataHolder data_holder;
@@ -12,15 +11,22 @@ public class DungeonManager : MonoBehaviour
 
     private int moves, actions;
 
-    private Unit player;
+    private DungeonType type;
+
     private Unit current_unit;
-    private List<Unit> units;
+
+    private Unit player;
+    private List<Unit> player_units;
+    private Actor player_controller;
+
+    private Unit enemy;
+    private List<Unit> enemy_units;
+    private Actor enemy_controller;
 
     private float attack_time;
     private List<GameObject> attack_moddels;
 
-    private Actor player_controller;
-    private Actor enemy_controller;
+    private DungeonLayout current_floor;
 
     //Unit calls
     private void Start()
@@ -29,13 +35,16 @@ public class DungeonManager : MonoBehaviour
         dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
 
         turn_keeper = new TurnKeeper();
-        units = new List<Unit>();
+        player_units = new List<Unit>();
+        enemy_units = new List<Unit>();
         attack_moddels = new List<GameObject>();
 
         player_controller = new Player(this);
         player = new Unit(data_holder.GetPlayer(), player_controller);
 
-        StartNewArea(data_holder.GetDungeon());
+        current_floor = data_holder.GetDungeon();
+
+        StartNewFloor();
     }
 
     private void Update()
@@ -107,6 +116,22 @@ public class DungeonManager : MonoBehaviour
         dungeon_ui.UpdateUI(moves, actions);
     }
 
+    public void SpawnUnit(Vector3Int position)
+    {
+        if (current_unit.GetCreatureType() == CreatureType.Monster)
+            return;
+        if (current_unit.GetCreatureType() == CreatureType.Human)
+            return;
+        if (current_unit.GetCreatureType() == CreatureType.Restomon)
+            return;
+
+        Unit unit_temp = new Unit(current_floor.GetRandomCreature(), enemy_controller);
+
+        enemy_units.Add(unit_temp);
+        map.MoveUnit(position, unit_temp);
+        turn_keeper.AddUnit(unit_temp);
+    }
+
     public void EndTurn()
     {
         RemoveAttackModels();
@@ -119,21 +144,22 @@ public class DungeonManager : MonoBehaviour
         moves = current_unit.GetStat(7);
         actions = current_unit.GetStat(8);
 
-        Debug.Log(turn_keeper.Peak().GetID());
-
         dungeon_ui.UpdateUI(moves, actions);
     }
 
     //Internal data edit
-    private void StartNewArea(DungeonLayout layout)
+    private void StartNewFloor()
     {
-        map = layout.GenerateDungeon();
+        map = current_floor.GenerateDungeon();
 
-        enemy_controller = new AICore(layout.GetAI(), this);
+        enemy_controller = new AICore(current_floor.GetAI(), this);
 
-        units.Add(player);
-        map.MoveUnit(layout.GetStartPosition(), player);
+        player_units.Add(player);
+        map.MoveUnit(current_floor.GetStartPosition(), player);
         turn_keeper.AddUnit(player);
+
+        enemy = new Unit(current_floor.GetDungeonManager(), enemy_controller);
+        turn_keeper.AddUnit(enemy);
 
         dungeon_ui.Reset(map);
         dungeon_ui.UpdateCam(player.GetPosition());
@@ -141,15 +167,20 @@ public class DungeonManager : MonoBehaviour
         EndTurn();
     }
 
-    private void ClearCurrentArea()
+    private void ClearCurrentFloor()
     {
 
     }
 
     private void RemoveUnit(Unit unit)
     {
-        units.Remove(unit);
         map.RemoveUnit(unit);
+        turn_keeper.RemoveUnit(unit);
+
+        if (unit.GetOwner() == player_controller)
+            player_units.Remove(unit);
+        else
+            enemy_units.Remove(unit);
     }
 
     private void RemoveAttackModels()
@@ -212,10 +243,21 @@ public class DungeonManager : MonoBehaviour
         map.RemoveAllMarker();
     }
 
-    //Checkers
+    //Checker
     public bool PositionValid(Vector3Int position)
     {
         return map.IsInMap(position);
+    }
+
+    public bool TileEmpty(Vector3Int position)
+    {
+        if (map.GetTileType(position) == DungeonTileType.Wall)
+            return false;
+
+        if (map.GetUnit(position) != null)
+            return false;
+
+        return true;
     }
 
     public bool MoveValid(Direction dir)
@@ -248,6 +290,7 @@ public class DungeonManager : MonoBehaviour
         return false;
     }
 
+    //Get Data
     public int GetMoves()
     {
         return moves;
@@ -258,9 +301,49 @@ public class DungeonManager : MonoBehaviour
         return actions;
     }
 
-    //Grab Data From Unit
-    public Vector3Int GetPosition(int id)
+    public Vector3Int GetMapSize()
     {
-        return current_unit.GetPosition();
+        return map.GetSize();
+    }
+
+    //Grab ID Data
+    public int GetIDFromActive()
+    {
+        return current_unit.GetID();
+    }
+
+    public int GetIDFromPosition(Vector2Int position)
+    {
+        return 0;
+    }
+
+    //Grab Data From Unit
+    private Unit GetUnitFromID(int id)
+    {
+        if (player.GetID() == id)
+            return player;
+
+        if (enemy.GetID() == id)
+            return enemy;
+
+        foreach (Unit unit in player_units)
+            if (unit.GetID() == id)
+                return unit;
+
+        foreach (Unit unit in enemy_units)
+            if (unit.GetID() == id)
+                return unit;
+
+        return null;
+    }
+
+    public CreatureType GetCreatureTypeFromID(int id)
+    {
+        return GetUnitFromID(id).GetCreatureType();
+    }
+
+    public Vector3Int GetPositionFromID(int id)
+    {
+        return GetUnitFromID(id).GetPosition();
     }
 }
