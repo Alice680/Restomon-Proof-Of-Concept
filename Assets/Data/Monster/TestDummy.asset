@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestDummy
   m_EditorClassIdentifier: 
   attacks:
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
@@ -24,13 +24,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   stats:
     Hp: 3
-    Atk: 0
-    Mag: 0
-    Frc: 0
-    Def: 0
-    Shd: 0
-    Wil: 0
-    Spd: 0
-    Mov: 0
-    Act: 0
+    Atk: 1
+    Mag: 1
+    Frc: 1
+    Def: 1
+    Shd: 1
+    Wil: 1
+    Spd: 2
+    Mov: 1
+    Act: 1
   model: {fileID: 4490433475202409575, guid: 0045d53b82c7b1c42b967fe55fca5ed6, type: 3}

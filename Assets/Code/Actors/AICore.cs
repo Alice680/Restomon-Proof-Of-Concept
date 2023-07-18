@@ -8,6 +8,8 @@ public class AICore : Actor
 
     private DungeonManager manager_ref;
 
+    private float last_input;
+
     public AICore(AIBase ai, DungeonManager manager_ref)
     {
         this.ai = ai;
@@ -16,7 +18,12 @@ public class AICore : Actor
 
     public override void Run()
     {
+        if (Time.time - last_input < 0.1F)
+            return;
+
+        last_input = Time.time;
+
         if (ai.PreRun(manager_ref))
-            ai.Run(manager_ref, 0);
+            ai.Run(manager_ref);
     }
 }

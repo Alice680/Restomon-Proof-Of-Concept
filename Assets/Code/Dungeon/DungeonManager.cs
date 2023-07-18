@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class DungeonManager : MonoBehaviour
 {
     private PermDataHolder data_holder;
@@ -74,10 +76,13 @@ public class DungeonManager : MonoBehaviour
 
         map.MoveUnit(new_position, current_unit);
 
-        dungeon_ui.UpdateCam(new_position);
-
         --moves;
-        dungeon_ui.UpdateUI(moves, actions);
+
+        if (current_unit.GetOwner() == player_controller)
+        {
+            dungeon_ui.UpdateCam(new_position);
+            dungeon_ui.UpdateUI(moves, actions);
+        }
     }
 
     public void Attack(Vector3Int target, int index)
@@ -147,6 +152,16 @@ public class DungeonManager : MonoBehaviour
         dungeon_ui.UpdateUI(moves, actions);
     }
 
+    public void WinDungeon()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoseDungeon()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     //Internal data edit
     private void StartNewFloor()
     {
@@ -177,7 +192,12 @@ public class DungeonManager : MonoBehaviour
         map.RemoveUnit(unit);
         turn_keeper.RemoveUnit(unit);
 
-        if (unit.GetOwner() == player_controller)
+        if (unit.GetID() == player.GetID())
+            LoseDungeon();
+        if (unit.GetID() == enemy.GetID())
+            WinDungeon();
+
+            if (unit.GetOwner() == player_controller)
             player_units.Remove(unit);
         else
             enemy_units.Remove(unit);
@@ -306,6 +326,11 @@ public class DungeonManager : MonoBehaviour
         return map.GetSize();
     }
 
+    public Vector3Int[] GetPath(Vector3Int start, Vector3Int goal)
+    {
+        return Pathfinding.GetPath(map, start, goal);
+    }
+
     //Grab ID Data
     public int GetIDFromActive()
     {
@@ -315,6 +340,30 @@ public class DungeonManager : MonoBehaviour
     public int GetIDFromPosition(Vector2Int position)
     {
         return 0;
+    }
+
+    public int[] GetPlayerIDS()
+    {
+        int[] ids = new int[1 + player_units.Count];
+
+        ids[0] = player.GetID();
+
+        for (int i = 1; i <= player_units.Count; ++i)
+            ids[i] = player_units[i - 1].GetID();
+
+        return ids;
+    }
+
+    public int[] GetEnemyIDS()
+    {
+        int[] ids = new int[1 + enemy_units.Count];
+
+        ids[0] = enemy.GetID();
+
+        for (int i = 1; i <= enemy_units.Count; ++i)
+            ids[i] = enemy_units[i - 1].GetID();
+
+        return ids;
     }
 
     //Grab Data From Unit

@@ -5,10 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AI", menuName = "ScriptableObjects/AI/Basic/SkipTurn")]
 public class AISkipTurn : AIBase
 {
-    public override int Run(DungeonManager manager, int state)
+    public override void Run(DungeonManager manager)
     {
         manager.EndTurn();
-
-        return 0;
     }
 }
