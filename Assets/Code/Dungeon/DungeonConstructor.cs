@@ -12,11 +12,13 @@ public class DungeonConstructor : MonoBehaviour
     public int current_tile;
     public DungeonMap current_map;
 
-    public float last_input;
+    private float last_input;
 
     public void Start()
     {
+#pragma warning disable CS0618 // Type or member is obsolete
         layout.SetDirty();
+#pragma warning restore CS0618 // Type or member is obsolete
 
         if (new_layout)
             layout.Setup(x_size, y_size);

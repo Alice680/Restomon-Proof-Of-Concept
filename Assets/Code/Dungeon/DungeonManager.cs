@@ -7,6 +7,7 @@ public class DungeonManager : MonoBehaviour
 {
     private PermDataHolder data_holder;
     private DungeonUI dungeon_ui;
+    private ActionMenu action_menu;
 
     private DungeonMap map;
     private TurnKeeper turn_keeper;
@@ -35,6 +36,7 @@ public class DungeonManager : MonoBehaviour
     {
         data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
         dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
+        action_menu = GameObject.Find("UIManager").GetComponent<ActionMenu>();
 
         turn_keeper = new TurnKeeper();
         player_units = new List<Unit>();
@@ -80,8 +82,8 @@ public class DungeonManager : MonoBehaviour
 
         if (current_unit.GetOwner() == player_controller)
         {
+            dungeon_ui.UpdateActions(moves, actions);
             dungeon_ui.UpdateCam(new_position);
-            dungeon_ui.UpdateUI(moves, actions);
         }
     }
 
@@ -118,7 +120,10 @@ public class DungeonManager : MonoBehaviour
                 RemoveUnit(unit);
 
         --actions;
-        dungeon_ui.UpdateUI(moves, actions);
+
+        if (current_unit.GetOwner() == player_controller)
+            dungeon_ui.UpdateActions(moves, actions);
+        dungeon_ui.UpdatePlayerStats(player, player_units);
     }
 
     public void SpawnUnit(Vector3Int position)
@@ -149,7 +154,10 @@ public class DungeonManager : MonoBehaviour
         moves = current_unit.GetStat(7);
         actions = current_unit.GetStat(8);
 
-        dungeon_ui.UpdateUI(moves, actions);
+        if (current_unit.GetOwner() == player_controller)
+            dungeon_ui.UpdateActions(moves, actions);
+        else
+            dungeon_ui.UpdateActions(0, 0);
     }
 
     public void WinDungeon()
@@ -178,6 +186,7 @@ public class DungeonManager : MonoBehaviour
 
         dungeon_ui.Reset(map);
         dungeon_ui.UpdateCam(player.GetPosition());
+        dungeon_ui.UpdatePlayerStats(player, player_units);
 
         EndTurn();
     }
@@ -197,7 +206,7 @@ public class DungeonManager : MonoBehaviour
         if (unit.GetID() == enemy.GetID())
             WinDungeon();
 
-            if (unit.GetOwner() == player_controller)
+        if (unit.GetOwner() == player_controller)
             player_units.Remove(unit);
         else
             enemy_units.Remove(unit);
@@ -331,6 +340,11 @@ public class DungeonManager : MonoBehaviour
         return Pathfinding.GetPath(map, start, goal);
     }
 
+    public ActionMenu GetActionMenu()
+    {
+        return action_menu;
+    }
+
     //Grab ID Data
     public int GetIDFromActive()
     {
@@ -395,4 +409,25 @@ public class DungeonManager : MonoBehaviour
     {
         return GetUnitFromID(id).GetPosition();
     }
+
+    public int GetHP(int id)
+    {
+        return GetUnitFromID(id).GetHp();
+    }
+
+    public string GetAttackName(int id, int index)
+    {
+        return GetUnitFromID(id).GetAttack(index).GetName();
+    }
+
+    public string GetAttackEffect(int id, int index)
+    {
+        return GetUnitFromID(id).GetAttack(index).GetDescription();
+    }
+
+    public int GetAttackCost(int id, int index)
+    {
+        return GetUnitFromID(id).GetAttack(index).GetCost(0);
+    }
+
 }

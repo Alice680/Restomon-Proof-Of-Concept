@@ -137,7 +137,25 @@ public class HumanClass : ScriptableObject
         if (trinket_b_i < 0 || trinket_b_i > trinkets.Length || trinket_b_i == trinket_a_i)
             temp_trinket_b = trinkets[0];
         else
-            temp_trinket_b = trinkets[trinket_a_i];
+            temp_trinket_b = trinkets[trinket_b_i];
+
+        //Set Traits
+        Trait[] t_traits = new Trait[10];
+        t_traits[0] = class_trait[(int)Mathf.Clamp(lv / 5, 0, 5)];
+        t_traits[1] = temp_sub_class.subclass_trait;
+        t_traits[2] = trait_list[0]; //Still in planinng
+        t_traits[3] = temp_weapon.trait;
+        t_traits[4] = temp_armor.trait;
+        t_traits[5] = temp_trinket_a.trait;
+        t_traits[6] = temp_trinket_b.trait;
+
+        for (int i = 0; i < 3; ++i)
+        {
+            if (traits_i.Length != 3 || traits_i[i] < 0 || traits_i[i] >= attack_list.Length)
+                t_traits[7 + i] = trait_list[0];
+            else
+                t_traits[7 + i] = trait_list[traits_i[i]];
+        }
 
         //Set Names
         string t_class_name = class_name;
@@ -147,6 +165,10 @@ public class HumanClass : ScriptableObject
         int[] t_stats = new int[11];
         for (int i = 0; i < 11; ++i)
             t_stats[i] = base_stats.GetStats(i) + (lv * stat_growth.GetStats(i)) + temp_sub_class.GetStats(i);
+
+        foreach (Trait trait in t_traits)
+            for (int i = 0; i < 11; ++i)
+                t_stats[i] += trait.GetBaseStats(i);
 
         //Set Attacks
         Attack[] t_attacks = new Attack[9];
@@ -163,24 +185,6 @@ public class HumanClass : ScriptableObject
                 t_attacks[6 + i] = attack_list[0];
             else
                 t_attacks[6 + i] = attack_list[attacks_i[i]];
-        }
-
-        //Set Traits
-        Trait[] t_traits = new Trait[10];
-        t_traits[0] = class_trait[(int)Mathf.Clamp(lv/5, 0, 5)];
-        t_traits[1] = temp_sub_class.subclass_trait;
-        t_traits[2] = trait_list[0]; //Still in planinng
-        t_traits[3] = temp_weapon.trait;
-        t_traits[4] = temp_armor.trait;
-        t_traits[5] = temp_trinket_a.trait;
-        t_traits[6] = temp_trinket_b.trait;
-
-        for (int i = 0; i < 3; ++i)
-        {
-            if (traits_i.Length != 3 || traits_i[i] < 0 || traits_i[i] >= attack_list.Length)
-                t_traits[7 + i] = trait_list[0];
-            else
-               t_traits[7 + i] = trait_list[traits_i[i]];
         }
 
         //Set Model

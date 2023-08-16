@@ -89,8 +89,6 @@ public class AIBase : ScriptableObject
         {
             Vector3Int[] temp_path = manager.GetPath(manager.GetPositionFromID(current_id), manager.GetPositionFromID(i));
 
-            Debug.Log(manager.GetPositionFromID(current_id) + ":" + manager.GetPositionFromID(i) + ":" + temp_path);
-
             if (shortest_path == null || shortest_path.Length > temp_path.Length)
                 shortest_path = temp_path;
         }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PermDataHolder : MonoBehaviour
 {
-    private DungeonLayout dungeon;
+    [SerializeField] private DungeonLayout[] dungeons;
+    private int current_dungeon;
 
-    private Human player;
+    [SerializeField] private HumanClass[] classes;
+    private Human current_player;
 
     private Restomon[] team;
 
@@ -16,31 +18,31 @@ public class PermDataHolder : MonoBehaviour
 
         team = new Restomon[3];
 
-        dungeon = null;
-        player = null;
+        current_dungeon = 0;
+        current_player = null;
         team[0] = null;
         team[1] = null;
         team[2] = null;
     }
 
-    public void SetDungeon(DungeonLayout dungeon)
+    public void SetDungeon(int index)
     {
-        this.dungeon = dungeon;
+        current_dungeon = index;
     }
 
     public DungeonLayout GetDungeon()
     {
-        return dungeon;
+        return dungeons[current_dungeon];
     }
 
-    public void SetPlayer(Human player)
+    public void SetPlayer(int class_i, int sub_i, int weapon_i, int armor_i, int trinket_i, int trait_a, int trait_b, int trait_c)
     {
-        this.player = player;
+        current_player = classes[class_i].GetHuman(3, sub_i, weapon_i, armor_i, trinket_i, 0, new int[3] { 0, 0, 0 }, new int[3] { trait_a, trait_b, trait_c });
     }
 
     public Human GetPlayer()
     {
-        return player;
+        return current_player;
     }
 
     public void SetTeam(Restomon mon, int index)

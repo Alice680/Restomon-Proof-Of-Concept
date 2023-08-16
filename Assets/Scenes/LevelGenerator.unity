@@ -179,6 +179,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4937976637657205681, guid: e0589da6908dfed4fac38a35ee63b8f6, type: 3}
+      propertyPath: m_AssetsPPU
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937976637657205681, guid: e0589da6908dfed4fac38a35ee63b8f6, type: 3}
       propertyPath: m_RefResolutionX
       value: 512
       objectReference: {fileID: 0}
@@ -206,8 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layout: {fileID: 11400000, guid: 372d1ebe2c9ffe74d8021f4ed1cc12a1, type: 2}
-  new_layout: 1
+  new_layout: 0
   x_size: 21
   y_size: 21
   current_tile: 0
-  last_input: 0

@@ -8,16 +8,13 @@ public class DungeonUI : MonoBehaviour
     public GameObject[] action_marker;
     public Text move_marker;
 
+    public Text hp_text, ap_text;
+
     public GameObject cam;
 
     private DungeonMap current_map;
 
-    public void Reset(DungeonMap map)
-    {
-        current_map = map;
-    }
-
-    public void UpdateUI(int moves, int actions)
+    public void UpdateActions(int moves, int actions)
     {
         move_marker.text = "" + moves;
 
@@ -34,10 +31,21 @@ public class DungeonUI : MonoBehaviour
     {
         Vector3 limites = current_map.GetSize();
 
-        vec.x = (int)Mathf.Clamp(vec.x, 8, limites.x - 9);
-        vec.y = (int)Mathf.Clamp(vec.y, 8, limites.y - 9);
+        vec.x = (int)Mathf.Clamp(vec.x, 4, limites.x - 5);
+        vec.y = (int)Mathf.Clamp(vec.y, 4, limites.y - 5);
         vec.z = -10;
 
         cam.transform.position = vec;
+    }
+
+    public void UpdatePlayerStats(Unit player, List<Unit> player_units)
+    {
+        hp_text.text = player.GetHp() + "/" + player.GetMaxHP();
+        ap_text.text = 0 + "/" + 0;
+    }
+
+    public void Reset(DungeonMap map)
+    {
+        current_map = map;
     }
 }

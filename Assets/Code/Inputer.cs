@@ -7,6 +7,7 @@ public class Inputer
     private Direction dir;
     private bool enter;
     private bool back;
+    private bool action_one;
 
     private float last_input;
 
@@ -15,6 +16,7 @@ public class Inputer
         dir = Direction.None;
         enter = false;
         back = false;
+        action_one = false;
 
         if (Time.time - last_input <= 0.1F)
             return;
@@ -34,7 +36,10 @@ public class Inputer
         if (Input.GetKeyDown(KeyCode.Backspace) && Time.time - last_input > 0.15)
             back = true;
 
-        if (dir != Direction.None || enter || back)
+        if (Input.GetKeyDown(KeyCode.E) && Time.time - last_input > 0.15)
+            action_one = true;
+
+        if (dir != Direction.None || enter || back || action_one)
             last_input = Time.time;
     }
 
@@ -51,5 +56,10 @@ public class Inputer
     public bool GetBack()
     {
         return back;
+    }
+
+    public bool GetActionOne()
+    {
+        return action_one;
     }
 }

@@ -29,7 +29,10 @@ public class ShapeData
                 break;
 
             case Shape.Blast:
-
+                for (int i = -length; i <= length; ++i)
+                    for (int e = -width; e <= width; ++e)
+                        if (i + e <= length)
+                            area.Add(new Vector3Int(i, e, 0));
                 break;
 
             case Shape.Cross:

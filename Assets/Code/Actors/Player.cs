@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : Actor
 {
-    private enum State { startup, idle, aim_attack, view_attack };
+    private enum State { startup, idle, action_ui, aim_attack, view_attack };
 
     private DungeonManager manager_ref;
+
+    private ActionMenu action_ref;
 
     private Inputer inputer;
 
@@ -19,6 +21,8 @@ public class Player : Actor
     public Player(DungeonManager manager_ref)
     {
         this.manager_ref = manager_ref;
+
+        action_ref = manager_ref.GetActionMenu();
 
         inputer = new Inputer();
 
@@ -37,6 +41,9 @@ public class Player : Actor
                 break;
             case State.idle:
                 Idle();
+                break;
+            case State.action_ui:
+                ActionUI();
                 break;
             case State.aim_attack:
                 AimAttack();
@@ -69,15 +76,67 @@ public class Player : Actor
 
             attack_num = 0;
 
+            target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
+
             manager_ref.ShowAttackArea(target, attack_num);
 
             state = State.aim_attack;
             return;
         }
 
-        if(inputer.GetBack())
+        if (inputer.GetActionOne())
+        {
+            action_ref.OpenActionMenu();
+
+            state = State.action_ui;
+            return;
+        }
+
+        if (inputer.GetBack())
         {
             manager_ref.EndTurn();
+            return;
+        }
+    }
+
+    private void ActionUI()
+    {
+        if (inputer.GetDir() != Direction.None)
+        {
+            action_ref.DirectionMenu(inputer.GetDir());
+
+            return;
+        }
+
+        if (inputer.GetEnter())
+        {
+            int exit_value;
+            int exit_state = action_ref.EnterMenu(out exit_value);
+
+            if(exit_state == 1)
+            {
+                if (manager_ref.GetActions() == 0)
+                    return;
+
+                attack_num = exit_value;
+
+                target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
+
+                manager_ref.ShowAttackArea(target, attack_num);
+
+                state = State.aim_attack;
+                return;
+            }
+
+            return;
+        }
+
+        if (inputer.GetBack())
+        {
+            if (action_ref.ReturnMenu())
+                state = State.idle;
+
+            return;
         }
     }
 

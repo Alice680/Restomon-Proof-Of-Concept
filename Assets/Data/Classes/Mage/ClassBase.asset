@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a5ebe3d2251e9448e0fd25bd691d3b, type: 3}
+  m_Name: ClassBase
+  m_EditorClassIdentifier: 
+  class_name: Mage
+  description: A Mage
+  base_stats:
+    hp: 0
+    apr: 0
+    atk: 0
+    mag: 0
+    frc: 0
+    def: 0
+    shd: 0
+    wil: 0
+    spd: 0
+    mov: 0
+    act: 0
+  stat_growth:
+    hp: 0
+    apr: 0
+    atk: 0
+    mag: 0
+    frc: 0
+    def: 0
+    shd: 0
+    wil: 0
+    spd: 0
+    mov: 0
+    act: 0
+  class_attack: {fileID: 0}
+  class_trait: []
+  subclasses: []
+  tamerclasses: []
+  weapons: []
+  armors: []
+  trinkets: []
+  model: {fileID: 4490433475202409575, guid: 296d3949ad7b71f4dadfe8f1599b2e00, type: 3}
+  attack_list: []
+  trait_list: []

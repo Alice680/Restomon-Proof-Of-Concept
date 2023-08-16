@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: Null
   m_EditorClassIdentifier: 
+  attack_name: Null
+  description: No attack in this slot
+  cost: 0f2700000f2700000f270000
   area:
     shape: 0
     length: 0
@@ -20,3 +23,5 @@ MonoBehaviour:
     shape: 0
     length: 0
     width: 0
+  model: {fileID: 0}
+  effects: []

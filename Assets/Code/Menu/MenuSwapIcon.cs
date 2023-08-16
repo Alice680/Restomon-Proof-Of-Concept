@@ -6,7 +6,14 @@ using UnityEngine;
 [Serializable]
 public class MenuSwapIcon : MenuBasic
 {
-    [SerializeField] private GameObject[] icons;
+    [SerializeField] protected GameObject[] icons;
+
+    public override void Activate()
+    {
+        base.Activate();
+
+        UpdateMenu(Direction.None);
+    }
 
     public override void UpdateMenu(Direction dir)
     {
@@ -16,13 +23,6 @@ public class MenuSwapIcon : MenuBasic
             icons[i].SetActive(false);
 
         icons[x_value + (y_value * x_size)].SetActive(true);
-    }
-
-    public override void Activate()
-    {
-        base.Activate();
-
-        UpdateMenu(Direction.None);
     }
 
     public override void DeActivate()

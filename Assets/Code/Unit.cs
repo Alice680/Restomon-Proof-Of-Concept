@@ -118,6 +118,11 @@ public class Unit
         return hp;
     }
 
+    public int GetMaxHP()
+    {
+        return creature.GetHp();
+    }
+
     public int GetStat(int index)
     {
         return creature.GetStat(index);

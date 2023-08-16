@@ -6,14 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Preset", menuName = "ScriptableObjects/Dungeons/Preset")]
 public class DungeonLayoutPreset : DungeonLayout
 {
-    [Serializable]
-    protected class Node
-    {
-        public GameObject model;
-        public DungeonTileType tile_type;
-    }
-
-    [SerializeField] protected Node[] tile_types;
+    [SerializeField] protected TileSetHolder tile_set;
     [SerializeField] protected int x_size, y_size;
     [SerializeField] protected int[] tiles;
 
@@ -30,8 +23,8 @@ public class DungeonLayoutPreset : DungeonLayout
             for (int e = 0; e < y_size; ++e)
             {
                 index = tiles[i + (e * x_size)];
-                type = tile_types[index].tile_type;
-                model = tile_types[index].model;
+                type = tile_set.GetTileType(index);
+                model = tile_set.GetTileModel(index);
 
                 map.SetNode(i, e, type, model);
             }
@@ -56,6 +49,10 @@ public class DungeonLayoutPreset : DungeonLayout
         y_size = y;
 
         tiles = new int[x * y];
+
+        for (int i = 0; i < x_size; ++i)
+            for (int e = 0; e < y_size; ++e)
+                tiles[i + (x_size * e)] = 16;
     }
 
     public void SetTile(int x, int y, int index)
