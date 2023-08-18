@@ -95,6 +95,9 @@ public class DungeonManager : MonoBehaviour
         Attack attack = current_unit.GetAttack(index);
         GameObject marker = attack.GetModel();
 
+        if (!attack.PayCost(current_unit))
+            return;
+
         List<Unit> attack_targets = new List<Unit>();
 
         RemoveAttackModels();
@@ -113,7 +116,7 @@ public class DungeonManager : MonoBehaviour
                 attack_targets.Add(map.GetUnit(target));
         }
 
-        attack.ApplyEffect(current_unit, attack_targets.ToArray(), positions, map);
+        attack.ApplyEffect(current_unit, attack_targets.ToArray(), positions, map, this);
 
         foreach (Unit unit in attack_targets)
             if (unit.GetHp() <= 0)
@@ -151,6 +154,8 @@ public class DungeonManager : MonoBehaviour
 
         current_unit = turn_keeper.Peak();
 
+        current_unit.StartTurn();
+
         moves = current_unit.GetStat(7);
         actions = current_unit.GetStat(8);
 
@@ -158,6 +163,8 @@ public class DungeonManager : MonoBehaviour
             dungeon_ui.UpdateActions(moves, actions);
         else
             dungeon_ui.UpdateActions(0, 0);
+
+        dungeon_ui.UpdatePlayerStats(player, player_units);
     }
 
     public void WinDungeon()
@@ -220,6 +227,30 @@ public class DungeonManager : MonoBehaviour
             Destroy(obj);
 
         attack_moddels.Clear();
+    }
+
+    //External data edit
+    public void ChangeMovement(int value)
+    {
+        moves += value;
+
+        if (moves < 0)
+            moves = 0;
+
+        dungeon_ui.UpdateActions(moves, actions);
+    }
+
+    public void ChangeAction(int value)
+    {
+        actions += value;
+
+        if (actions < 0)
+            actions = 0;
+
+        if (actions > 4)
+            actions = 4;
+
+        dungeon_ui.UpdateActions(moves, actions);
     }
 
     //Edit Markers

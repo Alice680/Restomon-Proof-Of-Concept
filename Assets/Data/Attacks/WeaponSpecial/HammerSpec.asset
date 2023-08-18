@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: Sword
+  m_Name: HammerSpec
   m_EditorClassIdentifier: 
+  attack_name: Armor Crush
+  description: Massive blow that lowers armor
   cost: 000000000000000000000000
   area:
-    shape: 2
+    shape: 4
     length: 1
     width: 1
   target:
@@ -25,4 +27,4 @@ MonoBehaviour:
   effects:
   - type: 0
     target: 3
-    variables: 32000000
+    variables: 000000004b00000064000000

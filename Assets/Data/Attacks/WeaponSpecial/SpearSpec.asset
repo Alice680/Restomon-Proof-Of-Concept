@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: Spear
+  m_Name: SpearSpec
   m_EditorClassIdentifier: 
+  attack_name: Rapid Stab
+  description: Multiple weaker stabs
   cost: 000000000000000000000000
   area:
     shape: 4
@@ -25,4 +27,4 @@ MonoBehaviour:
   effects:
   - type: 0
     target: 3
-    variables: 23000000
+    variables: 000000002300000064000000

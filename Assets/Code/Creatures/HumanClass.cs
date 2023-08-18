@@ -191,6 +191,6 @@ public class HumanClass : ScriptableObject
         GameObject t_model = model;
 
         //Make Human
-        return new Human(t_class_name, t_sub_name, t_stats, t_attacks, t_traits, t_model);
+        return new Human(t_class_name, t_sub_name, lv, t_stats, t_attacks, t_traits, t_model);
     }
 }

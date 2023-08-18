@@ -5,15 +5,17 @@ using UnityEngine;
 public class Human : Creature
 {
     private string class_name, sub_name;
+    private int lv;
     private int[] stats;
     private Attack[] attacks;
     private Trait[] traits;
     private GameObject model;
 
-    public Human(string class_name, string sub_name, int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
+    public Human(string class_name, string sub_name, int lv,int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
     {
         this.class_name = class_name;
         this.sub_name = sub_name;
+        this.lv = lv;
         this.stats = stats;
         this.attacks = attacks;
         this.traits = traits;
@@ -23,6 +25,11 @@ public class Human : Creature
     public override CreatureType GetCreatureType()
     {
         return CreatureType.Human;
+    }
+
+    public override int GetLV()
+    {
+        return lv;
     }
 
     public override int GetHp()

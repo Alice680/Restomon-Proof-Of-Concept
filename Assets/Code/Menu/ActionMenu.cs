@@ -104,6 +104,7 @@ public class ActionMenu : MonoBehaviour
 
             main_menu.Activate();
 
+            state = State.main;
             return false;
         }
     }

@@ -83,9 +83,23 @@ public class Unit
     }
 
     //Update Data
+    public void StartTurn()
+    {
+        if(creature_type == CreatureType.Human)
+        {
+            ChangeHp(((Human)creature).GetApr());
+        }
+    }
+
     public void ChangeHp(int num)
     {
         hp += num;
+
+        if (hp < 0)
+            hp = 0;
+
+        if (hp > GetMaxHP())
+            hp = GetMaxHP();
     }
 
     public void SetPosition(Vector3Int new_position)
@@ -111,6 +125,11 @@ public class Unit
     public CreatureType GetCreatureType()
     {
         return creature_type;
+    }
+
+    public int GetLV()
+    {
+        return creature.GetLV();
     }
 
     public int GetHp()

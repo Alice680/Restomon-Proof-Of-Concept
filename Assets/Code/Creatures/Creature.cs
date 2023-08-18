@@ -9,6 +9,18 @@ public class Creature
         return CreatureType.None;
     }
 
+    public void GetElements(out Element elm_one, out Element elm_two, out Element elm_three)
+    {
+        elm_one = Element.None;
+        elm_two = Element.None;
+        elm_three = Element.None;
+    }
+
+    public virtual int GetLV()
+    {
+        return -1;
+    }
+
     public virtual int GetHp()
     {
         return -1;

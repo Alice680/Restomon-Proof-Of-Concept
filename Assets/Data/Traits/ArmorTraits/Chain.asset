@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effects:
   - ability: 0
-    int_variables: 0000000000000000000000000000000000000000020000000200000002000000010000000000000000000000
-    conditions:
-    - condition: 0
-      int_variables: 
+    int_a_variables: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    condition: 0
+    int_c_variables: 

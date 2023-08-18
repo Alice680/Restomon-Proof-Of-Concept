@@ -10,25 +10,10 @@ public class Trait : ScriptableObject
     private class Effect
     {
         public TraitAbility ability;
-        public int[] int_variables;
-        public Condition[] conditions;
+        public int[] int_a_variables;
 
-        [Serializable]
-        public class Condition 
-        {
-            public TraitCondition condition;
-            public int[] int_variables;
-        }
-
-        public TraitCondition GetCondition(int index)
-        {
-            return conditions[index].condition;
-        }
-
-        public int GetVarible(int index_condition, int index)
-        {
-            return conditions[index_condition].int_variables[index];
-        }
+        public TraitCondition condition;
+        public int[] int_c_variables;
     }
 
     [SerializeField] private Effect[] effects;
@@ -41,8 +26,8 @@ public class Trait : ScriptableObject
         int value = 0;
 
         foreach (Effect effect in effects)
-            if ( effect.ability == TraitAbility.BaseStats && effect.GetCondition(0) == TraitCondition.Passive && index < effect.int_variables.Length)
-                value += effect.int_variables[index];
+            if (effect.ability == TraitAbility.BaseStats && effect.condition == TraitCondition.Passive && index < effect.int_a_variables.Length)
+                value += effect.int_a_variables[index];
 
         return value;
     }
