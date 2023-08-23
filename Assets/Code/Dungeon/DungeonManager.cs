@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * The main class for dungeon game phase.
+ * It is a modeled as a sort of sudo server. Giving temporary controll to players when it is there turn.
+ * While it is a players turn, they can call one of a handfull of "action" methods.
+ * Each one of these actions then verfies if the call is valid and applies the changes if so.
+ * 
+ * The method also manages what data can be seen by players via an ID system.
+ * 
+ * Notes:
+ */
 public class DungeonManager : MonoBehaviour
 {
     private PermDataHolder data_holder;
     private DungeonUI dungeon_ui;
-    private ActionMenu action_menu;
+    private ManagerMenuActions action_menu;
 
     private DungeonMap map;
     private TurnKeeper turn_keeper;
-
-    private int moves, actions;
-
-    private DungeonType type;
-
-    private Unit current_unit;
 
     private Unit player;
     private List<Unit> player_units;
@@ -26,17 +30,19 @@ public class DungeonManager : MonoBehaviour
     private List<Unit> enemy_units;
     private Actor enemy_controller;
 
-    private float attack_time;
-    private List<GameObject> attack_moddels;
-
     private DungeonLayout current_floor;
 
-    //Unit calls
+    private int moves, actions;
+    private Unit current_unit;
+    private float attack_time;
+    private List<GameObject> attack_moddels;
+    private bool performed_action;
+
     private void Start()
     {
         data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
         dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
-        action_menu = GameObject.Find("UIManager").GetComponent<ActionMenu>();
+        action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuActions>();
 
         turn_keeper = new TurnKeeper();
         player_units = new List<Unit>();
@@ -57,85 +63,62 @@ public class DungeonManager : MonoBehaviour
             RemoveAttackModels();
 
         current_unit.GetOwner().Run();
+
+        if (performed_action)
+            ActionCleanup();
     }
 
-    //Actions
+    /*
+     * Actions
+     */
     public void Move(Direction dir)
     {
-        if (dir == Direction.None || !MoveValid(dir) || moves == 0)
+        if (dir == Direction.None || !MoveValid(dir) || moves == 0 || performed_action)
             return;
 
-        Vector3Int new_position = current_unit.GetPosition();
-
-        if (dir == Direction.Up)
-            new_position += new Vector3Int(0, 1, 0);
-        else if (dir == Direction.Down)
-            new_position += new Vector3Int(0, -1, 0);
-        else if (dir == Direction.Right)
-            new_position += new Vector3Int(1, 0, 0);
-        else if (dir == Direction.Left)
-            new_position += new Vector3Int(-1, 0, 0);
+        Vector3Int new_position = current_unit.GetPosition() + DirectionMath.GetVectorChange(dir);
 
         map.MoveUnit(new_position, current_unit);
 
+        performed_action = true;
         --moves;
-
-        if (current_unit.GetOwner() == player_controller)
-        {
-            dungeon_ui.UpdateActions(moves, actions);
-            dungeon_ui.UpdateCam(new_position);
-        }
     }
 
     public void Attack(Vector3Int target, int index)
     {
-        if (!AttackTargetValid(target, index) || actions == 0)
+        if (!AttackTargetValid(target, index) || actions == 0 || performed_action)
             return;
 
         Attack attack = current_unit.GetAttack(index);
-        GameObject marker = attack.GetModel();
 
-        if (!attack.PayCost(current_unit))
+        if (!ApplyAttack.TryPayCost(attack, current_unit))
             return;
 
         List<Unit> attack_targets = new List<Unit>();
 
         RemoveAttackModels();
-        attack_time = Time.time;
 
-        Vector3Int[] positions = attack.GetTarget(Direction.None);
-
-        for (int i = 0; i < positions.Length; ++i)
-            positions[i] += target;
+        Vector3Int[] positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
 
         for (int i = 0; i < positions.Length; ++i)
         {
-            attack_moddels.Add(Instantiate(marker, positions[i], new Quaternion()));
+            attack_moddels.Add(Instantiate(attack.GetModel(), positions[i], new Quaternion()));
 
-            if (map.GetUnit(target) != null)
-                attack_targets.Add(map.GetUnit(target));
+            if (map.GetUnit(positions[i]) != null)
+                attack_targets.Add(map.GetUnit(positions[i]));
         }
 
-        attack.ApplyEffect(current_unit, attack_targets.ToArray(), positions, map, this);
+        ApplyAttack.ApplyEffect(attack, current_unit, attack_targets.ToArray(), positions, map, this);
 
-        foreach (Unit unit in attack_targets)
-            if (unit.GetHp() <= 0)
-                RemoveUnit(unit);
-
+        attack_time = Time.time;
+        performed_action = true;
         --actions;
-
-        if (current_unit.GetOwner() == player_controller)
-            dungeon_ui.UpdateActions(moves, actions);
-        dungeon_ui.UpdatePlayerStats(player, player_units);
     }
 
+    // TODO Clean up dungoen spawnning with dungeon V2
     public void SpawnUnit(Vector3Int position)
     {
-        if (current_unit.GetCreatureType() == CreatureType.Monster)
-            return;
-        if (current_unit.GetCreatureType() == CreatureType.Human)
-            return;
-        if (current_unit.GetCreatureType() == CreatureType.Restomon)
+        if (current_unit.GetCreatureType() != CreatureType.Arena)
             return;
 
         Unit unit_temp = new Unit(current_floor.GetRandomCreature(), enemy_controller);
@@ -159,25 +142,14 @@ public class DungeonManager : MonoBehaviour
         moves = current_unit.GetStat(7);
         actions = current_unit.GetStat(8);
 
-        if (current_unit.GetOwner() == player_controller)
-            dungeon_ui.UpdateActions(moves, actions);
-        else
-            dungeon_ui.UpdateActions(0, 0);
+        dungeon_ui.UpdateActions(0, 0);
 
-        dungeon_ui.UpdatePlayerStats(player, player_units);
+        performed_action = true;
     }
 
-    public void WinDungeon()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void LoseDungeon()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    //Internal data edit
+    /*
+     * Internal data edits
+     */
     private void StartNewFloor()
     {
         map = current_floor.GenerateDungeon();
@@ -192,12 +164,11 @@ public class DungeonManager : MonoBehaviour
         turn_keeper.AddUnit(enemy);
 
         dungeon_ui.Reset(map);
-        dungeon_ui.UpdateCam(player.GetPosition());
-        dungeon_ui.UpdatePlayerStats(player, player_units);
 
         EndTurn();
     }
 
+    // TODO add in with random dungeons
     private void ClearCurrentFloor()
     {
 
@@ -217,6 +188,8 @@ public class DungeonManager : MonoBehaviour
             player_units.Remove(unit);
         else
             enemy_units.Remove(unit);
+
+        unit.KillUnit();
     }
 
     private void RemoveAttackModels()
@@ -229,7 +202,32 @@ public class DungeonManager : MonoBehaviour
         attack_moddels.Clear();
     }
 
-    //External data edit
+    private void UpdatePlayerUI()
+    {
+        dungeon_ui.UpdateActions(moves, actions);
+        dungeon_ui.UpdateCam(current_unit.GetPosition());
+    }
+
+    private void UpdateUI()
+    {
+        dungeon_ui.UpdatePlayerStats(player, player_units);
+    }
+
+    private void ActionCleanup()
+    {
+        if (current_unit.GetOwner() == player_controller)
+            UpdatePlayerUI();
+
+        UpdateUI();
+
+        foreach (Unit unit in GetAllUnits())
+            if (unit.GetHp() == 0)
+                RemoveUnit(unit);
+
+        performed_action = false;
+    }
+    
+    // TODO Remove all setters by finishing assosiated systems or turning them into actions
     public void ChangeMovement(int value)
     {
         moves += value;
@@ -253,31 +251,35 @@ public class DungeonManager : MonoBehaviour
         dungeon_ui.UpdateActions(moves, actions);
     }
 
-    //Edit Markers
+    public void WinDungeon()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoseDungeon()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    // TODO maybe put into dungeon UI
     public void ShowAttackArea(Vector3Int target, int index)
     {
         map.RemoveAllMarker();
 
         Attack attack = current_unit.GetAttack(index);
 
-        Vector3Int[] positions = attack.GetArea(Direction.None);
         Vector3Int unit_position = current_unit.GetPosition();
+
+        Vector3Int[] positions = attack.GetArea(unit_position);
 
         map.SetMarker(target.x, target.y, 0);
 
         for (int i = 0; i < positions.Length; ++i)
-            positions[i] += unit_position;
-
-        for (int i = 0; i < positions.Length; ++i)
         {
             if (positions[i] == target)
-            {
                 map.SetMarker(positions[i].x, positions[i].y, 2);
-            }
             else
-            {
                 map.SetMarker(positions[i].x, positions[i].y, 1);
-            }
         }
     }
 
@@ -287,12 +289,9 @@ public class DungeonManager : MonoBehaviour
 
         Attack attack = current_unit.GetAttack(index);
 
-        Vector3Int[] positions = attack.GetTarget(Direction.None);
+        Vector3Int[] positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
 
         map.SetMarker(target.x, target.y, 0);
-
-        for (int i = 0; i < positions.Length; ++i)
-            positions[i] += target;
 
         for (int i = 0; i < positions.Length; ++i)
             map.SetMarker(positions[i].x, positions[i].y, 3);
@@ -303,7 +302,9 @@ public class DungeonManager : MonoBehaviour
         map.RemoveAllMarker();
     }
 
-    //Checker
+    /* 
+     * External getter
+     */
     public bool PositionValid(Vector3Int position)
     {
         return map.IsInMap(position);
@@ -340,17 +341,15 @@ public class DungeonManager : MonoBehaviour
     {
         Attack attack = current_unit.GetAttack(index);
 
-        Vector3Int[] positions = attack.GetArea(Direction.None);
-        Vector3Int unit_position = current_unit.GetPosition();
+        Vector3Int[] positions = attack.GetArea(current_unit.GetPosition());
 
         for (int i = 0; i < positions.Length; ++i)
-            if (positions[i] + unit_position == target)
+            if (positions[i] == target)
                 return true;
 
         return false;
     }
 
-    //Get Data
     public int GetMoves()
     {
         return moves;
@@ -371,12 +370,31 @@ public class DungeonManager : MonoBehaviour
         return Pathfinding.GetPath(map, start, goal);
     }
 
-    public ActionMenu GetActionMenu()
+    public ManagerMenuActions GetActionMenu()
     {
         return action_menu;
     }
 
-    //Grab ID Data
+    /*
+     * Internal getter
+     */
+    private Unit[] GetAllUnits()
+    {
+        List<Unit> units = new List<Unit>();
+
+        foreach (Unit unit in player_units)
+            units.Add(unit);
+
+        foreach (Unit unit in enemy_units)
+            units.Add(unit);
+
+        return units.ToArray();
+    }
+
+    /*
+     * ID system
+     */
+    //TODO Considering turning the ID system into it's own class.
     public int GetIDFromActive()
     {
         return current_unit.GetID();
@@ -411,7 +429,6 @@ public class DungeonManager : MonoBehaviour
         return ids;
     }
 
-    //Grab Data From Unit
     private Unit GetUnitFromID(int id)
     {
         if (player.GetID() == id)
@@ -460,5 +477,4 @@ public class DungeonManager : MonoBehaviour
     {
         return GetUnitFromID(id).GetAttack(index).GetCost(0);
     }
-
 }

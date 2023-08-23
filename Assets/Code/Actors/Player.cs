@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * The actor controll by the player.
+ * It uses a simple state machine of sorts to handle to various menus and the like.
+ * 
+ * Notes:
+ * Once the action types are finalized, move the actions into their own methods to improve readbility
+ */
+// TODO move actions into their own methods.
+// TODO restrcuture into a main method that splits off based on state and input.
 public class Player : Actor
 {
     private enum State { startup, idle, action_ui, aim_attack, view_attack };
 
     private DungeonManager manager_ref;
 
-    private ActionMenu action_ref;
+    private ManagerMenuActions action_ref;
 
     private Inputer inputer;
 

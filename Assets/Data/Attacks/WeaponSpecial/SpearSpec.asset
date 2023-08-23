@@ -14,17 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_name: Rapid Stab
   description: Multiple weaker stabs
-  cost: 000000000000000000000000
+  element: 1
+  cost: 020000000000000000000000
   area:
     shape: 4
     length: 2
     width: 2
+    x_offset: 0
+    y_offset: 0
+    rotatable: 0
+    Hollow: 0
   target:
     shape: 2
     length: 0
     width: 0
+    x_offset: 0
+    y_offset: 0
+    rotatable: 0
+    Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
   effects:
   - type: 0
     target: 3
-    variables: 000000002300000064000000
+    variables: 000000000f00000046000000
+  - type: 0
+    target: 3
+    variables: 000000000f00000037000000
+  - type: 0
+    target: 3
+    variables: 000000000f00000028000000
+  - type: 0
+    target: 3
+    variables: 000000000f00000019000000

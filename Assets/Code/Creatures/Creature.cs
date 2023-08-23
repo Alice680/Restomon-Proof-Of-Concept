@@ -2,6 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * The base method for creatures. This class dose not do anything on it's own but instead serves as a template for 
+ * all other creature types to use.
+ * 
+ * 
+ * Notes:
+ * Do not create instances of this class unless it is for testing.
+ * 
+ * Stats are broken down into 4 groups. Energy, offensive, defensive, and speed.
+ * Energy has Health points in all casses and mave have more for certain creature types.
+ * Offensive are used to deal damage or aplly effects and have attack for physical, magic for magical, and force for status condtions.
+ * Defensive are used to prevent damage or aplly effects and have attack for defence, shield for magical, and will for status condtions.
+ * Speed is for how often you can do things. Speed determins how often you gain turns, movement determins how many spaces you can move, and actions are used to perform actions.
+ * 
+ * Traits are passive abilites that trigger under certain conditions. Look at the trait class for more infomation.
+ * 
+ * Attacks are active abilites you use during your turn. Look at the attack class for more infomration.
+ * 
+ * Elements give certain benifits and demerits situatly. Such as bonus damage for using an attack of the same element you have.
+ * The base form and both evolutions after it each grant one element. With each after the first granting slighly less potency.
+ * The elements are: Ather, Fire, Nature, Earth, Metal, Water, Light, Dark, Wind, Lightning, Ice, Cosmic
+ * 
+ * Notes where not made for methods in this class as it would just be the name and saying it return nothing.
+ */
+
+public enum CreatureType { None, Human, Restomon, Monster, Arena }
+
 public class Creature
 {
     public virtual CreatureType GetCreatureType()
@@ -9,11 +36,16 @@ public class Creature
         return CreatureType.None;
     }
 
-    public void GetElements(out Element elm_one, out Element elm_two, out Element elm_three)
+    public Element GetElement(int index)
     {
-        elm_one = Element.None;
-        elm_two = Element.None;
-        elm_three = Element.None;
+        if (index == 0)
+            return Element.None;
+        else if (index == 1)
+            return Element.None;
+        else if (index == 2)
+            return Element.None;
+        else
+            return Element.None;
     }
 
     public virtual int GetLV()
@@ -32,6 +64,11 @@ public class Creature
     }
 
     public virtual Attack GetAttack(int index)
+    {
+        return null;
+    }
+
+    public virtual Trait GetTrait(int index)
     {
         return null;
     }

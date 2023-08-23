@@ -2,6 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * A collection of nodes that serves as the map for any dugeon.
+ * Most actions actions with this in some way.
+ * 
+ * Notes:
+ * Nodes track what unit is in them, if they are groud or wall, the texture they have.
+ * The map tracks the current length and width.
+ */
+// TODO Weather
+// TODO Traps in nodes
+// TODO Traversability beyound just wall or ground. Water and Lava at least.
+public enum DungeonTileType { Empty, Ground, Wall };
 public class DungeonMap
 {
     private class Node

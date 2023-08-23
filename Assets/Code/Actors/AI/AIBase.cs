@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * The base script for all AIs the inherite from.
+ * It also contains many methods that allow ais to do common things.
+ * 
+ * Notes:
+ * This method is highly unfinished at this time and mostly just serves to let the game run.
+ * Nearly everything in it will be eithe re worked or repalced.
+ */
 public class AIBase : ScriptableObject
 {
-    //Special checks
+    // TODO remove
     public bool PreRun(DungeonManager manager)
     {
         int id = manager.GetIDFromActive();
@@ -19,6 +27,11 @@ public class AIBase : ScriptableObject
         return true;
     }
 
+    //TODO Remove method with dungeon V2 implementation
+    /*
+     * A method that summons in a random enemy from the dungeon list. It is here atm to make it easy to call until 
+     * dungeons get the next update.
+     */
     protected void RunArena(DungeonManager manager)
     {
         Vector3Int area = new Vector3Int(-1, 1, 1);
@@ -31,13 +44,14 @@ public class AIBase : ScriptableObject
         manager.EndTurn();
     }
 
-    //Run data
     public virtual void Run(DungeonManager manager)
     {
 
     }
 
-    //Common Data
+    /*
+     * Bellow is a list of various methods that can be called from any AI and solve common problems
+     */
     protected int GetAttackTarget(DungeonManager manager, int index)
     {
         List<int> valid_targets = new List<int>();
@@ -52,31 +66,10 @@ public class AIBase : ScriptableObject
         return -1;
     }
 
+    // TODO write GetNearestEnemy
     protected int GetNearestEnemy(DungeonManager manager)
     {
         return -1;
-    }
-
-    protected Direction GetDirectionFromPostions(Vector3Int start, Vector3Int goal)
-    {
-        if (start.x > goal.x && start.y == goal.y)
-            return Direction.Left;
-
-        if (start.x < goal.x && start.y == goal.y)
-            return Direction.Right;
-
-        if (start.x == goal.x && start.y > goal.y)
-            return Direction.Down;
-
-        if (start.x == goal.x && start.y < goal.y)
-            return Direction.Up;
-
-        return Direction.None;
-    }
-
-    protected Direction GetDirectionToEnemy(DungeonManager manager, int id)
-    {
-        return Direction.None;
     }
 
     protected Direction GetDirectionToNearEnemy(DungeonManager manager)
@@ -96,6 +89,6 @@ public class AIBase : ScriptableObject
         if (shortest_path == null || shortest_path.Length < 2)
             return Direction.None;
 
-        return GetDirectionFromPostions(shortest_path[0], shortest_path[1]);
+        return DirectionMath.GetDirectionChange(shortest_path[0], shortest_path[1]);
     }
 }

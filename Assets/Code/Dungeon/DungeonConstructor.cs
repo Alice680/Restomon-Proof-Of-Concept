@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Handles the making of pre made dungeon layouts.
+ * 
+ * 
+ * Notes:
+ * Script is only for running in editor. Will not save if used at run time. It should not be either way.
+ */
 public class DungeonConstructor : MonoBehaviour
 {
     public DungeonLayoutPreset layout;

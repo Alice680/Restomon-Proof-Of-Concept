@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Stores all data for a specfic class as a scriptable object. Has a single method that generates a human
+ * creature. 
+ * 
+ * Notes:
+ * No data in this class can be edited at run time
+ * Tammer sub classes are not in this build, all code for them is filler atm
+ * Add in option for gear to change model
+ */
 [CreateAssetMenu(fileName = "Class", menuName = "ScriptableObjects/Creatures/Class")]
 public class HumanClass : ScriptableObject
 {
@@ -46,19 +55,14 @@ public class HumanClass : ScriptableObject
         }
     }
 
+
     [Serializable]
     private class Subclass
     {
         public string subclass_name, description;
         public Trait subclass_trait;
         public Trait[] free_traits;
-
-        [SerializeField] private StatHolder stat_boost;
-
-        public int GetStats(int index)
-        {
-            return stat_boost.GetStats(index);
-        }
+        public Attack attack;
     }
 
     [Serializable]
@@ -67,6 +71,7 @@ public class HumanClass : ScriptableObject
         public string subclass_name, description;
         public Trait subclass_trait;
         public Trait[] free_traits;
+        public Attack attack;
     }
 
     [Serializable]
@@ -106,9 +111,23 @@ public class HumanClass : ScriptableObject
     [SerializeField] private Attack[] attack_list;
     [SerializeField] private Trait[] trait_list;
 
-    public Human GetHuman(int lv, int s_class_i, int weapon_i, int armor_i, int trinket_a_i, int trinket_b_i, int[] attacks_i, int[] traits_i)
+    /*
+     * Takes various ints as inputs so as to set which gear and sub classes the human will be using.
+     * It uses these ints to grab data from the various options and saving them in temp variables.
+     * It then creates the human from the calculated data.
+     * 
+     * lv int to set the level
+     * s_class_i int showing which sub class to add
+     * weapon_i int showing which weapon to add
+     * armor_i int showing which armor to add
+     * trinket_a_i int showing which trinket to add for the second slot
+     * trinket_b_i int showing which trinket to add for the second slot
+     * traits_i ints showing which of the unbound traits where chosen
+     * @return human once everything is set
+     */
+    // TODO re orginize once done humans to be easier to follow and remove any fluf
+    public Human GetHuman(int lv, int s_class_i, int weapon_i, int armor_i, int trinket_a_i, int trinket_b_i, int[] traits_i)
     {
-        //Grab Subclass and Gear
         Subclass temp_sub_class;
         if (s_class_i < 0 || s_class_i > subclasses.Length)
             temp_sub_class = subclasses[0];
@@ -139,58 +158,42 @@ public class HumanClass : ScriptableObject
         else
             temp_trinket_b = trinkets[trinket_b_i];
 
-        //Set Traits
-        Trait[] t_traits = new Trait[10];
-        t_traits[0] = class_trait[(int)Mathf.Clamp(lv / 5, 0, 5)];
-        t_traits[1] = temp_sub_class.subclass_trait;
-        t_traits[2] = trait_list[0]; //Still in planinng
-        t_traits[3] = temp_weapon.trait;
-        t_traits[4] = temp_armor.trait;
-        t_traits[5] = temp_trinket_a.trait;
-        t_traits[6] = temp_trinket_b.trait;
+        string temp_class_name = class_name;
+        string temp_sub_name = temp_sub_class.subclass_name;
 
+        GameObject temp_model = model;
+
+        Trait[] temp_traits = new Trait[10];
+        temp_traits[0] = class_trait[(int)Mathf.Clamp(lv / 5, 0, 5)];
+        temp_traits[1] = temp_sub_class.subclass_trait;
+        temp_traits[2] = trait_list[0]; // TODO add with tammer class
+        temp_traits[3] = temp_weapon.trait;
+        temp_traits[4] = temp_armor.trait;
+        temp_traits[5] = temp_trinket_a.trait;
+        temp_traits[6] = temp_trinket_b.trait;
+        
         for (int i = 0; i < 3; ++i)
         {
             if (traits_i.Length != 3 || traits_i[i] < 0 || traits_i[i] >= attack_list.Length)
-                t_traits[7 + i] = trait_list[0];
+                temp_traits[7 + i] = trait_list[0];
             else
-                t_traits[7 + i] = trait_list[traits_i[i]];
+                temp_traits[7 + i] = trait_list[traits_i[i]];
         }
 
-        //Set Names
-        string t_class_name = class_name;
-        string t_sub_name = temp_sub_class.subclass_name;
+        Attack[] temp_attacks = new Attack[9];
+        temp_attacks[0] = temp_weapon.basic_attack;
+        temp_attacks[1] = class_attack;
+        temp_attacks[2] = temp_sub_class.attack;
+        temp_attacks[3] = attack_list[0]; // TODO add with tammer class
+        temp_attacks[4] = temp_weapon.special_attack;
+        temp_attacks[5] = temp_armor.defensive_attack;
+        temp_attacks[6] = temp_trinket_a.special_attack;
+        temp_attacks[7] = temp_trinket_b.special_attack;
 
-        //Set Stats
-        int[] t_stats = new int[11];
+        int[] temp_stats = ApplyTrait.GetHumanBaseStats(temp_traits);
         for (int i = 0; i < 11; ++i)
-            t_stats[i] = base_stats.GetStats(i) + (lv * stat_growth.GetStats(i)) + temp_sub_class.GetStats(i);
+            temp_stats[i] += base_stats.GetStats(i) + (lv * stat_growth.GetStats(i));
 
-        foreach (Trait trait in t_traits)
-            for (int i = 0; i < 11; ++i)
-                t_stats[i] += trait.GetBaseStats(i);
-
-        //Set Attacks
-        Attack[] t_attacks = new Attack[9];
-        t_attacks[0] = temp_weapon.basic_attack;
-        t_attacks[1] = class_attack;
-        t_attacks[2] = temp_weapon.special_attack;
-        t_attacks[3] = temp_armor.defensive_attack;
-        t_attacks[4] = temp_trinket_a.special_attack;
-        t_attacks[5] = temp_trinket_b.special_attack;
-
-        for (int i = 0; i < 3; ++i)
-        {
-            if (attacks_i.Length != 3 || attacks_i[i] < 0 || attacks_i[i] >= attack_list.Length)
-                t_attacks[6 + i] = attack_list[0];
-            else
-                t_attacks[6 + i] = attack_list[attacks_i[i]];
-        }
-
-        //Set Model
-        GameObject t_model = model;
-
-        //Make Human
-        return new Human(t_class_name, t_sub_name, lv, t_stats, t_attacks, t_traits, t_model);
+        return new Human(temp_class_name, temp_sub_name, lv, temp_stats, temp_attacks, temp_traits, temp_model);
     }
 }

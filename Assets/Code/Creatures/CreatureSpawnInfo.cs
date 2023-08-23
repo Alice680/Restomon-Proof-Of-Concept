@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * A temporary class used to spawn in monsters for testing
+ * 
+ * Notes:
+ * This class should be phazed out once I reach stage 2 of dungeons
+ */
 [Serializable]
 public class CreatureSpawnInfo
 {

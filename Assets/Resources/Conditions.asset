@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3d2f9d6f02def4980d153d9e853a20, type: 3}
+  m_Name: Conditions
+  m_EditorClassIdentifier: 
+  ailment_list:
+  - effect: {fileID: 11400000, guid: ef8ab3c05cbc0cc41b4b09e7a0912395, type: 2}
+    model: {fileID: 3841891717383962029, guid: 6ba7259156bbc4f42ab9345d35c39621, type: 3}
+  - effect: {fileID: 11400000, guid: b78620bfb1647a641bdebe442d48df1e, type: 2}
+    model: {fileID: 1462064397749747793, guid: 753334ddf8a97074f916bea25b70983f, type: 3}
+  - effect: {fileID: 11400000, guid: b1d2d8d129c93ba48adde33d8695e791, type: 2}
+    model: {fileID: 3887597857504006888, guid: 9801fbf484f137f47b9b417919d221c2, type: 3}
+  - effect: {fileID: 11400000, guid: 0699f7098c1e5e148bdbea52e2716ab4, type: 2}
+    model: {fileID: 8776528927615526645, guid: 4ab1769a1aa12e64bbd3e0f70a954300, type: 3}
+  - effect: {fileID: 11400000, guid: afdf33e3fcfa5c34cb070ea8a52ee56a, type: 2}
+    model: {fileID: 9049472173085289734, guid: cd5b48e5c7ce70a4ba4960af06b50711, type: 3}
+  - effect: {fileID: 11400000, guid: aba0f46e70c5d1e47b3605895306583c, type: 2}
+    model: {fileID: 1061406460467029766, guid: 0003ce0e6c8c6e54eb7a4a2e8df05b9e, type: 3}
+  - effect: {fileID: 11400000, guid: 17211526baf778f4e98db5bc780ad0a5, type: 2}
+    model: {fileID: 2335870711608964813, guid: 409b16f95daa4274e94d98766b1f36e5, type: 3}
+  - effect: {fileID: 11400000, guid: c603457679b24c54ebb166f37deb9ff8, type: 2}
+    model: {fileID: 7567011085409147149, guid: 80a113721a875924f822336301cb13b3, type: 3}
+  - effect: {fileID: 11400000, guid: c746a4870cd270a4eac7f4d427910d10, type: 2}
+    model: {fileID: 5253260793601766799, guid: 2e3033217d78bd24cad43bee310e1812, type: 3}
+  - effect: {fileID: 11400000, guid: 60ac00d3927149e4698c9423436a59da, type: 2}
+    model: {fileID: 6477576012829007804, guid: 03270a552ae0e94448b3fec733778aad, type: 3}
+  condtion_list: []

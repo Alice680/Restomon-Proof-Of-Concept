@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Handles persitant UI in the dungeon.
+ * 
+ * Notes:
+ * Shows hp, mp, and sp of all player controlled characters.
+ * Handles the camera.
+ * Shows the current amount of actions and movement if the active actor is the player
+ */
+// TODO move tile markers into this class. Maybe?
 public class DungeonUI : MonoBehaviour
 {
     public GameObject[] action_marker;
     public Text move_marker;
 
-    public Text hp_text, ap_text;
+    public Text ap_text;
+    public Text[] hp_text, sp_text, mp_text;
+    public Text[] text_row_a, text_row_b, text_row_c, text_row_d;
+    public GameObject[] icon_row_a, icon_row_b, icon_row_c, icon_row_d;
 
     public GameObject cam;
 
@@ -40,8 +52,9 @@ public class DungeonUI : MonoBehaviour
 
     public void UpdatePlayerStats(Unit player, List<Unit> player_units)
     {
-        hp_text.text = player.GetHp() + "/" + player.GetMaxHP();
-        ap_text.text = 0 + "/" + 0;
+        ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
+        for (int i = 0; i < 4; ++i)
+            text_row_a[i].text = "";
     }
 
     public void Reset(DungeonMap map)

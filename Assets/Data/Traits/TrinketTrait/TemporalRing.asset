@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: TemporalRing
   m_EditorClassIdentifier: 
-  effects:
-  - ability: 0
-    int_a_variables: 0000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
-    condition: 0
-    int_c_variables: 
+  affects:
+  - ability: 1
+    ability_variables: 0000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
+    condition: 1
+    condition_variables: 

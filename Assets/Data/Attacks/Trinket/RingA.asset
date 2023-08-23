@@ -14,15 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_name: SwiftRing
   description: A thick peice of string
-  cost: 020000000000000000000000
+  element: 1
+  cost: 030000000000000000000000
   area:
     shape: 2
     length: 0
     width: 0
+    rotatable: 0
+    Hollow: 0
   target:
     shape: 2
     length: 0
     width: 0
+    rotatable: 0
+    Hollow: 0
   model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
   effects:
   - type: 3

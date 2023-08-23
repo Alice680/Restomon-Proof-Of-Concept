@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Takes layout code from its base class and handles spawning enemies and win conditions in its place
+ * 
+ * Notes:
+ * May merge with base class
+ */
+
+// TODO once working on dungeons agian, see if there is any need to have this and a boss fight class
 [CreateAssetMenu(fileName = "Arena", menuName = "ScriptableObjects/Dungeons/Arena")]
 public class DungeonLayoutPresetArena : DungeonLayoutPreset
 {

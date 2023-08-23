@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Handles dungeon with pre built layouts, but dose not handle their spawnning or win conditions.
+ * 
+ * Notes:
+ * Is meant to be the base for both boss fights and arena
+ * 
+ * May merge into arena depedning on how I handle boss fights
+ */
+
 [CreateAssetMenu(fileName = "Preset", menuName = "ScriptableObjects/Dungeons/Preset")]
 public class DungeonLayoutPreset : DungeonLayout
 {

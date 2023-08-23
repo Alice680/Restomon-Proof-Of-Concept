@@ -2,23 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Monsters are the simples of the 3 core creature types. Used only by the AI. All there data is preset they do not
+ * pay any cost to use moves.
+ * 
+ * Notes:
+ * Refer to Creature class for a breakdown of how creatures function.
+ */
 public class Monster : Creature
 {
+    private string monster_name;
+    private int lv;
     private int[] stats; //Hp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
+    private Trait[] traits;
     private Attack[] attacks;
     private GameObject model;
 
-    public Monster(int[] stats, Attack[] attacks, GameObject model)
+    public Monster(string monster_name, int lv, int[] stats, Trait[] traits, Attack[] attacks, GameObject model)
     {
+        this.monster_name = monster_name;
+        this.lv = lv;
         this.stats = stats;
+        this.traits = traits;
         this.attacks = attacks;
         this.model = model;
     }
 
-    //Get data copy
+    /*
+     * The following methods are all getter methods.
+     */
+
     public override CreatureType GetCreatureType()
     {
         return CreatureType.Monster;
+    }
+
+    public override int GetLV()
+    {
+        return lv;
     }
 
     public override int GetHp()
@@ -32,6 +53,14 @@ public class Monster : Creature
             return -1;
 
         return stats[index + 1];
+    }
+
+    public override Trait GetTrait(int index)
+    {
+        if (index < 0 || index >= traits.Length)
+            return null;
+
+        return traits[index];
     }
 
     public override Attack GetAttack(int index)

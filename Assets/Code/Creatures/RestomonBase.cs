@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Stores all data for a specfic Restomon as a scriptable object. Has a single method that generates a restomon
+ * creature. 
+ * 
+ * Notes:
+ * No data in this class can be edited at run time
+ * Is not finished, needs evolutions, 3 traits, 2 held items
+ * Merge base attack and attack to comply with standard
+ */
 [CreateAssetMenu(fileName = "RestomonFormOne", menuName = "ScriptableObjects/Creatures/Restomon/FormOne")]
 public class RestomonBase : ScriptableObject
 {
@@ -58,6 +67,14 @@ public class RestomonBase : ScriptableObject
 
     [SerializeField] private GameObject model;
 
+    /*
+     * All data for monsters is set in in editor. As such, all that needs to be done it turning stats into an int array.
+     * 
+     * lv int for what level to set the creature.
+     * base_attack_id int that refrences which attack is to be the main attack
+     * attack_id ints that refrences which attacks are to be set
+     * return Restomon after setting its data
+     */
     public Restomon GetRestomon(int lv, int base_attack_id, int[] attack_id)
     {
         int[] core_stats = new int[12];
@@ -71,6 +88,7 @@ public class RestomonBase : ScriptableObject
         for (int i = 0; i < 4; ++i)
             core_attack[i + 1] = attack[attack_id[i]];
 
+        //Creates Restomon from set variables and returns it
         return new Restomon(id, lv, core_stats, core_attack, model);
     }
 }
