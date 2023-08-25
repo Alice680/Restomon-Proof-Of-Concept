@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
-  m_Name: AtherRing
+  m_Script: {fileID: 11500000, guid: 1ccd9508accb21f458c3053b59d63e1f, type: 3}
+  m_Name: None
   m_EditorClassIdentifier: 
-  affects:
-  - ability: 1
-    ability_variables: 0a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    condition: 1
-    condition_variables: 
+  condition_name: None
+  model: {fileID: 8473805364207316643, guid: 76ac5b355c4880140aac633cf9e97ce8, type: 3}
+  effect: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}

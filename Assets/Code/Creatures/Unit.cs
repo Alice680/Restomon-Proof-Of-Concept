@@ -208,8 +208,6 @@ public class Unit
         {
             ailments.Add(new Ailment(index, num));
         }
-
-        Debug.Log("Ran");
     }
 
     public void SetPosition(Vector3Int new_position)
@@ -333,6 +331,20 @@ public class Unit
     public Attack GetAttack(int index)
     {
         return creature.GetAttack(index);
+    }
+
+    public int[] GetAilments(out int[] value)
+    {
+        int[] ailment_num = new int[ailments.Count];
+        value = new int[ailments.Count];
+
+        for(int i = 0; i < ailments.Count; ++i)
+        {
+            ailment_num[i] = ailments[i].type;
+           value[i] = ailments[i].number;
+        }
+
+        return ailment_num;
     }
 
     public Vector3Int GetPosition()

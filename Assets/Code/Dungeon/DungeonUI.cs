@@ -19,10 +19,12 @@ public class DungeonUI : MonoBehaviour
 
     public Text ap_text;
     public Text[] hp_text, sp_text, mp_text;
-    public Text[] text_row_a, text_row_b, text_row_c, text_row_d;
-    public GameObject[] icon_row_a, icon_row_b, icon_row_c, icon_row_d;
+    public Text[] status_text_row;
+    public GameObject[] status_icon_row;
 
     public GameObject cam;
+
+    public StatusConditions condition_list;
 
     private DungeonMap current_map;
 
@@ -53,8 +55,24 @@ public class DungeonUI : MonoBehaviour
     public void UpdatePlayerStats(Unit player, List<Unit> player_units)
     {
         ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
+
+        int[] temp_b;
+        int[] temp = player.GetAilments(out temp_b);
+
         for (int i = 0; i < 4; ++i)
-            text_row_a[i].text = "";
+        {
+            status_text_row[i].text = "";
+            Destroy(status_icon_row[i]);
+        }
+
+        for (int i = 0; i < temp.Length; ++i)
+        {
+            status_text_row[i].text = "" + temp_b[i];
+            status_icon_row[i] = Instantiate(condition_list.GetAilmentModel(temp[i]));
+            status_icon_row[i].transform.parent = cam.transform;
+            status_icon_row[i].transform.localPosition = new Vector3(2.45f + (0.4f*i), 3.75f, 10);
+        }
+
     }
 
     public void Reset(DungeonMap map)

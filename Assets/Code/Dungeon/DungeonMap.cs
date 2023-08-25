@@ -10,8 +10,7 @@ using UnityEngine;
  * Nodes track what unit is in them, if they are groud or wall, the texture they have.
  * The map tracks the current length and width.
  */
-// TODO Weather
-// TODO Traps in nodes
+// TODO Finish Tile Conditions
 // TODO Traversability beyound just wall or ground. Water and Lava at least.
 public enum DungeonTileType { Empty, Ground, Wall };
 public class DungeonMap
@@ -22,6 +21,7 @@ public class DungeonMap
         public GameObject model;
         public GameObject marker;
         public Unit current_unit;
+        public int tile_condition;
 
         public int x, y;
 
@@ -30,6 +30,7 @@ public class DungeonMap
             type = DungeonTileType.Empty;
             model = null;
             current_unit = null;
+            tile_condition = 0;
         }
 
         public Node(DungeonTileType type, GameObject model, int x, int y)
@@ -39,6 +40,7 @@ public class DungeonMap
             this.type = type;
             this.model = GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion());
             current_unit = null;
+            tile_condition = 0;
         }
 
         public void SetMarker(int id)
@@ -76,6 +78,8 @@ public class DungeonMap
     private int x_size, y_size;
     private Node[,] nodes;
 
+    private TileConditionHolder tile_conditions;
+
     //Node and Map editing
     public DungeonMap(int x, int y)
     {
@@ -87,6 +91,8 @@ public class DungeonMap
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
                 nodes[i, e] = new Node();
+
+        tile_conditions = (TileConditionHolder)Resources.Load("TileConditionHolder");
     }
 
     public void SetNode(int x, int y, DungeonTileType type, GameObject model)
@@ -170,6 +176,16 @@ public class DungeonMap
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
                 RemoveMarker(i, e);
+    }
+
+    //Tile Conditions
+    public Trait GetTileEffect(Vector3Int vec)
+    {
+        return GetTileEffect(vec.x, vec.y);
+    }
+    public Trait GetTileEffect(int x, int y)
+    {
+        return tile_conditions.GetEffect(nodes[x,y].tile_condition);
     }
 
     //Checks

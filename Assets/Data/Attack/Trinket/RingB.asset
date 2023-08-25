@@ -29,7 +29,7 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 7822409975712715426, guid: 8db56ebd255ff3e40835d5c0376efead, type: 3}
-  effects:
+  affects:
   - type: 4
     target: 3
-    variables: 0800000032000000010000000100000064000000
+    variables: 08000000c8000000010000000100000064000000

@@ -119,10 +119,10 @@ MonoBehaviour:
     description: Draws in Ather
     special_attack: {fileID: 11400000, guid: daa3cd117dd62c24e99abe12d0f5cbb5, type: 2}
     trait: {fileID: 11400000, guid: 8ebed8dbf224d5b4886cda0d50b143f8, type: 2}
-  - trinket_name: None
+  - trinket_name: Stability
     description: Empty
-    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    special_attack: {fileID: 11400000, guid: 1873b257cbb05024b937c25561ad0939, type: 2}
+    trait: {fileID: 11400000, guid: 7ba22b6112922844f9a6901e070896cd, type: 2}
   model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
   attack_list:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}

@@ -27,4 +27,12 @@ public class StatusConditions : ScriptableObject
 
     [SerializeField] private Ailment[] ailment_list;
     [SerializeField] private Condition[] condtion_list;
+
+    public GameObject GetAilmentModel(int index)
+    {
+        if (index < 0 || index >= ailment_list.Length)
+            return null;
+
+        return ailment_list[index].model;
+    }
 }

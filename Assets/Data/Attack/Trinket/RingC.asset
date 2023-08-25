@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: Chain
+  m_Name: RingC
   m_EditorClassIdentifier: 
-  attack_name: Attacker
-  description: Disk
+  attack_name: AtherRing
+  description: A thick peice of string
   element: 1
-  cost: 030000000000000000000000
+  cost: 020000000000000000000000
   area:
     shape: 2
     length: 0
@@ -28,11 +28,8 @@ MonoBehaviour:
     width: 0
     rotatable: 0
     Hollow: 0
-  model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
-  effects:
-  - type: 2
-    target: 0
-    variables: 000000000100000064000000
-  - type: 2
-    target: 0
-    variables: 06000000010000004b000000
+  model: {fileID: 7822409975712715426, guid: 8db56ebd255ff3e40835d5c0376efead, type: 3}
+  affects:
+  - type: 6
+    target: 4
+    variables: 08000000c8000000

@@ -15,7 +15,6 @@ using UnityEngine;
 //TODO Traps.
 public static class ApplyAttack
 {
-    //Use attack
     public static bool TryPayCost(Attack attack, Unit user)
     {
         if (user.GetHp() < attack.GetCost(0))
@@ -62,11 +61,17 @@ public static class ApplyAttack
                 case AttackEffect.Ailments:
                     Ailments(user, units, affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3], affect.variables[4]);
                     break;
+
+                case AttackEffect.Weather:
+                    Weather(user, manager);
+                    break;
             }
         }
     }
 
-    //type: phys, mag, true, lv
+    /*
+     * Affect Types
+     */
     private static void Damage(Unit user, Unit[] targets, Element element, int type, int base_scale, int accuracy)
     {
         foreach (Unit target in targets)
@@ -145,13 +150,18 @@ public static class ApplyAttack
     {
         foreach (Unit target in targets)
         {
-            if (accuracy == -1 || accuracy < UnityEngine.Random.Range(0, 100))
+            if (accuracy != -1 && accuracy < Random.Range(0, 100))
                 continue;
 
-            if (power == -1 || user.GetStat(2) / target.GetStat(5) * power < UnityEngine.Random.Range(0, 200))
+            if (power != -1 && user.GetStat(2) / target.GetStat(5) * power < Random.Range(0, 200))
                 continue;
 
-            target.ChangeAilment(index, UnityEngine.Random.Range(min, max + 1));
+            target.ChangeAilment(index, Random.Range(min, max + 1));
         }
+    }
+
+    private static void Weather(Unit user, DungeonManager manager)
+    {
+
     }
 }

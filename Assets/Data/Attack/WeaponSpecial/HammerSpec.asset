@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: SwordSpec
+  m_Name: HammerSpec
   m_EditorClassIdentifier: 
-  attack_name: Wide Slash
-  description: Large sword swing
+  attack_name: Armor Crush
+  description: Massive blow that lowers armor
   element: 1
   cost: 020000000000000000000000
   area:
@@ -21,15 +21,18 @@ MonoBehaviour:
     length: 1
     width: 1
     rotatable: 0
-    Hollow: 1
+    Hollow: 0
   target:
     shape: 2
     length: 0
-    width: 1
-    rotatable: 1
+    width: 0
+    rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  effects:
+  affects:
   - type: 0
     target: 3
-    variables: 000000003200000064000000
+    variables: 000000003c00000064000000
+  - type: 2
+    target: 3
+    variables: 03000000ffffffff23000000
