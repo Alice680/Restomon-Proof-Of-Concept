@@ -68,7 +68,7 @@ public class Creature
         return null;
     }
 
-    public virtual Trait GetTrait(int index)
+    public virtual Trait[] GetTraits()
     {
         return null;
     }

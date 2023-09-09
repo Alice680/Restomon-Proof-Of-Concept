@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc7dcf59c6821a49949e5a3a6802dfa, type: 3}
   m_Name: TestDummy
   m_EditorClassIdentifier: 
+  monster_name: 
+  lv: 0
+  traits:
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   attacks:
   - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}

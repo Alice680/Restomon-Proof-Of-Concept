@@ -67,12 +67,9 @@ public class Human : Creature
         return stats[index + 2];
     }
 
-    public override Trait GetTrait(int index)
+    public override Trait[] GetTraits()
     {
-        if (index < 0 || index > 8)
-            return null;
-
-        return traits[index];
+        return traits;
     }
 
     public override Attack GetAttack(int index)

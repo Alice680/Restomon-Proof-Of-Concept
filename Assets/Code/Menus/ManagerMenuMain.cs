@@ -150,7 +150,7 @@ public class ManagerMenuMain : MonoBehaviour
         }
         else if (inputer.GetEnter())
         {
-
+            armory_menu.SetTrait();
         }
         else if (inputer.GetBack())
         {

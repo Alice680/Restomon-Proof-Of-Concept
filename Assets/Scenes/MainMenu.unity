@@ -7232,18 +7232,17 @@ MonoBehaviour:
     - {fileID: 64565125}
     - {fileID: 971485786}
     - {fileID: 715611994}
-    trait_selected: 0000000000000000
     current_class: 0
     current_values: 00000000000000000000000000000000
     class_data:
     - name: Warrior
       traits:
-      - Trait A
-      - Trait B
-      - Trait C
-      - Trait D
-      - Trait E
-      - Trait F
+      - Attack Boost
+      - DefenseBoost
+      - TBD
+      - TBD
+      - TBD
+      - TBD
       weapons:
       - Fist
       - Sword
@@ -7256,85 +7255,86 @@ MonoBehaviour:
       - Plate
       accessories:
       - None
-      - Ring A
-      - Ring B
-      - Ring C
+      - Speed Ring
+      - Ather Ring
+      - Defence RIng
       subclasses:
       - name: Brawler
-        traita: A1
-        traitb: A2
+        traita: Drain
+        traitb: Weak Point
       - name: Knight
-        traita: B1
-        traitb: B2
+        traita: Ather Steal
+        traitb: Invigorate
       - name: Guardian
-        traita: C1
-        traitb: C2
+        traita: Thorns
+        traitb: Trap
     - name: Mage
       traits:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
+      - TBD
+      - TBD
+      - TBD
+      - TBD
+      - TBD
+      - TBD
       weapons:
-      - 
-      - 
-      - 
-      - 
+      - Fist
+      - Staff
+      - Tome
+      - Orb
       armors:
-      - 
-      - 
-      - 
-      - 
+      - None
+      - TBD
+      - TBD
+      - TBD
       accessories:
-      - 
-      - 
-      - 
-      - 
+      - None
+      - Fireball
+      - Tremors
+      - Splash
       subclasses:
-      - name: 
-        traita: 
-        traitb: 
-      - name: 
-        traita: 
-        traitb: 
-      - name: 
-        traita: 
-        traitb: 
-    - name: Archer
+      - name: Scribe
+        traita: TBD
+        traitb: TBD
+      - name: Warmage
+        traita: TBD
+        traitb: TBD
+      - name: Sage
+        traita: TBD
+        traitb: TBD
+    - name: Ranger
       traits:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
+      - Ather Powder
+      - Fire Powder
+      - Water Powder
+      - Wood Powder
+      - Metal Powder
+      - Earth Powder
       weapons:
-      - 
-      - 
-      - 
-      - 
+      - Fist
+      - Bow
+      - Cross Bow
+      - Dagger
       armors:
-      - 
+      - None
       - 
       - 
       - 
       accessories:
-      - 
-      - 
-      - 
-      - 
+      - None
+      - Caltrop
+      - Ball Bearing
+      - Poison Fog
       subclasses:
-      - name: 
-        traita: 
-        traitb: 
-      - name: 
-        traita: 
-        traitb: 
-      - name: 
-        traita: 
-        traitb: 
+      - name: Trapper
+        traita: TBD
+        traitb: TBD
+      - name: Scout
+        traita: Bost Defence
+        traitb: Action Momentum
+      - name: Assassin
+        traita: One hit
+        traitb: Accuracy Boost
+    traits: ffffffffffffffffffffffff
   team_menu:
     menu: {fileID: 1855781956}
     x_value: 0

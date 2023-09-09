@@ -12,20 +12,15 @@ using UnityEngine;
  */
 public class Unit
 {
-    private class Ailment
-    {
-        public int type, number;
-
-        public Ailment(int type, int number)
-        {
-            this.type = type;
-            this.number = number;
-        }
-    }
-
     private class Condition
     {
         public int type, rank;
+
+        public Condition(int type, int rank)
+        {
+            this.type = type;
+            this.rank = rank;
+        }
     }
 
     private static int current_id;
@@ -38,8 +33,6 @@ public class Unit
 
     private int[] stat_rank;
 
-    private StatusConditions status_conditions;
-    private List<Ailment> ailments;
     private List<Condition> conditions;
 
     private Vector3Int model_position;
@@ -55,8 +48,6 @@ public class Unit
 
         stat_rank = new int[9];
 
-        status_conditions = (StatusConditions)Resources.Load("Conditions");
-        ailments = new List<Ailment>();
         conditions = new List<Condition>();
 
         switch (creature.GetCreatureType())
@@ -184,30 +175,20 @@ public class Unit
             stat_rank[index] = -4;
     }
 
-    public void ChangeAilment(int index, int num)
+    public void SetCondition(int index, int rank)
     {
-        Ailment to_change = null;
+        Condition current_condition = null;
 
-        foreach (Ailment ailment in ailments)
-        {
-            if (ailment.type == index)
-            {
-                to_change = ailment;
-                break;
-            }
-        }
+        foreach (Condition condition in conditions)
+            if (condition.type == index)
+                current_condition = condition;
 
-        if (to_change != null)
-        {
-            to_change.number += num;
-
-            if (num < 1)
-                ailments.Remove(to_change);
-        }
-        else if (num > 0)
-        {
-            ailments.Add(new Ailment(index, num));
-        }
+        if (rank != -1 && current_condition != null)
+            current_condition.rank = rank;
+        else if (rank != -1 && current_condition == null)
+            conditions.Add(new Condition(index, rank));
+        else if (current_condition != null)
+            conditions.Remove(current_condition);
     }
 
     public void SetPosition(Vector3Int new_position)
@@ -320,12 +301,29 @@ public class Unit
         if (index < 0 || index > 9)
             return -1;
 
-        return (int)(creature.GetStat(index) * Mathf.Pow(2, stat_rank[index] / 2f));
+        return (int)Mathf.Max(1, (creature.GetStat(index) * Mathf.Pow(2, stat_rank[index] / 2f)));
     }
 
-    public Trait GetTrait(int index)
+    public int GetNumConditions()
     {
-        return creature.GetTrait(index);
+        return conditions.Count;
+    }
+
+    public int GetCondition(int index, out int rank)
+    {
+        if (index < 0 || index >= conditions.Count)
+        {
+            rank = -1;
+            return -1;
+        }
+
+        rank = conditions[index].rank;
+        return conditions[index].type;
+    }
+
+    public Trait[] GetTraits()
+    {
+        return creature.GetTraits();
     }
 
     public Attack GetAttack(int index)
@@ -333,23 +331,14 @@ public class Unit
         return creature.GetAttack(index);
     }
 
-    public int[] GetAilments(out int[] value)
-    {
-        int[] ailment_num = new int[ailments.Count];
-        value = new int[ailments.Count];
-
-        for(int i = 0; i < ailments.Count; ++i)
-        {
-            ailment_num[i] = ailments[i].type;
-           value[i] = ailments[i].number;
-        }
-
-        return ailment_num;
-    }
-
     public Vector3Int GetPosition()
     {
         return model_position;
+    }
+
+    public override string ToString()
+    {
+        return id + "";
     }
 
     public bool Compare(Unit unit)

@@ -103,6 +103,7 @@ public class Player : Actor
 
         if (inputer.GetBack())
         {
+            inputer.Clear();
             manager_ref.EndTurn();
             return;
         }

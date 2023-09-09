@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: RingC
   m_EditorClassIdentifier: 
-  attack_name: AtherRing
+  attack_name: Clear Weather
   description: A thick peice of string
   element: 1
   cost: 020000000000000000000000
@@ -30,6 +30,6 @@ MonoBehaviour:
     Hollow: 0
   model: {fileID: 7822409975712715426, guid: 8db56ebd255ff3e40835d5c0376efead, type: 3}
   affects:
-  - type: 6
+  - type: 5
     target: 4
-    variables: 08000000c8000000
+    variables: 00000000c8000000

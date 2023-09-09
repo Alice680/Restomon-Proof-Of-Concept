@@ -12,8 +12,9 @@ using UnityEngine;
 public class StatusConditions : ScriptableObject
 {
     [Serializable]
-    private class Ailment
+    private class ConditionRank
     {
+        public string name;
         public Trait effect;
         public GameObject model;
     }
@@ -21,18 +22,32 @@ public class StatusConditions : ScriptableObject
     [Serializable]
     private class Condition
     {
-        public Trait[] effect;
-        public GameObject[] model;
+        public ConditionRank[] ranks;
     }
 
-    [SerializeField] private Ailment[] ailment_list;
     [SerializeField] private Condition[] condtion_list;
 
-    public GameObject GetAilmentModel(int index)
+    public string GetName(int index, int rank)
     {
-        if (index < 0 || index >= ailment_list.Length)
+        if (index < 0 || index >= condtion_list.Length || rank < 0 || rank >= condtion_list[index].ranks.Length)
+            return "";
+
+        return condtion_list[index].ranks[rank].name;
+    }
+
+    public Trait GetTrait(int index, int rank)
+    {
+        if (index < 0 || index >= condtion_list.Length || rank < 0 || rank >= condtion_list[index].ranks.Length)
             return null;
 
-        return ailment_list[index].model;
+        return condtion_list[index].ranks[rank].effect;
+    }
+
+    public GameObject GetModel(int index, int rank)
+    {
+        if (index < 0 || index >= condtion_list.Length || rank < 0 || rank >= condtion_list[index].ranks.Length)
+            return null;
+
+        return condtion_list[index].ranks[rank].model;
     }
 }

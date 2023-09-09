@@ -12,7 +12,7 @@ using UnityEngine;
 // TODO finish conditions
 // TODO Weather
 // TODO Set tile traps
-public enum AttackEffect { Damage, Healing, Buff, AddToTurn, Ailments, Condtions, Weather }
+public enum AttackEffect { Damage, Healing, Buff, AddToTurn, Condtions, Weather, TileCondtion }
 public enum Target { Self, Enemy, Ally, All, Dungeon, Tile }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableAttack", order = 2)]

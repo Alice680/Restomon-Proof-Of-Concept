@@ -18,6 +18,8 @@ public class DungeonManager : MonoBehaviour
     private PermDataHolder data_holder;
     private DungeonUI dungeon_ui;
     private ManagerMenuActions action_menu;
+    private DungeonWeatherManager weather_manager;
+    private StatusConditions condition_list;
 
     private DungeonMap map;
     private TurnKeeper turn_keeper;
@@ -43,6 +45,8 @@ public class DungeonManager : MonoBehaviour
         data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
         dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
         action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuActions>();
+        weather_manager = GameObject.Find("WeatherManager").GetComponent<DungeonWeatherManager>();
+        condition_list = (StatusConditions)Resources.Load("Conditions");
 
         turn_keeper = new TurnKeeper();
         player_units = new List<Unit>();
@@ -80,6 +84,8 @@ public class DungeonManager : MonoBehaviour
 
         map.MoveUnit(new_position, current_unit);
 
+        ApplyTrait.OnMove(current_unit, GetAllTraits(current_unit), this);
+
         performed_action = true;
         --moves;
     }
@@ -95,6 +101,7 @@ public class DungeonManager : MonoBehaviour
             return;
 
         List<Unit> attack_targets = new List<Unit>();
+        List<Trait[]> trait_targets = new List<Trait[]>();
 
         RemoveAttackModels();
 
@@ -105,10 +112,13 @@ public class DungeonManager : MonoBehaviour
             attack_moddels.Add(Instantiate(attack.GetModel(), positions[i], new Quaternion()));
 
             if (map.GetUnit(positions[i]) != null)
+            {
                 attack_targets.Add(map.GetUnit(positions[i]));
+                trait_targets.Add(GetAllTraits(map.GetUnit(positions[i])));
+            }
         }
 
-        ApplyAttack.ApplyEffect(attack, current_unit, attack_targets.ToArray(), positions, map, this);
+        ApplyAttack.ApplyEffect(attack, current_unit, GetAllTraits(current_unit), attack_targets.ToArray(), trait_targets, positions, map, this);
 
         attack_time = Time.time;
         performed_action = true;
@@ -130,8 +140,13 @@ public class DungeonManager : MonoBehaviour
 
     public void EndTurn()
     {
-        RemoveAttackModels();
+        if (performed_action)
+            return;
+
         RemoveMarker();
+
+        if (current_unit != null && current_unit.GetCreatureType() != CreatureType.Arena)
+            ApplyTrait.EndTurn(current_unit, GetAllTraits(current_unit), this);
 
         turn_keeper.NextTurn();
 
@@ -141,6 +156,9 @@ public class DungeonManager : MonoBehaviour
 
         moves = current_unit.GetStat(7);
         actions = current_unit.GetStat(8);
+
+        if (current_unit.GetCreatureType() != CreatureType.Arena)
+            ApplyTrait.StartTurn(current_unit, GetAllTraits(current_unit), this);
 
         dungeon_ui.UpdateActions(0, 0);
 
@@ -222,12 +240,22 @@ public class DungeonManager : MonoBehaviour
 
         foreach (Unit unit in GetAllUnits())
             if (unit.GetHp() == 0)
+            {
+                ApplyTrait.OnKill(current_unit, unit, GetAllTraits(current_unit), GetAllTraits(unit), this);
+
                 RemoveUnit(unit);
+            }
+
+        if (current_unit.GetHp() == 0)
+        {
+            current_unit = null;
+            EndTurn();
+        }
 
         performed_action = false;
     }
-    
-    // TODO Remove all setters by finishing assosiated systems or turning them into actions
+
+    // TODO Remove all public setters by finishing assosiated systems or turning them into actions
     public void ChangeMovement(int value)
     {
         moves += value;
@@ -266,6 +294,8 @@ public class DungeonManager : MonoBehaviour
     {
         map.RemoveAllMarker();
 
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+
         Attack attack = current_unit.GetAttack(index);
 
         Vector3Int unit_position = current_unit.GetPosition();
@@ -287,6 +317,8 @@ public class DungeonManager : MonoBehaviour
     {
         map.RemoveAllMarker();
 
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+
         Attack attack = current_unit.GetAttack(index);
 
         Vector3Int[] positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
@@ -299,6 +331,7 @@ public class DungeonManager : MonoBehaviour
 
     public void RemoveMarker()
     {
+        dungeon_ui.UpdateUnitStatus(null);
         map.RemoveAllMarker();
     }
 
@@ -389,6 +422,28 @@ public class DungeonManager : MonoBehaviour
             units.Add(unit);
 
         return units.ToArray();
+    }
+
+    // TODO grab trait from conditions
+    private Trait[] GetAllTraits(Unit unit)
+    {
+        List<Trait> trait_list = new List<Trait>();
+
+        foreach (Trait trait in unit.GetTraits())
+            trait_list.Add(trait);
+
+        trait_list.Add(weather_manager.GetTrait());
+
+        trait_list.Add(map.GetTileTrait(unit.GetPosition()));
+
+        int index = -1, rank = -1;
+        for (int i = 0; i < unit.GetNumConditions(); ++i)
+        {
+            index = unit.GetCondition(i, out rank);
+            trait_list.Add(condition_list.GetTrait(index, rank));
+        }
+
+        return trait_list.ToArray();
     }
 
     /*

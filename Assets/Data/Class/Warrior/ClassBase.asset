@@ -40,7 +40,7 @@ MonoBehaviour:
     act: 0
   class_attack: {fileID: 11400000, guid: 86fcb5d518364424f8293fcc330aa517, type: 2}
   class_trait:
-  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 294292beb77cdb948b27ce83260d5e6a, type: 2}
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
@@ -48,25 +48,25 @@ MonoBehaviour:
   subclasses:
   - subclass_name: Brawler
     description: A warrior who uses thier body
-    subclass_trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    subclass_trait: {fileID: 11400000, guid: 25041cfe968111140bebdc52258a8847, type: 2}
     free_traits:
-    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 22caadcb4a3df8d409af6f84fc512942, type: 2}
+    - {fileID: 11400000, guid: 172041659e521ba4586dde66f0b370b5, type: 2}
+    attack: {fileID: 11400000, guid: 92fe1ca132a6fb64c935565fe3e893db, type: 2}
   - subclass_name: Knight
     description: disc
-    subclass_trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    subclass_trait: {fileID: 11400000, guid: 77970f9bb1645da4eb98fc15eaf8e5e2, type: 2}
     free_traits:
-    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: e83cc176d6c0aa6499efe12b47d6434c, type: 2}
+    - {fileID: 11400000, guid: a95e56955b94a234b8861d50a6b8b6dc, type: 2}
+    attack: {fileID: 11400000, guid: f40bd208c684b1246b1950d30e829662, type: 2}
   - subclass_name: Guardian
     description: A heavly armored protected
-    subclass_trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    subclass_trait: {fileID: 11400000, guid: d2a9aa72dfcac6e44b4d0c120d5773fb, type: 2}
     free_traits:
-    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 1ebdae98ef0473c4189819f527bf277e, type: 2}
+    - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
+    attack: {fileID: 11400000, guid: aba4e90519b82a949b9d903fb16a21e9, type: 2}
   tamerclasses: []
   weapons:
   - weapon_name: Fist
@@ -114,7 +114,7 @@ MonoBehaviour:
   - trinket_name: SwiftRing
     description: Empty
     special_attack: {fileID: 11400000, guid: 79c3301c302114c4ba2a978954aece58, type: 2}
-    trait: {fileID: 11400000, guid: 7ba22b6112922844f9a6901e070896cd, type: 2}
+    trait: {fileID: 11400000, guid: e423e9237782c654681acb18bded187f, type: 2}
   - trinket_name: AtherRing
     description: Draws in Ather
     special_attack: {fileID: 11400000, guid: daa3cd117dd62c24e99abe12d0f5cbb5, type: 2}
@@ -128,3 +128,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   trait_list:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 61a08d2ba1eb94f428a91344baf54a44, type: 2}
+  - {fileID: 11400000, guid: 927cdbd1f68a9c24ca3ceb944be02968, type: 2}
+  - {fileID: 11400000, guid: 8fe1728d8c93f5c4cb04b64b6143b67c, type: 2}
+  - {fileID: 11400000, guid: f17bf0676e85d3348a3d12f108403d2f, type: 2}
+  - {fileID: 11400000, guid: 77bb3719df82350488dd54008920c73e, type: 2}
+  - {fileID: 11400000, guid: e46900de4435d5043951523b931dc1c2, type: 2}

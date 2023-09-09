@@ -15,17 +15,17 @@ MonoBehaviour:
   class_name: Mage
   description: A Mage
   base_stats:
-    hp: 0
-    apr: 0
-    atk: 0
-    mag: 0
-    frc: 0
-    def: 0
-    shd: 0
-    wil: 0
-    spd: 0
-    mov: 0
-    act: 0
+    hp: 15
+    apr: 2
+    atk: 1
+    mag: 3
+    frc: 2
+    def: 1
+    shd: 1
+    wil: 1
+    spd: 5
+    mov: 5
+    act: 1
   stat_growth:
     hp: 0
     apr: 0
@@ -38,13 +38,98 @@ MonoBehaviour:
     spd: 0
     mov: 0
     act: 0
-  class_attack: {fileID: 0}
-  class_trait: []
-  subclasses: []
+  class_attack: {fileID: 11400000, guid: c62b588f3557774418a3bdddd6e925e0, type: 2}
+  class_trait:
+  - {fileID: 11400000, guid: 1ac36ad09430c4247be89fe819918a68, type: 2}
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  subclasses:
+  - subclass_name: Scribe
+    description: None
+    subclass_trait: {fileID: 11400000, guid: b893877e28db1754ea25a34c848b5608, type: 2}
+    free_traits:
+    - {fileID: 11400000, guid: af49fcf87cc23484c90bdf4b94614140, type: 2}
+    - {fileID: 11400000, guid: 4cb0ce9e5e2e5144383e1551846fd03d, type: 2}
+    attack: {fileID: 11400000, guid: 3b216c0ecd8d1ea4994862d41a41ad16, type: 2}
+  - subclass_name: Sage
+    description: None
+    subclass_trait: {fileID: 11400000, guid: 87ab55f3a87d1e04ba448d5fff49ae7f, type: 2}
+    free_traits:
+    - {fileID: 11400000, guid: cf85de05606ed4f4591cc6734c488a41, type: 2}
+    - {fileID: 11400000, guid: 5ca6c6fb267fb4548a83d8ce93f846cf, type: 2}
+    attack: {fileID: 11400000, guid: 9083d49a847f3cf4484b00663f21bd2a, type: 2}
+  - subclass_name: War Mage
+    description: None
+    subclass_trait: {fileID: 11400000, guid: cbb203b84e007ce40a1f4371f12d5973, type: 2}
+    free_traits:
+    - {fileID: 11400000, guid: d44c0c119fcc95e4a8fc2ad223d62ea4, type: 2}
+    - {fileID: 11400000, guid: 8586b16c54ee17640873bca0e03b0265, type: 2}
+    attack: {fileID: 11400000, guid: b8a3fc759336cf848b18fc4eb97544ab, type: 2}
   tamerclasses: []
-  weapons: []
-  armors: []
-  trinkets: []
+  weapons:
+  - weapon_name: Unarmed
+    description: None
+    basic_attack: {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+    special_attack: {fileID: 11400000, guid: 38d4b0227b8c2c648ba2e3007160a243, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Staff
+    description: None
+    basic_attack: {fileID: 11400000, guid: d03db5a4355cd7e408fa13353a486ee2, type: 2}
+    special_attack: {fileID: 11400000, guid: a023ee7eaec2f904780128e4caed441e, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Tome
+    description: None
+    basic_attack: {fileID: 11400000, guid: 4234d79243abf344cbf92fa4b9134fee, type: 2}
+    special_attack: {fileID: 11400000, guid: d32a1f2a94edeb94fbc8db52b65ffb2b, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Orb
+    description: None
+    basic_attack: {fileID: 11400000, guid: a2a694e33d2b4b94bbfbbe52cea61c20, type: 2}
+    special_attack: {fileID: 11400000, guid: 76bff8c72735e464495aea721edbac2b, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  armors:
+  - armor_name: None
+    description: None
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - armor_name: None
+    description: None
+    defensive_attack: {fileID: 11400000, guid: b22330361a929114e804b45454b4723f, type: 2}
+    trait: {fileID: 11400000, guid: f558867cca43b204fb3cb315afa83d05, type: 2}
+  - armor_name: None
+    description: None
+    defensive_attack: {fileID: 11400000, guid: a2e7123e448e0204e99bb2a899bfe0be, type: 2}
+    trait: {fileID: 11400000, guid: 9ec75ff1a4b4d684e8f4313f561eb15e, type: 2}
+  - armor_name: None
+    description: None
+    defensive_attack: {fileID: 11400000, guid: a239af8d47c12bd4b9d290e1ded591e9, type: 2}
+    trait: {fileID: 11400000, guid: 9d190a142a8c2554ab8b9258fbecaaff, type: 2}
+  trinkets:
+  - trinket_name: None
+    description: None
+    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - trinket_name: FireBall
+    description: None
+    special_attack: {fileID: 11400000, guid: 5112bf3c21326d24d85a1042014b850c, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - trinket_name: Tremors
+    description: None
+    special_attack: {fileID: 11400000, guid: d25e121a06cb9c5448fb00b21726515c, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - trinket_name: Splash
+    description: None
+    special_attack: {fileID: 11400000, guid: adcf5ddfaeb2ff647b84bd26f71008b9, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   model: {fileID: 4490433475202409575, guid: 296d3949ad7b71f4dadfe8f1599b2e00, type: 3}
-  attack_list: []
-  trait_list: []
+  attack_list:
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  trait_list:
+  - {fileID: 11400000, guid: 6d7b20748e2b3b1479bd453ee2704b45, type: 2}
+  - {fileID: 11400000, guid: d20249ce53f74d2418cfce9c16113f70, type: 2}
+  - {fileID: 11400000, guid: 5eef19b14d05caa4a84b65292da5433a, type: 2}
+  - {fileID: 11400000, guid: 3c9af010a2794d040adc9e21acb6049f, type: 2}
+  - {fileID: 11400000, guid: 1cef2a82293e9e949924a93460b88fff, type: 2}
+  - {fileID: 11400000, guid: 5398983ad01c66048a925e946aacba5b, type: 2}

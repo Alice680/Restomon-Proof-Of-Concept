@@ -41,12 +41,16 @@ public class ShapeData
         switch (shape)
         {
             case Shape.Line:
-                for (int i = 1; i <= length; ++i)
-                    for (int e = 1; e <= width; ++e)
+                for (int i = 0; i <= length; ++i)
+                    for (int e = -width; e <= width; ++e)
                         area.Add(new Vector3Int(e, i, 0));
                 break;
 
+            // TODO write proper equation for when it is not equal size
             case Shape.Cone:
+                for (int i = 0; i <= length; ++i)
+                    for (int e = -width + (length-i); e <= width - (length - i); ++e)
+                        area.Add(new Vector3Int(e, i, 0));
                 break;
 
             case Shape.Cube:
@@ -55,10 +59,10 @@ public class ShapeData
                         area.Add(new Vector3Int(e, i, 0));
                 break;
 
+                // TODO write proper equation for when it is not equal size
             case Shape.Blast:
                 for (int i = -length; i <= length; ++i)
-                    for (int e = -width; e <= width; ++e)
-                        if (i + e <= length)
+                    for (int e = -width + Mathf.Abs(i); e <= width - Mathf.Abs(i); ++e)
                             area.Add(new Vector3Int(e, i, 0));
                 break;
 

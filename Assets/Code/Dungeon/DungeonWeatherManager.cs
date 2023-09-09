@@ -44,7 +44,7 @@ public class DungeonWeatherManager : MonoBehaviour
         return weather_list[current_weather].GetModel();
     }
 
-    public Trait GetWatherCondition()
+    public Trait GetTrait()
     {
         return weather_list[current_weather].GetWeatherCondition();
     }

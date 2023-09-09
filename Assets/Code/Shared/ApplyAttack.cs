@@ -9,10 +9,7 @@ using UnityEngine;
  * Notes:
  * Dose not handle getting the targets. Only what to do with them once they are found.
  */
-//TODO healing.
-//TODO Condtions.
-//TODO Weather.
-//TODO Traps.
+//TODO Tile Effects.
 public static class ApplyAttack
 {
     public static bool TryPayCost(Attack attack, Unit user)
@@ -25,7 +22,7 @@ public static class ApplyAttack
         return true;
     }
 
-    public static void ApplyEffect(Attack attack, Unit user, Unit[] targets, Vector3Int[] tiles, DungeonMap map, DungeonManager manager)
+    public static void ApplyEffect(Attack attack, Unit user, Trait[] user_traits, Unit[] targets, List<Trait[]> target_traits, Vector3Int[] tiles, DungeonMap map, DungeonManager manager)
     {
         if (attack == null || user == null || targets == null || tiles == null || map == null || manager == null)
             return;
@@ -33,37 +30,82 @@ public static class ApplyAttack
 
         foreach (AttackAffect affect in attack.GetAffects())
         {
-            Unit[] units;
-
-            if (affect.target == Target.Self)
-                units = new Unit[1] { user };
-            else
-                units = targets;
-
             switch (affect.type)
             {
                 case AttackEffect.Damage:
-                    Damage(user, units, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
+                    if (affect.target == Target.Self)
+                        Damage(user, user_traits, user, user_traits, manager, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
+                    else
+                        for (int i = 0; i < targets.Length; ++i)
+                        {
+                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
+                                continue;
+
+                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
+                                continue;
+
+                            Damage(user, user_traits, targets[i], target_traits[i], manager, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
+                        }
                     break;
 
                 case AttackEffect.Healing:
+                    if (affect.target == Target.Self)
+                        Heal(user, user_traits, user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                    else
+                        for (int i = 0; i < targets.Length; ++i)
+                        {
+                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
+                                continue;
 
+                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
+                                continue;
+
+                            Heal(user, user_traits, targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2]);
+                        }
                     break;
 
                 case AttackEffect.Buff:
-                    Buff(units, affect.variables[0], affect.variables[1], affect.variables[2]);
+                    if (affect.target == Target.Self)
+                        Buff(user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                    else
+                        for (int i = 0; i < targets.Length; ++i)
+                        {
+                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
+                                continue;
+
+                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
+                                continue;
+
+                            Buff(targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2]);
+                        }
                     break;
 
                 case AttackEffect.AddToTurn:
-                    AddToTurn(manager, affect.variables[0], affect.variables[1]);
+                    AddToTurn(manager, affect.variables[0], affect.variables[1], affect.variables[2]);
                     break;
 
-                case AttackEffect.Ailments:
-                    Ailments(user, units, affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3], affect.variables[4]);
+                case AttackEffect.Condtions:
+                    if (affect.target == Target.Self)
+                        ApplyCondition(user, user_traits, user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3]);
+                    else
+                        for (int i = 0; i < targets.Length; ++i)
+                        {
+                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
+                                continue;
+
+                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
+                                continue;
+
+                            ApplyCondition(user, user_traits, targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3]);
+                        }
                     break;
 
                 case AttackEffect.Weather:
                     Weather(user, manager);
+                    break;
+
+                case AttackEffect.TileCondtion:
+                    TileCondition(user);
                     break;
             }
         }
@@ -72,73 +114,86 @@ public static class ApplyAttack
     /*
      * Affect Types
      */
-    private static void Damage(Unit user, Unit[] targets, Element element, int type, int base_scale, int accuracy)
+    private static void Damage(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, DungeonManager manager, Element element, int type, int base_scale, int accuracy)
     {
-        foreach (Unit target in targets)
+        if (accuracy < Random.Range(0, 100))
+            return;
+
+        float damage = 0;
+        int crit_rate;
+        switch (type)
         {
-            if (accuracy < Random.Range(0, 100))
-                continue;
+            case 0:
+                damage = (user.GetLV() + 3f) / 2f;
 
-            float damage = 0;
-            switch (type)
-            {
-                case 0:
-                    damage = (user.GetLV() + 3f) / 2f;
+                damage *= base_scale / 50F;
+                damage *= user.GetStat(0) / target.GetStat(3);
+                damage *= 1 + (0.05F * user.GetElementAffinity(element));
+                damage *= Mathf.Pow(2, target.GetResistance(element));
+                damage *= (100f + ApplyTrait.DamageBoost(user_trait, out crit_rate) + ApplyTrait.DefenseBoost(target_trait)) / 100f;
+                damage *= (Random.Range(0, crit_rate) == 0) ? 1.35f : 1f;
+                damage += 1;
+                break;
+            case 1:
+                damage = (user.GetLV() + 3f) / 2f;
 
-                    damage *= base_scale / 50F;
-                    damage *= user.GetStat(0) / target.GetStat(3);
-                    damage *= 1 + (0.05F * user.GetElementAffinity(element));
-                    damage *= Mathf.Pow(2, target.GetResistance(element));
-                    damage *= (UnityEngine.Random.Range(0, 15) == 0 ? 1.35f : 1f);
-                    damage += 1;
-
-                    Debug.Log(damage);
-                    break;
-                case 1:
-                    damage = (user.GetLV() + 3f) / 2f;
-
-                    damage *= base_scale / 50F;
-                    damage *= user.GetStat(1) / target.GetStat(4);
-                    damage *= 1 + (0.05F * user.GetElementAffinity(element));
-                    damage *= Mathf.Pow(2, target.GetResistance(element));
-                    damage *= (UnityEngine.Random.Range(0, 15) == 0 ? 1.35f : 1f);
-                    damage += 1;
-
-                    Debug.Log(damage);
-                    break;
-                case 2:
-                    damage = -base_scale;
-                    break;
-                case 3:
-                    damage = user.GetLV() * base_scale / 100f;
-                    break;
-            }
-            target.ChangeHp(-(int)damage);
+                damage *= base_scale / 50F;
+                damage *= user.GetStat(1) / target.GetStat(4);
+                damage *= 1 + (0.05F * user.GetElementAffinity(element));
+                damage *= Mathf.Pow(2, target.GetResistance(element));
+                damage *= (100f + ApplyTrait.DamageBoost(user_trait, out crit_rate) + ApplyTrait.DefenseBoost(target_trait)) / 100f;
+                damage *= (Random.Range(0, crit_rate)) == 0 ? 1.35f : 1f;
+                damage += 1;
+                break;
+            case 2:
+                damage = -base_scale;
+                break;
+            case 3:
+                damage = user.GetLV() * base_scale / 100f;
+                break;
         }
+        Debug.Log(damage);
+        target.ChangeHp(-(int)damage);
+
+        ApplyTrait.OnStrike(user, target, user_trait, target_trait, manager, element, (int)damage);
     }
 
-    //TODO add healing, low priority
-    private static void Heal(Unit user, Unit[] targets, int scale)
+    private static void Heal(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int type, int scale, int accuracy)
     {
+        if (accuracy < Random.Range(0, 100))
+            return;
+
+        float healing = 0;
+        switch (type)
+        {
+            case 0:
+                healing = scale;
+                break;
+            case 1:
+                healing = scale / 100f * target.GetMaxHP();
+                break;
+        }
+
+        target.ChangeHp((int)healing);
 
     }
 
-    private static void Buff(Unit[] targets, int index, int amount, int accuracy)
+    private static void Buff(Unit target, Trait[] target_trait, int index, int amount, int accuracy)
     {
         if (index < 0 || index > 9)
             return;
 
-        foreach (Unit target in targets)
-        {
-            if (accuracy < UnityEngine.Random.Range(0, 100))
-                continue;
+        if (accuracy < Random.Range(0, 100))
+            return;
 
-            target.ChangeStatRank(index, amount);
-        }
+        target.ChangeStatRank(index, amount);
     }
 
-    private static void AddToTurn(DungeonManager manager, int index, int change)
+    private static void AddToTurn(DungeonManager manager, int index, int change, int accuracy)
     {
+        if (accuracy < Random.Range(0, 100))
+            return;
+
         if (index == 0)
             manager.ChangeMovement(change);
 
@@ -146,21 +201,23 @@ public static class ApplyAttack
             manager.ChangeAction(change);
     }
 
-    private static void Ailments(Unit user, Unit[] targets, int index, int power, int min, int max, int accuracy)
+    private static void ApplyCondition(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int index, int rank, int power, int accuracy)
     {
-        foreach (Unit target in targets)
-        {
-            if (accuracy != -1 && accuracy < Random.Range(0, 100))
-                continue;
+        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+            return;
 
-            if (power != -1 && user.GetStat(2) / target.GetStat(5) * power < Random.Range(0, 200))
-                continue;
+        if (power != -1 && 1.0f * user.GetStat(2) / target.GetStat(5) * power < Random.Range(0, 200))
+            return;
 
-            target.ChangeAilment(index, Random.Range(min, max + 1));
-        }
+        target.SetCondition(index, rank);
     }
 
     private static void Weather(Unit user, DungeonManager manager)
+    {
+
+    }
+
+    private static void TileCondition(Unit user)
     {
 
     }

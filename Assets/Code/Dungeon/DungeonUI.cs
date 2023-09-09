@@ -22,6 +22,9 @@ public class DungeonUI : MonoBehaviour
     public Text[] status_text_row;
     public GameObject[] status_icon_row;
 
+    public Text condition_name;
+    private GameObject[] condition_icons;
+
     public GameObject cam;
 
     public StatusConditions condition_list;
@@ -56,27 +59,42 @@ public class DungeonUI : MonoBehaviour
     {
         ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
 
-        int[] temp_b;
-        int[] temp = player.GetAilments(out temp_b);
-
         for (int i = 0; i < 4; ++i)
         {
             status_text_row[i].text = "";
-            Destroy(status_icon_row[i]);
         }
+    }
 
-        for (int i = 0; i < temp.Length; ++i)
+    public void UpdateUnitStatus(Unit target)
+    {
+        int index = -1, rank = -1;
+
+        for (int i = 0; i < 12; ++i)
+            if (condition_icons[i] != null)
+                Destroy(condition_icons[i]);
+
+        condition_name.text = "";
+
+        if (target == null)
+            return;
+
+        for (int i = 0; i < target.GetNumConditions(); ++i)
         {
-            status_text_row[i].text = "" + temp_b[i];
-            status_icon_row[i] = Instantiate(condition_list.GetAilmentModel(temp[i]));
-            status_icon_row[i].transform.parent = cam.transform;
-            status_icon_row[i].transform.localPosition = new Vector3(2.45f + (0.4f*i), 3.75f, 10);
+            index = target.GetCondition(i, out rank);
+
+            condition_icons[i] = Instantiate(condition_list.GetModel(index, rank));
+            condition_icons[i].transform.parent = cam.transform;
+            condition_icons[i].transform.localPosition = new Vector3(2.25f + (0.5f * (i % 4)), 0.25f - (0.5f * (i / 4)), 10f);
         }
 
+        // TODO add get name
+        condition_name.text = "Name";
     }
 
     public void Reset(DungeonMap map)
     {
         current_map = map;
+
+        condition_icons = new GameObject[12];
     }
 }

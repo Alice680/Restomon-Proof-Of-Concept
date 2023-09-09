@@ -17,8 +17,8 @@ using UnityEngine;
  */
 // TODO Make interface so I don't need to relly on the list for variables
 // TODO Make more types.
-public enum TraitCondition { None, Passive }
-public enum TraitAbility { None, BaseStats }
+public enum TraitCondition { None, Passive, StartTurn, EndTurn, OnStrike, OnStruck, OnKill, OnKilled, OnMove }
+public enum TraitAbility { None, BaseStats, Damage, Healing, Buff, AddToTurn, ApplyCondtions, IncrementCondition, Weather, InstantKill, BoostDamage, BoostDefence, BoostCrit, BoostAccuracy }
 
 [CreateAssetMenu(fileName = "Class", menuName = "ScriptableObjects/Trait")]
 public class Trait : ScriptableObject
@@ -59,7 +59,7 @@ public class Trait : ScriptableObject
     public TraitCondition GetCondition(int index)
     {
         if (index < 0 || index >= affects.Length)
-            return  TraitCondition.None;
+            return TraitCondition.None;
 
         return affects[index].condition;
     }

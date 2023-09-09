@@ -179,11 +179,11 @@ public class DungeonMap
     }
 
     //Tile Conditions
-    public Trait GetTileEffect(Vector3Int vec)
+    public Trait GetTileTrait(Vector3Int vec)
     {
-        return GetTileEffect(vec.x, vec.y);
+        return GetTileTrait(vec.x, vec.y);
     }
-    public Trait GetTileEffect(int x, int y)
+    public Trait GetTileTrait(int x, int y)
     {
         return tile_conditions.GetEffect(nodes[x,y].tile_condition);
     }

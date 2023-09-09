@@ -55,12 +55,9 @@ public class Monster : Creature
         return stats[index + 1];
     }
 
-    public override Trait GetTrait(int index)
+    public override Trait[] GetTraits()
     {
-        if (index < 0 || index >= traits.Length)
-            return null;
-
-        return traits[index];
+        return traits;
     }
 
     public override Attack GetAttack(int index)

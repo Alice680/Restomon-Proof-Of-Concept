@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_name: Quicken
   description: Disk
+  attack_type: 1
   element: 1
   cost: 000000000000000000000000
   area:

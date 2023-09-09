@@ -21,10 +21,7 @@ public class Inputer
 
     public void Run()
     {
-        dir = Direction.None;
-        enter = false;
-        back = false;
-        action_one = false;
+        Clear();
 
         if (Time.time - last_input <= 0.1F)
             return;
@@ -49,6 +46,14 @@ public class Inputer
 
         if (dir != Direction.None || enter || back || action_one)
             last_input = Time.time;
+    }
+
+    public void Clear()
+    {
+        dir = Direction.None;
+        enter = false;
+        back = false;
+        action_one = false;
     }
 
     public Direction GetDir()

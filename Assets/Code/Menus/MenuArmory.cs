@@ -38,13 +38,14 @@ public class MenuArmory : MenuSwapIcon
 
     //0-7 Traits
     [SerializeField] private GameObject[] markers;
-    [SerializeField] private bool[] trait_selected;
 
     //0 subclass | 1 Weapon | 2 Armor | 3 Accessory
     [SerializeField] private int current_class;
     [SerializeField] private int[] current_values;
 
     [SerializeField] private ClassData[] class_data;
+
+    [SerializeField] private int[] traits = new int[3] { -1, -1, -1 };
 
     public override void Activate()
     {
@@ -66,9 +67,15 @@ public class MenuArmory : MenuSwapIcon
             {
                 case 0:
                     GetInputValue(current_class, 0, 3, 1, dir, out current_class, out dead_variable);
+
+                    for (int i = 0; i < 3; ++i)
+                        traits[i] = -1;
                     break;
                 case 1:
                     GetInputValue(current_values[0], 0, 3, 1, dir, out current_values[0], out dead_variable);
+
+                    for (int i = 0; i < 3; ++i)
+                        traits[i] = -1;
                     break;
                 case 10:
                     GetInputValue(current_values[1], 0, 4, 1, dir, out current_values[1], out dead_variable);
@@ -109,18 +116,35 @@ public class MenuArmory : MenuSwapIcon
         base.UpdateMenu(Direction.None);
     }
 
+    public void SetTrait()
+    {
+        if (y_value < 2 || y_value > 9)
+            return;
+
+        for (int i = 0; i < 3; ++i)
+            if (traits[i] == y_value - 2)
+            {
+                traits[i] = -1;
+                markers[y_value - 2].SetActive(false);
+                return;
+            }
+
+        for (int i = 0; i < 3; ++i)
+            if (traits[i] == -1)
+            {
+                traits[i] = y_value - 2;
+                markers[y_value - 2].SetActive(true);
+                return;
+            }
+    }
+
     public void SetData(PermDataHolder data_holder)
     {
-        data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], 0, 0, 0);
+        data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], traits[0] + 1, traits[1] + 1, traits[2] + 1);
     }
 
     private void Display()
     {
-        for (int i = 0; i < 8; ++i)
-        {
-            markers[i].SetActive(trait_selected[i]);
-        }
-
         text_boxes[0].text = class_data[current_class].name;
         text_boxes[1].text = class_data[current_class].subclasses[current_values[0]].name;
         text_boxes[2].text = class_data[current_class].traits[0];
@@ -134,5 +158,12 @@ public class MenuArmory : MenuSwapIcon
         text_boxes[10].text = class_data[current_class].weapons[current_values[1]];
         text_boxes[11].text = class_data[current_class].armors[current_values[2]];
         text_boxes[12].text = class_data[current_class].accessories[current_values[3]];
+
+        for (int i = 0; i < 8; ++i)
+            markers[i].SetActive(false);
+
+        for (int i = 0; i < 3; ++i)
+            if (traits[i] != -1)
+                markers[traits[i]].SetActive(true);
     }
 }

@@ -70,12 +70,9 @@ public class Restomon : Creature
         return stats[index + 3];
     }
 
-    public override Trait GetTrait(int index)
+    public override Trait[] GetTraits()
     {
-        if (index < 0 || index > 2)
-            return null;
-
-        return traits[index];
+        return traits;
     }
 
     public override Attack GetAttack(int index)
