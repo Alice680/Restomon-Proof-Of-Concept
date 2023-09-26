@@ -338,7 +338,7 @@ public class Unit
 
     public override string ToString()
     {
-        return id + "";
+        return creature.ToString();
     }
 
     public bool Compare(Unit unit)

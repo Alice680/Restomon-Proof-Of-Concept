@@ -69,14 +69,16 @@ public class DungeonUI : MonoBehaviour
     {
         int index = -1, rank = -1;
 
+        condition_name.text = "";
+
         for (int i = 0; i < 12; ++i)
             if (condition_icons[i] != null)
                 Destroy(condition_icons[i]);
 
-        condition_name.text = "";
-
         if (target == null)
             return;
+
+        condition_name.text = target.ToString();
 
         for (int i = 0; i < target.GetNumConditions(); ++i)
         {
@@ -86,9 +88,6 @@ public class DungeonUI : MonoBehaviour
             condition_icons[i].transform.parent = cam.transform;
             condition_icons[i].transform.localPosition = new Vector3(2.25f + (0.5f * (i % 4)), 0.25f - (0.5f * (i / 4)), 10f);
         }
-
-        // TODO add get name
-        condition_name.text = "Name";
     }
 
     public void Reset(DungeonMap map)

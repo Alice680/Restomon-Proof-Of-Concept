@@ -77,4 +77,9 @@ public class Creature
     {
         return null;
     }
+
+    public override string ToString()
+    {
+        return "Error, using creature";
+    }
 }

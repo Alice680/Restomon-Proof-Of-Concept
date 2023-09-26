@@ -72,4 +72,9 @@ public class Monster : Creature
     {
         return GameObject.Instantiate(model);
     }
+
+    public override string ToString()
+    {
+        return monster_name;
+    }
 }

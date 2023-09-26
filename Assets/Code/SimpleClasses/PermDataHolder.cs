@@ -46,7 +46,7 @@ public class PermDataHolder : MonoBehaviour
 
     public void SetPlayer(int class_i, int sub_i, int weapon_i, int armor_i, int trinket_i, int trait_a, int trait_b, int trait_c)
     {
-        current_player = classes[class_i].GetHuman(3, sub_i, weapon_i, armor_i, trinket_i, 0, new int[3] { trait_a, trait_b, trait_c });
+        current_player = classes[class_i].GetHuman(3, sub_i, weapon_i, armor_i, trinket_i, 0, new int[3] { trait_a, trait_b, trait_c }, "Player");
     }
 
     public Human GetPlayer()

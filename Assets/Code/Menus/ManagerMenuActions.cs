@@ -14,7 +14,7 @@ using UnityEngine.UI;
 // TODO Add in summon
 // TODO Add in evolution
 // TODO ADD in items
-// TODO add in give up *as in an option*
+// TODO Orginize once all options are added
 public class ManagerMenuActions : MonoBehaviour
 {
     private enum State { main, attack };
@@ -46,6 +46,12 @@ public class ManagerMenuActions : MonoBehaviour
             {
                 case 0:
                     main_menu.DeActivate();
+
+                    exit_value = -1;
+                    return 0;
+
+                case 1:
+                    main_menu.DeActivate();
                     attack_menu.Activate();
 
                     for (int i = 0; i < 8; ++i)
@@ -53,7 +59,13 @@ public class ManagerMenuActions : MonoBehaviour
 
                     state = State.attack;
                     exit_value = 0;
-                    return 0;
+                    return -1;
+
+                case 5:
+                    main_menu.DeActivate();
+
+                    exit_value = -1;
+                    return 5;
             }
         }
         else if (state == State.attack)
@@ -69,7 +81,7 @@ public class ManagerMenuActions : MonoBehaviour
             if (manager_ref.GetActions() == 0 || manager_ref.GetAttackCost(id_temp, attack_temp) > manager_ref.GetHP(id_temp))
             {
                 exit_value = 0;
-                return 0;
+                return -1;
             }
             else
             {
@@ -81,8 +93,8 @@ public class ManagerMenuActions : MonoBehaviour
             }
         }
 
-        exit_value = 0;
-        return 0;
+        exit_value = -1;
+        return -1;
     }
 
     public void DirectionMenu(Direction dir)

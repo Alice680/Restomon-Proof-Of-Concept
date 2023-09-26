@@ -27,6 +27,8 @@ public static class ApplyAttack
         if (attack == null || user == null || targets == null || tiles == null || map == null || manager == null)
             return;
 
+        if (attack.GetHitChance() < Random.Range(0, 100))
+                return;
 
         foreach (AttackAffect affect in attack.GetAffects())
         {
@@ -105,7 +107,8 @@ public static class ApplyAttack
                     break;
 
                 case AttackEffect.TileCondtion:
-                    TileCondition(user);
+                    foreach(Vector3Int tile in tiles)
+                    TileCondition(map, tile, affect.variables[0]);
                     break;
             }
         }
@@ -217,8 +220,8 @@ public static class ApplyAttack
 
     }
 
-    private static void TileCondition(Unit user)
+    private static void TileCondition(DungeonMap map, Vector3Int tile, int index)
     {
-
+        map.SetTileTrait(tile, index);
     }
 }

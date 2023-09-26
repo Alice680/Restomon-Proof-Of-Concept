@@ -25,6 +25,8 @@ public class Attack : ScriptableObject
 
     [SerializeField] private int[] cost = new int[3];
 
+    [SerializeField] private int hit_chance;
+
     [SerializeField] private ShapeData area;
     [SerializeField] private ShapeData target;
 
@@ -54,6 +56,11 @@ public class Attack : ScriptableObject
             return -1;
 
         return cost[index];
+    }
+
+    public int GetHitChance()
+    {
+        return hit_chance;
     }
 
     public GameObject GetModel()

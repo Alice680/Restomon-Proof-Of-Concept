@@ -13,7 +13,7 @@ using UnityEngine;
 // TODO restrcuture into a main method that splits off based on state and input.
 public class Player : Actor
 {
-    private enum State { startup, idle, action_ui, aim_attack, view_attack };
+    private enum State { startup, idle, action_ui, view, aim_attack, view_attack };
 
     private DungeonManager manager_ref;
 
@@ -53,6 +53,9 @@ public class Player : Actor
                 break;
             case State.action_ui:
                 ActionUI();
+                break;
+            case State.view:
+                View();
                 break;
             case State.aim_attack:
                 AimAttack();
@@ -123,19 +126,32 @@ public class Player : Actor
             int exit_value;
             int exit_state = action_ref.EnterMenu(out exit_value);
 
-            if(exit_state == 1)
+            switch (exit_state)
             {
-                if (manager_ref.GetActions() == 0)
+                case 0:
+                    target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
+
+                    manager_ref.ShowView(target);
+
+                    state = State.view;
                     return;
 
-                attack_num = exit_value;
+                case 1:
+                    if (manager_ref.GetActions() == 0)
+                        return;
 
-                target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
+                    attack_num = exit_value;
 
-                manager_ref.ShowAttackArea(target, attack_num);
+                    target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
 
-                state = State.aim_attack;
-                return;
+                    manager_ref.ShowAttackArea(target, attack_num);
+
+                    state = State.aim_attack;
+                    return;
+
+                case 5:
+                    manager_ref.LoseDungeon();
+                    return;
             }
 
             return;
@@ -150,18 +166,35 @@ public class Player : Actor
         }
     }
 
+    private void View()
+    {
+        if (inputer.GetDir() != Direction.None)
+        {
+            if (manager_ref.PositionValid(target + DirectionMath.GetVectorChange(inputer.GetDir())))
+                target += DirectionMath.GetVectorChange(inputer.GetDir());
+
+            manager_ref.ShowView(target);
+
+            return;
+        }
+
+        if (inputer.GetBack())
+        {
+            target = new Vector3Int();
+
+            manager_ref.RemoveMarker();
+
+            state = State.idle;
+            return;
+        }
+    }
+
     private void AimAttack()
     {
         if (inputer.GetDir() != Direction.None)
         {
-            if (inputer.GetDir() == Direction.Up && manager_ref.PositionValid(target + new Vector3Int(0, 1, 0)))
-                target += new Vector3Int(0, 1, 0);
-            else if (inputer.GetDir() == Direction.Down && manager_ref.PositionValid(target + new Vector3Int(0, -1, 0)))
-                target += new Vector3Int(0, -1, 0);
-            else if (inputer.GetDir() == Direction.Right && manager_ref.PositionValid(target + new Vector3Int(1, 0, 0)))
-                target += new Vector3Int(1, 0, 0);
-            else if (inputer.GetDir() == Direction.Left && manager_ref.PositionValid(target + new Vector3Int(-1, 0, 0)))
-                target += new Vector3Int(-1, 0, 0);
+            if (manager_ref.PositionValid(target + DirectionMath.GetVectorChange(inputer.GetDir())))
+                target += DirectionMath.GetVectorChange(inputer.GetDir());
 
             manager_ref.ShowAttackArea(target, attack_num);
 

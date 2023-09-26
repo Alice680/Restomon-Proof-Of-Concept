@@ -126,7 +126,7 @@ public class HumanClass : ScriptableObject
      * @return human once everything is set
      */
     // TODO re orginize once done humans to be easier to follow and remove any fluf
-    public Human GetHuman(int lv, int s_class_i, int weapon_i, int armor_i, int trinket_a_i, int trinket_b_i, int[] traits_i)
+    public Human GetHuman(int lv, int s_class_i, int weapon_i, int armor_i, int trinket_a_i, int trinket_b_i, int[] traits_i, string unique_name = "")
     {
         Subclass temp_sub_class;
         if (s_class_i < 0 || s_class_i > subclasses.Length)
@@ -160,6 +160,7 @@ public class HumanClass : ScriptableObject
 
         string temp_class_name = class_name;
         string temp_sub_name = temp_sub_class.subclass_name;
+        string temp_unique_name = unique_name != "" ? unique_name : class_name;
 
         GameObject temp_model = model;
 
@@ -198,6 +199,6 @@ public class HumanClass : ScriptableObject
         for (int i = 0; i < 11; ++i)
             temp_stats[i] += base_stats.GetStats(i) + (lv * stat_growth.GetStats(i));
 
-        return new Human(temp_class_name, temp_sub_name, lv, temp_stats, temp_attacks, temp_traits, temp_model);
+        return new Human(temp_unique_name, temp_class_name, temp_sub_name, lv, temp_stats, temp_attacks, temp_traits, temp_model);
     }
 }

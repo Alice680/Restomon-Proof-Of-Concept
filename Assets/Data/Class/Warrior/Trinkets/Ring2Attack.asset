@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
+  m_Name: Ring2Attack
+  m_EditorClassIdentifier: 
+  attack_name: Ather Burn
+  description: A thick peice of string
+  attack_type: 1
+  element: 1
+  cost: 020000000000000000000000
+  area:
+    shape: 3
+    length: 3
+    width: 3
+    rotatable: 0
+    Hollow: 0
+  target:
+    shape: 2
+    length: 0
+    width: 0
+    rotatable: 0
+    Hollow: 0
+  model: {fileID: 7822409975712715426, guid: 8db56ebd255ff3e40835d5c0376efead, type: 3}
+  affects:
+  - type: 4
+    target: 3
+    variables: 08000000000000006400000064000000

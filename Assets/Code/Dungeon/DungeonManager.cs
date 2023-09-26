@@ -88,6 +88,9 @@ public class DungeonManager : MonoBehaviour
 
         performed_action = true;
         --moves;
+
+        if (moves < 0)
+            moves = 0;
     }
 
     public void Attack(Vector3Int target, int index)
@@ -123,6 +126,12 @@ public class DungeonManager : MonoBehaviour
         attack_time = Time.time;
         performed_action = true;
         --actions;
+
+        if (actions < 0)
+            actions = 0;
+
+        if (actions > 4)
+            actions = 4;
     }
 
     // TODO Clean up dungoen spawnning with dungeon V2
@@ -290,6 +299,22 @@ public class DungeonManager : MonoBehaviour
     }
 
     // TODO maybe put into dungeon UI
+    public void ShowView(Vector3Int target)
+    {
+        map.RemoveAllMarker();
+
+        Unit temp_unit = map.GetUnit(target);
+
+        dungeon_ui.UpdateUnitStatus(temp_unit);
+
+        if (temp_unit == null)
+            map.SetMarker(target.x, target.y, 0);
+        else if(temp_unit.GetOwner() == current_unit.GetOwner())
+            map.SetMarker(target.x, target.y, 2);
+        else
+            map.SetMarker(target.x, target.y, 3);
+    }
+
     public void ShowAttackArea(Vector3Int target, int index)
     {
         map.RemoveAllMarker();

@@ -17,15 +17,16 @@ using UnityEngine;
  */
 public class Human : Creature
 {
-    private string class_name, sub_name, tammer_name;
+    private string unique_name, class_name, sub_name, tammer_name;
     private int lv;
     private int[] stats;
     private Attack[] attacks;
     private Trait[] traits;
     private GameObject model;
 
-    public Human(string class_name, string sub_name, int lv,int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
+    public Human(string unique_name, string class_name, string sub_name, int lv,int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
     {
+        this.unique_name = unique_name;
         this.class_name = class_name;
         this.sub_name = sub_name;
         this.lv = lv;
@@ -83,5 +84,10 @@ public class Human : Creature
     public override GameObject GetModel()
     {
         return GameObject.Instantiate(model);
+    }
+
+    public override string ToString()
+    {
+        return unique_name;
     }
 }

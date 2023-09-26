@@ -20,8 +20,10 @@ public class DungeonMap
         public DungeonTileType type;
         public GameObject model;
         public GameObject marker;
+        public GameObject trait_model;
+        public GameObject weather_model;
         public Unit current_unit;
-        public int tile_condition;
+        public int tile_trait;
 
         public int x, y;
 
@@ -30,7 +32,7 @@ public class DungeonMap
             type = DungeonTileType.Empty;
             model = null;
             current_unit = null;
-            tile_condition = 0;
+            tile_trait = 0;
         }
 
         public Node(DungeonTileType type, GameObject model, int x, int y)
@@ -40,7 +42,7 @@ public class DungeonMap
             this.type = type;
             this.model = GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion());
             current_unit = null;
-            tile_condition = 0;
+            tile_trait = 0;
         }
 
         public void SetMarker(int id)
@@ -64,6 +66,22 @@ public class DungeonMap
         {
             if (marker != null)
                 GameObject.Destroy(marker);
+        }
+
+        public void SetTrait(int id, GameObject obj)
+        {
+            tile_trait = id;
+            trait_model = GameObject.Instantiate(obj, new Vector3Int(x, y, 0), new Quaternion());
+        }
+
+        public void SetWeather(GameObject weather)
+        {
+            weather_model = GameObject.Instantiate(weather, new Vector3Int(x, y, 0), new Quaternion());
+        }
+
+        public void ClearWeather()
+        {
+            GameObject.Destroy(weather_model);
         }
 
         public void Clear()
@@ -185,7 +203,19 @@ public class DungeonMap
     }
     public Trait GetTileTrait(int x, int y)
     {
-        return tile_conditions.GetEffect(nodes[x,y].tile_condition);
+        return tile_conditions.GetEffect(nodes[x, y].tile_trait);
+    }
+
+    public void SetTileTrait(Vector3Int vec, int id)
+    {
+        SetTileTrait(vec.x, vec.y, id);
+    }
+    public void SetTileTrait(int x, int y, int id)
+    {
+        if (!IsInMap(x, y))
+            return;
+
+        nodes[x, y].SetTrait(id, tile_conditions.GetModel(id));
     }
 
     //Checks
