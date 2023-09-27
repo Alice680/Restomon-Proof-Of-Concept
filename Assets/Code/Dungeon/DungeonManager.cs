@@ -18,6 +18,7 @@ public class DungeonManager : MonoBehaviour
     private PermDataHolder data_holder;
     private DungeonUI dungeon_ui;
     private ManagerMenuActions action_menu;
+    private DungeonTextHandler text_handler;
     private DungeonWeatherManager weather_manager;
     private StatusConditions condition_list;
 
@@ -45,8 +46,11 @@ public class DungeonManager : MonoBehaviour
         data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
         dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
         action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuActions>();
+        text_handler = GameObject.Find("UIManager").GetComponent<DungeonTextHandler>();
         weather_manager = GameObject.Find("WeatherManager").GetComponent<DungeonWeatherManager>();
         condition_list = (StatusConditions)Resources.Load("Conditions");
+
+        text_handler.SetUp();
 
         turn_keeper = new TurnKeeper();
         player_units = new List<Unit>();
@@ -69,7 +73,10 @@ public class DungeonManager : MonoBehaviour
         current_unit.GetOwner().Run();
 
         if (performed_action)
+        {
             ActionCleanup();
+            text_handler.Run();
+        }
     }
 
     /*

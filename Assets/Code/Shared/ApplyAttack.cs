@@ -28,7 +28,7 @@ public static class ApplyAttack
             return;
 
         if (attack.GetHitChance() < Random.Range(0, 100))
-                return;
+            return;
 
         foreach (AttackAffect affect in attack.GetAffects())
         {
@@ -107,8 +107,8 @@ public static class ApplyAttack
                     break;
 
                 case AttackEffect.TileCondtion:
-                    foreach(Vector3Int tile in tiles)
-                    TileCondition(map, tile, affect.variables[0]);
+                    foreach (Vector3Int tile in tiles)
+                        TileCondition(map, tile, affect.variables[0]);
                     break;
             }
         }
@@ -155,7 +155,8 @@ public static class ApplyAttack
                 damage = user.GetLV() * base_scale / 100f;
                 break;
         }
-        Debug.Log(damage);
+
+        DungeonTextHandler.AddText(user + " dealt " + (int)damage + " " + element  + " damage to " + target);
         target.ChangeHp(-(int)damage);
 
         ApplyTrait.OnStrike(user, target, user_trait, target_trait, manager, element, (int)damage);
