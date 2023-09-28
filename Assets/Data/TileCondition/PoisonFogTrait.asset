@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: PoisonFogTrait
   m_EditorClassIdentifier: 
+  trait_name: Poison Fog
   affects:
   - ability: 6
     ability_variables: 08000000000000000a00000064000000

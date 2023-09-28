@@ -28,9 +28,12 @@ public static class ApplyAttack
             return;
 
         if (attack.GetHitChance() < Random.Range(0, 100))
+        {
+            DungeonTextHandler.AddText(attack + " missed");
             return;
+        }
 
-        foreach (AttackAffect affect in attack.GetAffects())
+            foreach (AttackAffect affect in attack.GetAffects())
         {
             switch (affect.type)
             {
@@ -68,7 +71,7 @@ public static class ApplyAttack
 
                 case AttackEffect.Buff:
                     if (affect.target == Target.Self)
-                        Buff(user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                        Buff(user,user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
                     else
                         for (int i = 0; i < targets.Length; ++i)
                         {
@@ -78,12 +81,12 @@ public static class ApplyAttack
                             if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
                                 continue;
 
-                            Buff(targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2]);
+                            Buff(user, targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2]);
                         }
                     break;
 
                 case AttackEffect.AddToTurn:
-                    AddToTurn(manager, affect.variables[0], affect.variables[1], affect.variables[2]);
+                    AddToTurn(user, manager, affect.variables[0], affect.variables[1], affect.variables[2]);
                     break;
 
                 case AttackEffect.Condtions:
@@ -178,11 +181,12 @@ public static class ApplyAttack
                 break;
         }
 
+        DungeonTextHandler.AddText(user + " healed " + target + " for " + (int)scale);
         target.ChangeHp((int)healing);
 
     }
 
-    private static void Buff(Unit target, Trait[] target_trait, int index, int amount, int accuracy)
+    private static void Buff(Unit user, Unit target, Trait[] target_trait, int index, int amount, int accuracy)
     {
         if (index < 0 || index > 9)
             return;
@@ -190,19 +194,28 @@ public static class ApplyAttack
         if (accuracy < Random.Range(0, 100))
             return;
 
+        //TODO add in text
+        //DungeonTextHandler.AddText(user + " dealt " + (int)damage + " " + element + " damage to " + target);
+
         target.ChangeStatRank(index, amount);
     }
 
-    private static void AddToTurn(DungeonManager manager, int index, int change, int accuracy)
+    private static void AddToTurn(Unit target, DungeonManager manager, int index, int change, int accuracy)
     {
         if (accuracy < Random.Range(0, 100))
             return;
 
         if (index == 0)
+        {
+            DungeonTextHandler.AddText(target + " regained " + change + " moves");
             manager.ChangeMovement(change);
+        }
 
         if (index == 1)
+        {
+            DungeonTextHandler.AddText(target + " regained " + change + " actions");
             manager.ChangeAction(change);
+        }
     }
 
     private static void ApplyCondition(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int index, int rank, int power, int accuracy)
@@ -213,16 +226,20 @@ public static class ApplyAttack
         if (power != -1 && 1.0f * user.GetStat(2) / target.GetStat(5) * power < Random.Range(0, 200))
             return;
 
+        // TODO add text
+
         target.SetCondition(index, rank);
     }
 
     private static void Weather(Unit user, DungeonManager manager)
     {
-
+        // TODO Set Weather
     }
 
     private static void TileCondition(DungeonMap map, Vector3Int tile, int index)
     {
+        // TODO add texr
+
         map.SetTileTrait(tile, index);
     }
 }

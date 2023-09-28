@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Basic sword slash
   element: 1
   cost: 000000000000000000000000
+  hit_chance: 100
   area:
     shape: 2
     length: 1

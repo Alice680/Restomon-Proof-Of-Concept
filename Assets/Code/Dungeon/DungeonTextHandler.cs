@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DungeonTextHandler : MonoBehaviour
 {
+    [SerializeField] private Text[] text_display;
+
     private static LinkedQueue<string> new_text_holder;
     private CircleArray<string> current_text;
 
@@ -20,10 +23,13 @@ public class DungeonTextHandler : MonoBehaviour
 
     public void Run()
     {
+        if (new_text_holder.GetSize() == 0)
+            return;
+
         while (new_text_holder.GetSize() != 0)
             current_text.Add(new_text_holder.Pop());
 
         for (int i = 0; i < 5; ++i)
-            Debug.Log(current_text.GetValue(i));
+            text_display[i].text = "" + current_text.GetValue(i);
     }
 }

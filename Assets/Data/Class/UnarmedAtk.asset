@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Basic unarmed Attack
   element: 1
   cost: 000000000000000000000000
+  hit_chance: 100
   area:
     shape: 4
     length: 1

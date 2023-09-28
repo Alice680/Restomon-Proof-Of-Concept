@@ -33,6 +33,7 @@ public class Trait : ScriptableObject
         public int[] condition_variables;
     }
 
+    [SerializeField] private string trait_name;
     [SerializeField] private Affect[] affects;
 
     public int GetNumberAffects()
@@ -69,5 +70,10 @@ public class Trait : ScriptableObject
             return null;
 
         return affects[index].condition_variables;
+    }
+
+    public override string ToString()
+    {
+        return trait_name;
     }
 }

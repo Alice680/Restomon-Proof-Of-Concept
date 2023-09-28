@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_name: Speed Boost
   description: A thick peice of string
-  attack_type: 1
   element: 1
   cost: 040000000000000000000000
+  hit_chance: 100
   area:
     shape: 2
     length: 0

@@ -16,6 +16,7 @@ MonoBehaviour:
   description: A thick peice of string
   element: 1
   cost: 020000000000000000000000
+  hit_chance: 100
   area:
     shape: 2
     length: 0

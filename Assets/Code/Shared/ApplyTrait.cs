@@ -49,18 +49,6 @@ public static class ApplyTrait
         return stats;
     }
 
-    // TODO add in
-    public static int[] GetMonsterBaseStats(Trait[] traits)
-    {
-        int[] stats = new int[0];
-
-        /*foreach (Effect effect in effects)
-            if (effect.ability == TraitAbility.BaseStats && effect.condition == TraitCondition.Passive && index < effect.int_a_variables.Length)
-                value += effect.int_a_variables[index];*/
-
-        return stats;
-    }
-
     public static int DamageBoost(Trait[] traits, out int crit_rate)
     {
         int value = 0;
@@ -102,7 +90,7 @@ public static class ApplyTrait
             for (int i = 0; i < trait.GetNumberAffects(); ++i)
             {
                 if (trait.GetCondition(i) == TraitCondition.StartTurn)
-                    ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                    ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
             }
         }
     }
@@ -114,7 +102,7 @@ public static class ApplyTrait
             for (int i = 0; i < trait.GetNumberAffects(); ++i)
             {
                 if (trait.GetCondition(i) == TraitCondition.EndTurn)
-                    ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                    ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
             }
         }
     }
@@ -126,7 +114,7 @@ public static class ApplyTrait
             for (int i = 0; i < trait.GetNumberAffects(); ++i)
             {
                 if (trait.GetCondition(i) == TraitCondition.OnMove)
-                    ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                    ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
             }
         }
     }
@@ -140,9 +128,9 @@ public static class ApplyTrait
                 if (trait.GetCondition(i) == TraitCondition.OnStrike)
                 {
                     if (trait.GetConditionVariable(i)[0] == 0)
-                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                     else
-                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                 }
             }
         }
@@ -154,9 +142,9 @@ public static class ApplyTrait
                 if (trait.GetCondition(i) == TraitCondition.OnStruck)
                 {
                     if (trait.GetConditionVariable(i)[0] == 0)
-                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                     else
-                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                 }
             }
         }
@@ -171,9 +159,9 @@ public static class ApplyTrait
                 if (trait.GetCondition(i) == TraitCondition.OnKill && user.GetID() != target.GetID())
                 {
                     if (trait.GetConditionVariable(i)[0] == 0)
-                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                     else
-                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                 }
             }
         }
@@ -185,9 +173,9 @@ public static class ApplyTrait
                 if (trait.GetCondition(i) == TraitCondition.OnKilled && user.GetID() != target.GetID())
                 {
                     if (trait.GetConditionVariable(i)[0] == 0)
-                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(user, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                     else
-                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.GetAbilityVariable(i));
+                        ConditionToAbility(target, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
                 }
             }
         }
@@ -196,32 +184,32 @@ public static class ApplyTrait
     /*
      * Bridge the two
      */
-    private static void ConditionToAbility(Unit target, TraitAbility ability, DungeonManager manager, int[] variables)
+    private static void ConditionToAbility(Unit target, TraitAbility ability, DungeonManager manager, string trait_name, int[] variables)
     {
         switch (ability)
         {
             case TraitAbility.Damage:
-                Damage(target, variables[0], variables[1], variables[2]);
+                Damage(target, trait_name, variables[0], variables[1], variables[2]);
                 break;
 
             case TraitAbility.Healing:
-                Healing(target, variables[0], variables[1], variables[2]);
+                Healing(target, trait_name, variables[0], variables[1], variables[2]);
                 break;
 
             case TraitAbility.Buff:
-                Buff(target, variables[0], variables[1], variables[2]);
+                Buff(target, trait_name, variables[0], variables[1], variables[2]);
                 return;
 
             case TraitAbility.AddToTurn:
-                AddToTurn(manager, variables[0], variables[1], variables[2]);
+                AddToTurn(target, manager, trait_name, variables[0], variables[1], variables[2]);
                 break;
 
             case TraitAbility.ApplyCondtions:
-                Conditions(target, variables[0], variables[1], variables[2], variables[3]);
+                Conditions(target, trait_name, variables[0], variables[1], variables[2], variables[3]);
                 break;
 
             case TraitAbility.InstantKill:
-                InstantDeath(target, variables[0], variables[1]);
+                InstantDeath(target, trait_name, variables[0], variables[1]);
                 break;
 
             case TraitAbility.Weather:
@@ -234,7 +222,7 @@ public static class ApplyTrait
      * Ability
      */
 
-    private static void Damage(Unit target, int type, int scale, int accuracy)
+    private static void Damage(Unit target, string trait_name, int type, int scale, int accuracy)
     {
         if (accuracy != -1 && accuracy < Random.Range(0, 100))
             return;
@@ -250,10 +238,11 @@ public static class ApplyTrait
                 break;
         }
 
+        DungeonTextHandler.AddText(target + " took " + scale + " damage from " + trait_name);
         target.ChangeHp(-(int)damage);
     }
 
-    private static void Healing(Unit target, int type, int scale, int accuracy)
+    private static void Healing(Unit target, string trait_name, int type, int scale, int accuracy)
     {
         if (accuracy != -1 && accuracy < Random.Range(0, 100))
             return;
@@ -269,30 +258,39 @@ public static class ApplyTrait
                 break;
         }
 
+        DungeonTextHandler.AddText(target + " healed " + scale + " from " + trait_name);
         target.ChangeHp((int)healing);
     }
 
-    private static void Buff(Unit user, int index, int amount, int accuracy)
+    private static void Buff(Unit user, string trait_name, int index, int amount, int accuracy)
     {
         if (accuracy != -1 && accuracy < Random.Range(0, 100))
             return;
 
+        // TODO add text
+
         user.ChangeStatRank(index, amount);
     }
 
-    public static void AddToTurn(DungeonManager manager, int index, int change, int accuracy)
+    public static void AddToTurn(Unit target, DungeonManager manager, string trait_name, int index, int change, int accuracy)
     {
         if (accuracy != -1 && accuracy < Random.Range(0, 100))
             return;
 
         if (index == 0)
+        {
+            DungeonTextHandler.AddText(target + " gained " + change + " movement from " + trait_name);
             manager.ChangeMovement(change);
+        }
 
         if (index == 1)
+        {
+            DungeonTextHandler.AddText(target + " gained " + change + " actions from " + trait_name);
             manager.ChangeAction(change);
+        }
     }
 
-    public static void Conditions(Unit target, int index, int rank, int power, int accuracy)
+    public static void Conditions(Unit target, string trait_name, int index, int rank, int power, int accuracy)
     {
 
         if (accuracy != -1 && accuracy < Random.Range(0, 100))
@@ -301,22 +299,25 @@ public static class ApplyTrait
         if (power != -1 && Mathf.Max(0, power - target.GetStat(5)) < Random.Range(0, 200))
             return;
 
+        // TODO add text
         target.SetCondition(index, rank);
     }
 
-    public static void InstantDeath(Unit target, int power, int accuracy)
+    public static void InstantDeath(Unit target, string trait_name, int power, int accuracy)
     {
         if (accuracy != -1 && accuracy < Random.Range(0, 100))
             return;
 
         if (power != -1 && Mathf.Max(0, power - target.GetStat(5)) < Random.Range(0, 200))
             return;
+
+        DungeonTextHandler.AddText(target + " was killed by " + trait_name);
 
         target.ChangeHp(-9999);
     }
 
     public static void Weather()
     {
-
+        // TODO add weather
     }
 }

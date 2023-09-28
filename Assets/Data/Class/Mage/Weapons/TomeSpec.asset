@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Unarmed attack using ather
   element: 1
   cost: 070000000000000000000000
+  hit_chance: 100
   area:
     shape: 4
     length: 1
