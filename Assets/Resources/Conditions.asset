@@ -71,11 +71,11 @@ MonoBehaviour:
       model: {fileID: 7825381517557237812, guid: 68af894575b2b974c89d64faa131be2d, type: 3}
   - ranks:
     - name: BasicStance
-      effect: {fileID: 11400000, guid: b6771a05095955f48a730ec5dc01eb4c, type: 2}
-      model: {fileID: 9112577963271402083, guid: bb140f283afca774cb9e6d1de53d0055, type: 3}
+      effect: {fileID: 11400000, guid: 461e59b2cab232542a5a830fa2deebc7, type: 2}
+      model: {fileID: 9112577963271402083, guid: 004c734f790a9394eb56e17662bc07ef, type: 3}
     - name: BasicStance
-      effect: {fileID: 11400000, guid: 267a99fe40e45e9439aa38490ee533a8, type: 2}
-      model: {fileID: 1585608568374588677, guid: b81df3b368ef0104da392d835163614d, type: 3}
+      effect: {fileID: 11400000, guid: 6868f37413a6fe24cb0becb425f6b363, type: 2}
+      model: {fileID: 9112577963271402083, guid: 7928721f723707b488df427a5665806c, type: 3}
     - name: BasicStance
-      effect: {fileID: 11400000, guid: 64d161375dd59a049b9dff12c3a0278c, type: 2}
-      model: {fileID: 992845380458141255, guid: df4e6247199fb704ba5a46a3c073e193, type: 3}
+      effect: {fileID: 11400000, guid: 3cb7914bd49b8cd4eb252c2ad782ddbf, type: 2}
+      model: {fileID: 9112577963271402083, guid: ee0d3af38ca4c0b48a919ee491df0e7a, type: 3}

@@ -33,4 +33,4 @@ MonoBehaviour:
   affects:
   - type: 4
     target: 0
-    variables: 0b00000000000000ffffffffffffffff
+    variables: 0b000000fdffffff01000000ffffffff64000000

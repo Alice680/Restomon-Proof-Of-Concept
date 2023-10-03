@@ -7270,12 +7270,12 @@ MonoBehaviour:
         traitb: Trap
     - name: Mage
       traits:
-      - TBD
-      - TBD
-      - TBD
-      - TBD
-      - TBD
-      - TBD
+      - S Ather Boost
+      - S Regen Boost
+      - S Atk Mult
+      - Ather Armor
+      - Ather Shield
+      - Ather Will
       weapons:
       - Fist
       - Staff
@@ -7293,14 +7293,14 @@ MonoBehaviour:
       - Splash
       subclasses:
       - name: Scribe
-        traita: TBD
-        traitb: TBD
+        traita: Extra Healing
+        traitb: Extra Conditions
       - name: Warmage
-        traita: TBD
-        traitb: TBD
+        traita: Speed Boost
+        traitb: Force Barrier
       - name: Sage
-        traita: TBD
-        traitb: TBD
+        traita: Ather Boost
+        traitb: Regen Boost
     - name: Ranger
       traits:
       - Ather Powder

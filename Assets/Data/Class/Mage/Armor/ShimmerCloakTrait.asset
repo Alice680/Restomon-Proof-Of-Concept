@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: 
   affects:
-  - ability: 1
-    ability_variables: 0f000000
+  - ability: 9
+    ability_variables: 0a000000
     condition: 1
-    condition_variables: 00000000
+    condition_variables: 04000000

@@ -3,4 +3,4 @@
  * Notes:
  */
 public enum Direction { None, Up, Down, Left, Right };
-public enum Element { None, Ather, Nature, Earth, Metal, Water, Light, Dark, Wind, Lightning, Ice, Cosmic};
+public enum Element { None, Ather, Fire, Nature, Earth, Metal, Water, Light, Dark, Wind, Lightning, Ice, Cosmic};
