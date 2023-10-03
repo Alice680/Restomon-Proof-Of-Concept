@@ -83,7 +83,7 @@ MonoBehaviour:
     description: Lower damage but long range
     basic_attack: {fileID: 11400000, guid: dbf90b0e4b5d03542821cec1fcf6ec5a, type: 2}
     special_attack: {fileID: 11400000, guid: 97f8df45da66ae340be56ffcc3b27199, type: 2}
-    trait: {fileID: 11400000, guid: 4d59c9f46be11974c8936cafce164762, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - weapon_name: Axe
     description: Slower but massive damage
     basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
@@ -96,15 +96,15 @@ MonoBehaviour:
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - armor_name: Leather
     description: Basic Armor
-    defensive_attack: {fileID: 11400000, guid: ae800280ea530cd43bba61f17155f9ce, type: 2}
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 881a955dcc8561a43bdece9a6c2d5aed, type: 2}
   - armor_name: Chain
     description: Decent Armor
-    defensive_attack: {fileID: 11400000, guid: 03c14ba446ecc2649b8d88ee7db3ffd5, type: 2}
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: cbd9f655e40c5004b805fa759a52ebd5, type: 2}
   - armor_name: Plate
     description: The most armor per armor
-    defensive_attack: {fileID: 11400000, guid: b37a506f2b61dbd41b09812a934ffd32, type: 2}
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 778d2d1cada756248a34856a5f219959, type: 2}
   trinkets:
   - trinket_name: None
@@ -113,15 +113,15 @@ MonoBehaviour:
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - trinket_name: SwiftRing
     description: Empty
-    special_attack: {fileID: 11400000, guid: 79c3301c302114c4ba2a978954aece58, type: 2}
+    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: e423e9237782c654681acb18bded187f, type: 2}
   - trinket_name: AtherRing
     description: Draws in Ather
-    special_attack: {fileID: 11400000, guid: daa3cd117dd62c24e99abe12d0f5cbb5, type: 2}
+    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 8ebed8dbf224d5b4886cda0d50b143f8, type: 2}
   - trinket_name: Stability
     description: Empty
-    special_attack: {fileID: 11400000, guid: 1873b257cbb05024b937c25561ad0939, type: 2}
+    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 7ba22b6112922844f9a6901e070896cd, type: 2}
   model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
   attack_list:

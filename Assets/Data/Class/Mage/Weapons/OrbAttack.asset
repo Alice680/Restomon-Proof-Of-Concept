@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: OrbAttack
   m_EditorClassIdentifier: 
-  attack_name: Punch
+  attack_name: Ather Blast
   description: Basic unarmed Attack
   element: 1
   cost: 000000000000000000000000

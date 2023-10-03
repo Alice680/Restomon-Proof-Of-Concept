@@ -50,9 +50,25 @@ MonoBehaviour:
       effect: {fileID: 11400000, guid: c746a4870cd270a4eac7f4d427910d10, type: 2}
       model: {fileID: 5253260793601766799, guid: 2e3033217d78bd24cad43bee310e1812, type: 3}
   - ranks:
-    - name: Poisoned
+    - name: Poison
       effect: {fileID: 11400000, guid: 60ac00d3927149e4698c9423436a59da, type: 2}
       model: {fileID: 6477576012829007804, guid: 03270a552ae0e94448b3fec733778aad, type: 3}
+    - name: Toxic
+      effect: {fileID: 11400000, guid: 60ac00d3927149e4698c9423436a59da, type: 2}
+      model: {fileID: 6477576012829007804, guid: 03270a552ae0e94448b3fec733778aad, type: 3}
+  - ranks:
+    - name: Basic Stance
+      effect: {fileID: 11400000, guid: b6771a05095955f48a730ec5dc01eb4c, type: 2}
+      model: {fileID: 9112577963271402083, guid: bb140f283afca774cb9e6d1de53d0055, type: 3}
+    - name: Burst Stance
+      effect: {fileID: 11400000, guid: 267a99fe40e45e9439aa38490ee533a8, type: 2}
+      model: {fileID: 1585608568374588677, guid: b81df3b368ef0104da392d835163614d, type: 3}
+    - name: Wall Stance
+      effect: {fileID: 11400000, guid: 64d161375dd59a049b9dff12c3a0278c, type: 2}
+      model: {fileID: 992845380458141255, guid: df4e6247199fb704ba5a46a3c073e193, type: 3}
+    - name: Attack Stance
+      effect: {fileID: 11400000, guid: 5be7aad3921e64a49b2b68aff9d2cf60, type: 2}
+      model: {fileID: 7825381517557237812, guid: 68af894575b2b974c89d64faa131be2d, type: 3}
   - ranks:
     - name: BasicStance
       effect: {fileID: 11400000, guid: b6771a05095955f48a730ec5dc01eb4c, type: 2}
@@ -63,6 +79,3 @@ MonoBehaviour:
     - name: BasicStance
       effect: {fileID: 11400000, guid: 64d161375dd59a049b9dff12c3a0278c, type: 2}
       model: {fileID: 992845380458141255, guid: df4e6247199fb704ba5a46a3c073e193, type: 3}
-    - name: BasicStance
-      effect: {fileID: 11400000, guid: 5be7aad3921e64a49b2b68aff9d2cf60, type: 2}
-      model: {fileID: 7825381517557237812, guid: 68af894575b2b974c89d64faa131be2d, type: 3}

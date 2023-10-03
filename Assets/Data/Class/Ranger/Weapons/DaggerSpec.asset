@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 
   element: 1
   cost: 030000000000000000000000
+  hit_chance: 100
   area:
     shape: 3
     length: 1
@@ -32,4 +33,13 @@ MonoBehaviour:
   affects:
   - type: 0
     target: 3
-    variables: 000000000000000000000000
+    variables: 000000001900000055000000
+  - type: 0
+    target: 3
+    variables: 000000001900000055000000
+  - type: 0
+    target: 3
+    variables: 000000001900000055000000
+  - type: 0
+    target: 3
+    variables: 000000001900000055000000

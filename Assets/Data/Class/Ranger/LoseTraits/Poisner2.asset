@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
-  m_Name: TrapperCore
+  m_Name: Poisner2
   m_EditorClassIdentifier: 
+  trait_name: Lethal Coating
   affects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
-    condition_variables: 
+  - ability: 6
+    ability_variables: 0900000000000000010000000f0000000a000000
+    condition: 4
+    condition_variables: 01000000

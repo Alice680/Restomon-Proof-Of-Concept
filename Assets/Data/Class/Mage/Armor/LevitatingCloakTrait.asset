@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
-  m_Name: SpearTrait
+  m_Name: LevitatingCloakTrait
   m_EditorClassIdentifier: 
+  trait_name: 
   affects:
   - ability: 1
-    ability_variables: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    ability_variables: 0000000000000000000000000000000000000000000000000000000000000000030000000100000000000000
     condition: 1
     condition_variables: 

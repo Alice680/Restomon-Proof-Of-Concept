@@ -4,7 +4,7 @@ public class CircleArray<T>
 
     private int pointer;
 
-    private static T[] current_value;
+    private T[] current_value;
 
     public CircleArray(int size)
     {

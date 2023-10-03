@@ -9,7 +9,6 @@ using UnityEngine;
  * Notes:
  * Dose not handle getting the targets. Only what to do with them once they are found.
  */
-//TODO Tile Effects.
 public static class ApplyAttack
 {
     public static bool TryPayCost(Attack attack, Unit user)
@@ -22,107 +21,83 @@ public static class ApplyAttack
         return true;
     }
 
-    public static void ApplyEffect(Attack attack, Unit user, Trait[] user_traits, Unit[] targets, List<Trait[]> target_traits, Vector3Int[] tiles, DungeonMap map, DungeonManager manager)
+    public static void ApplyEffect(Attack attack, Unit user_unit, Trait[] user_traits, Unit[] targets, List<Trait[]> target_traits, Vector3Int[] tiles, DungeonMap map, DungeonManager manager)
     {
-        if (attack == null || user == null || targets == null || tiles == null || map == null || manager == null)
+        if (attack == null || user_unit == null || targets == null || tiles == null || map == null || manager == null)
             return;
 
-        if (attack.GetHitChance() < Random.Range(0, 100))
+        if (attack.GetHitChance() == -1 || attack.GetHitChance() + ApplyTrait.HitBoost(user_traits) + ApplyTrait.EvasionBoost(user_traits) >= Random.Range(0, 100))
+            foreach (AttackAffect affect in attack.GetAffects())
+                if (affect.target == Target.Self)
+                    CallEffectType(attack, affect, manager, user_unit, user_traits, user_unit, user_traits);
+
+        for (int i = 0; i < targets.Length; ++i)
         {
-            DungeonTextHandler.AddText(attack + " missed");
-            return;
-        }
+            if (attack.GetHitChance() != -1 && attack.GetHitChance() + ApplyTrait.HitBoost(user_traits) + ApplyTrait.EvasionBoost(target_traits[i]) < Random.Range(0, 100))
+                continue;
 
             foreach (AttackAffect affect in attack.GetAffects())
-        {
-            switch (affect.type)
             {
-                case AttackEffect.Damage:
-                    if (affect.target == Target.Self)
-                        Damage(user, user_traits, user, user_traits, manager, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
-                    else
-                        for (int i = 0; i < targets.Length; ++i)
-                        {
-                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
-                                continue;
+                if (affect.target == Target.Self || affect.target == Target.Dungeon || affect.target == Target.Tile)
+                    continue;
 
-                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
-                                continue;
+                if (affect.target == Target.Enemy && user_unit.GetOwner() == targets[i].GetOwner())
+                    continue;
 
-                            Damage(user, user_traits, targets[i], target_traits[i], manager, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
-                        }
-                    break;
+                if (affect.target == Target.Ally && user_unit.GetOwner() != targets[i].GetOwner())
+                    continue;
 
-                case AttackEffect.Healing:
-                    if (affect.target == Target.Self)
-                        Heal(user, user_traits, user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
-                    else
-                        for (int i = 0; i < targets.Length; ++i)
-                        {
-                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
-                                continue;
-
-                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
-                                continue;
-
-                            Heal(user, user_traits, targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2]);
-                        }
-                    break;
-
-                case AttackEffect.Buff:
-                    if (affect.target == Target.Self)
-                        Buff(user,user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
-                    else
-                        for (int i = 0; i < targets.Length; ++i)
-                        {
-                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
-                                continue;
-
-                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
-                                continue;
-
-                            Buff(user, targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2]);
-                        }
-                    break;
-
-                case AttackEffect.AddToTurn:
-                    AddToTurn(user, manager, affect.variables[0], affect.variables[1], affect.variables[2]);
-                    break;
-
-                case AttackEffect.Condtions:
-                    if (affect.target == Target.Self)
-                        ApplyCondition(user, user_traits, user, user_traits, affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3]);
-                    else
-                        for (int i = 0; i < targets.Length; ++i)
-                        {
-                            if (affect.target == Target.Enemy && user.GetOwner() == targets[i].GetOwner())
-                                continue;
-
-                            if (affect.target == Target.Ally && user.GetOwner() != targets[i].GetOwner())
-                                continue;
-
-                            ApplyCondition(user, user_traits, targets[i], target_traits[i], affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3]);
-                        }
-                    break;
-
-                case AttackEffect.Weather:
-                    Weather(user, manager);
-                    break;
-
-                case AttackEffect.TileCondtion:
-                    foreach (Vector3Int tile in tiles)
-                        TileCondition(map, tile, affect.variables[0]);
-                    break;
+                CallEffectType(attack, affect, manager, user_unit, user_traits, targets[i], target_traits[i]);
             }
+        }
+
+        foreach (AttackAffect affect in attack.GetAffects())
+        {
+            if (affect.target == Target.Dungeon)
+            {
+                if (affect.type == AttackEffect.Weather)
+                    Weather(user_unit, manager);
+            }
+            else if (affect.target == Target.Tile)
+            {
+                foreach (Vector3Int tile in tiles)
+                    TileCondition(map, tile, affect.variables[0]);
+            }
+        }
+    }
+
+    private static void CallEffectType(Attack attack, AttackAffect affect, DungeonManager manager, Unit user_unit, Trait[] user_traits, Unit target_unit, Trait[] target_traits)
+    {
+        switch (affect.type)
+        {
+            case AttackEffect.Damage:
+                Damage(user_unit, user_traits, target_unit, target_traits, manager, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
+                break;
+
+            case AttackEffect.Healing:
+                Heal(user_unit, user_traits, target_unit, target_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                break;
+
+            case AttackEffect.Buff:
+                Buff(user_unit, target_unit, target_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                break;
+
+            case AttackEffect.AddToTurn:
+                AddToTurn(user_unit, manager, affect.variables[0], affect.variables[1], affect.variables[2]);
+                break;
+
+            case AttackEffect.ChangeCondition:
+                ChangeCondition(user_unit, user_traits, target_unit, target_traits, affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3], affect.variables[4]);
+                break;
         }
     }
 
     /*
      * Affect Types
      */
-    private static void Damage(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, DungeonManager manager, Element element, int type, int base_scale, int accuracy)
+    private static void Damage(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, DungeonManager manager, Element element, int type, int base_scale, int chance)
     {
-        if (accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         float damage = 0;
@@ -159,15 +134,15 @@ public static class ApplyAttack
                 break;
         }
 
-        DungeonTextHandler.AddText(user + " dealt " + (int)damage + " " + element  + " damage to " + target);
+        DungeonTextHandler.AddText(user + " dealt " + (int)damage + " " + element + " damage to " + target);
         target.ChangeHp(-(int)damage);
 
         ApplyTrait.OnStrike(user, target, user_trait, target_trait, manager, element, (int)damage);
     }
 
-    private static void Heal(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int type, int scale, int accuracy)
+    private static void Heal(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int type, int scale, int chance)
     {
-        if (accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         float healing = 0;
@@ -186,12 +161,12 @@ public static class ApplyAttack
 
     }
 
-    private static void Buff(Unit user, Unit target, Trait[] target_trait, int index, int amount, int accuracy)
+    private static void Buff(Unit user, Unit target, Trait[] target_trait, int index, int amount, int chance)
     {
         if (index < 0 || index > 9)
             return;
 
-        if (accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         //TODO add in text
@@ -200,9 +175,9 @@ public static class ApplyAttack
         target.ChangeStatRank(index, amount);
     }
 
-    private static void AddToTurn(Unit target, DungeonManager manager, int index, int change, int accuracy)
+    private static void AddToTurn(Unit target, DungeonManager manager, int index, int change, int chance)
     {
-        if (accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         if (index == 0)
@@ -218,17 +193,22 @@ public static class ApplyAttack
         }
     }
 
-    private static void ApplyCondition(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int index, int rank, int power, int accuracy)
+    private static void ChangeCondition(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int index, int current_rank, int new_rank, int power, int chance)
     {
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         if (power != -1 && 1.0f * user.GetStat(2) / target.GetStat(5) * power < Random.Range(0, 200))
             return;
 
-        // TODO add text
+        if (current_rank == -2 || current_rank == target.GetCondition(index))
+            target.SetCondition(index, new_rank);
+        else if (current_rank == -3 && new_rank != target.GetCondition(index))
+            target.SetCondition(index, new_rank);
+        else if (current_rank == -3)
+            target.SetCondition(index, -1);
 
-        target.SetCondition(index, rank);
+        // TODO add text
     }
 
     private static void Weather(Unit user, DungeonManager manager)
@@ -238,8 +218,6 @@ public static class ApplyAttack
 
     private static void TileCondition(DungeonMap map, Vector3Int tile, int index)
     {
-        // TODO add texr
-
         map.SetTileTrait(tile, index);
     }
 }

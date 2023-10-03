@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: Ring1Attack
+  m_Name: PoisnerAttack
   m_EditorClassIdentifier: 
-  attack_name: Speed Boost
-  description: A thick peice of string
+  attack_name: Poison Vial
+  description: 
   element: 1
-  cost: 040000000000000000000000
+  cost: 010000000000000000000000
   hit_chance: 100
   area:
     shape: 2
-    length: 0
-    width: 0
+    length: 2
+    width: 2
     rotatable: 0
     Hollow: 0
   target:
@@ -29,8 +29,8 @@ MonoBehaviour:
     width: 0
     rotatable: 0
     Hollow: 0
-  model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
+  model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
   affects:
-  - type: 3
-    target: 0
-    variables: 0100000002000000
+  - type: 4
+    target: 3
+    variables: 09000000ffffffff000000002300000055000000

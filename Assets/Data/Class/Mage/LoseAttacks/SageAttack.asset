@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: SageAttack
   m_EditorClassIdentifier: 
-  attack_name: Basic Stance
+  attack_name: Ather Ritual
   description: 
   element: 0
   cost: 000000000000000000000000
@@ -33,4 +33,4 @@ MonoBehaviour:
   affects:
   - type: 4
     target: 0
-    variables: 0a00000000000000ffffffffffffffff
+    variables: 0b00000000000000ffffffffffffffff

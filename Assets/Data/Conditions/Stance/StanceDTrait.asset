@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: StanceDTrait
   m_EditorClassIdentifier: 
+  trait_name: Wall Stance
   affects:
   - ability: 5
-    ability_variables: 00000000f6ffffff
+    ability_variables: 00000000f6ffffff64000000
     condition: 2
     condition_variables: 
-  - ability: 10
+  - ability: 9
     ability_variables: 32000000
     condition: 1
-    condition_variables: 
+    condition_variables: 02000000

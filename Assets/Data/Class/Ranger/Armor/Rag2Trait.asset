@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Rag2Trait
   m_EditorClassIdentifier: 
+  trait_name: Crit Boost
   affects:
   - ability: 1
     ability_variables: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     condition: 1
     condition_variables: 
+  - ability: 9
+    ability_variables: 02000000
+    condition: 1
+    condition_variables: 02000000

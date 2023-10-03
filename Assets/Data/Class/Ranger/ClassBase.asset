@@ -46,7 +46,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   subclasses:
-  - subclass_name: Trapper
+  - subclass_name: Poisner
     description: 
     subclass_trait: {fileID: 11400000, guid: 17d991daffb6e58478aa034b1e6256ae, type: 2}
     free_traits:
@@ -94,17 +94,17 @@ MonoBehaviour:
     description: 
     defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - armor_name: TBD
+  - armor_name: Obscuring Hood
     description: 
-    defensive_attack: {fileID: 11400000, guid: 1c7dfaab1c040574c9131b354a9e68ca, type: 2}
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 5f7e1affc3f66bb4b80931bf9e30b08c, type: 2}
-  - armor_name: TBD
+  - armor_name: Weakness Goggles
     description: 
-    defensive_attack: {fileID: 11400000, guid: 700f6d7ca4fa9604fb1a8164f0bd8242, type: 2}
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: a70a03965b0bfff47979f9b4c3be3fb9, type: 2}
-  - armor_name: TBD
+  - armor_name: Weighted Hood
     description: 
-    defensive_attack: {fileID: 11400000, guid: 4ea05146988a5884798a88989d39d8cb, type: 2}
+    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 3d4c97fd87335754ebc041fbb14e3bf0, type: 2}
   trinkets:
   - trinket_name: None

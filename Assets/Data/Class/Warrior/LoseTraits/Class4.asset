@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Class4
   m_EditorClassIdentifier: 
+  trait_name: Ather Boost
   affects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 1
+    ability_variables: 0500000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    condition: 1
     condition_variables: 

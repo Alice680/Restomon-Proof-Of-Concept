@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: StaffAttack
   m_EditorClassIdentifier: 
-  attack_name: Mana Bolt
+  attack_name: Ather Bolt
   description: Basic unarmed Attack
   element: 1
   cost: 000000000000000000000000

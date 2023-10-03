@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
-  m_Name: Trapper2
+  m_Name: Poisner1
   m_EditorClassIdentifier: 
+  trait_name: Second Coating
   affects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
-    condition_variables: 
+  - ability: 6
+    ability_variables: 09000000ffffffff00000000190000000f000000
+    condition: 4
+    condition_variables: 01000000

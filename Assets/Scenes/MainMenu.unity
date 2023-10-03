@@ -7239,10 +7239,10 @@ MonoBehaviour:
       traits:
       - Attack Boost
       - DefenseBoost
-      - TBD
-      - TBD
-      - TBD
-      - TBD
+      - Minor Thorns
+      - Ather Boost
+      - Regen Boost
+      - Accuracy Boost
       weapons:
       - Fist
       - Sword
@@ -7283,9 +7283,9 @@ MonoBehaviour:
       - Orb
       armors:
       - None
-      - TBD
-      - TBD
-      - TBD
+      - Shimmer Cloak
+      - Iron Cloak
+      - Levitating Cloak
       accessories:
       - None
       - Fireball
@@ -7316,21 +7316,21 @@ MonoBehaviour:
       - Dagger
       armors:
       - None
-      - 
-      - 
-      - 
+      - Obscuring Hood
+      - Weakness Goggles
+      - Weighted Hood
       accessories:
       - None
       - Caltrop
       - Ball Bearing
       - Poison Fog
       subclasses:
-      - name: Trapper
-        traita: TBD
-        traitb: TBD
+      - name: Poisner
+        traita: Second Coating
+        traitb: Lethal Coating
       - name: Scout
-        traita: Bost Defence
-        traitb: Action Momentum
+        traita: Boost Defence
+        traitb: Quick Action
       - name: Assassin
         traita: One hit
         traitb: Accuracy Boost

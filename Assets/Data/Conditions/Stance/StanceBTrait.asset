@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: StanceBTrait
   m_EditorClassIdentifier: 
+  trait_name: Burst Stance
   affects:
-  - ability: 2
-    ability_variables: 010000000f000000ffffffff
-    condition: 2
-    condition_variables: 
+  - ability: 6
+    ability_variables: 010000000f000000ffffffffffffffff64000000
+    condition: 4
+    condition_variables: 01000000
   - ability: 5
-    ability_variables: 0100000001000000
+    ability_variables: 010000000100000064000000
     condition: 2
     condition_variables: 

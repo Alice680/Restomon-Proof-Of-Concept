@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: BrawlerCore
   m_EditorClassIdentifier: 
+  trait_name: Stunning Strike
   affects:
   - ability: 6
-    ability_variables: 06000000000000000f00000014000000
+    ability_variables: 06000000ffffffff000000001400000019000000
     condition: 4
     condition_variables: 01000000

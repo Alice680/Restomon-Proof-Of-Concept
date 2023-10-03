@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Ring2Trait
   m_EditorClassIdentifier: 
+  trait_name: Bonus Atk
   affects:
   - ability: 1
     ability_variables: 0500000001000000000000000000000000000000000000000000000000000000000000000000000000000000

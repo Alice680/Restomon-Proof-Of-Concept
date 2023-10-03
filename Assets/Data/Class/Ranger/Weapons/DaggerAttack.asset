@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: DaggerAttack
   m_EditorClassIdentifier: 
-  attack_name: Shoot
+  attack_name: Double Slash
   description: 
   element: 1
   cost: 000000000000000000000000
+  hit_chance: 100
   area:
     shape: 3
     length: 1

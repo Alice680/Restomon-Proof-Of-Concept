@@ -15,7 +15,8 @@ MonoBehaviour:
   attack_name: Multy Shoot
   description: 
   element: 1
-  cost: 000000000000000000000000
+  cost: 030000000000000000000000
+  hit_chance: 100
   area:
     shape: 3
     length: 3

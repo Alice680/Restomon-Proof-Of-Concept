@@ -12,21 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: AssassinAttack
   m_EditorClassIdentifier: 
-  attack_name: 
+  attack_name: Backstab
   description: 
-  element: 0
+  element: 1
   cost: 000000000000000000000000
+  hit_chance: 25
   area:
-    shape: 0
-    length: 0
-    width: 0
+    shape: 3
+    length: 1
+    width: 1
     rotatable: 0
-    Hollow: 0
+    Hollow: 1
   target:
-    shape: 0
+    shape: 2
     length: 0
     width: 0
     rotatable: 0
     Hollow: 0
-  model: {fileID: 0}
-  affects: []
+  model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
+  affects:
+  - type: 0
+    target: 3
+    variables: 000000003200000064000000

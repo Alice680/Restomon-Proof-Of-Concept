@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: StaffSpec
   m_EditorClassIdentifier: 
-  attack_name: Mass Mana Bolt
+  attack_name: Great Ather Bolt
   description: 
   element: 1
   cost: 050000000000000000000000

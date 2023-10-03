@@ -321,6 +321,15 @@ public class Unit
         return conditions[index].type;
     }
 
+    public int GetCondition(int type)
+    {
+        foreach (Condition condition in conditions)
+            if (condition.type == type)
+                return condition.rank;
+        return -1;
+    }
+
+
     public Trait[] GetTraits()
     {
         return creature.GetTraits();

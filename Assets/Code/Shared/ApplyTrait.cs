@@ -57,13 +57,26 @@ public static class ApplyTrait
         foreach (Trait trait in traits)
             for (int i = 0; i < trait.GetNumberAffects(); ++i)
             {
-                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostDamage)
+                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostStats && trait.GetConditionVariable(i)[0] == 0)
                     value += trait.GetAbilityVariable(i)[0];
 
-                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostCrit)
+                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostStats && trait.GetConditionVariable(i)[0] == 2)
                     crit_rate -= trait.GetAbilityVariable(i)[0];
             }
 
+        return value;
+    }
+
+    public static int HitBoost(Trait[] traits)
+    {
+        int value = 0;
+
+        foreach (Trait trait in traits)
+            for (int i = 0; i < trait.GetNumberAffects(); ++i)
+            {
+                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostStats && trait.GetConditionVariable(i)[0] == 3)
+                    value += trait.GetAbilityVariable(i)[0];
+            }
         return value;
     }
 
@@ -74,7 +87,20 @@ public static class ApplyTrait
         foreach (Trait trait in traits)
             for (int i = 0; i < trait.GetNumberAffects(); ++i)
             {
-                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostDefence)
+                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostStats && trait.GetConditionVariable(i)[0] == 1)
+                    value += trait.GetAbilityVariable(i)[0];
+            }
+        return value;
+    }
+
+    public static int EvasionBoost(Trait[] traits)
+    {
+        int value = 0;
+
+        foreach (Trait trait in traits)
+            for (int i = 0; i < trait.GetNumberAffects(); ++i)
+            {
+                if (trait.GetCondition(i) == TraitCondition.Passive && trait.GetAbility(i) == TraitAbility.BoostStats && trait.GetConditionVariable(i)[0] == 4)
                     value += trait.GetAbilityVariable(i)[0];
             }
         return value;
@@ -181,6 +207,21 @@ public static class ApplyTrait
         }
     }
 
+    public static void OnSpawn(Unit target, Trait[] target_traits, DungeonManager manager)
+    {
+
+        foreach (Trait trait in target_traits)
+        {
+            for (int i = 0; i < trait.GetNumberAffects(); ++i)
+            {
+                if (trait.GetCondition(i) == TraitCondition.OnSpawn)
+                {
+                    ConditionToAbility(target, trait.GetAbility(i), manager, trait.ToString(), trait.GetAbilityVariable(i));
+                }
+            }
+        }
+    }
+
     /*
      * Bridge the two
      */
@@ -204,8 +245,8 @@ public static class ApplyTrait
                 AddToTurn(target, manager, trait_name, variables[0], variables[1], variables[2]);
                 break;
 
-            case TraitAbility.ApplyCondtions:
-                Conditions(target, trait_name, variables[0], variables[1], variables[2], variables[3]);
+            case TraitAbility.ChangeCondtions:
+                ChangeConditions(target, trait_name, variables[0], variables[1], variables[2], variables[3], variables[4]);
                 break;
 
             case TraitAbility.InstantKill:
@@ -222,9 +263,9 @@ public static class ApplyTrait
      * Ability
      */
 
-    private static void Damage(Unit target, string trait_name, int type, int scale, int accuracy)
+    private static void Damage(Unit target, string trait_name, int type, int scale, int chance)
     {
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         float damage = 0;
@@ -242,9 +283,9 @@ public static class ApplyTrait
         target.ChangeHp(-(int)damage);
     }
 
-    private static void Healing(Unit target, string trait_name, int type, int scale, int accuracy)
+    private static void Healing(Unit target, string trait_name, int type, int scale, int chance)
     {
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         float healing = 0;
@@ -262,9 +303,9 @@ public static class ApplyTrait
         target.ChangeHp((int)healing);
     }
 
-    private static void Buff(Unit user, string trait_name, int index, int amount, int accuracy)
+    private static void Buff(Unit user, string trait_name, int index, int amount, int chance)
     {
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         // TODO add text
@@ -272,9 +313,9 @@ public static class ApplyTrait
         user.ChangeStatRank(index, amount);
     }
 
-    public static void AddToTurn(Unit target, DungeonManager manager, string trait_name, int index, int change, int accuracy)
+    public static void AddToTurn(Unit target, DungeonManager manager, string trait_name, int index, int change, int chance)
     {
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         if (index == 0)
@@ -290,22 +331,27 @@ public static class ApplyTrait
         }
     }
 
-    public static void Conditions(Unit target, string trait_name, int index, int rank, int power, int accuracy)
+    public static void ChangeConditions(Unit target, string trait_name, int type, int current_rank, int new_rank, int power, int chance)
     {
 
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         if (power != -1 && Mathf.Max(0, power - target.GetStat(5)) < Random.Range(0, 200))
             return;
 
         // TODO add text
-        target.SetCondition(index, rank);
+        if (current_rank == -2 || current_rank == target.GetCondition(type))
+            target.SetCondition(type, new_rank);
+        else if (current_rank == -3 && new_rank != target.GetCondition(type))
+            target.SetCondition(type, new_rank);
+        else if (current_rank == -3)
+            target.SetCondition(type, -1);
     }
 
-    public static void InstantDeath(Unit target, string trait_name, int power, int accuracy)
+    public static void InstantDeath(Unit target, string trait_name, int power, int chance)
     {
-        if (accuracy != -1 && accuracy < Random.Range(0, 100))
+        if (chance < Random.Range(0, 100))
             return;
 
         if (power != -1 && Mathf.Max(0, power - target.GetStat(5)) < Random.Range(0, 200))
