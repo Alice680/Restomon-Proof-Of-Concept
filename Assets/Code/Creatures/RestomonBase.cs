@@ -89,6 +89,6 @@ public class RestomonBase : ScriptableObject
             core_attack[i + 1] = attack[attack_id[i]];
 
         //Creates Restomon from set variables and returns it
-        return new Restomon(id, lv, core_stats, core_attack, model);
+        return null; //new Restomon(id, lv, core_stats, new Trait[] temp_traits,core_attack, model);
     }
 }

@@ -9,8 +9,7 @@ using UnityEngine;
  * Notes:
  * Mose scenes load data from this, if you wan't to test in iscolation, make sure to overide.
  */
-// TODO remove dungeons and classes and add them into the main menu
-// TODO add values for score, win condtion, and Restomon
+// TODO add values for score
 public class PermDataHolder : MonoBehaviour
 {
     [SerializeField] private DungeonLayout[] dungeons;
@@ -19,19 +18,20 @@ public class PermDataHolder : MonoBehaviour
     [SerializeField] private HumanClass[] classes;
     private Human current_player;
 
-    private Restomon[] team;
+    [SerializeField] private RestomonBase[] restomon;
+    private Restomon[] current_team;
 
     public void Setup()
     {
         DontDestroyOnLoad(gameObject);
 
-        team = new Restomon[3];
+        current_team = new Restomon[3];
 
         current_dungeon = 0;
         current_player = null;
-        team[0] = null;
-        team[1] = null;
-        team[2] = null;
+        current_team[0] = null;
+        current_team[1] = null;
+        current_team[2] = null;
     }
 
     public void SetDungeon(int index)
@@ -49,16 +49,23 @@ public class PermDataHolder : MonoBehaviour
         current_player = classes[class_i].GetHuman(3, sub_i, weapon_i, armor_i, trinket_i, 0, new int[3] { trait_a, trait_b, trait_c }, "Player");
     }
 
+    public void SetCatalyst(int index)
+    {
+
+    }
+
+    public void SetRestomon()
+    {
+
+    }
+
     public Human GetPlayer()
     {
         return current_player;
     }
 
-    public void SetTeam(Restomon mon, int index)
+    public Restomon GetTeam(int index)
     {
-        if (index < 0 || index > 3)
-            return;
-
-        team[index] = mon;
+        return current_team[index];
     }
 }

@@ -303,3 +303,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}
   - {fileID: 11400000, guid: 16badff5bf9b63c4488c0a9392412c3c, type: 2}
+  restomon:
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: 96f958fab14d48540bfbb12df31082c2, type: 2}
+  - {fileID: 11400000, guid: b221d634731003141852345e3d0705f7, type: 2}
+  - {fileID: 11400000, guid: 755ce1f92c4a92740a3085f9045112db, type: 2}
+  - {fileID: 11400000, guid: f22e8f2657e32dd47b2d503acb110979, type: 2}
+  - {fileID: 11400000, guid: cdcd5442abb873f4da6ccd08d844d82a, type: 2}

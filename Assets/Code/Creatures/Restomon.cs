@@ -24,11 +24,12 @@ public class Restomon : Creature
     private Attack[] attacks;
     private GameObject model;
 
-    public Restomon(int id, int lv, int[] stats, Attack[] attacks, GameObject model)
+    public Restomon(int id, int lv, int[] stats, Trait[] traits, Attack[] attacks, GameObject model)
     {
         this.id = id;
         this.lv = lv;
         this.stats = stats;
+        this.traits = traits;
         this.attacks = attacks;
         this.model = model;
     }
