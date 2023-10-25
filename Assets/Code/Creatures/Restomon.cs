@@ -16,21 +16,29 @@ using UnityEngine;
  * 
  * Refer to Creature class for a breakdown of how creatures function.
  */
+public enum RestomonEvolution { None, FormA, FormB, FormC };
 public class Restomon : Creature
 {
+    private string restomon_name;
     private int id, lv;
-    private int[] stats; //Hp, SP, MP Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
-    private Trait[] traits;
+    private int[,] cost;
+    private int[,] stats; //Hp, SP, MP Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
+    private Attack empty_attack;
     private Attack[] attacks;
-    private GameObject model;
+    private Trait empty_trait;
+    private Trait[] traits;
+    private GameObject[] model;
 
-    public Restomon(int id, int lv, int[] stats, Trait[] traits, Attack[] attacks, GameObject model)
+    public Restomon(string restomon_name, int id, int lv, int[,] cost, int[,] stats, Trait[] traits, Attack empty_attack, Attack[] attacks, GameObject[] model)
     {
+        this.restomon_name = restomon_name;
         this.id = id;
         this.lv = lv;
+        this.cost = cost;
         this.stats = stats;
-        this.traits = traits;
+        this.empty_attack = empty_attack;
         this.attacks = attacks;
+        this.traits = traits;
         this.model = model;
     }
 
@@ -50,42 +58,97 @@ public class Restomon : Creature
 
     public override int GetHp()
     {
-        return stats[0];
+        return stats[0, 0];
     }
 
     public int GetSp()
     {
-        return stats[1];
+        return stats[0, 1];
     }
 
     public int GetMp()
     {
-        return stats[2];
+        return stats[0, 2];
     }
 
-    public override int GetStat(int index)
+    public int GetSummonCost(RestomonEvolution current_evolution, int new_form)
+    {
+        if (current_evolution != RestomonEvolution.None)
+            return -1;
+
+        if (new_form == -1)
+            return cost[0, 0];
+
+        return cost[new_form + 1, 0];
+    }
+
+    public int GetMaintenanceCost(RestomonEvolution current_evolution)
+    {
+        if (current_evolution != RestomonEvolution.None)
+            return cost[0, 1] + cost[(int)current_evolution, 1];
+        else
+            return cost[0, 1];
+    }
+
+    public int GetUpkeepCost(RestomonEvolution current_evolution)
+    {
+        if (current_evolution != RestomonEvolution.None)
+            return cost[0, 2] + cost[(int)current_evolution, 2];
+        else
+            return cost[0, 2];
+    }
+
+    public int GetStat(int index, RestomonEvolution current_evolution)
     {
         if (index < 0 || index > 8)
             return -1;
 
-        return stats[index + 3];
+        if (current_evolution != RestomonEvolution.None)
+            return stats[0, index + 3] + stats[(int)current_evolution, index + 3];
+        else
+            return stats[0, index + 3];
     }
 
-    public override Trait[] GetTraits()
-    {
-        return traits;
-    }
-
-    public override Attack GetAttack(int index)
+    public Attack GetAttack(int index, RestomonEvolution current_evolution)
     {
         if (index < 0 || index > 8)
             return null;
 
-        return attacks[index];
+        if (index < 4)
+            return attacks[index];
+        else if (index == 4 || index == 5)
+            return attacks[index + (((int)current_evolution - 1) * 2)];
+        else
+            return empty_attack;
     }
 
-    public override GameObject GetModel()
+    public Trait[] GetTraits(RestomonEvolution current_evolution)
     {
-        return GameObject.Instantiate(model);
+        Trait[] temp_traits = new Trait[4];
+
+        temp_traits[0] = traits[0];
+        temp_traits[1] = empty_trait;
+
+        if (current_evolution == RestomonEvolution.None)
+            temp_traits[2] = empty_trait;
+        else
+            temp_traits[2] = traits[(int)current_evolution + 1];
+
+        temp_traits[3] = empty_trait;
+
+        return traits;
+    }
+
+    public GameObject GetModel(RestomonEvolution current_evolution)
+    {
+        if (current_evolution == RestomonEvolution.None)
+            return GameObject.Instantiate(model[0]);
+
+        return GameObject.Instantiate(model[(int)current_evolution]);
+    }
+
+    public override string ToString()
+    {
+        return restomon_name;
     }
 }

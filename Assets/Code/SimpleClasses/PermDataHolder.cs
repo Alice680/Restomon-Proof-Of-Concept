@@ -21,6 +21,9 @@ public class PermDataHolder : MonoBehaviour
     [SerializeField] private RestomonBase[] restomon;
     private Restomon[] current_team;
 
+    [SerializeField] private Catalyst[] catalysts;
+    private int current_catalyst;
+
     public void Setup()
     {
         DontDestroyOnLoad(gameObject);
@@ -51,12 +54,16 @@ public class PermDataHolder : MonoBehaviour
 
     public void SetCatalyst(int index)
     {
-
+        if (index < 0)
+            current_catalyst = 0;
+        else
+            current_catalyst = index;
     }
 
+    //TODO implement
     public void SetRestomon()
     {
-
+        current_team[0] = restomon[0].GetRestomon(1, 0, new int[10] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, new int[5] { 0, 0, 0, 0, 0 });
     }
 
     public Human GetPlayer()
@@ -67,5 +74,10 @@ public class PermDataHolder : MonoBehaviour
     public Restomon GetTeam(int index)
     {
         return current_team[index];
+    }
+
+    public Catalyst GetCatalyst()
+    {
+        return catalysts[current_catalyst];
     }
 }

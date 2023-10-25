@@ -19,8 +19,6 @@ public class DungeonUI : MonoBehaviour
 
     public Text ap_text;
     public Text[] hp_text, sp_text, mp_text;
-    public Text[] status_text_row;
-    public GameObject[] status_icon_row;
 
     public Text condition_name;
     private GameObject[] condition_icons;
@@ -59,9 +57,20 @@ public class DungeonUI : MonoBehaviour
     {
         ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
 
-        for (int i = 0; i < 4; ++i)
+        for (int i = 1; i < 4; ++i)
         {
-            status_text_row[i].text = "";
+            if (player_units.Count > i)
+            {
+                hp_text[i - 1].text = player_units[i].GetHp() + "/" + player_units[i].GetMaxHP();
+                sp_text[i - 1].text = player_units[i].GetSp() + "/" + player_units[i].GetMaxSP();
+                mp_text[i - 1].text = player_units[i].GetMp() + "/" + player_units[i].GetMaxMP();
+            }
+            else
+            {
+                hp_text[i - 1].text = "";
+                sp_text[i - 1].text = "";
+                mp_text[i - 1].text = "";
+            }
         }
     }
 

@@ -216,5 +216,6 @@ public class ManagerMenuMain : MonoBehaviour
     {
         dungeon_menu.SetData(data_holder);
         armory_menu.SetData(data_holder);
+        data_holder.SetRestomon();
     }
 }

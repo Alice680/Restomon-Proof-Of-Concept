@@ -35,6 +35,8 @@ public class Unit
 
     private List<Condition> conditions;
 
+    private RestomonEvolution restomon_evolution;
+
     private Vector3Int model_position;
     private Actor owner;
     private GameObject model;
@@ -89,7 +91,9 @@ public class Unit
         sp = restomon.GetSp();
         mp = restomon.GetMp();
 
-        model = restomon.GetModel();
+        restomon_evolution = RestomonEvolution.None;
+
+        model = restomon.GetModel(restomon_evolution);
     }
 
     private void SetupHuman(Human human)
@@ -124,6 +128,9 @@ public class Unit
 
     public void ChangeHp(int value)
     {
+        if (creature_type == CreatureType.Arena)
+            return;
+
         hp += value;
 
         if (hp < 0)
@@ -200,6 +207,38 @@ public class Unit
         model.transform.position = model_position;
     }
 
+    public void Evolve(int new_form)
+    {
+        if (creature_type != CreatureType.Restomon)
+            return;
+
+        restomon_evolution = (RestomonEvolution)(1 + new_form);
+
+        GameObject temp_model = ((Restomon)creature).GetModel(restomon_evolution);
+
+        temp_model.transform.position = model.transform.position;
+
+        GameObject.Destroy(model);
+
+        model = temp_model;
+    }
+
+    public void ShowEvolution(int new_form)
+    {
+        GameObject temp_model;
+
+        if (new_form == -1)
+            temp_model = ((Restomon)creature).GetModel(restomon_evolution);
+        else
+            temp_model = ((Restomon)creature).GetModel((RestomonEvolution)(new_form + 1));
+
+        temp_model.transform.position = model.transform.position;
+
+        GameObject.Destroy(model);
+
+        model = temp_model;
+    }
+
     public void KillUnit()
     {
         GameObject.Destroy(model);
@@ -233,7 +272,7 @@ public class Unit
         return creature.GetElement(i);
     }
 
-    //temp
+    // TODO add in
     public int GetElementAffinity(Element element)
     {
         int affinity = 0;
@@ -248,7 +287,7 @@ public class Unit
         return affinity;
     }
 
-    //temp
+    // TODO add in
     public int GetResistance(Element element)
     {
         return -1;
@@ -301,7 +340,37 @@ public class Unit
         if (index < 0 || index > 9)
             return -1;
 
-        return (int)Mathf.Max(1, (creature.GetStat(index) * Mathf.Pow(2, stat_rank[index] / 2f)));
+        int base_stat;
+
+        if (creature_type == CreatureType.Restomon)
+            base_stat = ((Restomon)creature).GetStat(index, restomon_evolution);
+        else
+            base_stat = creature.GetStat(index);
+
+        return (int)Mathf.Max(1, (base_stat * Mathf.Pow(2, stat_rank[index] / 2f)));
+    }
+
+    public int GetEvolutionCost(int new_form)
+    {
+        if (creature_type == CreatureType.Restomon)
+            return ((Restomon)creature).GetSummonCost(restomon_evolution, new_form);
+        else
+            return 0;
+    }
+    public int GetMaintenanceCost()
+    {
+        if (creature_type == CreatureType.Restomon)
+            return ((Restomon)creature).GetMaintenanceCost(restomon_evolution);
+        else 
+            return 0;
+    }
+
+    public int GetUpkeepCost()
+    {
+        if (creature_type == CreatureType.Restomon)
+            return ((Restomon)creature).GetUpkeepCost(restomon_evolution);
+        else 
+            return 0;
     }
 
     public int GetNumConditions()
@@ -329,20 +398,30 @@ public class Unit
         return -1;
     }
 
-
     public Trait[] GetTraits()
     {
-        return creature.GetTraits();
+        if (creature_type == CreatureType.Restomon)
+            return ((Restomon)creature).GetTraits(restomon_evolution);
+        else
+            return creature.GetTraits();
     }
 
     public Attack GetAttack(int index)
     {
-        return creature.GetAttack(index);
+        if (creature_type == CreatureType.Restomon)
+            return ((Restomon)creature).GetAttack(index,restomon_evolution);
+        else
+            return creature.GetAttack(index);
     }
 
     public Vector3Int GetPosition()
     {
         return model_position;
+    }
+
+    public RestomonEvolution GetCurrentEvolution()
+    {
+        return restomon_evolution;
     }
 
     public override string ToString()

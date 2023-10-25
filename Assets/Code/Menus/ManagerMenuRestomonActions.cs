@@ -15,11 +15,12 @@ using UnityEngine.UI;
 // TODO Add in evolution
 // TODO ADD in items
 // TODO Orginize once all options are added
-public class ManagerMenuActions : MonoBehaviour
+public class ManagerMenuRestomonActions : MonoBehaviour
 {
     private enum State { main, attack };
 
     [SerializeField] private DungeonManager manager_ref;
+    [SerializeField] private PermDataHolder data_holder;
 
     [SerializeField] private MenuSwapIcon main_menu;
     [SerializeField] private MenuSwapIcon attack_menu;
@@ -27,6 +28,11 @@ public class ManagerMenuActions : MonoBehaviour
     [SerializeField] private Text[] attack_text;
 
     private State state;
+
+    public void SetDataHolder(PermDataHolder data_holder)
+    {
+        this.data_holder = data_holder;
+    }
 
     public void OpenActionMenu()
     {
@@ -61,7 +67,11 @@ public class ManagerMenuActions : MonoBehaviour
                     exit_value = 0;
                     return -1;
 
-                case 5:
+                case 2:
+
+                    break;
+
+                case 3:
                     main_menu.DeActivate();
 
                     exit_value = -1;

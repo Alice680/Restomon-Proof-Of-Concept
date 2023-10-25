@@ -57,15 +57,31 @@ public class RestomonBase : ScriptableObject
         }
     }
 
+    [Serializable]
+    private class EvolutionStats
+    {
+        public string form_name;
+
+        public StatHolder base_stats;
+
+        public int[] cost;
+
+        public Attack[] attack;
+        public Trait[] traits;
+
+        public Element element;
+
+        public GameObject model;
+    }
+
     [SerializeField] private int id;
 
-    [SerializeField] private StatHolder base_stats;
     [SerializeField] private StatHolder growth_stats;
 
     [SerializeField] private Attack[] base_attack;
-    [SerializeField] private Attack[] attack;
 
-    [SerializeField] private GameObject model;
+    [SerializeField] private EvolutionStats first_evo;
+    [SerializeField] private EvolutionStats[] second_evos;
 
     /*
      * All data for monsters is set in in editor. As such, all that needs to be done it turning stats into an int array.
@@ -75,20 +91,50 @@ public class RestomonBase : ScriptableObject
      * attack_id ints that refrences which attacks are to be set
      * return Restomon after setting its data
      */
-    public Restomon GetRestomon(int lv, int base_attack_id, int[] attack_id)
+    // TODO add traits
+    public Restomon GetRestomon(int lv, int base_attack_id, int[] attack_id, int[] trait_id)
     {
-        int[] core_stats = new int[12];
+        int[,] temp_stats = new int[4, 12];
+        int[,] temp_cost = new int[4, 3];
+        Attack[] temp_attack = new Attack[10];
+        Trait[] temp_traits = new Trait[6];
+        GameObject[] temp_models = new GameObject[4];
+
+        temp_attack[0] = this.base_attack[base_attack_id];
 
         for (int i = 0; i < 12; ++i)
-            core_stats[i] = base_stats.GetStats(i) + (growth_stats.GetStats(i) * lv);
+            temp_stats[0, i] = first_evo.base_stats.GetStats(i) + (growth_stats.GetStats(i) * lv);
 
-        Attack[] core_attack = new Attack[9];
-        core_attack[0] = this.base_attack[base_attack_id];
+        for (int i = 0; i < 3; ++i)
+            temp_cost[0, i] = first_evo.cost[i];
 
-        for (int i = 0; i < 4; ++i)
-            core_attack[i + 1] = attack[attack_id[i]];
+        for (int i = 0; i < 6; ++i)
+            temp_traits[i] = first_evo.traits[0];
+
+        for (int i = 0; i < 5; ++i)
+            temp_attack[i + 1] = first_evo.attack[attack_id[i]];
+
+
+        temp_models[0] = first_evo.model;
+
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int e = 0; e < 12; ++e)
+                temp_stats[1 + i, e] = second_evos[i].base_stats.GetStats(e);
+
+            for (int e = 0; e < 3; ++e)
+                temp_cost[i + 1, e] = second_evos[i].cost[e];
+
+            for (int e = 0; e < 3; ++e)
+                temp_cost[1 + i, e] = second_evos[i].cost[e];
+
+            temp_attack[4 + (i * 2)] = second_evos[i].attack[attack_id[4 + (i * 2)]];
+            temp_attack[5 + (i * 2)] = second_evos[i].attack[attack_id[5 + (i * 2)]];
+
+            temp_models[i + 1] = second_evos[i].model;
+        }
 
         //Creates Restomon from set variables and returns it
-        return null; //new Restomon(id, lv, core_stats, new Trait[] temp_traits,core_attack, model);
+        return new Restomon(first_evo.form_name, id, lv, temp_cost, temp_stats, temp_traits, first_evo.attack[0], temp_attack, temp_models);
     }
 }

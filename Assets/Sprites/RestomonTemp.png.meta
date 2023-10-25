@@ -20,6 +20,60 @@ TextureImporter:
   - first:
       213: -3595974099865120039
     second: RestomonTemp_5
+  - first:
+      213: -3559314602104661644
+    second: RestomonTemp_6
+  - first:
+      213: -2861277359073904229
+    second: RestomonTemp_7
+  - first:
+      213: -8459047231027843462
+    second: RestomonTemp_8
+  - first:
+      213: -4581928927296254168
+    second: RestomonTemp_9
+  - first:
+      213: -3921527116711229167
+    second: RestomonTemp_10
+  - first:
+      213: 4244083064607221558
+    second: RestomonTemp_11
+  - first:
+      213: 4967352383292435412
+    second: RestomonTemp_12
+  - first:
+      213: -1202270605050910011
+    second: RestomonTemp_13
+  - first:
+      213: 7208788661637396494
+    second: RestomonTemp_14
+  - first:
+      213: 3382249493710664251
+    second: RestomonTemp_15
+  - first:
+      213: -1846261943665090278
+    second: RestomonTemp_16
+  - first:
+      213: 5226514049240463984
+    second: RestomonTemp_17
+  - first:
+      213: -1350061484544241900
+    second: RestomonTemp_18
+  - first:
+      213: -4795532661933930422
+    second: RestomonTemp_19
+  - first:
+      213: 4416977289981647155
+    second: RestomonTemp_20
+  - first:
+      213: 2382362211679996981
+    second: RestomonTemp_21
+  - first:
+      213: 1143999250761051762
+    second: RestomonTemp_22
+  - first:
+      213: -1418769774294032703
+    second: RestomonTemp_23
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -125,7 +179,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -146,7 +200,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -167,7 +221,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 32
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -187,8 +241,8 @@ TextureImporter:
       name: RestomonTemp_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 96
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -208,8 +262,8 @@ TextureImporter:
       name: RestomonTemp_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 128
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -229,8 +283,8 @@ TextureImporter:
       name: RestomonTemp_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 160
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -242,6 +296,384 @@ TextureImporter:
       bones: []
       spriteID: 9d2d804cb98881ec0800000000000000
       internalID: -3595974099865120039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 479d0b93a36ca9ec0800000000000000
+      internalID: -3559314602104661644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b993880d663ba48d0800000000000000
+      internalID: -2861277359073904229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e65508c5d6b9a80800000000000000
+      internalID: -8459047231027843462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f8b6eaae7b960c0800000000000000
+      internalID: -4581928927296254168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1198d5f4ddfe399c0800000000000000
+      internalID: -3921527116711229167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_11
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6372a27af0306ea30800000000000000
+      internalID: 4244083064607221558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dbe558aca49fe440800000000000000
+      internalID: 4967352383292435412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_13
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5caeb0e214da05fe0800000000000000
+      internalID: -1202270605050910011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e08b2cd0813ca0460800000000000000
+      internalID: 7208788661637396494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b327e5e9ef920fe20800000000000000
+      internalID: 3382249493710664251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a11258d4b82c066e0800000000000000
+      internalID: -1846261943665090278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_17
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07af09626de488840800000000000000
+      internalID: 5226514049240463984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41fcdc49b3e934de0800000000000000
+      internalID: -1350061484544241900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4805a8a378d27db0800000000000000
+      internalID: -4795532661933930422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 339d25e61714c4d30800000000000000
+      internalID: 4416977289981647155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_21
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53c00892fc9df0120800000000000000
+      internalID: 2382362211679996981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_22
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27eece4e14d40ef00800000000000000
+      internalID: 1143999250761051762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RestomonTemp_23
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce942148648f4ce0800000000000000
+      internalID: -1418769774294032703
       vertices: []
       indices: 
       edges: []

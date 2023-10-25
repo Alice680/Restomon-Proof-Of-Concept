@@ -17,7 +17,8 @@ public class DungeonManager : MonoBehaviour
 {
     private PermDataHolder data_holder;
     private DungeonUI dungeon_ui;
-    private ManagerMenuActions action_menu;
+    private ManagerMenuHumanActions human_action_menu;
+    private ManagerMenuRestomonActions restomon_action_menu;
     private DungeonTextHandler text_handler;
     private DungeonWeatherManager weather_manager;
     private StatusConditions condition_list;
@@ -45,12 +46,14 @@ public class DungeonManager : MonoBehaviour
     {
         data_holder = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
         dungeon_ui = GameObject.Find("UIManager").GetComponent<DungeonUI>();
-        action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuActions>();
+        human_action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuHumanActions>();
+        restomon_action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuRestomonActions>();
         text_handler = GameObject.Find("UIManager").GetComponent<DungeonTextHandler>();
         weather_manager = GameObject.Find("WeatherManager").GetComponent<DungeonWeatherManager>();
         condition_list = (StatusConditions)Resources.Load("Conditions");
 
         text_handler.SetUp();
+        human_action_menu.SetDataHolder(data_holder);
 
         turn_keeper = new TurnKeeper();
         player_units = new List<Unit>();
@@ -141,6 +144,44 @@ public class DungeonManager : MonoBehaviour
             actions = 4;
     }
 
+    public void SummonRestomon(Vector3Int position, int index)
+    {
+        if (actions == 0 || current_unit.GetCreatureType() != CreatureType.Human)
+            return;
+
+        if (!SummonValid(position, index))
+            return;
+
+        Catalyst temp_catalyst = data_holder.GetCatalyst();
+
+        if (index >= temp_catalyst.GetTeamSize())
+            return;
+
+        Restomon temp_restomon = data_holder.GetTeam(index);
+
+        actions -= 1;
+
+        current_unit.ChangeHp(-temp_restomon.GetSummonCost(RestomonEvolution.None, -1));
+
+        Unit temp_unit = new Unit(temp_restomon, current_unit.GetOwner());
+
+        AddUnit(temp_unit, position);
+
+        performed_action = true;
+    }
+
+    public void EvolveRestomon(Vector3Int position, int new_form)
+    {
+        if (!EvolutionValid(position, new_form))
+            return;
+
+        Unit temp_unit = map.GetUnit(position);
+
+        current_unit.ChangeHp(-temp_unit.GetEvolutionCost(new_form));
+
+        temp_unit.Evolve(new_form);
+    }
+
     // TODO Clean up dungoen spawnning with dungeon V2
     public void SpawnUnit(Vector3Int position)
     {
@@ -149,9 +190,7 @@ public class DungeonManager : MonoBehaviour
 
         Unit unit_temp = new Unit(current_floor.GetRandomCreature(), enemy_controller);
 
-        enemy_units.Add(unit_temp);
-        map.MoveUnit(position, unit_temp);
-        turn_keeper.AddUnit(unit_temp);
+        AddUnit(unit_temp, position);
     }
 
     public void EndTurn()
@@ -168,13 +207,7 @@ public class DungeonManager : MonoBehaviour
 
         current_unit = turn_keeper.Peak();
 
-        current_unit.StartTurn();
-
-        moves = current_unit.GetStat(7);
-        actions = current_unit.GetStat(8);
-
-        if (current_unit.GetCreatureType() != CreatureType.Arena)
-            ApplyTrait.StartTurn(current_unit, GetAllTraits(current_unit), this);
+        SetUpUnit();
 
         dungeon_ui.UpdateActions(0, 0);
 
@@ -190,9 +223,7 @@ public class DungeonManager : MonoBehaviour
 
         enemy_controller = new AICore(current_floor.GetAI(), this);
 
-        player_units.Add(player);
-        map.MoveUnit(current_floor.GetStartPosition(), player);
-        turn_keeper.AddUnit(player);
+        AddUnit(player, current_floor.GetStartPosition());
 
         enemy = new Unit(current_floor.GetDungeonManager(), enemy_controller);
         turn_keeper.AddUnit(enemy);
@@ -206,6 +237,17 @@ public class DungeonManager : MonoBehaviour
     private void ClearCurrentFloor()
     {
 
+    }
+
+    private void AddUnit(Unit unit, Vector3Int position)
+    {
+        if (unit.GetOwner() == player_controller)
+            player_units.Add(unit);
+        else
+            enemy_units.Add(unit);
+
+        map.MoveUnit(position, unit);
+        turn_keeper.AddUnit(unit);
     }
 
     private void RemoveUnit(Unit unit)
@@ -224,6 +266,39 @@ public class DungeonManager : MonoBehaviour
             enemy_units.Remove(unit);
 
         unit.KillUnit();
+
+        performed_action = true;
+    }
+
+    //TODO refactor
+    private void SetUpUnit()
+    {
+        current_unit.StartTurn();
+
+        moves = current_unit.GetStat(7);
+        actions = current_unit.GetStat(8);
+
+        if (current_unit.GetCreatureType() == CreatureType.Human)
+        {
+            List<Unit> temp_units = (current_unit == player) ? player_units : enemy_units;
+
+            foreach (Unit temp_unit in temp_units)
+                current_unit.ChangeHp(-temp_unit.GetMaintenanceCost());
+        }
+        else if (current_unit.GetCreatureType() == CreatureType.Restomon)
+        {
+            Unit temp_parent = enemy;
+
+            foreach (Unit temp_unit in player_units)
+                if (current_unit == temp_unit)
+                    temp_parent = player;
+
+            if (temp_parent.GetCreatureType() == CreatureType.Human)
+                temp_parent.ChangeHp(-current_unit.GetUpkeepCost());
+        }
+
+        if (current_unit.GetCreatureType() != CreatureType.Arena)
+            ApplyTrait.StartTurn(current_unit, GetAllTraits(current_unit), this);
     }
 
     private void RemoveAttackModels()
@@ -305,7 +380,7 @@ public class DungeonManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    // TODO maybe put into dungeon UI
+    // TODO maybe put into dungeon UI or own script
     public void ShowView(Vector3Int target)
     {
         map.RemoveAllMarker();
@@ -316,7 +391,7 @@ public class DungeonManager : MonoBehaviour
 
         if (temp_unit == null)
             map.SetMarker(target.x, target.y, 0);
-        else if(temp_unit.GetOwner() == current_unit.GetOwner())
+        else if (temp_unit.GetOwner() == current_unit.GetOwner())
             map.SetMarker(target.x, target.y, 2);
         else
             map.SetMarker(target.x, target.y, 3);
@@ -361,6 +436,50 @@ public class DungeonManager : MonoBehaviour
             map.SetMarker(positions[i].x, positions[i].y, 3);
     }
 
+    public void ShownSummonTarget(Vector3Int target, int index)
+    {
+        map.RemoveAllMarker();
+
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+
+        Vector3Int[] positions = data_holder.GetCatalyst().GetArea(current_unit.GetPosition());
+
+        for (int i = 0; i < positions.Length; ++i)
+            map.SetMarker(positions[i].x, positions[i].y, 1);
+
+        if (SummonValid(target, index))
+            map.SetMarker(target.x, target.y, 2);
+        else
+            map.SetMarker(target.x, target.y, 3);
+    }
+
+    public void ShowEvolutionTarget(Vector3Int previous, Vector3Int target, int new_form)
+    {
+        map.RemoveAllMarker();
+
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+
+        Vector3Int[] positions = data_holder.GetCatalyst().GetArea(current_unit.GetPosition());
+
+        for (int i = 0; i < positions.Length; ++i)
+            map.SetMarker(positions[i].x, positions[i].y, 1);
+
+        if (EvolutionValid(target, new_form))
+            map.SetMarker(target.x, target.y, 2);
+        else
+            map.SetMarker(target.x, target.y, 3);
+
+        Unit temp_unit = map.GetUnit(previous);
+
+        if (temp_unit != null && temp_unit.GetCreatureType() == CreatureType.Restomon)
+            temp_unit.ShowEvolution(-1);
+
+        temp_unit = map.GetUnit(target);
+
+        if (temp_unit != null && temp_unit.GetCreatureType() == CreatureType.Restomon && temp_unit.GetCurrentEvolution() == RestomonEvolution.None)
+            temp_unit.ShowEvolution(new_form);
+    }
+
     public void RemoveMarker()
     {
         dungeon_ui.UpdateUnitStatus(null);
@@ -388,31 +507,53 @@ public class DungeonManager : MonoBehaviour
 
     public bool MoveValid(Direction dir)
     {
-        Vector3Int new_position = current_unit.GetPosition();
-
-        if (dir == Direction.Up)
-            new_position += new Vector3Int(0, 1, 0);
-        else if (dir == Direction.Down)
-            new_position += new Vector3Int(0, -1, 0);
-        else if (dir == Direction.Right)
-            new_position += new Vector3Int(1, 0, 0);
-        else if (dir == Direction.Left)
-            new_position += new Vector3Int(-1, 0, 0);
+        Vector3Int new_position = current_unit.GetPosition() + DirectionMath.GetVectorChange(dir);
 
         return map.IsValidMove(current_unit, new_position);
     }
 
     public bool AttackTargetValid(Vector3Int target, int index)
     {
-        Attack attack = current_unit.GetAttack(index);
-
-        Vector3Int[] positions = attack.GetArea(current_unit.GetPosition());
+        Vector3Int[] positions = current_unit.GetAttack(index).GetArea(current_unit.GetPosition());
 
         for (int i = 0; i < positions.Length; ++i)
             if (positions[i] == target)
                 return true;
 
         return false;
+    }
+
+    public bool SummonValid(Vector3Int target, int index)
+    {
+        if (!PositionValid(target) || !TileEmpty(target))
+            return false;
+
+        if (data_holder.GetTeam(index).GetSummonCost(RestomonEvolution.None, 0) > current_unit.GetHp())
+            return false;
+
+        Vector3Int[] positions = data_holder.GetCatalyst().GetArea(current_unit.GetPosition());
+
+        for (int i = 0; i < positions.Length; ++i)
+            if (positions[i] == target)
+                return true;
+
+        return false;
+    }
+
+    public bool EvolutionValid(Vector3Int position, int new_form)
+    {
+        if (new_form < 0 || new_form > 2 || !map.IsInMap(position))
+            return false;
+
+        Unit temp_unit = map.GetUnit(position);
+
+        if (temp_unit == null || temp_unit.GetCreatureType() != CreatureType.Restomon || temp_unit.GetCurrentEvolution() != RestomonEvolution.None)
+            return false;
+
+        if (temp_unit.GetEvolutionCost(new_form) > current_unit.GetHp())
+            return false;
+
+        return true;
     }
 
     public int GetMoves()
@@ -435,9 +576,14 @@ public class DungeonManager : MonoBehaviour
         return Pathfinding.GetPath(map, start, goal);
     }
 
-    public ManagerMenuActions GetActionMenu()
+    public ManagerMenuHumanActions GetHumanActionMenu()
     {
-        return action_menu;
+        return human_action_menu;
+    }
+
+    public ManagerMenuRestomonActions GetRestomonActionMenu()
+    {
+        return restomon_action_menu;
     }
 
     /*
