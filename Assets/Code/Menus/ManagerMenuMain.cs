@@ -22,7 +22,7 @@ public class ManagerMenuMain : MonoBehaviour
     [SerializeField] MenuSwapIcon core_menu;
     [SerializeField] MenuDungeon dungeon_menu;
     [SerializeField] MenuArmory armory_menu;
-    [SerializeField] MenuBasic team_menu;
+    [SerializeField] MenuTeamBuilder team_menu;
     [SerializeField] MenuBasic achievements_menu;
     [SerializeField] MenuBasic options_menu;
 
