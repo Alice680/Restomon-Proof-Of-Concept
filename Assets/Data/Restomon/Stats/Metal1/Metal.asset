@@ -12,37 +12,108 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f2c9fd86e54048917ad236a066532, type: 3}
   m_Name: Metal
   m_EditorClassIdentifier: 
-  id: 1
-  base_stats:
-    Hp: 3
-    Sp: 3
-    Mp: 3
-    Atk: 3
-    Mag: 3
-    Frc: 3
-    Def: 3
-    Shd: 3
-    Wil: 3
-    Spd: 3
-    Mov: 5
-    Act: 1
+  id: 6
   growth_stats:
-    Hp: 1
-    Sp: 1
-    Mp: 1
-    Atk: 1
-    Mag: 1
-    Frc: 1
-    Def: 1
-    Shd: 1
-    Wil: 1
-    Spd: 1
-    Mov: 0
-    Act: 0
+    hp: 0
+    sp: 0
+    mp: 0
+    atk: 0
+    mag: 0
+    frc: 0
+    def: 0
+    shd: 0
+    wil: 0
+    spd: 0
+    mov: 0
+    act: 0
   base_attack:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+  - {fileID: 11400000, guid: f71803d15aa352f4a8f1db33deaf661d, type: 2}
+  - {fileID: 11400000, guid: de1a061d31f77df46bd585659bdbff37, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  attack:
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
+  first_evo:
+    form_name: Metal-Null
+    base_stats:
+      hp: 5
+      sp: 5
+      mp: 5
+      atk: 3
+      mag: 3
+      frc: 3
+      def: 3
+      shd: 3
+      wil: 3
+      spd: 3
+      mov: 5
+      act: 1
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 0}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 5
+    model: {fileID: 2814082587912695202, guid: bd1ad6f3a21910f4d9a3f044864d4e7a, type: 3}
+  second_evos:
+  - form_name: Metal-Metal
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 5
+    model: {fileID: 2636407410953336915, guid: 31402ecdc65362b4c9adfc3fa192058d, type: 3}
+  - form_name: Metal-Earth
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 4
+    model: {fileID: 2627580454837541059, guid: e3df0cfd2e1ebcb479911b59c3fb7b48, type: 3}
+  - form_name: Metal-Water
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 6
+    model: {fileID: 3315757314107488683, guid: 26d56d1f5382fd847acb713ad0383e63, type: 3}

@@ -13,36 +13,107 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   id: 1
-  base_stats:
-    Hp: 3
-    Sp: 3
-    Mp: 3
-    Atk: 3
-    Mag: 3
-    Frc: 3
-    Def: 3
-    Shd: 3
-    Wil: 3
-    Spd: 3
-    Mov: 5
-    Act: 1
   growth_stats:
-    Hp: 1
-    Sp: 1
-    Mp: 1
-    Atk: 1
-    Mag: 1
-    Frc: 1
-    Def: 1
-    Shd: 1
-    Wil: 1
-    Spd: 1
-    Mov: 0
-    Act: 0
+    hp: 0
+    sp: 0
+    mp: 0
+    atk: 0
+    mag: 0
+    frc: 0
+    def: 0
+    shd: 0
+    wil: 0
+    spd: 0
+    mov: 0
+    act: 0
   base_attack:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+  - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
+  - {fileID: 11400000, guid: 8639dcf4caa5d574fb90359232e23e93, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  attack:
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
+  first_evo:
+    form_name: Water-Null
+    base_stats:
+      hp: 5
+      sp: 5
+      mp: 5
+      atk: 3
+      mag: 3
+      frc: 3
+      def: 3
+      shd: 3
+      wil: 3
+      spd: 3
+      mov: 5
+      act: 1
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 0}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 6
+    model: {fileID: 8654759675751451262, guid: a8d11b3739765c14d8ce0ed357ef3cd3, type: 3}
+  second_evos:
+  - form_name: Water-Water
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 6
+    model: {fileID: 639400503364583627, guid: 5e135fe113fea1f46b4cd02e8c533029, type: 3}
+  - form_name: Water-Metal
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 5
+    model: {fileID: 8228477561818283327, guid: 85780a6d31358f74c949c2ad06e9915b, type: 3}
+  - form_name: Water-Nature
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 3
+    model: {fileID: 7725358404088615578, guid: d5a6f3f1ad0568740918ecbd0f9153ef, type: 3}

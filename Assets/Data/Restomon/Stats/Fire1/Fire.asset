@@ -12,37 +12,108 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f2c9fd86e54048917ad236a066532, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  id: 1
-  base_stats:
-    Hp: 3
-    Sp: 3
-    Mp: 3
-    Atk: 3
-    Mag: 3
-    Frc: 3
-    Def: 3
-    Shd: 3
-    Wil: 3
-    Spd: 3
-    Mov: 5
-    Act: 1
+  id: 4
   growth_stats:
-    Hp: 1
-    Sp: 1
-    Mp: 1
-    Atk: 1
-    Mag: 1
-    Frc: 1
-    Def: 1
-    Shd: 1
-    Wil: 1
-    Spd: 1
-    Mov: 0
-    Act: 0
+    hp: 0
+    sp: 0
+    mp: 0
+    atk: 0
+    mag: 0
+    frc: 0
+    def: 0
+    shd: 0
+    wil: 0
+    spd: 0
+    mov: 0
+    act: 0
   base_attack:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+  - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
+  - {fileID: 11400000, guid: 5f3a503a473b78344b443c6005961c32, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  attack:
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
+  first_evo:
+    form_name: Fire-Null
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 0}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 2
+    model: {fileID: 4759204739491971780, guid: a19c7f7c15157fc418d595cc17ff988c, type: 3}
+  second_evos:
+  - form_name: Fire-Fire
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 2
+    model: {fileID: 1483281076643764963, guid: e0c8fcc1cbd4e6c429793e3a53a4b260, type: 3}
+  - form_name: Fire-Nature
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 3
+    model: {fileID: 6182030963193782037, guid: 3e83ea5d55669cb418d2a5eb1e26f5d3, type: 3}
+  - form_name: Fire-Earth
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 4
+    model: {fileID: 2852072129551556386, guid: 2073bc9d363db1244a9ecaa32ceb1286, type: 3}

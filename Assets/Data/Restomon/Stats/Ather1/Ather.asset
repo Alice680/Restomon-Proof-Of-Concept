@@ -27,21 +27,21 @@ MonoBehaviour:
     mov: 0
     act: 0
   base_attack:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
+  - {fileID: 11400000, guid: 149dbff248f94134a888b31dca1d4d41, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   first_evo:
     form_name: Ather-Null
     base_stats:
-      hp: 10
-      sp: 3
-      mp: 3
-      atk: 2
-      mag: 2
-      frc: 2
-      def: 2
-      shd: 2
-      wil: 2
+      hp: 5
+      sp: 5
+      mp: 5
+      atk: 3
+      mag: 3
+      frc: 3
+      def: 3
+      shd: 3
+      wil: 3
       spd: 3
       mov: 5
       act: 1
@@ -80,40 +80,40 @@ MonoBehaviour:
       hp: 0
       sp: 0
       mp: 0
-      atk: 0
-      mag: 0
-      frc: 0
-      def: 0
-      shd: 0
-      wil: 0
-      spd: 0
-      mov: 0
-      act: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    element: 7
+    element: 1
     model: {fileID: 8334389087539164346, guid: dff99c25fafc15d4cbd4092410afb93c, type: 3}
   - form_name: Ather-Dark
     base_stats:
       hp: 0
       sp: 0
       mp: 0
-      atk: 0
-      mag: 0
-      frc: 0
-      def: 0
-      shd: 0
-      wil: 0
-      spd: 0
-      mov: 0
-      act: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-    element: 8
+    element: 1
     model: {fileID: 1585346889742929428, guid: 8f0857fcd7804a143ada14b0ec528ea3, type: 3}

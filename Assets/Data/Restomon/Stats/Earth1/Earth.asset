@@ -12,37 +12,108 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f2c9fd86e54048917ad236a066532, type: 3}
   m_Name: Earth
   m_EditorClassIdentifier: 
-  id: 1
-  base_stats:
-    Hp: 3
-    Sp: 3
-    Mp: 3
-    Atk: 3
-    Mag: 3
-    Frc: 3
-    Def: 3
-    Shd: 3
-    Wil: 3
-    Spd: 3
-    Mov: 5
-    Act: 1
+  id: 5
   growth_stats:
-    Hp: 1
-    Sp: 1
-    Mp: 1
-    Atk: 1
-    Mag: 1
-    Frc: 1
-    Def: 1
-    Shd: 1
-    Wil: 1
-    Spd: 1
-    Mov: 0
-    Act: 0
+    hp: 0
+    sp: 0
+    mp: 0
+    atk: 0
+    mag: 0
+    frc: 0
+    def: 0
+    shd: 0
+    wil: 0
+    spd: 0
+    mov: 0
+    act: 0
   base_attack:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+  - {fileID: 11400000, guid: f71803d15aa352f4a8f1db33deaf661d, type: 2}
+  - {fileID: 11400000, guid: b4ca32964a0a63647baf3ed30d39ffa2, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  attack:
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
+  first_evo:
+    form_name: Earth-Null
+    base_stats:
+      hp: 5
+      sp: 5
+      mp: 5
+      atk: 3
+      mag: 3
+      frc: 3
+      def: 3
+      shd: 3
+      wil: 3
+      spd: 3
+      mov: 5
+      act: 1
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 0}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 4
+    model: {fileID: 7155890742252015063, guid: 6882ef3386bf7b646a7c77e90e85b77f, type: 3}
+  second_evos:
+  - form_name: Earth-Earth
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 4
+    model: {fileID: 6213517735710623877, guid: 8aa55d4d068eec34b8f1764062a5563a, type: 3}
+  - form_name: Earth-Fire
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 2
+    model: {fileID: 3211041277636211473, guid: f87e2a4976257cb4fbd6878d95789faf, type: 3}
+  - form_name: Earth-Metal
+    base_stats:
+      hp: 0
+      sp: 0
+      mp: 0
+      atk: 1
+      mag: 1
+      frc: 1
+      def: 1
+      shd: 1
+      wil: 1
+      spd: 1
+      mov: 1
+      act: 1
+    cost: 010000000100000001000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 5
+    model: {fileID: 8662750325565208201, guid: bd9ae0f1f3cf0d24a93dc22dddd1abdb, type: 3}
