@@ -60,10 +60,14 @@ public class PermDataHolder : MonoBehaviour
             current_catalyst = index;
     }
 
-    //TODO implement
-    public void SetRestomon()
+    public void SetRestomon(int index)
     {
-        current_team[0] = restomon[0].GetRestomon(1, 0, new int[10] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, new int[5] { 0, 0, 0, 0, 0 });
+        current_team[index] = null;
+    }
+
+    public void SetRestomon(int index, int restomon_id, int[] attack_id, int[] trait_id)
+    {
+        current_team[index] = restomon[restomon_id].GetRestomon(1, attack_id, trait_id);
     }
 
     public Human GetPlayer()

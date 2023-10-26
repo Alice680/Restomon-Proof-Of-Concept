@@ -29,7 +29,7 @@ public class Restomon : Creature
     private Trait[] traits;
     private GameObject[] model;
 
-    public Restomon(string restomon_name, int id, int lv, int[,] cost, int[,] stats, Trait[] traits, Attack empty_attack, Attack[] attacks, GameObject[] model)
+    public Restomon(string restomon_name, int id, int lv, int[,] cost, int[,] stats, Trait empty_trait,Trait[] traits, Attack empty_attack, Attack[] attacks, GameObject[] model)
     {
         this.restomon_name = restomon_name;
         this.id = id;
@@ -38,6 +38,7 @@ public class Restomon : Creature
         this.stats = stats;
         this.empty_attack = empty_attack;
         this.attacks = attacks;
+        this.empty_trait = empty_trait;
         this.traits = traits;
         this.model = model;
     }
@@ -124,17 +125,15 @@ public class Restomon : Creature
 
     public Trait[] GetTraits(RestomonEvolution current_evolution)
     {
-        Trait[] temp_traits = new Trait[4];
+        Trait[] temp_traits = new Trait[3];
 
         temp_traits[0] = traits[0];
-        temp_traits[1] = empty_trait;
+        temp_traits[1] = traits[1];
 
         if (current_evolution == RestomonEvolution.None)
             temp_traits[2] = empty_trait;
         else
             temp_traits[2] = traits[(int)current_evolution + 1];
-
-        temp_traits[3] = empty_trait;
 
         return traits;
     }

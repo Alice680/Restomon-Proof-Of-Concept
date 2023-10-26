@@ -15,7 +15,7 @@ using UnityEngine.SceneManagement;
 // TODO Options menu
 public class ManagerMenuMain : MonoBehaviour
 {
-    private enum State { core, dungeon, armory, team, achievements, options }
+    private enum State { core, dungeon, armory, team, achievements }
 
     private PermDataHolder data_holder;
 
@@ -24,7 +24,6 @@ public class ManagerMenuMain : MonoBehaviour
     [SerializeField] MenuArmory armory_menu;
     [SerializeField] MenuTeamBuilder team_menu;
     [SerializeField] MenuBasic achievements_menu;
-    [SerializeField] MenuBasic options_menu;
 
     private Inputer inputer;
 
@@ -65,9 +64,6 @@ public class ManagerMenuMain : MonoBehaviour
             case State.achievements:
                 AchievementsMenu();
                 break;
-            case State.options:
-                OptionsMenu();
-                break;
         }
     }
 
@@ -104,15 +100,7 @@ public class ManagerMenuMain : MonoBehaviour
                     achievements_menu.Activate();
                     state = State.achievements;
                     break;
-                case 4:
-                    options_menu.Activate();
-                    state = State.options;
-                    break;
             }
-        }
-        else if (inputer.GetBack())
-        {
-
         }
     }
 
@@ -164,10 +152,7 @@ public class ManagerMenuMain : MonoBehaviour
     {
         if (inputer.GetDir() != Direction.None)
         {
-        }
-        else if (inputer.GetEnter())
-        {
-
+            team_menu.UpdateMenu(inputer.GetDir());
         }
         else if (inputer.GetBack())
         {
@@ -194,28 +179,11 @@ public class ManagerMenuMain : MonoBehaviour
         }
     }
 
-    private void OptionsMenu()
-    {
-        if (inputer.GetDir() != Direction.None)
-        {
-        }
-        else if (inputer.GetEnter())
-        {
-
-        }
-        else if (inputer.GetBack())
-        {
-            options_menu.DeActivate();
-            core_menu.Activate();
-            state = State.core;
-        }
-    }
-
     //Internal calls
     private void UpdateData()
     {
         dungeon_menu.SetData(data_holder);
         armory_menu.SetData(data_holder);
-        data_holder.SetRestomon();
+        team_menu.SetData(data_holder);
     }
 }

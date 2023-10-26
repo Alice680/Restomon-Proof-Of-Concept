@@ -92,15 +92,13 @@ public class RestomonBase : ScriptableObject
      * return Restomon after setting its data
      */
     // TODO add traits
-    public Restomon GetRestomon(int lv, int base_attack_id, int[] attack_id, int[] trait_id)
+    public Restomon GetRestomon(int lv, int[] attack_id, int[] trait_id)
     {
         int[,] temp_stats = new int[4, 12];
         int[,] temp_cost = new int[4, 3];
         Attack[] temp_attack = new Attack[10];
-        Trait[] temp_traits = new Trait[6];
+        Trait[] temp_traits = new Trait[5];
         GameObject[] temp_models = new GameObject[4];
-
-        temp_attack[0] = this.base_attack[base_attack_id];
 
         for (int i = 0; i < 12; ++i)
             temp_stats[0, i] = first_evo.base_stats.GetStats(i) + (growth_stats.GetStats(i) * lv);
@@ -108,10 +106,12 @@ public class RestomonBase : ScriptableObject
         for (int i = 0; i < 3; ++i)
             temp_cost[0, i] = first_evo.cost[i];
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 5; ++i)
             temp_traits[i] = first_evo.traits[0];
 
-        for (int i = 0; i < 5; ++i)
+        temp_attack[0] = base_attack[attack_id[0]];
+
+        for (int i = 0; i < 3; ++i)
             temp_attack[i + 1] = first_evo.attack[attack_id[i]];
 
 
@@ -135,6 +135,6 @@ public class RestomonBase : ScriptableObject
         }
 
         //Creates Restomon from set variables and returns it
-        return new Restomon(first_evo.form_name, id, lv, temp_cost, temp_stats, temp_traits, first_evo.attack[0], temp_attack, temp_models);
+        return new Restomon(first_evo.form_name, id, lv, temp_cost, temp_stats, first_evo.traits[0], temp_traits, first_evo.attack[0], temp_attack, temp_models);
     }
 }
