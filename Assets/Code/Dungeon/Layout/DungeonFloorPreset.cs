@@ -13,14 +13,15 @@ using UnityEngine;
  */
 
 [CreateAssetMenu(fileName = "Preset", menuName = "ScriptableObjects/Dungeons/Preset")]
-public class DungeonLayoutPreset : DungeonLayout
+public class DungeonFloorPreset : DungeonFloor
 {
     [SerializeField] protected TileSetHolder tile_set;
     [SerializeField] protected int x_size, y_size;
     [SerializeField] protected int[] tiles;
+    [SerializeField] protected Vector3Int start_position;
 
     //Run time
-    public override DungeonMap GenerateDungeon()
+    public override DungeonMap GenerateDungeon(out Vector3Int start_location)
     {
         DungeonMap map = new DungeonMap(x_size, y_size);
 
@@ -37,6 +38,8 @@ public class DungeonLayoutPreset : DungeonLayout
 
                 map.SetNode(i, e, type, model);
             }
+
+        start_location = new Vector3Int();
 
         return map;
     }

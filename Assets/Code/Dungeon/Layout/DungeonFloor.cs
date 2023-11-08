@@ -11,13 +11,13 @@ using UnityEngine;
  * Do not use at run time.
  */
 public enum DungeonType { None, Arena, Boss, Lair }
-public class DungeonLayout : ScriptableObject
+public class DungeonFloor : ScriptableObject
 {
-    [SerializeField] protected Vector3Int start_position;
     [SerializeField] protected AIBase ai;
 
-    public virtual DungeonMap GenerateDungeon()
+    public virtual DungeonMap GenerateDungeon(out Vector3Int start_location)
     {
+        start_location = new Vector3Int();
         return new DungeonMap(0, 0);
     }
 

@@ -22,7 +22,7 @@ public class ArenaStats : Creature
 
     public override CreatureType GetCreatureType()
     {
-        return CreatureType.Arena;
+        return CreatureType.Floor;
     }
 
     public override int GetStat(int index)

@@ -63,8 +63,8 @@ public class Unit
             case CreatureType.Human:
                 SetupHuman((Human)creature);
                 break;
-            case CreatureType.Arena:
-                SetupArena((ArenaStats)creature);
+            case CreatureType.Floor:
+                SetupFloor();
                 break;
         }
 
@@ -105,9 +105,9 @@ public class Unit
         model = human.GetModel();
     }
 
-    private void SetupArena(ArenaStats arena)
+    private void SetupFloor()
     {
-        creature_type = CreatureType.Arena;
+        creature_type = CreatureType.Floor;
 
         hp = -1;
 
@@ -128,9 +128,6 @@ public class Unit
 
     public void ChangeHp(int value)
     {
-        if (creature_type == CreatureType.Arena)
-            return;
-
         hp += value;
 
         if (hp < 0)
@@ -200,7 +197,7 @@ public class Unit
 
     public void SetPosition(Vector3Int new_position)
     {
-        if (creature_type == CreatureType.Arena)
+        if (creature_type == CreatureType.Floor)
             return;
 
         model_position = new_position;
@@ -241,6 +238,9 @@ public class Unit
 
     public void KillUnit()
     {
+        if (creature_type == CreatureType.Floor)
+            return;
+
         GameObject.Destroy(model);
     }
 
@@ -357,11 +357,12 @@ public class Unit
         else
             return 0;
     }
+
     public int GetMaintenanceCost()
     {
         if (creature_type == CreatureType.Restomon)
             return ((Restomon)creature).GetMaintenanceCost(restomon_evolution);
-        else 
+        else
             return 0;
     }
 
@@ -369,7 +370,7 @@ public class Unit
     {
         if (creature_type == CreatureType.Restomon)
             return ((Restomon)creature).GetUpkeepCost(restomon_evolution);
-        else 
+        else
             return 0;
     }
 
@@ -409,7 +410,7 @@ public class Unit
     public Attack GetAttack(int index)
     {
         if (creature_type == CreatureType.Restomon)
-            return ((Restomon)creature).GetAttack(index,restomon_evolution);
+            return ((Restomon)creature).GetAttack(index, restomon_evolution);
         else
             return creature.GetAttack(index);
     }

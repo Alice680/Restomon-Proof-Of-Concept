@@ -23,6 +23,9 @@ public class DungeonManager : MonoBehaviour
     private DungeonWeatherManager weather_manager;
     private StatusConditions condition_list;
 
+    private DungeonLayout current_dungeon;
+    private int current_floor;
+
     private DungeonMap map;
     private TurnKeeper turn_keeper;
 
@@ -33,8 +36,6 @@ public class DungeonManager : MonoBehaviour
     private Unit enemy;
     private List<Unit> enemy_units;
     private Actor enemy_controller;
-
-    private DungeonLayout current_floor;
 
     private int moves, actions;
     private Unit current_unit;
@@ -63,7 +64,8 @@ public class DungeonManager : MonoBehaviour
         player_controller = new Player(this);
         player = new Unit(data_holder.GetPlayer(), player_controller);
 
-        current_floor = data_holder.GetDungeon();
+        current_dungeon = data_holder.GetDungeon();
+        current_floor = -1;
 
         StartNewFloor();
     }
@@ -182,13 +184,13 @@ public class DungeonManager : MonoBehaviour
         temp_unit.Evolve(new_form);
     }
 
-    // TODO Clean up dungoen spawnning with dungeon V2
-    public void SpawnUnit(Vector3Int position)
+
+    public void SpawnRandomUnit(Vector3Int position)
     {
-        if (current_unit.GetCreatureType() != CreatureType.Arena)
+        if (current_unit.GetCreatureType() != CreatureType.Floor)
             return;
 
-        Unit unit_temp = new Unit(current_floor.GetRandomCreature(), enemy_controller);
+        Unit unit_temp = new Unit(current_dungeon.GetFloor(current_floor).GetRandomCreature(), enemy_controller);
 
         AddUnit(unit_temp, position);
     }
@@ -200,7 +202,7 @@ public class DungeonManager : MonoBehaviour
 
         RemoveMarker();
 
-        if (current_unit != null && current_unit.GetCreatureType() != CreatureType.Arena)
+        if (current_unit != null && current_unit.GetCreatureType() != CreatureType.Floor)
             ApplyTrait.EndTurn(current_unit, GetAllTraits(current_unit), this);
 
         turn_keeper.NextTurn();
@@ -219,13 +221,17 @@ public class DungeonManager : MonoBehaviour
      */
     private void StartNewFloor()
     {
-        map = current_floor.GenerateDungeon();
+        ++current_floor;
 
-        enemy_controller = new AICore(current_floor.GetAI(), this);
+        Vector3Int start_position;
 
-        AddUnit(player, current_floor.GetStartPosition());
+        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(out start_position);
 
-        enemy = new Unit(current_floor.GetDungeonManager(), enemy_controller);
+        enemy_controller = new AICore(current_dungeon.GetFloor(current_floor).GetAI(), this);
+
+        AddUnit(player, start_position);
+
+        enemy = new Unit(current_dungeon.GetFloor(current_floor).GetDungeonManager(), enemy_controller);
         turn_keeper.AddUnit(enemy);
 
         dungeon_ui.Reset(map);
@@ -297,7 +303,7 @@ public class DungeonManager : MonoBehaviour
                 temp_parent.ChangeHp(-current_unit.GetUpkeepCost());
         }
 
-        if (current_unit.GetCreatureType() != CreatureType.Arena)
+        if (current_unit.GetCreatureType() != CreatureType.Floor)
             ApplyTrait.StartTurn(current_unit, GetAllTraits(current_unit), this);
     }
 
@@ -606,6 +612,9 @@ public class DungeonManager : MonoBehaviour
     private Trait[] GetAllTraits(Unit unit)
     {
         List<Trait> trait_list = new List<Trait>();
+
+        if (unit.GetCreatureType() == CreatureType.Floor)
+            return trait_list.ToArray();
 
         foreach (Trait trait in unit.GetTraits())
             trait_list.Add(trait);

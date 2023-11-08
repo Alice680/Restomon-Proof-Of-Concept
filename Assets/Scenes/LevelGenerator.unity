@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb796dcd29be4548a3e514ca16beb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layout: {fileID: 11400000, guid: 372d1ebe2c9ffe74d8021f4ed1cc12a1, type: 2}
-  new_layout: 0
-  x_size: 21
-  y_size: 21
+  layout: {fileID: 11400000, guid: 0499a6f7a729f434a9470ff1e30c71f1, type: 2}
+  new_layout: 1
+  x_size: 11
+  y_size: 11
   current_tile: 0

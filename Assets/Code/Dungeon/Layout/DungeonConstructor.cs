@@ -7,11 +7,11 @@ using UnityEngine;
  * 
  * 
  * Notes:
- * Script is only for running in editor. Will not save if used at run time. It should not be either way.
+ * Script is only for running in editor. Will not save if used at run time.
  */
 public class DungeonConstructor : MonoBehaviour
 {
-    public DungeonLayoutPreset layout;
+    public DungeonFloorPreset layout;
     public bool new_layout;
     public int x_size;
     public int y_size;
@@ -30,7 +30,7 @@ public class DungeonConstructor : MonoBehaviour
         if (new_layout)
             layout.Setup(x_size, y_size);
 
-        current_map = layout.GenerateDungeon();
+        current_map = layout.GenerateDungeon(out Vector3Int empty_variable);
     }
 
     public void Update()
@@ -49,7 +49,7 @@ public class DungeonConstructor : MonoBehaviour
             layout.SetTile(vec.x,vec.y, current_tile);
 
             current_map.Clear();
-            current_map = layout.GenerateDungeon();
+            current_map = layout.GenerateDungeon(out Vector3Int empty_variable);
 
             last_input = Time.time;
         }

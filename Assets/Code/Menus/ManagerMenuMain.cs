@@ -29,7 +29,7 @@ public class ManagerMenuMain : MonoBehaviour
 
     private State state;
 
-    [SerializeField] private DungeonLayout[] dungeon_layouts;
+    [SerializeField] private DungeonFloor[] dungeon_layouts;
     [SerializeField] private HumanClass[] human_classes;
     [SerializeField] private RestomonBase[] restomon_types;
 

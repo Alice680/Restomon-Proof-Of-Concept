@@ -12,38 +12,6 @@ using UnityEngine;
  */
 public class AIBase : ScriptableObject
 {
-    // TODO remove
-    public bool PreRun(DungeonManager manager)
-    {
-        int id = manager.GetIDFromActive();
-
-        switch (manager.GetCreatureTypeFromID(id))
-        {
-            case CreatureType.Arena:
-                RunArena(manager);
-                return false;
-        }
-
-        return true;
-    }
-
-    //TODO Remove method with dungeon V2 implementation
-    /*
-     * A method that summons in a random enemy from the dungeon list. It is here atm to make it easy to call until 
-     * dungeons get the next update.
-     */
-    protected void RunArena(DungeonManager manager)
-    {
-        Vector3Int area = new Vector3Int(-1, 1, 1);
-
-        while (!manager.PositionValid(area) || !manager.TileEmpty(area))
-            area = new Vector3Int(Random.Range(0, manager.GetMapSize().x), Random.Range(0, manager.GetMapSize().y), 0);
-
-        manager.SpawnUnit(area);
-
-        manager.EndTurn();
-    }
-
     public virtual void Run(DungeonManager manager)
     {
 
@@ -90,5 +58,17 @@ public class AIBase : ScriptableObject
             return Direction.None;
 
         return DirectionMath.GetDirectionChange(shortest_path[0], shortest_path[1]);
+    }
+
+    protected void SpawnRandomUnit(DungeonManager manager)
+    {
+        Vector3Int area = new Vector3Int(-1, 1, 1);
+
+        while (!manager.PositionValid(area) || !manager.TileEmpty(area))
+            area = new Vector3Int(Random.Range(0, manager.GetMapSize().x), Random.Range(0, manager.GetMapSize().y), 0);
+
+        manager.SpawnRandomUnit(area);
+
+        manager.EndTurn();
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArenaTest
   m_EditorClassIdentifier: 
   start_position: {x: 11, y: 11, z: 0}
-  ai: {fileID: 11400000, guid: 399c71c7331caa94db132da2063f446e, type: 2}
+  ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
   tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
   x_size: 21
   y_size: 21

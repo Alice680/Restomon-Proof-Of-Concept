@@ -34,7 +34,6 @@ public class AICore : Actor
 
         last_input = Time.time;
 
-        if (ai.PreRun(manager_ref))
-            ai.Run(manager_ref);
+        ai.Run(manager_ref);
     }
 }

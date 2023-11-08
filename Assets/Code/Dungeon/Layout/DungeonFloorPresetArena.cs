@@ -11,14 +11,14 @@ using UnityEngine;
 
 // TODO once working on dungeons agian, see if there is any need to have this and a boss fight class
 [CreateAssetMenu(fileName = "Arena", menuName = "ScriptableObjects/Dungeons/Arena")]
-public class DungeonLayoutPresetArena : DungeonLayoutPreset
+public class DungeonFloorPresetArena : DungeonFloorPreset
 {
     [SerializeField] private MonsterSpawnInfo[] monster_spawns;
     [SerializeField] private int spawn_rate;
 
-    public override DungeonMap GenerateDungeon()
+    public override DungeonMap GenerateDungeon(out Vector3Int start_location)
     {
-        return base.GenerateDungeon();
+        return base.GenerateDungeon(out start_location);
     }
 
     public override Vector3Int GetStartPosition()

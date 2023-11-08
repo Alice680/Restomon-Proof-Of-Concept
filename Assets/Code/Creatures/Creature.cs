@@ -27,7 +27,7 @@ using UnityEngine;
  * Notes where not made for methods in this class as it would just be the name and saying it return nothing.
  */
 
-public enum CreatureType { None, Human, Restomon, Monster, Arena }
+public enum CreatureType { None, Human, Restomon, Monster, Floor }
 
 public class Creature
 {
