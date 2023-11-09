@@ -18,8 +18,8 @@ public class DungeonFloorRandom : DungeonFloor
             x_size = Random.Range(min_size, max_size);
             y_size = Random.Range(min_size, max_size);
 
-            x_point = Random.Range(0, x_limit - x_size);
-            y_point = Random.Range(0, y_limit - y_size);
+            x_point = Random.Range(1, x_limit - x_size - 1);
+            y_point = Random.Range(1, y_limit - y_size - 1);
         }
 
         public bool IsWithin(int x, int y)
@@ -35,12 +35,51 @@ public class DungeonFloorRandom : DungeonFloor
 
         public bool RoomsOverlap(Room other)
         {
-            return false;
+            if (x_point - 2 > other.x_point + other.x_size)
+                return false;
+
+            if (x_point + x_size + 2 < other.x_point)
+                return false;
+
+            if (y_point - 2 > other.y_point + other.y_size)
+                return false;
+
+            if (y_point + y_size + 2 < other.y_point)
+                return false;
+
+            return true;
         }
 
         public Vector3Int GetRandomPoint()
         {
             return new Vector3Int(Random.Range(x_point, x_point + x_size), Random.Range(y_point, y_point + y_size), 0);
+        }
+
+        public void SetUpMap(DungeonMap map, TileSetHolder tile_set)
+        {
+            for (int i = x_point; i < x_size + x_point; ++i)
+                for (int e = y_point; e < y_size + y_point; ++e)
+                {
+                    map.SetNode(i, e, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+                }
+
+            for (int i = x_point; i < x_size + x_point; ++i)
+            {
+                map.SetNode(i, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(14), 14);
+                map.SetNode(i, y_point + y_size, DungeonTileType.Wall, tile_set.GetTileModel(9), 9);
+            }
+
+            for (int i = y_point; i < y_size + y_point; ++i)
+            {
+                map.SetNode(x_point - 1, i, DungeonTileType.Wall, tile_set.GetTileModel(4), 4);
+                map.SetNode(x_point + x_size, i, DungeonTileType.Wall, tile_set.GetTileModel(3), 3);
+            }
+
+            map.SetNode(x_point - 1, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(13), 13);
+            map.SetNode(x_point + x_size, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(15), 15);
+
+            map.SetNode(x_point - 1, y_point + y_size, DungeonTileType.Wall, tile_set.GetTileModel(8), 8);
+            map.SetNode(x_point + x_size, y_point + y_size, DungeonTileType.Wall, tile_set.GetTileModel(10), 10);
         }
     }
 
@@ -74,6 +113,59 @@ public class DungeonFloorRandom : DungeonFloor
 
             return false;
         }
+
+        public void SetUpMap(DungeonMap map, TileSetHolder tile_set)
+        {
+            if (x_change > 0)
+            {
+                for (int i = x_point; i <= x_point + x_change; ++i)
+                {
+                    map.SetNode(i, y_point, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+
+                    if (map.GetTileModelNum(i, y_point + 1) == 19)
+                        map.SetNode(i, y_point + 1, DungeonTileType.Wall, tile_set.GetTileModel(9), 9);
+                    if (map.GetTileModelNum(i, y_point - 1) == 19)
+                        map.SetNode(i, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(14), 14);
+                }
+            }
+            else if (x_change < 0)
+            {
+                for (int i = x_point + x_change; i <= x_point; ++i)
+                {
+                    map.SetNode(i, y_point, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+
+                    if (map.GetTileModelNum(i, y_point + 1) == 19)
+                        map.SetNode(i, y_point + 1, DungeonTileType.Wall, tile_set.GetTileModel(9), 9);
+                    if (map.GetTileModelNum(i, y_point - 1) == 19)
+                        map.SetNode(i, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(14), 14);
+                }
+            }
+
+            if (y_change > 0)
+            {
+                for (int i = y_point; i <= y_point + y_change; ++i)
+                {
+                    map.SetNode(x_point + x_change, i, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+
+                    if (map.GetTileModelNum(x_point + x_change + 1, i) == 19)
+                        map.SetNode(x_point + x_change + 1, i, DungeonTileType.Wall, tile_set.GetTileModel(3), 3);
+                    if (map.GetTileModelNum(x_point + x_change - 1, i) == 19)
+                        map.SetNode(x_point + x_change - 1, i, DungeonTileType.Wall, tile_set.GetTileModel(4), 4);
+                }
+            }
+            else if (y_change < 0)
+            {
+                for (int i = y_point + y_change; i <= y_point; ++i)
+                {
+                    map.SetNode(x_point + x_change, i, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+
+                    if (map.GetTileModelNum(x_point + x_change + 1, i) == 19)
+                        map.SetNode(x_point + x_change + 1, i, DungeonTileType.Wall, tile_set.GetTileModel(3), 3);
+                    if (map.GetTileModelNum(x_point + x_change - 1, i) == 19)
+                        map.SetNode(x_point + x_change - 1, i, DungeonTileType.Wall, tile_set.GetTileModel(4), 4);
+                }
+            }
+        }
     }
 
     public override DungeonMap GenerateDungeon(out Vector3Int start_location)
@@ -86,6 +178,8 @@ public class DungeonFloorRandom : DungeonFloor
 
         start_location = rooms[Random.Range(0, rooms.Count)].GetRandomPoint();
 
+        map.SetTileTrait(rooms[Random.Range(0, rooms.Count)].GetRandomPoint(), 1);
+
         return map;
     }
 
@@ -96,13 +190,16 @@ public class DungeonFloorRandom : DungeonFloor
 
         for (int i = 0; i < Random.Range(min_rooms, max_rooms + 1); ++i)
         {
-            while (true)
+            bool invalid_room = true;
+            while (invalid_room)
             {
                 temp_room = new Room(x_size, y_size, room_min_size, room_max_size);
+
+                invalid_room = false;
+
                 foreach (Room room in valid_rooms)
                     if (room.RoomsOverlap(temp_room))
-                        continue;
-                break;
+                        invalid_room = true;
             }
             valid_rooms.Add(temp_room);
         }
@@ -126,26 +223,20 @@ public class DungeonFloorRandom : DungeonFloor
 
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
-                map.SetNode(i, e, DungeonTileType.Wall, tile_set.GetTileModel(19));
+                map.SetNode(i, e, DungeonTileType.Wall, tile_set.GetTileModel(19), 19);
 
+        foreach (Room room in rooms)
+            room.SetUpMap(map, tile_set);
 
-        for (int i = 0; i < x_size; ++i)
-            for (int e = 0; e < y_size; ++e)
-            {
-                foreach (Room room in rooms)
-                    if (room.IsWithin(i, e))
-                        map.SetNode(i, e, DungeonTileType.Ground, tile_set.GetTileModel(16));
-                foreach (Path path in paths)
-                    if (path.IsWithin(i, e))
-                        map.SetNode(i, e, DungeonTileType.Ground, tile_set.GetTileModel(16));
-            }
+        foreach (Path path in paths)
+            path.SetUpMap(map, tile_set);
 
         return map;
     }
 
     public override Creature GetRandomCreature()
     {
-        Creature creature = monsters[Random.Range(0,monsters.Length)].GetMonster();
+        Creature creature = monsters[Random.Range(0, monsters.Length)].GetMonster();
 
         return creature;
     }

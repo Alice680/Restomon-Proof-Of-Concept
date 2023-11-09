@@ -65,7 +65,7 @@ public class DungeonManager : MonoBehaviour
         player = new Unit(data_holder.GetPlayer(), player_controller);
 
         current_dungeon = data_holder.GetDungeon();
-        current_floor = -1;
+        current_floor = 0;
 
         StartNewFloor();
     }
@@ -184,7 +184,6 @@ public class DungeonManager : MonoBehaviour
         temp_unit.Evolve(new_form);
     }
 
-
     public void SpawnRandomUnit(Vector3Int position)
     {
         if (current_unit.GetCreatureType() != CreatureType.Floor)
@@ -219,10 +218,23 @@ public class DungeonManager : MonoBehaviour
     /*
      * Internal data edits
      */
+    private void EndCurrentFloor()
+    {
+        player_units.Remove(player);
+
+        while (player_units.Count != 0)
+            RemoveUnit(player_units[0]);
+
+        enemy = null;
+
+        while (enemy_units.Count != 0)
+            RemoveUnit(enemy_units[0]);
+
+        map.Clear();
+    }
+
     private void StartNewFloor()
     {
-        ++current_floor;
-
         Vector3Int start_position;
 
         map = current_dungeon.GetFloor(current_floor).GenerateDungeon(out start_position);
@@ -232,17 +244,14 @@ public class DungeonManager : MonoBehaviour
         AddUnit(player, start_position);
 
         enemy = new Unit(current_dungeon.GetFloor(current_floor).GetDungeonManager(), enemy_controller);
-        turn_keeper.AddUnit(enemy);
+
+        AddUnit(enemy, new Vector3Int(-1, -1, 0));
 
         dungeon_ui.Reset(map);
 
+        performed_action = false;
+
         EndTurn();
-    }
-
-    // TODO add in with random dungeons
-    private void ClearCurrentFloor()
-    {
-
     }
 
     private void AddUnit(Unit unit, Vector3Int position)
@@ -252,19 +261,16 @@ public class DungeonManager : MonoBehaviour
         else
             enemy_units.Add(unit);
 
-        map.MoveUnit(position, unit);
         turn_keeper.AddUnit(unit);
+
+        if (position.x > 0 && position.y > 0)
+            map.MoveUnit(position, unit);
     }
 
     private void RemoveUnit(Unit unit)
     {
         map.RemoveUnit(unit);
         turn_keeper.RemoveUnit(unit);
-
-        if (unit.GetID() == player.GetID())
-            LoseDungeon();
-        if (unit.GetID() == enemy.GetID())
-            WinDungeon();
 
         if (unit.GetOwner() == player_controller)
             player_units.Remove(unit);
@@ -274,6 +280,52 @@ public class DungeonManager : MonoBehaviour
         unit.KillUnit();
 
         performed_action = true;
+    }
+
+    // TODO Make it so only attacks and traits can call
+    public void ChangeMovement(int value)
+    {
+        moves += value;
+
+        if (moves < 0)
+            moves = 0;
+
+        dungeon_ui.UpdateActions(moves, actions);
+    }
+
+    public void ChangeAction(int value)
+    {
+        actions += value;
+
+        if (actions < 0)
+            actions = 0;
+
+        if (actions > 4)
+            actions = 4;
+
+        dungeon_ui.UpdateActions(moves, actions);
+    }
+
+    public void WinCurrentFloor()
+    {
+        ++current_floor;
+
+        EndCurrentFloor();
+
+        if (current_dungeon.GetNumberOfFloor() == current_floor)
+            WinDungeon();
+        else
+            StartNewFloor();
+    }
+
+    public void WinDungeon()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoseDungeon()
+    {
+        SceneManager.LoadScene(1);
     }
 
     //TODO refactor
@@ -350,40 +402,6 @@ public class DungeonManager : MonoBehaviour
         }
 
         performed_action = false;
-    }
-
-    // TODO Remove all public setters by finishing assosiated systems or turning them into actions
-    public void ChangeMovement(int value)
-    {
-        moves += value;
-
-        if (moves < 0)
-            moves = 0;
-
-        dungeon_ui.UpdateActions(moves, actions);
-    }
-
-    public void ChangeAction(int value)
-    {
-        actions += value;
-
-        if (actions < 0)
-            actions = 0;
-
-        if (actions > 4)
-            actions = 4;
-
-        dungeon_ui.UpdateActions(moves, actions);
-    }
-
-    public void WinDungeon()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void LoseDungeon()
-    {
-        SceneManager.LoadScene(1);
     }
 
     // TODO maybe put into dungeon UI or own script

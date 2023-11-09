@@ -24,6 +24,7 @@ public class DungeonMap
         public GameObject weather_model;
         public Unit current_unit;
         public int tile_trait;
+        public int model_num;
 
         public int x, y;
 
@@ -35,12 +36,13 @@ public class DungeonMap
             tile_trait = 0;
         }
 
-        public Node(DungeonTileType type, GameObject model, int x, int y)
+        public Node(DungeonTileType type, GameObject model, int model_num, int x, int y)
         {
             this.x = x;
             this.y = y;
             this.type = type;
             this.model = GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion());
+            this.model_num = model_num;
             current_unit = null;
             tile_trait = 0;
         }
@@ -70,8 +72,17 @@ public class DungeonMap
 
         public void SetTrait(int id, GameObject obj)
         {
+            ClearTrait();
             tile_trait = id;
             trait_model = GameObject.Instantiate(obj, new Vector3Int(x, y, 0), new Quaternion());
+        }
+
+        public void ClearTrait()
+        {
+            tile_trait = 0;
+
+            if (trait_model != null)
+                GameObject.Destroy(trait_model);
         }
 
         public void SetWeather(GameObject weather)
@@ -81,12 +92,15 @@ public class DungeonMap
 
         public void ClearWeather()
         {
-            GameObject.Destroy(weather_model);
+            if (weather_model != null)
+                GameObject.Destroy(weather_model);
         }
 
         public void Clear()
         {
             ClearMarker();
+            ClearWeather();
+            ClearTrait();
 
             if (model != null)
                 GameObject.Destroy(model);
@@ -113,13 +127,13 @@ public class DungeonMap
         tile_conditions = (TileConditionHolder)Resources.Load("TileConditionHolder");
     }
 
-    public void SetNode(int x, int y, DungeonTileType type, GameObject model)
+    public void SetNode(int x, int y, DungeonTileType type, GameObject model, int model_num)
     {
         if (!IsInMap(x, y))
             return;
 
         nodes[x, y].Clear();
-        nodes[x, y] = new Node(type, model, x, y);
+        nodes[x, y] = new Node(type, model, model_num, x, y);
     }
 
     public DungeonTileType GetTileType(Vector3Int vec)
@@ -129,6 +143,15 @@ public class DungeonMap
     public DungeonTileType GetTileType(int x, int y)
     {
         return nodes[x, y].type;
+    }
+
+    public int GetTileModelNum(Vector3Int vec)
+    {
+        return GetTileModelNum(vec.x, vec.y);
+    }
+    public int GetTileModelNum(int x, int y)
+    {
+        return nodes[x, y].model_num;
     }
 
     public void Clear()

@@ -256,6 +256,9 @@ public static class ApplyTrait
             case TraitAbility.Weather:
                 Weather();
                 break;
+            case TraitAbility.Special:
+                Special(target,manager, trait_name, variables[0]);
+                break;
         }
     }
 
@@ -313,7 +316,7 @@ public static class ApplyTrait
         user.ChangeStatRank(index, amount);
     }
 
-    public static void AddToTurn(Unit target, DungeonManager manager, string trait_name, int index, int change, int chance)
+    private static void AddToTurn(Unit target, DungeonManager manager, string trait_name, int index, int change, int chance)
     {
         if (chance < Random.Range(0, 100))
             return;
@@ -331,7 +334,7 @@ public static class ApplyTrait
         }
     }
 
-    public static void ChangeConditions(Unit target, string trait_name, int type, int current_rank, int new_rank, int power, int chance)
+    private static void ChangeConditions(Unit target, string trait_name, int type, int current_rank, int new_rank, int power, int chance)
     {
 
         if (chance < Random.Range(0, 100))
@@ -349,7 +352,7 @@ public static class ApplyTrait
             target.SetCondition(type, -1);
     }
 
-    public static void InstantDeath(Unit target, string trait_name, int power, int chance)
+    private static void InstantDeath(Unit target, string trait_name, int power, int chance)
     {
         if (chance < Random.Range(0, 100))
             return;
@@ -362,8 +365,17 @@ public static class ApplyTrait
         target.ChangeHp(-9999);
     }
 
-    public static void Weather()
+    private static void Weather()
     {
         // TODO add weather
+    }
+
+    private static void Special(Unit target,DungeonManager manager, string trait_name, int type)
+    {
+        if(type == 0)
+        {
+            if (target.GetCreatureType() == CreatureType.Human)
+                manager.WinCurrentFloor();
+        }
     }
 }

@@ -11,4 +11,9 @@ public class DungeonLayout : ScriptableObject
     {
         return floor_options[index];
     }
+
+    public int GetNumberOfFloor()
+    {
+        return floor_options.Length;
+    }
 }

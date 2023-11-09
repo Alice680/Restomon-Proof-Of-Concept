@@ -36,7 +36,7 @@ public class DungeonFloorPreset : DungeonFloor
                 type = tile_set.GetTileType(index);
                 model = tile_set.GetTileModel(index);
 
-                map.SetNode(i, e, type, model);
+                map.SetNode(i, e, type, model, index);
             }
 
         start_location = new Vector3Int();
