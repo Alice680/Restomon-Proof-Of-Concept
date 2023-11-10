@@ -15,6 +15,7 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
 {
     [SerializeField] private MonsterSpawnInfo[] monster_spawns;
     [SerializeField] private int spawn_rate;
+    [SerializeField] private int total_waves;
 
     public override DungeonMap GenerateDungeon(out Vector3Int start_location)
     {
@@ -28,7 +29,7 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
 
     public override Creature GetDungeonManager()
     {
-        return new ArenaStats(spawn_rate);
+        return new ArenaStats(spawn_rate, total_waves);
     }
 
     public override Creature[] GetStartUnits()

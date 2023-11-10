@@ -189,6 +189,14 @@ public class DungeonManager : MonoBehaviour
         if (current_unit.GetCreatureType() != CreatureType.Floor)
             return;
 
+        current_unit.ChangeHp(-1);
+
+        if (current_unit.GetHp() == 0)
+        {
+            WinCurrentFloor();
+            return;
+        }
+
         Unit unit_temp = new Unit(current_dungeon.GetFloor(current_floor).GetRandomCreature(), enemy_controller);
 
         AddUnit(unit_temp, position);
@@ -271,6 +279,11 @@ public class DungeonManager : MonoBehaviour
     {
         map.RemoveUnit(unit);
         turn_keeper.RemoveUnit(unit);
+
+        if (unit == player)
+            LoseDungeon();
+        if (unit == enemy)
+            WinCurrentFloor();
 
         if (unit.GetOwner() == player_controller)
             player_units.Remove(unit);

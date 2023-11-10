@@ -132,7 +132,7 @@ public class Player : Actor
 
     private void HumanActionUI()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
             human_action_ref.DirectionMenu(inputer.GetDir());
 
@@ -208,7 +208,7 @@ public class Player : Actor
 
     private void RestomonActionUI()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
             restomon_action_ref.DirectionMenu(inputer.GetDir());
 

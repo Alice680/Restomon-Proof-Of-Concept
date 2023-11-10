@@ -17,11 +17,27 @@ public class Inputer
     private bool back;
     private bool action_one;
 
+    private bool move_key_down;
+    private bool move_key_up;
+
     private float last_input;
 
     public void Run()
     {
         Clear();
+
+        if(!IsMoving())
+        {
+            move_key_down = false;
+            move_key_up = true;
+        }
+        else
+        {
+            if (!move_key_down)
+                move_key_down = true;
+            else
+                move_key_up = false;
+        }
 
         if (Time.time - last_input <= 0.1F)
             return;
@@ -46,6 +62,20 @@ public class Inputer
 
         if (dir != Direction.None || enter || back || action_one)
             last_input = Time.time;
+    }
+    
+    private bool IsMoving()
+    {
+        if (Input.GetKey(KeyCode.W))
+            return true;
+        if (Input.GetKey(KeyCode.D))
+            return true;
+        if (Input.GetKey(KeyCode.S))
+            return true;
+        if (Input.GetKey(KeyCode.A))
+            return true;
+
+        return false;
     }
 
     public void Clear()
@@ -74,5 +104,10 @@ public class Inputer
     public bool GetActionOne()
     {
         return action_one;
+    }
+
+    public bool GetMoveKeyUp()
+    {
+        return move_key_up;
     }
 }

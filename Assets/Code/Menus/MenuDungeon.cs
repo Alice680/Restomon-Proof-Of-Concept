@@ -33,14 +33,14 @@ public class MenuDungeon : MenuSwapIcon
             return;
         }
 
-        if(y_value == 0)
+        if (y_value == 0)
         {
             GetInputValue(dungeon_int, 0, 6, 1, dir, out dungeon_int, out int dead_variable);
 
             dungeon_text_box.text = dungeon_text[dungeon_int];
         }
 
-        else if(y_value == 1)
+        else if (y_value == 1)
         {
             GetInputValue(difficulty_int, 0, 6, 1, dir, out difficulty_int, out int dead_variable);
 
@@ -48,8 +48,9 @@ public class MenuDungeon : MenuSwapIcon
         }
     }
 
+    // TODO untabb once code is done
     public void SetData(PermDataHolder data)
     {
-        data.SetDungeon(dungeon_int);
+        data.SetDungeon((/*dungeon_int*/0 * 6) + difficulty_int);
     }
 }

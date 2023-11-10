@@ -70,7 +70,7 @@ public class ManagerMenuMain : MonoBehaviour
     //States
     private void CoreMenu()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
             core_menu.UpdateMenu(inputer.GetDir());
         }
@@ -106,7 +106,7 @@ public class ManagerMenuMain : MonoBehaviour
 
     private void DungeonMenu()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
             dungeon_menu.UpdateMenu(inputer.GetDir());
         }
@@ -132,7 +132,7 @@ public class ManagerMenuMain : MonoBehaviour
 
     private void ArmoryMenu()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
             armory_menu.UpdateMenu(inputer.GetDir());
         }
@@ -150,7 +150,7 @@ public class ManagerMenuMain : MonoBehaviour
 
     private void TeamMenu()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
             team_menu.UpdateMenu(inputer.GetDir());
         }
@@ -164,7 +164,7 @@ public class ManagerMenuMain : MonoBehaviour
 
     private void AchievementsMenu()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
         }
         else if (inputer.GetEnter())

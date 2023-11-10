@@ -39,7 +39,7 @@ public class DungeonFloorPreset : DungeonFloor
                 map.SetNode(i, e, type, model, index);
             }
 
-        start_location = new Vector3Int();
+        start_location = start_position;
 
         return map;
     }

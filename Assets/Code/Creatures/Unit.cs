@@ -109,7 +109,7 @@ public class Unit
     {
         creature_type = CreatureType.Floor;
 
-        hp = -1;
+        hp = creature.GetStat(0);
 
         model = null;
     }
@@ -300,6 +300,9 @@ public class Unit
 
     public int GetMaxHP()
     {
+        if (creature_type == CreatureType.Floor)
+            return creature.GetStat(0);
+
         return creature.GetHp();
     }
 

@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357227cdaeef1d74cbffa0b88fdab0ce, type: 3}
-  m_Name: Charge
+  m_Script: {fileID: 11500000, guid: 63506fc4d25e3f54c8a41605877b75d9, type: 3}
+  m_Name: LayoutArena
   m_EditorClassIdentifier: 
+  floor_options:
+  - {fileID: 11400000, guid: 372d1ebe2c9ffe74d8021f4ed1cc12a1, type: 2}

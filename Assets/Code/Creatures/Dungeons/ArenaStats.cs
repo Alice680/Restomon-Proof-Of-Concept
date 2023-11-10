@@ -13,11 +13,13 @@ using UnityEngine;
 // TODO remove
 public class ArenaStats : Creature
 {
-    int spawn_rate;
+    private int spawn_rate;
+    private int total_waves;
 
-    public ArenaStats(int spawn_rate)
+    public ArenaStats(int spawn_rate, int total_waves)
     {
         this.spawn_rate = spawn_rate;
+        this.total_waves = total_waves;
     }
 
     public override CreatureType GetCreatureType()
@@ -27,6 +29,9 @@ public class ArenaStats : Creature
 
     public override int GetStat(int index)
     {
+        if (index == 0)
+            return total_waves;
+
         if (index == 6)
             return spawn_rate;
 

@@ -263,7 +263,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeons:
+  - {fileID: 11400000, guid: cc6ebc9b721020340a359eb84c1efb88, type: 2}
   - {fileID: 11400000, guid: 3f27f1b9b19d75140a7b41e36776b71b, type: 2}
+  - {fileID: 11400000, guid: fe824d5042b5c484686e32d69f396573, type: 2}
+  - {fileID: 11400000, guid: fd2b8accf4b983b4689a5f654991a4f7, type: 2}
+  - {fileID: 11400000, guid: 055f348b5ab36064f97fd5ae92e0ad56, type: 2}
+  - {fileID: 11400000, guid: 7266d8bb35ebdb54994a027955c512cc, type: 2}
   classes:
   - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}
