@@ -14,11 +14,12 @@ using UnityEngine.UI;
 // TODO move tile markers into this class. Maybe?
 public class DungeonUI : MonoBehaviour
 {
+    public GameObject[] move_normal;
+    public GameObject[] move_end;
     public GameObject[] action_marker;
-    public Text move_marker;
 
-    public Text ap_text;
-    public Text[] hp_text, sp_text, mp_text;
+    public Text player_name_text, ap_text;
+    public Text[] name_text, hp_text, mp_text;
 
     public Text condition_name;
     private GameObject[] condition_icons;
@@ -31,9 +32,28 @@ public class DungeonUI : MonoBehaviour
 
     public void UpdateActions(int moves, int actions)
     {
-        move_marker.text = "" + moves;
+        for (int i = 0; i < 10; ++i)
+        {
+            if (moves > i + 1)
+            {
+                move_normal[i].SetActive(true);
+                move_end[i].SetActive(false);
+            }
+            else if (moves == i + 1)
+            {
+                move_normal[i].SetActive(false);
+                if (i == 0)
+                    move_normal[i].SetActive(true);
+                move_end[i].SetActive(true);
+            }
+            else
+            {
+                move_normal[i].SetActive(false);
+                move_end[i].SetActive(false);
+            }
+        }
 
-        for (int i = 0; i < action_marker.Length; ++i)
+        for (int i = 0; i < 4; ++i)
         {
             if (actions > i)
                 action_marker[i].SetActive(true);
@@ -44,31 +64,34 @@ public class DungeonUI : MonoBehaviour
 
     public void UpdateCam(Vector3Int vec)
     {
+        vec += new Vector3Int(1, 0, 0);
+
         Vector3 limites = current_map.GetSize();
 
-        vec.x = (int)Mathf.Clamp(vec.x, 4, limites.x - 5);
+        vec.x = (int)Mathf.Clamp(vec.x, 5, limites.x - 4);
         vec.y = (int)Mathf.Clamp(vec.y, 4, limites.y - 5);
         vec.z = -10;
 
-        cam.transform.position = vec;
+        cam.transform.position = vec + new Vector3(0.5f, 0, 0);
     }
 
     public void UpdatePlayerStats(Unit player, List<Unit> player_units)
     {
         ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
+        player_name_text.text = "Player";
 
         for (int i = 1; i < 4; ++i)
         {
             if (player_units.Count > i)
             {
+                name_text[i - 1].text = player_units[i].ToString();
                 hp_text[i - 1].text = player_units[i].GetHp() + "/" + player_units[i].GetMaxHP();
-                sp_text[i - 1].text = player_units[i].GetSp() + "/" + player_units[i].GetMaxSP();
                 mp_text[i - 1].text = player_units[i].GetMp() + "/" + player_units[i].GetMaxMP();
             }
             else
             {
+                name_text[i - 1].text = "";
                 hp_text[i - 1].text = "";
-                sp_text[i - 1].text = "";
                 mp_text[i - 1].text = "";
             }
         }
