@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Action on Kill
   affects:
-  - ability: 5
+  - ability: 4
     ability_variables: 010000000100000064000000
     condition: 6
     condition_variables: 00000000

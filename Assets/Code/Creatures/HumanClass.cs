@@ -83,14 +83,6 @@ public class HumanClass : ScriptableObject
     }
 
     [Serializable]
-    private class Armor
-    {
-        public string armor_name, description;
-        public Attack defensive_attack;
-        public Trait trait;
-    }
-
-    [Serializable]
     private class Trinket
     {
         public string trinket_name, description;
@@ -105,7 +97,6 @@ public class HumanClass : ScriptableObject
     [SerializeField] private Subclass[] subclasses;
     [SerializeField] private Tamerclass[] tamerclasses;
     [SerializeField] private Weapon[] weapons;
-    [SerializeField] private Armor[] armors;
     [SerializeField] private Trinket[] trinkets;
     [SerializeField] private GameObject model;
     [SerializeField] private Attack[] attack_list;
@@ -140,11 +131,11 @@ public class HumanClass : ScriptableObject
         else
             temp_weapon = weapons[weapon_i];
 
-        Armor temp_armor;
+        /*Armor temp_armor;
         if (armor_i < 0 || armor_i > armors.Length)
             temp_armor = armors[0];
         else
-            temp_armor = armors[armor_i];
+            temp_armor = armors[armor_i];*/
 
         Trinket temp_trinket_a;
         if (trinket_a_i < 0 || trinket_a_i > trinkets.Length)
@@ -169,7 +160,7 @@ public class HumanClass : ScriptableObject
         temp_traits[1] = temp_sub_class.subclass_trait;
         temp_traits[2] = trait_list[0]; // TODO add with tammer class
         temp_traits[3] = temp_weapon.trait;
-        temp_traits[4] = temp_armor.trait;
+        //temp_traits[4] = temp_armor.trait;
         temp_traits[5] = temp_trinket_a.trait;
         temp_traits[6] = temp_trinket_b.trait;
         
@@ -191,14 +182,73 @@ public class HumanClass : ScriptableObject
         temp_attacks[2] = temp_sub_class.attack;
         temp_attacks[3] = attack_list[0]; // TODO add with tammer class
         temp_attacks[4] = temp_weapon.special_attack;
-        temp_attacks[5] = temp_armor.defensive_attack;
+        //temp_attacks[5] = temp_armor.defensive_attack;
         temp_attacks[6] = temp_trinket_a.special_attack;
         temp_attacks[7] = temp_trinket_b.special_attack;
 
-        int[] temp_stats = ApplyTrait.GetHumanBaseStats(temp_traits);
+        int[] temp_stats = new int[11];
         for (int i = 0; i < 11; ++i)
             temp_stats[i] += base_stats.GetStats(i) + (lv * stat_growth.GetStats(i));
 
         return new Human(temp_unique_name, temp_class_name, temp_sub_name, lv, temp_stats, temp_attacks, temp_traits, temp_model);
+    }
+
+    public String GetClassName()
+    {
+        return class_name;
+    }
+    public String GetClassDescription()
+    {
+        return description;
+    }
+
+    public String GetSubclassName(int index)
+    {
+        return subclasses[index].subclass_name;
+    }
+
+    public String GetSubclassDescription(int index)
+    {
+        return subclasses[index].description;
+    }
+
+    public String GetWeaponName(int index)
+    {
+        return weapons[index].weapon_name;
+    }
+
+    public String GetWeaponDescription(int index)
+    {
+        return weapons[index].description;
+    }
+
+    public String GetTrinketName(int index)
+    {
+        return trinkets[index].trinket_name;
+    }
+
+    public String GetTrinketDescription(int index)
+    {
+        return trinkets[index].description;
+    }
+
+    public String GetTraitName(int index)
+    {
+        return trait_list[index].GetName();
+    }    
+
+    public String GetTraitDescription(int index)
+    {
+        return trait_list[index].GetDescription();
+    }
+
+    public String GetSubTraitName(int sub,int index)
+    {
+        return subclasses[sub].free_traits[index].GetName();
+    }
+
+    public String GetSubTraitDescription(int sub,int index)
+    {
+        return subclasses[sub].free_traits[index].GetDescription();
     }
 }

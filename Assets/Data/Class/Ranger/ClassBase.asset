@@ -89,23 +89,6 @@ MonoBehaviour:
     basic_attack: {fileID: 11400000, guid: 8306928a1b5420f4daa48f385e4df9b3, type: 2}
     special_attack: {fileID: 11400000, guid: fc6cdeb7bcbca8b4595385214ff0cd34, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  armors:
-  - armor_name: None
-    description: 
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - armor_name: Obscuring Hood
-    description: 
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 5f7e1affc3f66bb4b80931bf9e30b08c, type: 2}
-  - armor_name: Weakness Goggles
-    description: 
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: a70a03965b0bfff47979f9b4c3be3fb9, type: 2}
-  - armor_name: Weighted Hood
-    description: 
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 3d4c97fd87335754ebc041fbb14e3bf0, type: 2}
   trinkets:
   - trinket_name: None
     description: 
@@ -127,6 +110,7 @@ MonoBehaviour:
   attack_list:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   trait_list:
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - {fileID: 11400000, guid: 1789bd9beed896d4986f0e53a9de13d9, type: 2}
   - {fileID: 11400000, guid: 0d433af22540f4042b802bb08fe74595, type: 2}
   - {fileID: 11400000, guid: 14b5fa26b68ada242b51de94c05ca9da, type: 2}

@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Brawler2
   m_EditorClassIdentifier: 
+  trait_name: Drain Defense
+  trait_description: B
   affects:
-  - ability: 4
+  - ability: 3
     ability_variables: 03000000ffffffff14000000
     condition: 4
     condition_variables: 01000000

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Base Stance
   affects:
-  - ability: 6
+  - ability: 5
     ability_variables: 0a000000feffffff00000000ffffffffffffffff
     condition: 1
     condition_variables: 

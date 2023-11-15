@@ -16,34 +16,21 @@ using UnityEngine.UI;
 [Serializable]
 public class MenuArmory : MenuSwapIcon
 {
-    [Serializable]
-    private class ClassData
-    {
-        public string name;
-        public string[] traits;
-        public string[] weapons, armors, accessories;
-        public SubclassData[] subclasses;
-    }
+    private PermDataHolder data_holder;
 
-    [Serializable]
-    private class SubclassData
-    {
-        public string name;
-        public string traita;
-        public string traitb;
-    }
-
-    //0 class | 1 subclass | 2-9 trait | 10 Weapon | 11 Armor | 12 Accessory
+    //0 class | 1 subclass  | 2 Weapon | 3 Armor | 4 Accessory| 5-12 trait
     [SerializeField] private Text[] text_boxes;
 
-    //0-7 Traits
-    [SerializeField] private GameObject[] markers;
+    [SerializeField] private GameObject[] core_icons;
+    [SerializeField] private GameObject[] trait_icons;
+    [SerializeField] private GameObject[] trait_markers;
 
     //0 subclass | 1 Weapon | 2 Armor | 3 Accessory
     [SerializeField] private int current_class;
     [SerializeField] private int[] current_values;
 
-    [SerializeField] private ClassData[] class_data;
+    [SerializeField] private Text trait_text;
+    [SerializeField] private Text description_text;
 
     [SerializeField] private int[] traits = new int[3] { -1, -1, -1 };
 
@@ -56,114 +43,236 @@ public class MenuArmory : MenuSwapIcon
 
     public override void UpdateMenu(Direction dir)
     {
-        if ((dir == Direction.Up || dir == Direction.Down) && (y_value <= 1 || y_value >= 10))
+        int dead_variable;
+
+        if (y_value == 0)
         {
-            base.UpdateMenu(dir);
+            if (dir == Direction.Down)
+                y_value = 1;
+
+            if (dir == Direction.Left || dir == Direction.Right)
+                GetInputValue(x_value, 0, 2, 1, dir, out x_value, out dead_variable);
         }
-        else if ((dir == Direction.Left || dir == Direction.Right) && (y_value <= 1 || y_value >= 10))
-        {
-            int dead_variable;
-            switch (y_value)
-            {
-                case 0:
-                    GetInputValue(current_class, 0, 3, 1, dir, out current_class, out dead_variable);
-
-                    for (int i = 0; i < 3; ++i)
-                        traits[i] = -1;
-                    break;
-                case 1:
-                    GetInputValue(current_values[0], 0, 3, 1, dir, out current_values[0], out dead_variable);
-
-                    for (int i = 0; i < 3; ++i)
-                        traits[i] = -1;
-                    break;
-                case 10:
-                    GetInputValue(current_values[1], 0, 4, 1, dir, out current_values[1], out dead_variable);
-                    break;
-                case 11:
-                    GetInputValue(current_values[2], 0, 4, 1, dir, out current_values[2], out dead_variable);
-                    break;
-                case 12:
-                    GetInputValue(current_values[3], 0, 4, 1, dir, out current_values[3], out dead_variable);
-                    break;
-            }
-
-            Display();
-        }
-        else if ((dir == Direction.Up || dir == Direction.Down))
+        else if (x_value == 0)
         {
             if (dir == Direction.Up)
+                y_value -= 1;
+
+            if (dir == Direction.Down && y_value != 5)
+                y_value += 1;
+
+            if (dir == Direction.Right || dir == Direction.Left)
             {
-                if (y_value <= 5)
-                    y_value = 1;
+                if (y_value == 1)
+                {
+                    GetInputValue(current_class, 0, 3, 1, dir, out current_class, out dead_variable);
+
+                    for (int i = 0; i < 4; ++i)
+                        current_values[i] = 0;
+
+                    for (int i = 0; i < 3; ++i)
+                        traits[i] = 0;
+                }
+                else if (y_value == 2)
+                {
+                    GetInputValue(current_values[0], 0, 3, 1, dir, out current_values[0], out dead_variable);
+
+                    for (int i = 1; i < 4; ++i)
+                        current_values[i] = 0;
+
+                    for (int i = 0; i < 3; ++i)
+                        traits[i] = 0;
+                }
+                else if (y_value == 4 || y_value == 5)
+                {
+                    if (dir == Direction.Right)
+                    {
+                        current_values[y_value - 2] += 1;
+
+                        if (current_values[y_value - 2] == 4)
+                            current_values[y_value - 2] = 0;
+
+                        if (current_values[2] == current_values[3] && current_values[3] != 0)
+                            current_values[y_value - 2] += 1;
+
+                        if (current_values[y_value - 2] == 4)
+                            current_values[y_value - 2] = 0;
+                    }
+                    if (dir == Direction.Left)
+                    {
+                        current_values[y_value - 2] -= 1;
+
+                        if (current_values[y_value - 2] == -1)
+                            current_values[y_value - 2] = 3;
+
+                        if (current_values[2] == current_values[3] && current_values[3] != 0)
+                            current_values[y_value - 2] -= 1;
+
+                        if (current_values[y_value - 2] == -1)
+                            current_values[y_value - 2] = 3;
+                    }
+                }
                 else
-                    y_value -= 4;
-            }
-            else
-            {
-                if (y_value >= 6)
-                    y_value = 10;
-                else
-                    y_value += 4;
+                    GetInputValue(current_values[y_value - 2], 0, 4, 1, dir, out current_values[y_value - 2], out dead_variable);
             }
         }
         else
         {
-            GetInputValue(y_value - 2, 0, 8, 1, dir, out y_value, out int dead_value);
-            y_value += 2;
+            if (dir == Direction.Down)
+            {
+                if (y_value != 4 && y_value != 8)
+                    y_value += 1;
+            }
+
+            if (dir == Direction.Up)
+            {
+                if (y_value == 1 || y_value == 5)
+                    y_value = 0;
+                else
+                    y_value -= 1;
+            }
+
+            if (dir == Direction.Right || dir == Direction.Left)
+            {
+                if ((y_value - 1) / 4 == 0)
+                    y_value += 4;
+                else
+                    y_value -= 4;
+            }
         }
 
-        base.UpdateMenu(Direction.None);
+        for (int i = 0; i < 2; ++i)
+            icons[i].SetActive(false);
+
+        for (int i = 0; i < 5; ++i)
+            core_icons[i].SetActive(false);
+
+        for (int i = 0; i < 8; ++i)
+            trait_icons[i].SetActive(false);
+
+        if (y_value == 0)
+            icons[x_value].SetActive(true);
+        else if (x_value == 0)
+            core_icons[y_value - 1].SetActive(true);
+        else
+            trait_icons[y_value - 1].SetActive(true);
+
+        Display();
     }
 
     public void SetTrait()
     {
-        if (y_value < 2 || y_value > 9)
+        if (x_value != 1 || y_value == 0)
             return;
 
         for (int i = 0; i < 3; ++i)
-            if (traits[i] == y_value - 2)
+            if (traits[i] == y_value)
             {
-                traits[i] = -1;
-                markers[y_value - 2].SetActive(false);
+                traits[i] = 0;
+                Display();
                 return;
             }
 
         for (int i = 0; i < 3; ++i)
-            if (traits[i] == -1)
+            if (traits[i] == 0)
             {
-                traits[i] = y_value - 2;
-                markers[y_value - 2].SetActive(true);
+                traits[i] = y_value;
+                Display();
                 return;
             }
     }
 
-    public void SetData(PermDataHolder data_holder)
+    public void LoadData(PermDataHolder data_holder)
+    {
+        this.data_holder = data_holder;
+
+        int[] temp_int = data_holder.GetPlayerInt();
+        current_class = temp_int[0];
+
+        for (int i = 0; i < 4; ++i)
+            current_values[i] = temp_int[i + 1];
+
+        for (int i = 0; i < 3; ++i)
+            traits[i] = temp_int[i + 5];
+    }
+
+    public void SetData()
     {
         data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], traits[0] + 1, traits[1] + 1, traits[2] + 1);
     }
 
     private void Display()
     {
-        text_boxes[0].text = class_data[current_class].name;
-        text_boxes[1].text = class_data[current_class].subclasses[current_values[0]].name;
-        text_boxes[2].text = class_data[current_class].traits[0];
-        text_boxes[3].text = class_data[current_class].traits[1];
-        text_boxes[4].text = class_data[current_class].traits[2];
-        text_boxes[5].text = class_data[current_class].traits[3];
-        text_boxes[6].text = class_data[current_class].traits[4];
-        text_boxes[7].text = class_data[current_class].traits[5];
-        text_boxes[8].text = class_data[current_class].subclasses[current_values[0]].traita;
-        text_boxes[9].text = class_data[current_class].subclasses[current_values[0]].traitb;
-        text_boxes[10].text = class_data[current_class].weapons[current_values[1]];
-        text_boxes[11].text = class_data[current_class].armors[current_values[2]];
-        text_boxes[12].text = class_data[current_class].accessories[current_values[3]];
+        HumanClass temp_human = data_holder.GetDataHuman(current_class);
+
+        if (y_value == 1 && x_value == 0)
+        {
+            description_text.text = temp_human.GetClassDescription();
+            text_boxes[0].text = "< " + temp_human.GetClassName() + " >";
+        }
+        else
+            text_boxes[0].text = temp_human.GetClassName();
+
+        if (y_value == 2 && x_value == 0)
+        {
+            description_text.text = temp_human.GetSubclassDescription(current_values[0]);
+            text_boxes[1].text = "< " + temp_human.GetSubclassName(current_values[0]) + " >";
+        }
+        else
+            text_boxes[1].text = temp_human.GetSubclassName(current_values[0]);
+
+        if (y_value == 3 && x_value == 0)
+        {
+            description_text.text = temp_human.GetWeaponDescription(current_values[1]);
+            text_boxes[2].text = "< " + temp_human.GetWeaponName(current_values[1]) + " >";
+        }
+        else
+            text_boxes[2].text = temp_human.GetWeaponName(current_values[1]);
+
+        if (y_value == 4 && x_value == 0)
+        {
+            description_text.text = temp_human.GetTrinketDescription(current_values[2]);
+            text_boxes[3].text = "< " + temp_human.GetTrinketName(current_values[2]) + " >";
+        }
+        else
+            text_boxes[3].text = temp_human.GetTrinketName(current_values[2]);
+
+        if (y_value == 5 && x_value == 0)
+        {
+            description_text.text = temp_human.GetTrinketDescription(current_values[3]);
+            text_boxes[4].text = "< " + temp_human.GetTrinketName(current_values[3]) + " >";
+        }
+        else
+            text_boxes[4].text = temp_human.GetTrinketName(current_values[3]);
+
+        for (int i = 0; i < 6; ++i)
+        {
+            text_boxes[5 + i].text = temp_human.GetTraitName(i + 1);
+
+            if (x_value == 1 && y_value == i + 1)
+                description_text.text = temp_human.GetTraitDescription(i + 1);
+        }
+
+        for (int i = 0; i < 2; ++i)
+        {
+            text_boxes[11 + i].text = temp_human.GetSubTraitName(current_values[0], i);
+
+            if (x_value == 1 && y_value-7 == i)
+                description_text.text = temp_human.GetSubTraitDescription(current_values[0], i);
+        }
 
         for (int i = 0; i < 8; ++i)
-            markers[i].SetActive(false);
+            trait_markers[i].SetActive(false);
+
+        int num_traits = 0;
 
         for (int i = 0; i < 3; ++i)
-            if (traits[i] != -1)
-                markers[traits[i]].SetActive(true);
+            if (traits[i] != 0)
+            {
+                ++num_traits;
+                trait_markers[traits[i] - 1].SetActive(true);
+            }
+
+        trait_text.text = num_traits + "/3";
     }
 }

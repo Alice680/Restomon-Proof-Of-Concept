@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Stunning Strike
   affects:
-  - ability: 6
+  - ability: 5
     ability_variables: 06000000ffffffff000000001400000019000000
     condition: 4
     condition_variables: 01000000

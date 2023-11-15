@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Class2
   m_EditorClassIdentifier: 
   trait_name: Def Boost
+  trait_description: Lose Trait
   affects:
-  - ability: 9
+  - ability: 8
     ability_variables: 0a000000
     condition: 1
     condition_variables: 02000000

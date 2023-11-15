@@ -40,6 +40,8 @@ public class ManagerMenuMain : MonoBehaviour
         inputer = new Inputer();
         state = State.core;
 
+        LoadData();
+
         core_menu.Activate();
     }
 
@@ -180,10 +182,16 @@ public class ManagerMenuMain : MonoBehaviour
     }
 
     //Internal calls
+    private void LoadData()
+    {
+        dungeon_menu.LoadData(data_holder);
+        armory_menu.LoadData(data_holder);
+    }
+
     private void UpdateData()
     {
         dungeon_menu.SetData(data_holder);
-        armory_menu.SetData(data_holder);
+        armory_menu.SetData();
         team_menu.SetData(data_holder);
     }
 }

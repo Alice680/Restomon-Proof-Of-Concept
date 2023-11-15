@@ -1,25 +1,13 @@
 fileFormatVersion: 2
-guid: e2d34d2c04904d849b4856a2f3e749fb
+guid: b97be93abb55c934c9a8fa5df9d236e5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1072403465687779264
-    second: MainMenus_0
+      213: -1779701186839752632
+    second: ArmoryTraitMenu_0
   - first:
-      213: 7790658503805339571
-    second: MainMenus_1
-  - first:
-      213: 18500945064818512
-    second: MainMenus_2
-  - first:
-      213: -4860062958809966997
-    second: MainMenus_3
-  - first:
-      213: -1579620813732266138
-    second: MainMenus_4
-  - first:
-      213: -8598106283539705764
-    second: MainMenus_5
+      213: 5780462254504042374
+    second: ArmoryTraitMenu_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,70 +109,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MainMenus_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c7c73c2541f1ee00800000000000000
-      internalID: 1072403465687779264
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainMenus_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b781bde1aafd1c60800000000000000
-      internalID: 7790658503805339571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainMenus_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 057f892f28ab14000800000000000000
-      internalID: 18500945064818512
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainMenus_3
+      name: ArmoryTraitMenu_0
       rect:
         serializedVersion: 2
         x: 0
@@ -198,14 +123,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b66191a1d769d8cb0800000000000000
-      internalID: -4860062958809966997
+      spriteID: 8405318233b3d47e0800000000000000
+      internalID: -1779701186839752632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainMenus_4
+      name: ArmoryTraitMenu_1
       rect:
         serializedVersion: 2
         x: 256
@@ -219,29 +144,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66fbca53d3f041ae0800000000000000
-      internalID: -1579620813732266138
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainMenus_5
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c50df8cc3e36da880800000000000000
-      internalID: -8598106283539705764
+      spriteID: 68f54455bc3583050800000000000000
+      internalID: 5780462254504042374
       vertices: []
       indices: 
       edges: []

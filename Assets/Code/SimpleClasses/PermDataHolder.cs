@@ -16,7 +16,7 @@ public class PermDataHolder : MonoBehaviour
     private int current_dungeon;
 
     [SerializeField] private HumanClass[] classes;
-    private Human current_player;
+    private int[] current_player;
 
     [SerializeField] private RestomonBase[] restomon;
     private Restomon[] current_team;
@@ -28,18 +28,21 @@ public class PermDataHolder : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
+        current_player = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
         current_team = new Restomon[3];
 
         current_dungeon = 0;
-        current_player = null;
-        current_team[0] = null;
-        current_team[1] = null;
-        current_team[2] = null;
     }
 
+    //Dungeon
     public void SetDungeon(int index)
     {
         current_dungeon = index;
+    }
+
+    public int GetDungeonInt()
+    {
+        return current_dungeon;
     }
 
     public DungeonLayout GetDungeon()
@@ -47,9 +50,20 @@ public class PermDataHolder : MonoBehaviour
         return dungeons[current_dungeon];
     }
 
+    //Player
     public void SetPlayer(int class_i, int sub_i, int weapon_i, int armor_i, int trinket_i, int trait_a, int trait_b, int trait_c)
     {
-        current_player = classes[class_i].GetHuman(3, sub_i, weapon_i, armor_i, trinket_i, 0, new int[3] { trait_a, trait_b, trait_c }, "Player");
+        current_player = new int[8] { class_i, sub_i, weapon_i, armor_i, trinket_i, trait_a, trait_b, trait_c };
+    }
+
+    public int[] GetPlayerInt()
+    {
+        return current_player;
+    }
+
+    public Human GetPlayer()
+    {
+        return classes[current_player[0]].GetHuman(3, current_player[1], current_player[2], current_player[3], current_player[4], 0, new int[3] { current_player[5], current_player[6], current_player[7] }, "Player");
     }
 
     public void SetCatalyst(int index)
@@ -70,11 +84,6 @@ public class PermDataHolder : MonoBehaviour
         current_team[index] = restomon[restomon_id].GetRestomon(1, attack_id, trait_id);
     }
 
-    public Human GetPlayer()
-    {
-        return current_player;
-    }
-
     public Restomon GetTeam(int index)
     {
         return current_team[index];
@@ -83,5 +92,10 @@ public class PermDataHolder : MonoBehaviour
     public Catalyst GetCatalyst()
     {
         return catalysts[current_catalyst];
+    }
+
+    public HumanClass GetDataHuman(int index)
+    {
+        return classes[index];
     }
 }

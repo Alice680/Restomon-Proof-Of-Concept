@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Damage boost on hit
   affects:
-  - ability: 4
+  - ability: 3
     ability_variables: 000000000100000023000000
     condition: 4
     condition_variables: 00000000

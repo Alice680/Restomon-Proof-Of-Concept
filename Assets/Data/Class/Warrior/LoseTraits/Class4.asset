@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Class4
   m_EditorClassIdentifier: 
   trait_name: Ather Boost
+  trait_description: Lose Trait
   affects:
-  - ability: 1
+  - ability: 0
     ability_variables: 0500000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    condition: 1
+    condition: 0
     condition_variables: 

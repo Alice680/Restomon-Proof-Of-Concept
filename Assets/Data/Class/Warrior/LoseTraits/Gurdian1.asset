@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Thorns
   affects:
-  - ability: 2
+  - ability: 1
     ability_variables: 000000000200000064000000
     condition: 5
     condition_variables: 00000000

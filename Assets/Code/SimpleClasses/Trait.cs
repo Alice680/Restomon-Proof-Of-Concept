@@ -17,7 +17,7 @@ using UnityEngine;
  */
 // TODO Make interface so I don't need to relly on the list for variables
 public enum TraitCondition { None, Passive, StartTurn, EndTurn, OnStrike, OnStruck, OnKill, OnKilled, OnMove, OnSpawn }
-public enum TraitAbility { None, BaseStats, Damage, Healing, Buff, AddToTurn, ChangeCondtions,  Weather, InstantKill, BoostStats, Special }
+public enum TraitAbility { None, Damage, Healing, Buff, AddToTurn, ChangeCondtions,  Weather, InstantKill, BoostStats, Special }
 
 [CreateAssetMenu(fileName = "Class", menuName = "ScriptableObjects/Trait")]
 public class Trait : ScriptableObject
@@ -32,7 +32,7 @@ public class Trait : ScriptableObject
         public int[] condition_variables;
     }
 
-    [SerializeField] private string trait_name;
+    [SerializeField] private string trait_name, trait_description;
     [SerializeField] private Affect[] affects;
 
     public int GetNumberAffects()
@@ -63,12 +63,23 @@ public class Trait : ScriptableObject
 
         return affects[index].condition;
     }
+
     public int[] GetConditionVariable(int index)
     {
         if (index < 0 || index >= affects.Length)
             return null;
 
         return affects[index].condition_variables;
+    }
+
+    public String GetName()
+    {
+        return trait_name;
+    }
+
+    public String GetDescription()
+    {
+        return trait_description;
     }
 
     public override string ToString()

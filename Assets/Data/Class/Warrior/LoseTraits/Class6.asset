@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Class6
   m_EditorClassIdentifier: 
   trait_name: Accuracy Boost
+  trait_description: Lose Trait
   affects:
-  - ability: 9
+  - ability: 8
     ability_variables: 05000000
     condition: 1
     condition_variables: 03000000

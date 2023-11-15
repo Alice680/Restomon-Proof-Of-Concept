@@ -13,42 +13,6 @@ using UnityEngine;
 // TODO set up generic interface
 public static class ApplyTrait
 {
-    /* 
-     * Passives
-     */
-    public static int[] GetHumanBaseStats(Trait[] traits)
-    {
-        int[] stats = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        int[] temp_stats;
-
-        foreach (Trait trait in traits)
-        {
-            for (int i = 0; i < trait.GetNumberAffects(); ++i)
-            {
-                if (trait.GetAbility(i) != TraitAbility.BaseStats || trait.GetCondition(i) != TraitCondition.Passive)
-                    continue;
-
-                temp_stats = trait.GetAbilityVariable(i);
-                for (int e = 0; e < 11; ++e)
-                    stats[e] += temp_stats[e];
-            }
-        }
-
-        return stats;
-    }
-
-    // TODO add in
-    public static int[] GetRestomonBaseStats(Trait[] traits)
-    {
-        int[] stats = new int[0];
-
-        /*foreach (Effect effect in effects)
-            if (effect.ability == TraitAbility.BaseStats && effect.condition == TraitCondition.Passive && index < effect.int_a_variables.Length)
-                value += effect.int_a_variables[index];*/
-
-        return stats;
-    }
-
     public static int DamageBoost(Trait[] traits, out int crit_rate)
     {
         int value = 0;

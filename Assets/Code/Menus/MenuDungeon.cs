@@ -42,15 +42,21 @@ public class MenuDungeon : MenuSwapIcon
 
         else if (y_value == 1)
         {
-            GetInputValue(difficulty_int, 0, 6, 1, dir, out difficulty_int, out int dead_variable);
+            GetInputValue(difficulty_int, 0, 4, 1, dir, out difficulty_int, out int dead_variable);
 
             difficulty_text_box.text = difficulty_text[difficulty_int];
         }
     }
 
+    public void LoadData(PermDataHolder data)
+    {
+        difficulty_int = data.GetDungeonInt() % 4;
+        dungeon_int = data.GetDungeonInt() / 6;
+    }
+
     // TODO untabb once code is done
     public void SetData(PermDataHolder data)
     {
-        data.SetDungeon((/*dungeon_int*/0 * 6) + difficulty_int);
+        data.SetDungeon((/*dungeon_int*/0 * 4) + difficulty_int);
     }
 }

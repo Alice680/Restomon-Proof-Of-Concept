@@ -89,23 +89,6 @@ MonoBehaviour:
     basic_attack: {fileID: 11400000, guid: a2a694e33d2b4b94bbfbbe52cea61c20, type: 2}
     special_attack: {fileID: 11400000, guid: 76bff8c72735e464495aea721edbac2b, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  armors:
-  - armor_name: None
-    description: None
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - armor_name: Shimmer Cloak
-    description: None
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: f558867cca43b204fb3cb315afa83d05, type: 2}
-  - armor_name: None
-    description: None
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 9ec75ff1a4b4d684e8f4313f561eb15e, type: 2}
-  - armor_name: None
-    description: None
-    defensive_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 9d190a142a8c2554ab8b9258fbecaaff, type: 2}
   trinkets:
   - trinket_name: None
     description: None
@@ -127,6 +110,7 @@ MonoBehaviour:
   attack_list:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   trait_list:
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - {fileID: 11400000, guid: 6d7b20748e2b3b1479bd453ee2704b45, type: 2}
   - {fileID: 11400000, guid: d20249ce53f74d2418cfce9c16113f70, type: 2}
   - {fileID: 11400000, guid: 5eef19b14d05caa4a84b65292da5433a, type: 2}

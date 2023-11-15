@@ -16,7 +16,10 @@ public class MenuSwapIcon : MenuBasic
     {
         base.Activate();
 
-        UpdateMenu(Direction.None);
+        for (int i = 0; i < icons.Length; ++i)
+            icons[i].SetActive(false);
+
+        icons[x_value + (y_value * x_size)].SetActive(true);
     }
 
     public override void UpdateMenu(Direction dir)

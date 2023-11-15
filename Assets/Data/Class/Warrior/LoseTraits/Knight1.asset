@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Heal on hit
   affects:
-  - ability: 3
+  - ability: 2
     ability_variables: 000000000100000032000000
     condition: 4
     condition_variables: 00000000
