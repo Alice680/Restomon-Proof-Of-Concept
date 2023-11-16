@@ -68,14 +68,10 @@ public class ManagerMenuRestomonActions : MonoBehaviour
                     return -1;
 
                 case 2:
-
-                    break;
-
-                case 3:
                     main_menu.DeActivate();
 
                     exit_value = -1;
-                    return 5;
+                    return 2;
             }
         }
         else if (state == State.attack)

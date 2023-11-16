@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Knight
   m_EditorClassIdentifier: 
   attack_name: Assault Stance
-  description: 
+  description: None
   element: 0
   cost: 000000000000000000000000
   hit_chance: 100

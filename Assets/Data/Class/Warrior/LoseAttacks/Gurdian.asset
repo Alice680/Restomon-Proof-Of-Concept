@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gurdian
   m_EditorClassIdentifier: 
   attack_name: Wall Stance
-  description: 
+  description: None
   element: 0
   cost: 000000000000000000000000
   hit_chance: 100

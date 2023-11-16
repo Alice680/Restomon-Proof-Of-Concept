@@ -78,7 +78,7 @@ public class HumanClass : ScriptableObject
     private class Weapon
     {
         public string weapon_name, description;
-        public Attack basic_attack, special_attack;
+        public Attack basic_attack, special_attack, special_ability;
         public Trait trait;
     }
 
@@ -87,7 +87,6 @@ public class HumanClass : ScriptableObject
     {
         public string trinket_name, description;
         public Attack special_attack;
-        public Trait trait;
     }
 
     [SerializeField] private string class_name, description;
@@ -131,12 +130,6 @@ public class HumanClass : ScriptableObject
         else
             temp_weapon = weapons[weapon_i];
 
-        /*Armor temp_armor;
-        if (armor_i < 0 || armor_i > armors.Length)
-            temp_armor = armors[0];
-        else
-            temp_armor = armors[armor_i];*/
-
         Trinket temp_trinket_a;
         if (trinket_a_i < 0 || trinket_a_i > trinkets.Length)
             temp_trinket_a = trinkets[0];
@@ -155,36 +148,33 @@ public class HumanClass : ScriptableObject
 
         GameObject temp_model = model;
 
-        Trait[] temp_traits = new Trait[10];
+        Trait[] temp_traits = new Trait[7];
         temp_traits[0] = class_trait[(int)Mathf.Clamp(lv / 5, 0, 5)];
         temp_traits[1] = temp_sub_class.subclass_trait;
         temp_traits[2] = trait_list[0]; // TODO add with tammer class
         temp_traits[3] = temp_weapon.trait;
-        //temp_traits[4] = temp_armor.trait;
-        temp_traits[5] = temp_trinket_a.trait;
-        temp_traits[6] = temp_trinket_b.trait;
         
         for (int i = 0; i < 3; ++i)
         {
             if (traits_i.Length != 3 || traits_i[i] < 0)
-                temp_traits[7 + i] = trait_list[0];
+                temp_traits[4 + i] = trait_list[0];
             else if (traits_i[i] < trait_list.Length)
-                temp_traits[7 + i] = trait_list[traits_i[i]];
+                temp_traits[4 + i] = trait_list[traits_i[i]];
             else if (traits_i[i] < trait_list.Length + temp_sub_class.free_traits.Length)
-                temp_traits[7 + i] = temp_sub_class.free_traits[traits_i[i]- trait_list.Length];
+                temp_traits[4 + i] = temp_sub_class.free_traits[traits_i[i]- trait_list.Length];
             else
-                temp_traits[7 + i] = trait_list[0];
+                temp_traits[4 + i] = trait_list[0];
         }
 
-        Attack[] temp_attacks = new Attack[9];
+        Attack[] temp_attacks = new Attack[8];
         temp_attacks[0] = temp_weapon.basic_attack;
-        temp_attacks[1] = class_attack;
-        temp_attacks[2] = temp_sub_class.attack;
-        temp_attacks[3] = attack_list[0]; // TODO add with tammer class
-        temp_attacks[4] = temp_weapon.special_attack;
-        //temp_attacks[5] = temp_armor.defensive_attack;
-        temp_attacks[6] = temp_trinket_a.special_attack;
-        temp_attacks[7] = temp_trinket_b.special_attack;
+        temp_attacks[1] = temp_weapon.special_attack;
+        temp_attacks[2] = temp_trinket_a.special_attack;
+        temp_attacks[3] = temp_trinket_b.special_attack;
+        temp_attacks[4] = temp_weapon.special_ability;
+        temp_attacks[5] = class_attack;
+        temp_attacks[6] = temp_sub_class.attack;
+        temp_attacks[7] = attack_list[0]; // TODO add with tammer class
 
         int[] temp_stats = new int[11];
         for (int i = 0; i < 11; ++i)

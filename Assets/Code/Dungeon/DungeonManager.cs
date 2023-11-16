@@ -738,10 +738,11 @@ public class DungeonManager : MonoBehaviour
 
     public string GetAttackName(int id, int index)
     {
+        Debug.Log(index);
         return GetUnitFromID(id).GetAttack(index).GetName();
     }
 
-    public string GetAttackEffect(int id, int index)
+    public string GetAttackDescription(int id, int index)
     {
         return GetUnitFromID(id).GetAttack(index).GetDescription();
     }

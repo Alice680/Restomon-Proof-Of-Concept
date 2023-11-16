@@ -198,7 +198,7 @@ public class MenuArmory : MenuSwapIcon
 
     public void SetData()
     {
-        data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], traits[0] + 1, traits[1] + 1, traits[2] + 1);
+        data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], traits[0], traits[1], traits[2]);
     }
 
     private void Display()

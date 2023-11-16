@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: StairsTrait
   m_EditorClassIdentifier: 
   trait_name: Ball Bearing
+  trait_description: 
   affects:
-  - ability: 10
+  - ability: 9
     ability_variables: 00000000
     condition: 8
     condition_variables: 

@@ -28,6 +28,8 @@ public class ManagerMenuHumanActions : MonoBehaviour
 
     [SerializeField] private Text[] attack_text;
     [SerializeField] private Text[] summon_text;
+    [SerializeField] private Text attack_box_text;
+    [SerializeField] private Text attack_hp_text;
 
     private State state;
 
@@ -64,6 +66,11 @@ public class ManagerMenuHumanActions : MonoBehaviour
 
                     for (int i = 0; i < 8; ++i)
                         attack_text[i].text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), i);
+
+                    int x, y;
+                    attack_menu.GetValues(out x, out y);
+                    attack_box_text.text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), (x * 4) + y);
+                    attack_hp_text.text = manager_ref.GetAttackCost(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
 
                     state = State.attack;
                     exit_value = 0;
@@ -156,6 +163,10 @@ public class ManagerMenuHumanActions : MonoBehaviour
                 break;
             case State.attack:
                 attack_menu.UpdateMenu(dir);
+                int x, y;
+                attack_menu.GetValues(out x, out y);
+                attack_box_text.text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), (x * 4) + y);
+                attack_hp_text.text = manager_ref.GetAttackCost(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
                 break;
             case State.summon:
                 summon_menu.UpdateMenu(dir);

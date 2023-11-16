@@ -242,10 +242,6 @@ public class Player : Actor
 
 
                 case 2:
-
-                    return;
-
-                case 3:
                     manager_ref.LoseDungeon();
                     return;
             }
