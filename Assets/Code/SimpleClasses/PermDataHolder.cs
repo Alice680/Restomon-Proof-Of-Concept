@@ -12,6 +12,24 @@ using UnityEngine;
 // TODO add values for score
 public class PermDataHolder : MonoBehaviour
 {
+    private class RestomonData
+    {
+        public int restomon_id;
+        public int[] form_value;
+
+        public RestomonData()
+        {
+            restomon_id = 0;
+            form_value = new int[4] { 0, 0, 0, 0 };
+        }
+
+        public RestomonData(int restomon_id, int[] form_value)
+        {
+            this.restomon_id = restomon_id;
+            this.form_value = form_value;
+        }
+    }
+
     [SerializeField] private DungeonLayout[] dungeons;
     private int current_dungeon;
 
@@ -19,7 +37,7 @@ public class PermDataHolder : MonoBehaviour
     private int[] current_player;
 
     [SerializeField] private RestomonBase[] restomon;
-    private Restomon[] current_team;
+    private RestomonData[] current_team;
 
     [SerializeField] private Catalyst[] catalysts;
     private int current_catalyst;
@@ -28,10 +46,14 @@ public class PermDataHolder : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        current_player = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-        current_team = new Restomon[3];
-
         current_dungeon = 0;
+
+        current_player = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+        current_catalyst = 0;
+
+        current_team = new RestomonData[4] { new RestomonData(), new RestomonData(), new RestomonData(), new RestomonData() };
+
     }
 
     //Dungeon
@@ -66,6 +88,7 @@ public class PermDataHolder : MonoBehaviour
         return classes[current_player[0]].GetHuman(3, current_player[1], current_player[2], current_player[3], current_player[4], 0, new int[3] { current_player[5], current_player[6], current_player[7] }, "Player");
     }
 
+    //Team
     public void SetCatalyst(int index)
     {
         if (index < 0)
@@ -74,19 +97,9 @@ public class PermDataHolder : MonoBehaviour
             current_catalyst = index;
     }
 
-    public void SetRestomon(int index)
+    public int GetCatalystInt()
     {
-        current_team[index] = null;
-    }
-
-    public void SetRestomon(int index, int restomon_id, int[] attack_id, int[] trait_id)
-    {
-        current_team[index] = restomon[restomon_id].GetRestomon(1, attack_id, trait_id);
-    }
-
-    public Restomon GetTeam(int index)
-    {
-        return current_team[index];
+        return current_catalyst;
     }
 
     public Catalyst GetCatalyst()
@@ -94,8 +107,42 @@ public class PermDataHolder : MonoBehaviour
         return catalysts[current_catalyst];
     }
 
+    public void SetRestomon(int index)
+    {
+        current_team[index] = new RestomonData();
+    }
+
+    public void SetRestomon(int index, int restomon_id, int[] form_value)
+    {
+        current_team[index] = new RestomonData(restomon_id, form_value);
+    }
+
+    public int GetRestomonInt(int index, out int[] form_value)
+    {
+        form_value = current_team[index].form_value;
+
+        return current_team[index].restomon_id;
+    }
+
+    public Restomon GetTeam(int index)
+    {
+        return restomon[current_team[index].restomon_id].GetRestomon(3, new int[0], new int[0]);
+    }
+
+    //Get Data
+
     public HumanClass GetDataHuman(int index)
     {
         return classes[index];
+    }
+
+    public Catalyst GetDataCatalyst(int index)
+    {
+        return catalysts[index];
+    }
+
+    public RestomonBase GetDataRestomon(int index)
+    {
+        return restomon[index];
     }
 }

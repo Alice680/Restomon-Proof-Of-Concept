@@ -5,10 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Catalyst", menuName = "ScriptableObjects/Catalyst")]
 public class Catalyst : ScriptableObject
 {
-    [SerializeField] private int team_size;
-    [SerializeField] private int summon_cost;
-    [SerializeField] private int evolution_cost;
-    [SerializeField] private int maintenance_cost;
+    [SerializeField] private string catalyst_name, catalyst_description;
+
+    [SerializeField] private int team_size, restomon_amount, summon_cost, evolution_cost, maintenance_cost;
 
     [SerializeField] private ShapeData area;
 
@@ -17,8 +16,23 @@ public class Catalyst : ScriptableObject
         return team_size;
     }
 
+    public int GetRestomonAmount()
+    {
+        return restomon_amount;
+    }
+
     public Vector3Int[] GetArea(Vector3Int target)
     {
-        return area.GetArea(target,Direction.None);
+        return area.GetArea(target, Direction.None);
+    }
+
+    public string GetName()
+    {
+        return catalyst_name;
+    }
+
+    public string GetDescription()
+    {
+        return catalyst_description;
     }
 }

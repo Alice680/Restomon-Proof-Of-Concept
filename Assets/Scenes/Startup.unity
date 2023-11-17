@@ -280,3 +280,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cdcd5442abb873f4da6ccd08d844d82a, type: 2}
   catalysts:
   - {fileID: 11400000, guid: 4ff3fb4ed6d3e294fbd844459214dc1c, type: 2}
+  - {fileID: 11400000, guid: 11f027dae36aff74fba9ef782f7dd821, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}

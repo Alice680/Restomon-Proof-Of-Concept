@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58db6c63c2e2f734a9ae16ea4931c1b0, type: 3}
+  m_Name: Specialist
+  m_EditorClassIdentifier: 
+  catalyst_name: Specialist
+  catalyst_description: Chose from a wide range
+  team_size: 2
+  restomon_amount: 4
+  summon_cost: 100
+  evolution_cost: 100
+  maintenance_cost: 100
+  area:
+    shape: 2
+    length: 3
+    width: 3
+    rotatable: 0
+    Hollow: 1

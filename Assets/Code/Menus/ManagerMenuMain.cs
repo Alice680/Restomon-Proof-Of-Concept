@@ -186,12 +186,13 @@ public class ManagerMenuMain : MonoBehaviour
     {
         dungeon_menu.LoadData(data_holder);
         armory_menu.LoadData(data_holder);
+        team_menu.LoadData(data_holder);
     }
 
     private void UpdateData()
     {
         dungeon_menu.SetData(data_holder);
         armory_menu.SetData();
-        team_menu.SetData(data_holder);
+        team_menu.SetData();
     }
 }
