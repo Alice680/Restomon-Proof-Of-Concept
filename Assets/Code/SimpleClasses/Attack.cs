@@ -9,21 +9,36 @@ using UnityEngine;
  * 
  * Notes:
  */
-// TODO finish conditions
 // TODO Weather
-// TODO Set tile traps
-public enum AttackEffect { Damage, Healing, Buff, AddToTurn, ChangeCondition, Weather, TileCondtion }
-public enum Target { Self, Enemy, Ally, All, Dungeon, Tile }
+public enum AttackEffect { None, Damage, Healing, Buff, AddToTurn, ChangeCondition, Weather, TileCondtion }
+public enum AttackRequirement { None, Chance }
+public enum AttackTarget { Self, Enemy, Ally, All, Dungeon, Tile }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableAttack", order = 2)]
 public class Attack : ScriptableObject
 {
+    [Serializable]
+    private class Effect
+    {
+        public AttackEffect type;
+        public AttackTarget target;
+        public int[] variables;
+        public Requirement[] requirements;
+    }
+
+    [Serializable]
+    private class Requirement
+    {
+        public AttackRequirement requirement;
+        public int[] requirement_variables;
+    }
+
     [SerializeField] private string attack_name;
     [SerializeField] private string description;
 
     [SerializeField] private Element element;
 
-    [SerializeField] private int[] cost = new int[3];
+    [SerializeField] private int[] cost = new int[2];
 
     [SerializeField] private int hit_chance;
 
@@ -32,7 +47,7 @@ public class Attack : ScriptableObject
 
     [SerializeField] private GameObject model;
 
-    [SerializeField] private AttackAffect[] affects;
+    [SerializeField] private Effect[] effects;
 
     //Grab Data
     public string GetName()
@@ -52,7 +67,7 @@ public class Attack : ScriptableObject
 
     public int GetCost(int index)
     {
-        if (index < 0 || index > 2)
+        if (index < 0 || index > 1)
             return -1;
 
         return cost[index];
@@ -78,8 +93,52 @@ public class Attack : ScriptableObject
         return this.target.GetArea(target, dir);
     }
 
-    public AttackAffect[] GetAffects()
+    public int GetNumberEffects()
     {
-        return affects;
+        return effects.Length;
+    }
+
+    public AttackTarget GetTarget(int index)
+    {
+        return effects[index].target;
+    }
+
+    public AttackEffect GetEffect(int index, out int[] abilities)
+    {
+        if (index < 0 || index >= effects.Length)
+        {
+            abilities = null;
+            return AttackEffect.None;
+        }
+
+        abilities = effects[index].variables;
+        return effects[index].type;
+    }
+
+    public int GetNumberRequirement(int index)
+    {
+        if (index < 0 || index >= effects.Length)
+        {
+            return -1;
+        }
+
+        return effects[index].requirements.Length;
+    }
+
+    public AttackRequirement GetRequirement(int index_a, int index_b, out int[] requirement)
+    {
+        if (index_a < 0 || index_a >= effects.Length)
+        {
+            requirement = new int[0];
+            return AttackRequirement.None;
+        }
+        if (index_b < 0 || index_b >= effects[index_a].requirements.Length)
+        {
+            requirement = new int[0];
+            return AttackRequirement.None;
+        }
+
+        requirement = effects[index_a].requirements[index_b].requirement_variables;
+        return effects[index_a].requirements[index_b].requirement;
     }
 }

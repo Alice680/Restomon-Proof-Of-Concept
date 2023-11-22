@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Core
   m_EditorClassIdentifier: 
   trait_name: Base Stance
-  affects:
+  trait_description: 
+  effects:
   - ability: 5
-    ability_variables: 0a000000feffffff00000000ffffffffffffffff
-    condition: 1
+    ability_variables: 0a00000000000000ffffffff
+    condition: 9
     condition_variables: 
+    requirements: []

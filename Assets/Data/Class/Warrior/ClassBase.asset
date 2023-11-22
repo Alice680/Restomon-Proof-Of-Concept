@@ -15,12 +15,12 @@ MonoBehaviour:
   class_name: Warrior
   description: A Warrior
   base_stats:
-    hp: 5
-    apr: 1
-    atk: 2
-    mag: 2
-    frc: 2
-    def: 2
+    hp: 25
+    apr: 2
+    atk: 5
+    mag: 1
+    frc: 3
+    def: 4
     shd: 2
     wil: 2
     spd: 5
@@ -69,43 +69,39 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: aba4e90519b82a949b9d903fb16a21e9, type: 2}
   tamerclasses: []
   weapons:
-  - weapon_name: Fist
-    description: Could not even find a weapon?
+  - weapon_name: Unarmed
+    description: Could you not find a weapon?
     basic_attack: {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
-    special_attack: {fileID: 11400000, guid: 38d4b0227b8c2c648ba2e3007160a243, type: 2}
+    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     special_ability: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - weapon_name: Sword
-    description: Simple but good damage
+    description: An all-around average weapon. It is focused on hitting groups of
+      nearby enemies.
     basic_attack: {fileID: 11400000, guid: cd65c8b5a6c39f241a4d0190e7cd8ad8, type: 2}
     special_attack: {fileID: 11400000, guid: 890ee9d38aeee524d84ebc240b94f78d, type: 2}
-    special_ability: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    special_ability: {fileID: 11400000, guid: f280fd3a963222a42aa0646ba1b276d7, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - weapon_name: Spear
-    description: Lower damage but long range
+    description: 'A long range and high damage weapon. '
     basic_attack: {fileID: 11400000, guid: dbf90b0e4b5d03542821cec1fcf6ec5a, type: 2}
     special_attack: {fileID: 11400000, guid: 97f8df45da66ae340be56ffcc3b27199, type: 2}
-    special_ability: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    special_ability: {fileID: 11400000, guid: 8f4272f96c4feeb428595278f189f688, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - weapon_name: Axe
-    description: Slower but massive damage
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
     basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
     special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
-    special_ability: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   trinkets:
-  - trinket_name: None
-    description: Empty
-    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - trinket_name: SwiftRing
-    description: Empty
-    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - trinket_name: AtherRing
-    description: Draws in Ather
-    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - trinket_name: Stability
-    description: Empty
-    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 0af66dbc643a88c4ea532e2dc611b49f, type: 2}
+  - {fileID: 11400000, guid: 48b84de84f3e3b643ac2bd50b01bcb4f, type: 2}
+  - {fileID: 11400000, guid: 2e8d0cb24c254504d8a17be924be8c10, type: 2}
+  - {fileID: 11400000, guid: d143be531cbd7ec44a453c3e22c6273b, type: 2}
+  - {fileID: 11400000, guid: e51d496847381d24e9caf7f156106f03, type: 2}
   model: {fileID: 4490433475202409575, guid: c2681fd194897334ba43e8dc2aeb2f69, type: 3}
   attack_list:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}

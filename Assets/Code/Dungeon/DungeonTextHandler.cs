@@ -18,7 +18,7 @@ public class DungeonTextHandler : MonoBehaviour
     public void SetUp()
     {
         new_text_holder = new LinkedQueue<string>();
-        current_text = new CircleArray<string>(5);
+        current_text = new CircleArray<string>(7);
     }
 
     public void Run()
@@ -26,10 +26,12 @@ public class DungeonTextHandler : MonoBehaviour
         if (new_text_holder.GetSize() == 0)
             return;
 
+        Debug.Log(new_text_holder.GetSize());
+
         while (new_text_holder.GetSize() != 0)
             current_text.Add(new_text_holder.Pop());
 
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 7; ++i)
             text_display[i].text = "" + current_text.GetValue(i);
     }
 }

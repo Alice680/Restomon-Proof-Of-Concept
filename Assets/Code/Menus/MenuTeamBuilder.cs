@@ -96,7 +96,7 @@ public class MenuTeamBuilder : MenuSwapIcon
                         restomon_values[x_value].form_value[i] = 0;
                 }
 
-                else if(y_value == 3)
+                else if (y_value == 3)
                     GetInputValue(restomon_values[x_value].form_value[y_value - 3], 0, 3, 0, dir, out restomon_values[x_value].form_value[y_value - 3], out dead_variable);
                 else
                     GetInputValue(restomon_values[x_value].form_value[y_value - 3], 0, 2, 0, dir, out restomon_values[x_value].form_value[y_value - 3], out dead_variable);
@@ -170,26 +170,26 @@ public class MenuTeamBuilder : MenuSwapIcon
 
         if (y_value == 4)
         {
-            text_boxes[4].text = "< " + creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[1]] + " >";
-            text_boxes[0].text = creature_builds[form_id].base_builds_description[restomon_values[x_value].form_value[1]];
+            text_boxes[4].text = "< " + creature_builds[form_id].builds_a_name[restomon_values[x_value].form_value[1]] + " >";
+            text_boxes[0].text = creature_builds[form_id].builds_a_description[restomon_values[x_value].form_value[1]];
         }
         else
-            text_boxes[4].text = creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[1]];
+            text_boxes[4].text = creature_builds[form_id].builds_a_name[restomon_values[x_value].form_value[1]];
 
         if (y_value == 5)
         {
-            text_boxes[5].text = "< " + creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[2]] + " >";
-            text_boxes[0].text = creature_builds[form_id].base_builds_description[restomon_values[x_value].form_value[2]];
+            text_boxes[5].text = "< " + creature_builds[form_id].builds_b_name[restomon_values[x_value].form_value[2]] + " >";
+            text_boxes[0].text = creature_builds[form_id].builds_b_description[restomon_values[x_value].form_value[2]];
         }
         else
-            text_boxes[5].text = creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[2]];
+            text_boxes[5].text = creature_builds[form_id].builds_b_name[restomon_values[x_value].form_value[2]];
 
         if (y_value == 6)
         {
-            text_boxes[6].text = "< " + creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[3]] + " >";
-            text_boxes[0].text = creature_builds[form_id].base_builds_description[restomon_values[x_value].form_value[3]];
+            text_boxes[6].text = "< " + creature_builds[form_id].builds_c_name[restomon_values[x_value].form_value[3]] + " >";
+            text_boxes[0].text = creature_builds[form_id].builds_c_description[restomon_values[x_value].form_value[3]];
         }
         else
-            text_boxes[6].text = creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[3]];
+            text_boxes[6].text = creature_builds[form_id].builds_c_name[restomon_values[x_value].form_value[3]];
     }
 }

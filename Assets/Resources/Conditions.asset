@@ -57,18 +57,27 @@ MonoBehaviour:
       effect: {fileID: 11400000, guid: 60ac00d3927149e4698c9423436a59da, type: 2}
       model: {fileID: 6477576012829007804, guid: 03270a552ae0e94448b3fec733778aad, type: 3}
   - ranks:
-    - name: Basic Stance
+    - name: Basic Style
       effect: {fileID: 11400000, guid: b6771a05095955f48a730ec5dc01eb4c, type: 2}
       model: {fileID: 9112577963271402083, guid: bb140f283afca774cb9e6d1de53d0055, type: 3}
-    - name: Burst Stance
+    - name: Burst Style
       effect: {fileID: 11400000, guid: 267a99fe40e45e9439aa38490ee533a8, type: 2}
       model: {fileID: 1585608568374588677, guid: b81df3b368ef0104da392d835163614d, type: 3}
-    - name: Wall Stance
+    - name: Wall Style
       effect: {fileID: 11400000, guid: 64d161375dd59a049b9dff12c3a0278c, type: 2}
       model: {fileID: 992845380458141255, guid: df4e6247199fb704ba5a46a3c073e193, type: 3}
-    - name: Attack Stance
+    - name: Assault Style
       effect: {fileID: 11400000, guid: 5be7aad3921e64a49b2b68aff9d2cf60, type: 2}
       model: {fileID: 7825381517557237812, guid: 68af894575b2b974c89d64faa131be2d, type: 3}
+    - name: Sword Style
+      effect: {fileID: 11400000, guid: 18eece8f99f79e841ac8f73454945184, type: 2}
+      model: {fileID: 7825381517557237812, guid: f1c89b066670a6c4f936a76c646bcfcf, type: 3}
+    - name: Spear Style
+      effect: {fileID: 11400000, guid: 304bef49c883dc242a563ce6c21da984, type: 2}
+      model: {fileID: 7825381517557237812, guid: 36983f03999b6fa469c60ffb5ec03c54, type: 3}
+    - name: Hammer Style
+      effect: {fileID: 11400000, guid: e24d7226c972a0744a4bcc2e2fa0b687, type: 2}
+      model: {fileID: 7825381517557237812, guid: ee559c1ca965ea540bb29eafc9fc98ef, type: 3}
   - ranks:
     - name: BasicStance
       effect: {fileID: 11400000, guid: 461e59b2cab232542a5a830fa2deebc7, type: 2}

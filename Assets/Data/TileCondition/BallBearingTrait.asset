@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: BallBearingTrait
   m_EditorClassIdentifier: 
   trait_name: Ball Bearing
-  affects:
-  - ability: 5
-    ability_variables: 00000000feffffff64000000
-    condition: 2
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
     condition_variables: 
-  - ability: 5
-    ability_variables: 00000000ffffffff32000000
-    condition: 8
-    condition_variables: 
+    requirements: []

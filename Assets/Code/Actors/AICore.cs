@@ -10,8 +10,6 @@ using UnityEngine;
  * Make sure to always give it an AIBase. This is a scriptible object with the commands for how this ai should run.
  * The pre run method is a temp method that exisits atm as proper states are not yet in AIBase as it is a work in progress still.
  */
-// TODO rewrite this so that PreRun is removed. This is on the AIBase end
-// TODO add in a variable to track ai state.
 
 public class AICore : Actor
 {

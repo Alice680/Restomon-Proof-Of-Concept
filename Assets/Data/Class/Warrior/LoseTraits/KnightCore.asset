@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: KnightCore
   m_EditorClassIdentifier: 
-  trait_name: Damage boost on hit
-  affects:
-  - ability: 3
-    ability_variables: 000000000100000023000000
+  trait_name: Spot Weakness
+  trait_description: When hitting a target, add a chance to lower their physical
+    defense.
+  effects:
+  - ability: 8
+    ability_variables: 03000000ffffffff
     condition: 4
-    condition_variables: 00000000
+    condition_variables: 01000000
+    requirements:
+    - requirement: 1
+      requirement_variables: 23000000

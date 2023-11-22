@@ -29,7 +29,7 @@ public class Unit
     private CreatureType creature_type;
     private Creature creature;
 
-    private int hp, sp, mp;
+    private int hp, mp;
 
     private int[] stat_rank;
 
@@ -88,7 +88,6 @@ public class Unit
         creature_type = restomon.GetCreatureType();
 
         hp = restomon.GetHp();
-        sp = restomon.GetSp();
         mp = restomon.GetMp();
 
         restomon_evolution = RestomonEvolution.None;
@@ -135,20 +134,6 @@ public class Unit
 
         if (hp > GetMaxHP())
             hp = GetMaxHP();
-    }
-
-    public void ChangeSP(int value)
-    {
-        if (creature_type != CreatureType.Restomon)
-            return;
-
-        sp += value;
-
-        if (sp < 0)
-            sp = 0;
-
-        if (sp > GetMaxMP())
-            sp = GetMaxMP();
     }
 
     public void ChangeMP(int value)
@@ -304,22 +289,6 @@ public class Unit
             return creature.GetStat(0);
 
         return creature.GetHp();
-    }
-
-    public int GetSp()
-    {
-        if (creature_type != CreatureType.Restomon)
-            return -1;
-
-        return sp;
-    }
-
-    public int GetMaxSP()
-    {
-        if (creature_type != CreatureType.Restomon)
-            return -1;
-
-        return ((Restomon)creature).GetSp();
     }
 
     public int GetMp()

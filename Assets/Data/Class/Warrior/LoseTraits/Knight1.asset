@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Knight1
   m_EditorClassIdentifier: 
   trait_name: Heal on hit
-  affects:
-  - ability: 2
-    ability_variables: 000000000100000032000000
-    condition: 4
-    condition_variables: 00000000
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
+    condition_variables: 
+    requirements: []

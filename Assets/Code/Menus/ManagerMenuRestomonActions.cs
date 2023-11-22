@@ -25,7 +25,12 @@ public class ManagerMenuRestomonActions : MonoBehaviour
     [SerializeField] private MenuSwapIcon main_menu;
     [SerializeField] private MenuSwapIcon attack_menu;
 
+
+    [SerializeField] private GameObject text_box;
     [SerializeField] private Text[] attack_text;
+    [SerializeField] private Text attack_box_text;
+    [SerializeField] private Text attack_hp_text;
+    [SerializeField] private Text attack_mp_text;
 
     private State state;
 
@@ -62,6 +67,8 @@ public class ManagerMenuRestomonActions : MonoBehaviour
 
                     for (int i = 0; i < 8; ++i)
                         attack_text[i].text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), i);
+
+                    text_box.SetActive(true);
 
                     state = State.attack;
                     exit_value = 0;
@@ -112,6 +119,11 @@ public class ManagerMenuRestomonActions : MonoBehaviour
                 break;
             case State.attack:
                 attack_menu.UpdateMenu(dir);
+                int x, y;
+                attack_menu.GetValues(out x, out y);
+                attack_box_text.text = manager_ref.GetAttackDescription(manager_ref.GetIDFromActive(), (x * 4) + y);
+                attack_hp_text.text = manager_ref.GetAttackCost(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
+                attack_mp_text.text = manager_ref.GetAttackMP(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
                 break;
         }
     }
@@ -131,6 +143,11 @@ public class ManagerMenuRestomonActions : MonoBehaviour
                     attack_menu.DeActivate();
                     break;
             }
+
+            text_box.SetActive(false);
+            attack_box_text.text = "";
+            attack_hp_text.text = "";
+            attack_mp_text.text = "";
 
             main_menu.Activate();
 

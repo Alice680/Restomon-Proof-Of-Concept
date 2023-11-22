@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: PoisonFogTrait
   m_EditorClassIdentifier: 
   trait_name: Poison Fog
-  affects:
-  - ability: 6
-    ability_variables: 08000000ffffffff000000000a00000064000000
-    condition: 2
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
     condition_variables: 
+    requirements: []

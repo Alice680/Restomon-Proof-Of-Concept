@@ -52,26 +52,6 @@ public class Restomon : Creature
         return CreatureType.Restomon;
     }
 
-    public override int GetLV()
-    {
-        return lv;
-    }
-
-    public override int GetHp()
-    {
-        return stats[0, 0];
-    }
-
-    public int GetSp()
-    {
-        return stats[0, 1];
-    }
-
-    public int GetMp()
-    {
-        return stats[0, 2];
-    }
-
     public int GetSummonCost(RestomonEvolution current_evolution, int new_form)
     {
         if (current_evolution != RestomonEvolution.None)
@@ -99,15 +79,30 @@ public class Restomon : Creature
             return cost[0, 2];
     }
 
+    public override int GetLV()
+    {
+        return lv;
+    }
+
+    public override int GetHp()
+    {
+        return stats[0, 0];
+    }
+
+    public int GetMp()
+    {
+        return stats[0, 1];
+    }
+
     public int GetStat(int index, RestomonEvolution current_evolution)
     {
         if (index < 0 || index > 8)
             return -1;
 
         if (current_evolution != RestomonEvolution.None)
-            return stats[0, index + 3] + stats[(int)current_evolution, index + 3];
+            return stats[0, index + 2] + stats[(int)current_evolution, index + 2];
         else
-            return stats[0, index + 3];
+            return stats[0, index + 2];
     }
 
     public Attack GetAttack(int index, RestomonEvolution current_evolution)

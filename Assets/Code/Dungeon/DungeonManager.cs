@@ -148,22 +148,16 @@ public class DungeonManager : MonoBehaviour
 
     public void SummonRestomon(Vector3Int position, int index)
     {
-        if (actions == 0 || current_unit.GetCreatureType() != CreatureType.Human)
-            return;
-
         if (!SummonValid(position, index))
             return;
 
         Catalyst temp_catalyst = data_holder.GetCatalyst();
 
-        if (index >= temp_catalyst.GetTeamSize())
-            return;
-
         Restomon temp_restomon = data_holder.GetTeam(index);
 
         actions -= 1;
 
-        current_unit.ChangeHp(-temp_restomon.GetSummonCost(RestomonEvolution.None, -1));
+        current_unit.ChangeHp(-temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)));
 
         Unit temp_unit = new Unit(temp_restomon, current_unit.GetOwner());
 
@@ -179,7 +173,7 @@ public class DungeonManager : MonoBehaviour
 
         Unit temp_unit = map.GetUnit(position);
 
-        current_unit.ChangeHp(-temp_unit.GetEvolutionCost(new_form));
+        current_unit.ChangeHp(-data_holder.GetCatalyst().GetEvolutionCost(temp_unit.GetEvolutionCost(new_form)));
 
         temp_unit.Evolve(new_form);
     }
@@ -273,6 +267,8 @@ public class DungeonManager : MonoBehaviour
 
         if (position.x > 0 && position.y > 0)
             map.MoveUnit(position, unit);
+
+        ApplyTrait.OnSpawn(unit, GetAllTraits(unit), this);
     }
 
     private void RemoveUnit(Unit unit)
@@ -295,13 +291,16 @@ public class DungeonManager : MonoBehaviour
         performed_action = true;
     }
 
-    // TODO Make it so only attacks and traits can call
     public void ChangeMovement(int value)
     {
         moves += value;
 
+
         if (moves < 0)
             moves = 0;
+
+        if (moves > 10)
+            moves = 10;
 
         dungeon_ui.UpdateActions(moves, actions);
     }
@@ -341,7 +340,6 @@ public class DungeonManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    //TODO refactor
     private void SetUpUnit()
     {
         current_unit.StartTurn();
@@ -354,7 +352,7 @@ public class DungeonManager : MonoBehaviour
             List<Unit> temp_units = (current_unit == player) ? player_units : enemy_units;
 
             foreach (Unit temp_unit in temp_units)
-                current_unit.ChangeHp(-temp_unit.GetMaintenanceCost());
+                current_unit.ChangeHp(-data_holder.GetCatalyst().GetMaintenanceCost(temp_unit.GetMaintenanceCost()));
         }
         else if (current_unit.GetCreatureType() == CreatureType.Restomon)
         {
@@ -365,7 +363,7 @@ public class DungeonManager : MonoBehaviour
                     temp_parent = player;
 
             if (temp_parent.GetCreatureType() == CreatureType.Human)
-                temp_parent.ChangeHp(-current_unit.GetUpkeepCost());
+                temp_parent.ChangeHp(-data_holder.GetCatalyst().GetMaintenanceCost(current_unit.GetUpkeepCost()));
         }
 
         if (current_unit.GetCreatureType() != CreatureType.Floor)
@@ -560,12 +558,35 @@ public class DungeonManager : MonoBehaviour
         return false;
     }
 
-    public bool SummonValid(Vector3Int target, int index)
+    public bool SummonValid(int index)
     {
-        if (!PositionValid(target) || !TileEmpty(target))
+        Restomon temp_restomon = data_holder.GetTeam(index);
+        Catalyst temp_catalyst = data_holder.GetCatalyst();
+
+        if (actions == 0)
             return false;
 
-        if (data_holder.GetTeam(index).GetSummonCost(RestomonEvolution.None, 0) > current_unit.GetHp())
+        if (current_unit.GetCreatureType() != CreatureType.Human)
+            return false;
+
+        if (index >= temp_catalyst.GetRestomonAmount())
+            return false;
+
+        if (player_units.Count > temp_catalyst.GetTeamSize())
+            return false;
+
+        if (current_unit.GetHp() < temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)))
+            return false;
+
+        return true;
+    }
+
+    public bool SummonValid(Vector3Int target, int index)
+    {
+        if (!SummonValid(index))
+            return false;
+
+        if (!PositionValid(target) || !TileEmpty(target))
             return false;
 
         Vector3Int[] positions = data_holder.GetCatalyst().GetArea(current_unit.GetPosition());
@@ -579,6 +600,8 @@ public class DungeonManager : MonoBehaviour
 
     public bool EvolutionValid(Vector3Int position, int new_form)
     {
+        Catalyst temp_catalyst = data_holder.GetCatalyst();
+
         if (new_form < 0 || new_form > 2 || !map.IsInMap(position))
             return false;
 
@@ -587,7 +610,7 @@ public class DungeonManager : MonoBehaviour
         if (temp_unit == null || temp_unit.GetCreatureType() != CreatureType.Restomon || temp_unit.GetCurrentEvolution() != RestomonEvolution.None)
             return false;
 
-        if (temp_unit.GetEvolutionCost(new_form) > current_unit.GetHp())
+        if (temp_catalyst.GetEvolutionCost(temp_unit.GetEvolutionCost(new_form)) > current_unit.GetHp())
             return false;
 
         return true;
@@ -738,7 +761,6 @@ public class DungeonManager : MonoBehaviour
 
     public string GetAttackName(int id, int index)
     {
-        Debug.Log(index);
         return GetUnitFromID(id).GetAttack(index).GetName();
     }
 
@@ -750,5 +772,10 @@ public class DungeonManager : MonoBehaviour
     public int GetAttackCost(int id, int index)
     {
         return GetUnitFromID(id).GetAttack(index).GetCost(0);
+    }
+
+    public int GetAttackMP(int id, int index)
+    {
+        return GetUnitFromID(id).GetAttack(index).GetCost(1);
     }
 }

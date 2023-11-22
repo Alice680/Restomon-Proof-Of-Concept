@@ -89,13 +89,13 @@ public class MenuArmory : MenuSwapIcon
                     {
                         current_values[y_value - 2] += 1;
 
-                        if (current_values[y_value - 2] == 4)
+                        if (current_values[y_value - 2] == 6)
                             current_values[y_value - 2] = 0;
 
                         if (current_values[2] == current_values[3] && current_values[3] != 0)
                             current_values[y_value - 2] += 1;
 
-                        if (current_values[y_value - 2] == 4)
+                        if (current_values[y_value - 2] == 6)
                             current_values[y_value - 2] = 0;
                     }
                     if (dir == Direction.Left)
@@ -103,13 +103,13 @@ public class MenuArmory : MenuSwapIcon
                         current_values[y_value - 2] -= 1;
 
                         if (current_values[y_value - 2] == -1)
-                            current_values[y_value - 2] = 3;
+                            current_values[y_value - 2] = 5;
 
                         if (current_values[2] == current_values[3] && current_values[3] != 0)
                             current_values[y_value - 2] -= 1;
 
                         if (current_values[y_value - 2] == -1)
-                            current_values[y_value - 2] = 3;
+                            current_values[y_value - 2] = 5;
                     }
                 }
                 else

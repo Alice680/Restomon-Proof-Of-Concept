@@ -15,7 +15,6 @@ MonoBehaviour:
   id: 1
   growth_stats:
     hp: 0
-    sp: 0
     mp: 0
     atk: 0
     mag: 0
@@ -29,13 +28,12 @@ MonoBehaviour:
   base_attack:
   - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
   - {fileID: 11400000, guid: 149dbff248f94134a888b31dca1d4d41, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 0445531b664c93a4ab502984e224636d, type: 2}
   first_evo:
     form_name: Ather
     base_stats:
-      hp: 5
-      sp: 5
-      mp: 5
+      hp: 20
+      mp: 15
       atk: 3
       mag: 3
       frc: 3
@@ -43,21 +41,29 @@ MonoBehaviour:
       shd: 3
       wil: 3
       spd: 3
-      mov: 5
+      mov: 6
       act: 1
     cost: 030000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 8ba6055acdaa16f429d8396465bd8d1f, type: 2}
+    - {fileID: 11400000, guid: e84b0682b3dcdc84cb5d071d1fc3c14a, type: 2}
+    - {fileID: 11400000, guid: 945eee80795aa5a4aaa6d2e707d8bef4, type: 2}
+    - {fileID: 11400000, guid: 01420af9a3bac3d4a9bd6765a8e7259b, type: 2}
+    - {fileID: 11400000, guid: 99552f33596dd39449e0018538b8beae, type: 2}
+    - {fileID: 11400000, guid: 64136d718d0a150428701e7ae69a00b5, type: 2}
+    - {fileID: 11400000, guid: b371847341d59cd4d91008e1da9817a8, type: 2}
     - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    - {fileID: 11400000, guid: 5cbadff99b5ac2542b3dc83787c2870f, type: 2}
+    - {fileID: 11400000, guid: 464c0280846a4364b8c20a9688a83d68, type: 2}
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   second_evos:
   - form_name: Ather-Ather
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -78,7 +84,6 @@ MonoBehaviour:
   - form_name: Ather-Light
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -99,7 +104,6 @@ MonoBehaviour:
   - form_name: Ather-Dark
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Drain Defense
   trait_description: B
-  affects:
-  - ability: 3
-    ability_variables: 03000000ffffffff14000000
-    condition: 4
-    condition_variables: 01000000
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
+    condition_variables: 
+    requirements: []

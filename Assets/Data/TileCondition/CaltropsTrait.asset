@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: CaltropsTrait
   m_EditorClassIdentifier: 
   trait_name: Caltrops
-  affects:
-  - ability: 5
-    ability_variables: 00000000ffffffff32000000
-    condition: 8
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
     condition_variables: 
-  - ability: 2
-    ability_variables: 000000000100000032000000
-    condition: 8
-    condition_variables: 
+    requirements: []

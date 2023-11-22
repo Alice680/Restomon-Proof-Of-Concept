@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Minor Regen
   trait_description: Lose Trait
-  affects:
+  effects:
   - ability: 0
-    ability_variables: 0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000
+    ability_variables: 
     condition: 0
     condition_variables: 
+    requirements: []

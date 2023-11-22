@@ -18,7 +18,7 @@ public class RestomonBase : ScriptableObject
     [Serializable]
     private class StatHolder
     {
-        public int hp, sp, mp, atk, mag, frc, def, shd, wil, spd, mov, act;
+        public int hp, mp, atk, mag, frc, def, shd, wil, spd, mov, act;
 
         public int GetStats(int index)
         {
@@ -30,26 +30,24 @@ public class RestomonBase : ScriptableObject
                 case 0:
                     return hp;
                 case 1:
-                    return sp;
-                case 2:
                     return mp;
-                case 3:
+                case 2:
                     return atk;
-                case 4:
+                case 3:
                     return mag;
-                case 5:
+                case 4:
                     return frc;
-                case 6:
+                case 5:
                     return def;
-                case 7:
+                case 6:
                     return shd;
-                case 8:
+                case 7:
                     return wil;
-                case 9:
+                case 8:
                     return spd;
-                case 10:
+                case 9:
                     return mov;
-                case 11:
+                case 10:
                     return act;
             }
 
@@ -94,32 +92,30 @@ public class RestomonBase : ScriptableObject
     // TODO add traits
     public Restomon GetRestomon(int lv, int[] attack_id, int[] trait_id)
     {
-        int[,] temp_stats = new int[4, 12];
+        int[,] temp_stats = new int[4, 11];
         int[,] temp_cost = new int[4, 3];
         Attack[] temp_attack = new Attack[10];
-        Trait[] temp_traits = new Trait[5];
+        Trait[] temp_traits = new Trait[4];
         GameObject[] temp_models = new GameObject[4];
 
-        for (int i = 0; i < 12; ++i)
+        for (int i = 0; i < 11; ++i)
             temp_stats[0, i] = first_evo.base_stats.GetStats(i) + (growth_stats.GetStats(i) * lv);
 
         for (int i = 0; i < 3; ++i)
             temp_cost[0, i] = first_evo.cost[i];
 
-        for (int i = 0; i < 5; ++i)
-            temp_traits[i] = first_evo.traits[0];
+        temp_traits[0] = first_evo.traits[0];
 
         temp_attack[0] = base_attack[attack_id[0]];
 
         for (int i = 0; i < 3; ++i)
             temp_attack[i + 1] = first_evo.attack[attack_id[i]];
 
-
         temp_models[0] = first_evo.model;
 
         for (int i = 0; i < 3; ++i)
         {
-            for (int e = 0; e < 12; ++e)
+            for (int e = 0; e < 11; ++e)
                 temp_stats[1 + i, e] = second_evos[i].base_stats.GetStats(e);
 
             for (int e = 0; e < 3; ++e)
@@ -131,10 +127,11 @@ public class RestomonBase : ScriptableObject
             temp_attack[4 + (i * 2)] = second_evos[i].attack[attack_id[4 + (i * 2)]];
             temp_attack[5 + (i * 2)] = second_evos[i].attack[attack_id[5 + (i * 2)]];
 
+            temp_traits[1 + i] = second_evos[i].traits[trait_id[1 + i]];
+
             temp_models[i + 1] = second_evos[i].model;
         }
 
-        //Creates Restomon from set variables and returns it
         return new Restomon(first_evo.form_name, id, lv, temp_cost, temp_stats, first_evo.traits[0], temp_traits, first_evo.attack[0], temp_attack, temp_models);
     }
 }

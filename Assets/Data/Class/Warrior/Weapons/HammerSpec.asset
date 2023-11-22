@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HammerSpec
   m_EditorClassIdentifier: 
   attack_name: Armor Crush
-  description: Massive blow that lowers armor
+  description: A high damage smash that has a chance to lower targets physical defence.
   element: 1
-  cost: 020000000000000000000000
-  hit_chance: 100
+  cost: 02000000
+  hit_chance: 90
   area:
     shape: 4
     length: 1
@@ -30,10 +30,14 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 000000003c00000064000000
-  - type: 2
+    variables: 0000000032000000
+    requirements: []
+  - type: 3
     target: 3
-    variables: 03000000ffffffff23000000
+    variables: 03000000ffffffff
+    requirements:
+    - requirement: 1
+      requirement_variables: 23000000

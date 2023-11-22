@@ -8008,18 +8008,18 @@ MonoBehaviour:
     - name: Ather
       description: 
       base_builds_name:
-      - A
-      - B
-      - C
+      - Generalist
+      - Blaster
+      - Brawler
       builds_a_name:
-      - A
-      - B
+      - Overwhelmer
+      - Overcharger
       builds_b_name:
-      - A
-      - B
+      - Healer
+      - Purifier
       builds_c_name:
-      - A
-      - B
+      - Vampire
+      - Corruptor
       base_builds_description:
       - A
       - B

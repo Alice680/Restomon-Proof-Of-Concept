@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,17 +31,55 @@ public class PermDataHolder : MonoBehaviour
         }
     }
 
+    [Serializable]
+    private class Form
+    {
+        public int[] attacks;
+        public int trait;
+    }
+
+    [Serializable]
+    private class RestomonBuild
+    {
+
+        public RestomonBase restomon_base;
+        public Form[] base_form;
+        public Form[] form_a;
+        public Form[] form_b;
+        public Form[] form_c;
+
+        public Restomon GetBuild(int[] form_values)
+        {
+            int[] temp_attack = new int[10];
+
+            for (int i = 0; i < 4; ++i)
+                temp_attack[i] = base_form[form_values[0]].attacks[i];
+
+            for (int i = 0; i < 2; ++i)
+            {
+                temp_attack[4 + i] = form_a[form_values[1]].attacks[i];
+                temp_attack[6 + i] = form_a[form_values[2]].attacks[i];
+                temp_attack[8 + i] = form_a[form_values[3]].attacks[i];
+            }
+
+            int[] temp_trait = new int[4] { base_form[form_values[0]].trait, form_a[form_values[1]].trait, form_b[form_values[1]].trait, form_c[form_values[1]].trait };
+
+            return restomon_base.GetRestomon(3, temp_attack, temp_trait);
+        }
+    }
+
     [SerializeField] private DungeonLayout[] dungeons;
     private int current_dungeon;
 
     [SerializeField] private HumanClass[] classes;
     private int[] current_player;
 
-    [SerializeField] private RestomonBase[] restomon;
-    private RestomonData[] current_team;
-
     [SerializeField] private Catalyst[] catalysts;
     private int current_catalyst;
+
+    [SerializeField] private RestomonBuild[] restomon_builds;
+    private RestomonData[] current_team;
+
 
     public void Setup()
     {
@@ -85,7 +124,7 @@ public class PermDataHolder : MonoBehaviour
 
     public Human GetPlayer()
     {
-        return classes[current_player[0]].GetHuman(3, current_player[1], current_player[2], current_player[3], current_player[4], 0, new int[3] { current_player[5], current_player[6], current_player[7] }, "Player");
+        return classes[current_player[0]].GetHuman(3, current_player[1], current_player[2], current_player[3], current_player[4], new int[3] { current_player[5], current_player[6], current_player[7] }, "Player");
     }
 
     //Team
@@ -126,7 +165,7 @@ public class PermDataHolder : MonoBehaviour
 
     public Restomon GetTeam(int index)
     {
-        return restomon[current_team[index].restomon_id].GetRestomon(3, new int[0], new int[0]);
+        return restomon_builds[current_team[index].restomon_id].GetBuild(current_team[index].form_value);
     }
 
     //Get Data
@@ -143,6 +182,6 @@ public class PermDataHolder : MonoBehaviour
 
     public RestomonBase GetDataRestomon(int index)
     {
-        return restomon[index];
+        return restomon_builds[index].restomon_base;
     }
 }

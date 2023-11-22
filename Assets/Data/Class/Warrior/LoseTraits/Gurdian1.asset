@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Gurdian1
   m_EditorClassIdentifier: 
   trait_name: Thorns
-  affects:
+  trait_description: When struck, deal chip damage to attacker.
+  effects:
   - ability: 1
-    ability_variables: 000000000200000064000000
+    ability_variables: 0100000005000000
     condition: 5
     condition_variables: 00000000
+    requirements: []

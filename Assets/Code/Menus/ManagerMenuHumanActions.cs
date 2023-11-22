@@ -11,10 +11,7 @@ using UnityEngine.UI;
  * 
  * Notes:
  */
-// TODO Add in summon
-// TODO Add in evolution
 // TODO ADD in items
-// TODO Orginize once all options are added
 public class ManagerMenuHumanActions : MonoBehaviour
 {
     private enum State { main, attack, summon };
@@ -26,6 +23,7 @@ public class ManagerMenuHumanActions : MonoBehaviour
     [SerializeField] private MenuSwapIcon attack_menu;
     [SerializeField] private MenuSwapIcon summon_menu;
 
+    [SerializeField] private GameObject text_box;
     [SerializeField] private Text[] attack_text;
     [SerializeField] private Text[] summon_text;
     [SerializeField] private Text attack_box_text;
@@ -52,6 +50,8 @@ public class ManagerMenuHumanActions : MonoBehaviour
             int value;
             main_menu.GetValues(out int empty, out value);
 
+            int x, y;
+
             switch (value)
             {
                 case 0:
@@ -67,10 +67,11 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     for (int i = 0; i < 8; ++i)
                         attack_text[i].text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), i);
 
-                    int x, y;
                     attack_menu.GetValues(out x, out y);
                     attack_box_text.text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), (x * 4) + y);
                     attack_hp_text.text = manager_ref.GetAttackCost(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
+
+                    text_box.SetActive(true);
 
                     state = State.attack;
                     exit_value = 0;
@@ -80,13 +81,24 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     main_menu.DeActivate();
                     summon_menu.Activate();
 
+                    Catalyst temp_catalyst = data_holder.GetCatalyst();
+
                     for (int i = 0; i < 4; ++i)
                     {
-                        if (i < 1)
+                        if (i < temp_catalyst.GetRestomonAmount())
                             summon_text[i].text = data_holder.GetTeam(i).ToString();
                         else
                             summon_text[i].text = "Empty Slot";
                     }
+
+                    summon_menu.GetValues(out x, out y);
+
+                    if (y < data_holder.GetCatalyst().GetRestomonAmount())
+                        attack_hp_text.text = data_holder.GetCatalyst().GetSummonCost(data_holder.GetTeam(y).GetSummonCost(RestomonEvolution.None, -1)) + "";
+                    else
+                        attack_hp_text.text = "0";
+
+                    text_box.SetActive(true);
 
                     state = State.summon;
                     exit_value = 0;
@@ -128,6 +140,10 @@ public class ManagerMenuHumanActions : MonoBehaviour
             {
                 attack_menu.DeActivate();
 
+                text_box.SetActive(false);
+                attack_box_text.text = "";
+                attack_hp_text.text = "";
+
                 state = State.main;
                 exit_value = attack_temp;
                 return 1;
@@ -137,13 +153,17 @@ public class ManagerMenuHumanActions : MonoBehaviour
         {
             summon_menu.GetValues(out int nothing, out exit_value);
 
-            if (manager_ref.GetActions() == 0 || exit_value > 0 || data_holder.GetTeam(exit_value).GetSummonCost(RestomonEvolution.None, -1) > manager_ref.GetHP(manager_ref.GetIDFromActive()))
+            if (!manager_ref.SummonValid(exit_value))
             {
                 return -1;
             }
             else
             {
                 summon_menu.DeActivate();
+
+                text_box.SetActive(false);
+                attack_box_text.text = "";
+                attack_hp_text.text = "";
 
                 state = State.main;
                 return 2;
@@ -156,20 +176,29 @@ public class ManagerMenuHumanActions : MonoBehaviour
 
     public void DirectionMenu(Direction dir)
     {
+        int x, y;
+
         switch (state)
         {
             case State.main:
                 main_menu.UpdateMenu(dir);
                 break;
+
             case State.attack:
                 attack_menu.UpdateMenu(dir);
-                int x, y;
                 attack_menu.GetValues(out x, out y);
-                attack_box_text.text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), (x * 4) + y);
+                attack_box_text.text = manager_ref.GetAttackDescription(manager_ref.GetIDFromActive(), (x * 4) + y);
                 attack_hp_text.text = manager_ref.GetAttackCost(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
                 break;
+
             case State.summon:
                 summon_menu.UpdateMenu(dir);
+
+                summon_menu.GetValues(out x, out y);
+                if (y < data_holder.GetCatalyst().GetRestomonAmount())
+                    attack_hp_text.text = data_holder.GetCatalyst().GetSummonCost(data_holder.GetTeam(y).GetSummonCost(RestomonEvolution.None, -1) )+ "";
+                else
+                    attack_hp_text.text = "0";
                 break;
         }
     }
@@ -192,6 +221,10 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     summon_menu.DeActivate();
                     break;
             }
+
+            text_box.SetActive(false);
+            attack_box_text.text = "";
+            attack_hp_text.text = "";
 
             main_menu.Activate();
 

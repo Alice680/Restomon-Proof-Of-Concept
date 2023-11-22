@@ -16,12 +16,12 @@ MonoBehaviour:
   catalyst_description: A single Restomon
   team_size: 1
   restomon_amount: 1
-  summon_cost: 100
-  evolution_cost: 100
-  maintenance_cost: 100
+  summon_cost: 0
+  evolution_cost: 0
+  maintenance_cost: 0
   area:
-    shape: 2
-    length: 3
-    width: 3
+    shape: 3
+    length: 1
+    width: 1
     rotatable: 0
     Hollow: 1

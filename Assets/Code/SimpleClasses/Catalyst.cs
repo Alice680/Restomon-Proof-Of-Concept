@@ -26,6 +26,21 @@ public class Catalyst : ScriptableObject
         return area.GetArea(target, Direction.None);
     }
 
+    public int GetSummonCost(int base_cost)
+    {
+        return (int)(1.0f * base_cost * summon_cost / 100);
+    }
+
+    public int GetEvolutionCost(int base_cost)
+    {
+        return (int)(1.0f * base_cost * summon_cost / 100);
+    }
+
+    public int GetMaintenanceCost(int base_cost)
+    {
+        return (int)(1.0f * base_cost * summon_cost / 100);
+    }
+
     public string GetName()
     {
         return catalyst_name;

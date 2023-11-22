@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PoisnerCore
   m_EditorClassIdentifier: 
   trait_name: Poison coating
+  trait_description: 
   affects:
-  - ability: 6
+  - ability: 5
     ability_variables: 09000000ffffffff00000000190000000f000000
     condition: 4
     condition_variables: 01000000

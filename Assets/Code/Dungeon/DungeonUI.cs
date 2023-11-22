@@ -17,6 +17,7 @@ public class DungeonUI : MonoBehaviour
     public GameObject[] move_normal;
     public GameObject[] move_end;
     public GameObject[] action_marker;
+    public GameObject[] unit_icons;
 
     public Text player_name_text, ap_text;
     public Text[] name_text, hp_text, mp_text;
@@ -87,12 +88,14 @@ public class DungeonUI : MonoBehaviour
                 name_text[i - 1].text = player_units[i].ToString();
                 hp_text[i - 1].text = player_units[i].GetHp() + "/" + player_units[i].GetMaxHP();
                 mp_text[i - 1].text = player_units[i].GetMp() + "/" + player_units[i].GetMaxMP();
+                unit_icons[i - 1].SetActive(true);
             }
             else
             {
                 name_text[i - 1].text = "";
                 hp_text[i - 1].text = "";
                 mp_text[i - 1].text = "";
+                unit_icons[i - 1].SetActive(false);
             }
         }
     }
@@ -111,14 +114,12 @@ public class DungeonUI : MonoBehaviour
             return;
 
         condition_name.text = target.ToString();
-
         for (int i = 0; i < target.GetNumConditions(); ++i)
         {
             index = target.GetCondition(i, out rank);
-
             condition_icons[i] = Instantiate(condition_list.GetModel(index, rank));
             condition_icons[i].transform.parent = cam.transform;
-            condition_icons[i].transform.localPosition = new Vector3(2.25f + (0.5f * (i % 4)), 0.25f - (0.5f * (i / 4)), 10f);
+            condition_icons[i].transform.localPosition = new Vector3(3.25f + (0.5f * (i % 4)), 1.25f - (0.5f * (i / 4)), 10f);
         }
     }
 

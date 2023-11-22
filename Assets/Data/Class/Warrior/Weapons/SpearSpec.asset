@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SpearSpec
   m_EditorClassIdentifier: 
   attack_name: Rapid Stab
-  description: Multiple weaker stabs
+  description: Send out three stabs with lowered accuracy and damage.
   element: 1
-  cost: 020000000000000000000000
+  cost: 02000000
   hit_chance: 100
   area:
     shape: 4
@@ -30,13 +30,22 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 000000002300000050000000
-  - type: 0
+    variables: 0000000019000000
+    requirements:
+    - requirement: 1
+      requirement_variables: 3c000000
+  - type: 1
     target: 3
-    variables: 000000002300000046000000
-  - type: 0
+    variables: 0000000019000000
+    requirements:
+    - requirement: 1
+      requirement_variables: 3c000000
+  - type: 1
     target: 3
-    variables: 00000000230000003c000000
+    variables: 0000000019000000
+    requirements:
+    - requirement: 1
+      requirement_variables: 3c000000

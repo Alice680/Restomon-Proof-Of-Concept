@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: Brawler
   m_EditorClassIdentifier: 
-  attack_name: Burst Stance
-  description: None
+  attack_name: Burst Style
+  description: Gain a massive boost to damage and speed, but take damage every turn.
   element: 0
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 100
   area:
     shape: 2
@@ -30,7 +30,8 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
-  affects:
-  - type: 4
+  effects:
+  - type: 5
     target: 0
-    variables: 0a000000feffffff01000000ffffffff64000000
+    variables: 0a00000001000000ffffffff
+    requirements: []

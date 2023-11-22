@@ -82,13 +82,6 @@ public class HumanClass : ScriptableObject
         public Trait trait;
     }
 
-    [Serializable]
-    private class Trinket
-    {
-        public string trinket_name, description;
-        public Attack special_attack;
-    }
-
     [SerializeField] private string class_name, description;
     [SerializeField] private StatHolder base_stats, stat_growth;
     [SerializeField] private Attack class_attack;
@@ -96,7 +89,7 @@ public class HumanClass : ScriptableObject
     [SerializeField] private Subclass[] subclasses;
     [SerializeField] private Tamerclass[] tamerclasses;
     [SerializeField] private Weapon[] weapons;
-    [SerializeField] private Trinket[] trinkets;
+    [SerializeField] private Attack[] trinkets;
     [SerializeField] private GameObject model;
     [SerializeField] private Attack[] attack_list;
     [SerializeField] private Trait[] trait_list;
@@ -116,7 +109,7 @@ public class HumanClass : ScriptableObject
      * @return human once everything is set
      */
     // TODO re orginize once done humans to be easier to follow and remove any fluf
-    public Human GetHuman(int lv, int s_class_i, int weapon_i, int armor_i, int trinket_a_i, int trinket_b_i, int[] traits_i, string unique_name = "")
+    public Human GetHuman(int lv, int s_class_i, int weapon_i, int trinket_a_i, int trinket_b_i, int[] traits_i, string unique_name = "")
     {
         Subclass temp_sub_class;
         if (s_class_i < 0 || s_class_i > subclasses.Length)
@@ -130,13 +123,13 @@ public class HumanClass : ScriptableObject
         else
             temp_weapon = weapons[weapon_i];
 
-        Trinket temp_trinket_a;
+       Attack temp_trinket_a;
         if (trinket_a_i < 0 || trinket_a_i > trinkets.Length)
             temp_trinket_a = trinkets[0];
         else
             temp_trinket_a = trinkets[trinket_a_i];
 
-        Trinket temp_trinket_b;
+        Attack temp_trinket_b;
         if (trinket_b_i < 0 || trinket_b_i > trinkets.Length || trinket_b_i == trinket_a_i)
             temp_trinket_b = trinkets[0];
         else
@@ -149,7 +142,7 @@ public class HumanClass : ScriptableObject
         GameObject temp_model = model;
 
         Trait[] temp_traits = new Trait[7];
-        temp_traits[0] = class_trait[(int)Mathf.Clamp(lv / 5, 0, 5)];
+        temp_traits[0] = class_trait[0];
         temp_traits[1] = temp_sub_class.subclass_trait;
         temp_traits[2] = trait_list[0]; // TODO add with tammer class
         temp_traits[3] = temp_weapon.trait;
@@ -169,8 +162,8 @@ public class HumanClass : ScriptableObject
         Attack[] temp_attacks = new Attack[8];
         temp_attacks[0] = temp_weapon.basic_attack;
         temp_attacks[1] = temp_weapon.special_attack;
-        temp_attacks[2] = temp_trinket_a.special_attack;
-        temp_attacks[3] = temp_trinket_b.special_attack;
+        temp_attacks[2] = temp_trinket_a;
+        temp_attacks[3] = temp_trinket_b;
         temp_attacks[4] = temp_weapon.special_ability;
         temp_attacks[5] = class_attack;
         temp_attacks[6] = temp_sub_class.attack;
@@ -214,12 +207,12 @@ public class HumanClass : ScriptableObject
 
     public String GetTrinketName(int index)
     {
-        return trinkets[index].trinket_name;
+        return trinkets[index].GetName();
     }
 
     public String GetTrinketDescription(int index)
     {
-        return trinkets[index].description;
+        return trinkets[index].GetDescription();
     }
 
     public String GetTraitName(int index)

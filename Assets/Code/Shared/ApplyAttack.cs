@@ -16,6 +16,14 @@ public static class ApplyAttack
         if (user.GetHp() < attack.GetCost(0))
             return false;
 
+        if (user.GetCreatureType() == CreatureType.Restomon)
+        {
+            if (user.GetMp() < attack.GetCost(1))
+                return false;
+            else
+                user.ChangeMP(-attack.GetCost(1));
+        }
+
         user.ChangeHp(-attack.GetCost(0));
 
         return true;
@@ -27,67 +35,84 @@ public static class ApplyAttack
             return;
 
         if (attack.GetHitChance() == -1 || attack.GetHitChance() + ApplyTrait.HitBoost(user_traits) + ApplyTrait.EvasionBoost(user_traits) >= Random.Range(0, 100))
-            foreach (AttackAffect affect in attack.GetAffects())
-                if (affect.target == Target.Self)
-                    CallEffectType(attack, affect, manager, user_unit, user_traits, user_unit, user_traits);
+        {
+            for (int i = 0; i < attack.GetNumberEffects(); ++i)
+                if (attack.GetTarget(i) == AttackTarget.Self)
+                    CallEffectType(attack, i, manager, user_unit, user_traits, targets[i], target_traits[i]);
+        }
 
         for (int i = 0; i < targets.Length; ++i)
         {
             if (attack.GetHitChance() != -1 && attack.GetHitChance() + ApplyTrait.HitBoost(user_traits) + ApplyTrait.EvasionBoost(target_traits[i]) < Random.Range(0, 100))
                 continue;
 
-            foreach (AttackAffect affect in attack.GetAffects())
+            for (int e = 0; e < attack.GetNumberEffects(); ++e)
             {
-                if (affect.target == Target.Self || affect.target == Target.Dungeon || affect.target == Target.Tile)
+                AttackTarget temp_target = attack.GetTarget(e);
+                if (temp_target == AttackTarget.Self || temp_target == AttackTarget.Dungeon || temp_target == AttackTarget.Tile)
                     continue;
 
-                if (affect.target == Target.Enemy && user_unit.GetOwner() == targets[i].GetOwner())
+                if (temp_target == AttackTarget.Enemy && user_unit.GetOwner() == targets[i].GetOwner())
                     continue;
 
-                if (affect.target == Target.Ally && user_unit.GetOwner() != targets[i].GetOwner())
+                if (temp_target == AttackTarget.Ally && user_unit.GetOwner() != targets[i].GetOwner())
                     continue;
 
-                CallEffectType(attack, affect, manager, user_unit, user_traits, targets[i], target_traits[i]);
+                CallEffectType(attack, e, manager, user_unit, user_traits, targets[i], target_traits[i]);
             }
         }
 
-        foreach (AttackAffect affect in attack.GetAffects())
+        for (int i = 0; i < attack.GetNumberEffects(); ++i)
         {
-            if (affect.target == Target.Dungeon)
+            int[] temp_variables;
+            if (attack.GetTarget(i) == AttackTarget.Dungeon)
             {
-                if (affect.type == AttackEffect.Weather)
-                    Weather(user_unit, manager);
+                if (attack.GetEffect(i, out temp_variables) == AttackEffect.Weather)
+                    Weather(attack, i, user_unit, manager);
             }
-            else if (affect.target == Target.Tile)
+            else if (attack.GetTarget(i) == AttackTarget.Tile)
             {
-                foreach (Vector3Int tile in tiles)
-                    TileCondition(map, tile, affect.variables[0]);
+                if (attack.GetEffect(i, out temp_variables) == AttackEffect.TileCondtion)
+                    foreach (Vector3Int tile in tiles)
+                        TileCondition(attack, i, map, tile);
             }
         }
     }
 
-    private static void CallEffectType(Attack attack, AttackAffect affect, DungeonManager manager, Unit user_unit, Trait[] user_traits, Unit target_unit, Trait[] target_traits)
+    private static void CallEffectType(Attack attack, int effect_num, DungeonManager manager, Unit user_unit, Trait[] user_traits, Unit target_unit, Trait[] target_traits)
     {
-        switch (affect.type)
+        int[] temp_variables;
+        for (int i = 0; i < attack.GetNumberRequirement(effect_num); ++i)
+        {
+            switch (attack.GetRequirement(effect_num, i, out temp_variables))
+            {
+                case AttackRequirement.Chance:
+                    if (temp_variables[0] < Random.Range(0, 100))
+                        return;
+                    break;
+            }
+        }
+
+        switch (attack.GetEffect(effect_num, out int[] empty_variable))
         {
             case AttackEffect.Damage:
-                Damage(user_unit, user_traits, target_unit, target_traits, manager, attack.GetElement(), affect.variables[0], affect.variables[1], affect.variables[2]);
+                Damage(attack, effect_num, user_unit, user_traits, target_unit, target_traits, manager);
                 break;
 
             case AttackEffect.Healing:
-                Heal(user_unit, user_traits, target_unit, target_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                Heal(attack, effect_num, user_unit, user_traits, target_unit, target_traits);
                 break;
 
             case AttackEffect.Buff:
-                Buff(user_unit, target_unit, target_traits, affect.variables[0], affect.variables[1], affect.variables[2]);
+                Buff(attack, effect_num, user_unit, target_unit, target_traits);
                 break;
 
             case AttackEffect.AddToTurn:
-                AddToTurn(user_unit, manager, affect.variables[0], affect.variables[1], affect.variables[2]);
+                AddToTurn(attack, effect_num, user_unit, manager);
                 break;
 
             case AttackEffect.ChangeCondition:
-                ChangeCondition(user_unit, user_traits, target_unit, target_traits, affect.variables[0], affect.variables[1], affect.variables[2], affect.variables[3], affect.variables[4]);
+                ChangeCondition(attack, effect_num, user_unit, user_traits, target_unit, target_traits);
                 break;
         }
     }
@@ -95,31 +120,25 @@ public static class ApplyAttack
     /*
      * Affect Types
      */
-    private static void Damage(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, DungeonManager manager, Element element, int type, int base_scale, int chance)
+    private static void Damage(Attack attack, int effect_num, Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, DungeonManager manager)
     {
-        if (chance < Random.Range(0, 100))
-            return;
+        int[] temp_variables;
 
+        attack.GetEffect(effect_num, out temp_variables);
+
+        int type = temp_variables[0], base_scale = temp_variables[1];
+
+        Element element = attack.GetElement();
         float damage = 0;
         int crit_rate;
         switch (type)
         {
             case 0:
-                damage = (user.GetLV() + 3f) / 2f;
-
-                damage *= base_scale / 50F;
-                damage *= user.GetStat(0) / target.GetStat(3);
-                damage *= 1 + (0.05F * user.GetElementAffinity(element));
-                damage *= Mathf.Pow(2, target.GetResistance(element));
-                damage *= (100f + ApplyTrait.DamageBoost(user_trait, out crit_rate) + ApplyTrait.DefenseBoost(target_trait)) / 100f;
-                damage *= (Random.Range(0, crit_rate) == 0) ? 1.35f : 1f;
-                damage += 1;
-                break;
             case 1:
                 damage = (user.GetLV() + 3f) / 2f;
 
                 damage *= base_scale / 50F;
-                damage *= user.GetStat(1) / target.GetStat(4);
+                damage *= user.GetStat(type) / target.GetStat(3 + type);
                 damage *= 1 + (0.05F * user.GetElementAffinity(element));
                 damage *= Mathf.Pow(2, target.GetResistance(element));
                 damage *= (100f + ApplyTrait.DamageBoost(user_trait, out crit_rate) + ApplyTrait.DefenseBoost(target_trait)) / 100f;
@@ -140,10 +159,13 @@ public static class ApplyAttack
         ApplyTrait.OnStrike(user, target, user_trait, target_trait, manager, element, (int)damage);
     }
 
-    private static void Heal(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int type, int scale, int chance)
+    private static void Heal(Attack attack, int effect_num, Unit user, Trait[] user_trait, Unit target, Trait[] target_trait)
     {
-        if (chance < Random.Range(0, 100))
-            return;
+        int[] temp_variables;
+
+        attack.GetEffect(effect_num, out temp_variables);
+
+        int type = temp_variables[0], scale = temp_variables[1];
 
         float healing = 0;
         switch (type)
@@ -161,12 +183,15 @@ public static class ApplyAttack
 
     }
 
-    private static void Buff(Unit user, Unit target, Trait[] target_trait, int index, int amount, int chance)
+    private static void Buff(Attack attack, int effect_num, Unit user, Unit target, Trait[] target_trait)
     {
-        if (index < 0 || index > 9)
-            return;
+        int[] temp_variables;
 
-        if (chance < Random.Range(0, 100))
+        attack.GetEffect(effect_num, out temp_variables);
+
+        int index = temp_variables[0], amount = temp_variables[1];
+
+        if (index < 0 || index > 9)
             return;
 
         //TODO add in text
@@ -175,10 +200,13 @@ public static class ApplyAttack
         target.ChangeStatRank(index, amount);
     }
 
-    private static void AddToTurn(Unit target, DungeonManager manager, int index, int change, int chance)
+    private static void AddToTurn(Attack attack, int effect_num, Unit target, DungeonManager manager)
     {
-        if (chance < Random.Range(0, 100))
-            return;
+        int[] temp_variables;
+
+        attack.GetEffect(effect_num, out temp_variables);
+
+        int index = temp_variables[0], change = temp_variables[1];
 
         if (index == 0)
         {
@@ -193,31 +221,39 @@ public static class ApplyAttack
         }
     }
 
-    private static void ChangeCondition(Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, int index, int current_rank, int new_rank, int power, int chance)
+    private static void ChangeCondition(Attack attack, int effect_num, Unit user, Trait[] user_trait, Unit target, Trait[] target_trait)
     {
-        if (chance < Random.Range(0, 100))
-            return;
+        int[] temp_variables;
+
+        attack.GetEffect(effect_num, out temp_variables);
+
+        int index = temp_variables[0], new_rank = temp_variables[1], power = temp_variables[2];
 
         if (power != -1 && 1.0f * user.GetStat(2) / target.GetStat(5) * power < Random.Range(0, 200))
             return;
 
-        if (current_rank == -2 || current_rank == target.GetCondition(index))
-            target.SetCondition(index, new_rank);
-        else if (current_rank == -3 && new_rank != target.GetCondition(index))
-            target.SetCondition(index, new_rank);
-        else if (current_rank == -3)
-            target.SetCondition(index, -1);
+        target.SetCondition(index, new_rank);
 
         // TODO add text
     }
 
-    private static void Weather(Unit user, DungeonManager manager)
+    private static void Weather(Attack attack, int effect_num, Unit user, DungeonManager manager)
     {
-        // TODO Set Weather
+        int[] temp_variables;
+
+        attack.GetEffect(effect_num, out temp_variables);
+
+        // TODO set up weathers
     }
 
-    private static void TileCondition(DungeonMap map, Vector3Int tile, int index)
+    private static void TileCondition(Attack attack, int effect_num, DungeonMap map, Vector3Int tile)
     {
+        int[] temp_variables;
+
+        attack.GetEffect(effect_num, out temp_variables);
+
+        int index = temp_variables[0];
+
         map.SetTileTrait(tile, index);
     }
 }

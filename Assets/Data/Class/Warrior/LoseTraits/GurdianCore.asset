@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: GurdianCore
   m_EditorClassIdentifier: 
   trait_name: Slow on struck
-  affects:
-  - ability: 5
-    ability_variables: 00000000fdffffff64000000
-    condition: 5
-    condition_variables: 01000000
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
+    condition_variables: 
+    requirements: []
