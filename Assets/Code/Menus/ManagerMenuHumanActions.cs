@@ -68,7 +68,7 @@ public class ManagerMenuHumanActions : MonoBehaviour
                         attack_text[i].text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), i);
 
                     attack_menu.GetValues(out x, out y);
-                    attack_box_text.text = manager_ref.GetAttackName(manager_ref.GetIDFromActive(), (x * 4) + y);
+                    attack_box_text.text = manager_ref.GetAttackDescription(manager_ref.GetIDFromActive(), (x * 4) + y);
                     attack_hp_text.text = manager_ref.GetAttackCost(manager_ref.GetIDFromActive(), (x * 4) + y) + "";
 
                     text_box.SetActive(true);

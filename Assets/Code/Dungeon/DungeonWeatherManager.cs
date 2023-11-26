@@ -19,7 +19,7 @@ public class DungeonWeatherManager : MonoBehaviour
         this.map = map;
     }
 
-    public void TryNewWeather(int new_weather, int new_power)
+    public void NewWeather(int new_weather, int new_power)
     {
         if (new_weather < 0 || new_weather >= weather_list.Length)
             return;
@@ -34,6 +34,13 @@ public class DungeonWeatherManager : MonoBehaviour
             current_power = new_power;
         }
     }
+
+    public void ForceWeather(int new_weather, int new_power)
+    {
+        current_weather = new_weather;
+        current_power = new_power;
+    }
+
     public string GetName()
     {
         return weather_list[current_weather].GetName();

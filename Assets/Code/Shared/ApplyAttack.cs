@@ -38,7 +38,7 @@ public static class ApplyAttack
         {
             for (int i = 0; i < attack.GetNumberEffects(); ++i)
                 if (attack.GetTarget(i) == AttackTarget.Self)
-                    CallEffectType(attack, i, manager, user_unit, user_traits, targets[i], target_traits[i]);
+                    CallEffectType(attack, i, manager, user_unit, user_traits, user_unit, user_traits);
         }
 
         for (int i = 0; i < targets.Length; ++i)
@@ -68,7 +68,7 @@ public static class ApplyAttack
             if (attack.GetTarget(i) == AttackTarget.Dungeon)
             {
                 if (attack.GetEffect(i, out temp_variables) == AttackEffect.Weather)
-                    Weather(attack, i, user_unit, manager);
+                    Weather(attack, i, user_unit, map);
             }
             else if (attack.GetTarget(i) == AttackTarget.Tile)
             {
@@ -88,6 +88,12 @@ public static class ApplyAttack
             {
                 case AttackRequirement.Chance:
                     if (temp_variables[0] < Random.Range(0, 100))
+                        return;
+                    break;
+                case AttackRequirement.Condition:
+                    if (temp_variables[0] == 0 && user_unit.GetCondition(temp_variables[1]) != temp_variables[2])
+                        return;
+                    else if (temp_variables[0] == 1 && target_unit.GetCondition(temp_variables[1]) != temp_variables[2])
                         return;
                     break;
             }
@@ -112,7 +118,7 @@ public static class ApplyAttack
                 break;
 
             case AttackEffect.ChangeCondition:
-                ChangeCondition(attack, effect_num, user_unit, user_traits, target_unit, target_traits);
+                ChangeCondition(attack, effect_num, user_unit, user_traits, target_unit, target_traits, manager);
                 break;
         }
     }
@@ -221,7 +227,7 @@ public static class ApplyAttack
         }
     }
 
-    private static void ChangeCondition(Attack attack, int effect_num, Unit user, Trait[] user_trait, Unit target, Trait[] target_trait)
+    private static void ChangeCondition(Attack attack, int effect_num, Unit user, Trait[] user_trait, Unit target, Trait[] target_trait, DungeonManager manager)
     {
         int[] temp_variables;
 
@@ -234,16 +240,22 @@ public static class ApplyAttack
 
         target.SetCondition(index, new_rank);
 
+        ApplyTrait.OnConditon(user, target, user_trait, target_trait, manager, index, new_rank);
+
         // TODO add text
     }
 
-    private static void Weather(Attack attack, int effect_num, Unit user, DungeonManager manager)
+    private static void Weather(Attack attack, int effect_num, Unit user, DungeonMap map)
     {
         int[] temp_variables;
 
         attack.GetEffect(effect_num, out temp_variables);
 
-        // TODO set up weathers
+        int index = temp_variables[0], power = temp_variables[1];
+
+        int temp_power = (int)(1f * user.GetStat(2) * power * Random.Range(5, 20) / 10);
+
+        map.NewWeather(index, temp_power);
     }
 
     private static void TileCondition(Attack attack, int effect_num, DungeonMap map, Vector3Int tile)

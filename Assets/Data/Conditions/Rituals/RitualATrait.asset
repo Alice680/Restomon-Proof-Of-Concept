@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: RitualATrait
   m_EditorClassIdentifier: 
   trait_name: Suport Ritual
-  affects:
-  - ability: 9
-    ability_variables: 0f000000
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
     condition: 0
-    condition_variables: 00000000
+    condition_variables: 
+    requirements: []

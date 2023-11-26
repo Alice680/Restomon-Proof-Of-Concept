@@ -15,8 +15,13 @@ MonoBehaviour:
   trait_name: Wall Stance
   trait_description: 
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 4
+    ability_variables: 00000000fdffffff
+    condition: 2
     condition_variables: 
+    requirements: []
+  - ability: 8
+    ability_variables: 23000000
+    condition: 2
+    condition_variables: 01000000
     requirements: []

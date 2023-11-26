@@ -61,6 +61,8 @@ public class DungeonManager : MonoBehaviour
         enemy_units = new List<Unit>();
         attack_moddels = new List<GameObject>();
 
+        weather_manager.Setup(this, map, 0, 0);
+
         player_controller = new Player(this);
         player = new Unit(data_holder.GetPlayer(), player_controller);
 
@@ -239,7 +241,7 @@ public class DungeonManager : MonoBehaviour
     {
         Vector3Int start_position;
 
-        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(out start_position);
+        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(weather_manager,out start_position);
 
         enemy_controller = new AICore(current_dungeon.GetFloor(current_floor).GetAI(), this);
 
@@ -646,6 +648,11 @@ public class DungeonManager : MonoBehaviour
         return restomon_action_menu;
     }
 
+    public DungeonMap GetMap()
+    {
+        return map;
+    }
+
     /*
      * Internal getter
      */
@@ -662,7 +669,6 @@ public class DungeonManager : MonoBehaviour
         return units.ToArray();
     }
 
-    // TODO grab trait from conditions
     private Trait[] GetAllTraits(Unit unit)
     {
         List<Trait> trait_list = new List<Trait>();

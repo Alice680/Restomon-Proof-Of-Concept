@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Class4
   m_EditorClassIdentifier: 
-  trait_name: Ather Boost
-  trait_description: Lose Trait
+  trait_name: Action Focus
+  trait_description: Gain an extra action at the cost of some movement.
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 4
+    ability_variables: 0100000001000000
+    condition: 2
+    condition_variables: 
+    requirements: []
+  - ability: 4
+    ability_variables: 00000000fdffffff
+    condition: 2
     condition_variables: 
     requirements: []

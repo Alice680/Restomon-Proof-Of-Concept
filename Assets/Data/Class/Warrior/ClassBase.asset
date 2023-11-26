@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClassBase
   m_EditorClassIdentifier: 
   class_name: Warrior
-  description: A Warrior
+  description: A class based on switching between combat styles.
   base_stats:
     hp: 25
     apr: 2
@@ -47,21 +47,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   subclasses:
   - subclass_name: Brawler
-    description: A warrior who uses thier body
+    description: A Subclass based on applying status effects.
     subclass_trait: {fileID: 11400000, guid: 25041cfe968111140bebdc52258a8847, type: 2}
     free_traits:
     - {fileID: 11400000, guid: 22caadcb4a3df8d409af6f84fc512942, type: 2}
     - {fileID: 11400000, guid: 172041659e521ba4586dde66f0b370b5, type: 2}
     attack: {fileID: 11400000, guid: 92fe1ca132a6fb64c935565fe3e893db, type: 2}
   - subclass_name: Knight
-    description: disc
+    description: A Subclass based on dealing damage.
     subclass_trait: {fileID: 11400000, guid: 77970f9bb1645da4eb98fc15eaf8e5e2, type: 2}
     free_traits:
     - {fileID: 11400000, guid: e83cc176d6c0aa6499efe12b47d6434c, type: 2}
     - {fileID: 11400000, guid: a95e56955b94a234b8861d50a6b8b6dc, type: 2}
     attack: {fileID: 11400000, guid: f40bd208c684b1246b1950d30e829662, type: 2}
   - subclass_name: Guardian
-    description: A heavly armored protected
+    description: A Subclass based on tanking damage.
     subclass_trait: {fileID: 11400000, guid: d2a9aa72dfcac6e44b4d0c120d5773fb, type: 2}
     free_traits:
     - {fileID: 11400000, guid: 1ebdae98ef0473c4189819f527bf277e, type: 2}

@@ -15,8 +15,8 @@ MonoBehaviour:
   trait_name: Attack Stance
   trait_description: 
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
-    condition_variables: 
+  - ability: 8
+    ability_variables: 19000000
+    condition: 1
+    condition_variables: 00000000
     requirements: []

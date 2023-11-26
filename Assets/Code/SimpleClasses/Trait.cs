@@ -16,7 +16,7 @@ using UnityEngine;
  * Planned conditons: On hit, on attack, on kill, on killed, start turn, during weather
  */
 // TODO Make interface so I don't need to relly on the list for variables
-public enum TraitCondition { None, Passive, StartTurn, EndTurn, OnStrike, OnStruck, OnKill, OnKilled, OnMove, OnSpawn }
+public enum TraitCondition { None, Passive, StartTurn, EndTurn, OnStrike, OnStruck, OnKill, OnKilled, OnMove, OnSpawn, GetCondition, GiveCondition }
 public enum TraitAbility { None, Damage, Healing, Buff, AddToTurn, ChangeCondtions,  Weather, InstantKill, BoostStats, Special }
 public enum TraitRequirement { None, Chance, Condition }
 

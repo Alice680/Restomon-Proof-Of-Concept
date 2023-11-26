@@ -15,8 +15,10 @@ MonoBehaviour:
   trait_name: Poison Fog
   trait_description: 
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 5
+    ability_variables: 090000000000000019000000
+    condition: 8
     condition_variables: 
-    requirements: []
+    requirements:
+    - requirement: 2
+      requirement_variables: 0000000009000000ffffffff

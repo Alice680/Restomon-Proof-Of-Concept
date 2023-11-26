@@ -14,48 +14,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   condtion_list:
   - ranks:
-    - name: Overload
+    - name: Overloaded
       effect: {fileID: 11400000, guid: ef8ab3c05cbc0cc41b4b09e7a0912395, type: 2}
       model: {fileID: 3841891717383962029, guid: 6ba7259156bbc4f42ab9345d35c39621, type: 3}
+    - name: Overwhelmed
+      effect: {fileID: 11400000, guid: b1550335fb6edeb4489ad23c8a2ee70f, type: 2}
+      model: {fileID: 3841891717383962029, guid: 8e9b2cff5960c234f944281a806ce1c4, type: 3}
   - ranks:
-    - name: Sing
+    - name: Singed
       effect: {fileID: 11400000, guid: b78620bfb1647a641bdebe442d48df1e, type: 2}
       model: {fileID: 1462064397749747793, guid: 753334ddf8a97074f916bea25b70983f, type: 3}
+    - name: Burned
+      effect: {fileID: 11400000, guid: 531cab67b3f91ae499bf1e075df3df89, type: 2}
+      model: {fileID: 1462064397749747793, guid: 1f9fec9600598c8498ea06903f6a4348, type: 3}
   - ranks:
     - name: Damp
       effect: {fileID: 11400000, guid: b1d2d8d129c93ba48adde33d8695e791, type: 2}
       model: {fileID: 3887597857504006888, guid: 9801fbf484f137f47b9b417919d221c2, type: 3}
+    - name: Wet
+      effect: {fileID: 11400000, guid: 702e5942672ac954882f711c1349c2b9, type: 2}
+      model: {fileID: 3887597857504006888, guid: 1b2c58e3d0334ee4f8c2847733f0ddfb, type: 3}
   - ranks:
-    - name: Entwined
+    - name: Tangled
       effect: {fileID: 11400000, guid: 0699f7098c1e5e148bdbea52e2716ab4, type: 2}
       model: {fileID: 8776528927615526645, guid: 4ab1769a1aa12e64bbd3e0f70a954300, type: 3}
+    - name: Entwined
+      effect: {fileID: 11400000, guid: d73bf0d7279204041b595d44e010dae0, type: 2}
+      model: {fileID: 8776528927615526645, guid: d0ef38f2eed4b9c408cf0d43ec909852, type: 3}
   - ranks:
-    - name: Metal
+    - name: Metallicized
       effect: {fileID: 11400000, guid: afdf33e3fcfa5c34cb070ea8a52ee56a, type: 2}
       model: {fileID: 9049472173085289734, guid: cd5b48e5c7ce70a4ba4960af06b50711, type: 3}
+    - name: Chained
+      effect: {fileID: 11400000, guid: 6c7fc326c8bc4aa469435d21eee920d4, type: 2}
+      model: {fileID: 9049472173085289734, guid: 3673397c8935c324192ddd79138adb2d, type: 3}
   - ranks:
-    - name: Coasted
+    - name: Dusty
+      effect: {fileID: 11400000, guid: aba0f46e70c5d1e47b3605895306583c, type: 2}
+      model: {fileID: 1061406460467029766, guid: 0003ce0e6c8c6e54eb7a4a2e8df05b9e, type: 3}
+    - name: Coated
       effect: {fileID: 11400000, guid: aba0f46e70c5d1e47b3605895306583c, type: 2}
       model: {fileID: 1061406460467029766, guid: 0003ce0e6c8c6e54eb7a4a2e8df05b9e, type: 3}
   - ranks:
     - name: Staggered
       effect: {fileID: 11400000, guid: 17211526baf778f4e98db5bc780ad0a5, type: 2}
       model: {fileID: 2335870711608964813, guid: 409b16f95daa4274e94d98766b1f36e5, type: 3}
+    - name: Stunned
+      effect: {fileID: 11400000, guid: 173cc533770fac941b1c397c9abd7ca2, type: 2}
+      model: {fileID: 2335870711608964813, guid: a49dc0e3893f5434cad48edba9962dfd, type: 3}
   - ranks:
     - name: Drowsy
       effect: {fileID: 11400000, guid: c603457679b24c54ebb166f37deb9ff8, type: 2}
       model: {fileID: 7567011085409147149, guid: 80a113721a875924f822336301cb13b3, type: 3}
+    - name: Sleepy
+      effect: {fileID: 11400000, guid: dd2610bb8f2199d4782dcd354ceec6b2, type: 2}
+      model: {fileID: 7567011085409147149, guid: 66389b994fdee0a45b091e07f0668f7b, type: 3}
   - ranks:
     - name: Drained
       effect: {fileID: 11400000, guid: c746a4870cd270a4eac7f4d427910d10, type: 2}
       model: {fileID: 5253260793601766799, guid: 2e3033217d78bd24cad43bee310e1812, type: 3}
+    - name: Siphoned
+      effect: {fileID: 11400000, guid: 6732680f4cf836d45ba02c4d7850b08f, type: 2}
+      model: {fileID: 5253260793601766799, guid: d0e8002f188e86b47b6e3b0a149d7183, type: 3}
   - ranks:
     - name: Poison
       effect: {fileID: 11400000, guid: 60ac00d3927149e4698c9423436a59da, type: 2}
       model: {fileID: 6477576012829007804, guid: 03270a552ae0e94448b3fec733778aad, type: 3}
     - name: Toxic
-      effect: {fileID: 11400000, guid: 60ac00d3927149e4698c9423436a59da, type: 2}
-      model: {fileID: 6477576012829007804, guid: 03270a552ae0e94448b3fec733778aad, type: 3}
+      effect: {fileID: 11400000, guid: 6b41cbd812277b94bb97744c68776577, type: 2}
+      model: {fileID: 6477576012829007804, guid: 1d49d8ca5398e3e4e823e4bea689b389, type: 3}
   - ranks:
     - name: Basic Style
       effect: {fileID: 11400000, guid: b6771a05095955f48a730ec5dc01eb4c, type: 2}
@@ -79,12 +106,15 @@ MonoBehaviour:
       effect: {fileID: 11400000, guid: e24d7226c972a0744a4bcc2e2fa0b687, type: 2}
       model: {fileID: 7825381517557237812, guid: ee559c1ca965ea540bb29eafc9fc98ef, type: 3}
   - ranks:
-    - name: BasicStance
+    - name: No Ritual
+      effect: {fileID: 11400000, guid: d7e2794622c3cae46b4eb2a46dfabacd, type: 2}
+      model: {fileID: 9112577963271402083, guid: df163327f1656b341af9ca1e4e81b524, type: 3}
+    - name: TBD
       effect: {fileID: 11400000, guid: 461e59b2cab232542a5a830fa2deebc7, type: 2}
       model: {fileID: 9112577963271402083, guid: 004c734f790a9394eb56e17662bc07ef, type: 3}
-    - name: BasicStance
+    - name: Ather Ritual
       effect: {fileID: 11400000, guid: 6868f37413a6fe24cb0becb425f6b363, type: 2}
       model: {fileID: 9112577963271402083, guid: 7928721f723707b488df427a5665806c, type: 3}
-    - name: BasicStance
+    - name: Combat Ritual
       effect: {fileID: 11400000, guid: 3cb7914bd49b8cd4eb252c2ad782ddbf, type: 2}
       model: {fileID: 9112577963271402083, guid: ee0d3af38ca4c0b48a919ee491df0e7a, type: 3}

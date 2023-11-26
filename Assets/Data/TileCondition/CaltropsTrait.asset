@@ -15,8 +15,13 @@ MonoBehaviour:
   trait_name: Caltrops
   trait_description: 
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 1
+    ability_variables: 0000000001000000
+    condition: 8
+    condition_variables: 
+    requirements: []
+  - ability: 4
+    ability_variables: 00000000ffffffff
+    condition: 8
     condition_variables: 
     requirements: []

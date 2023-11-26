@@ -15,7 +15,7 @@ public class DungeonFloor : ScriptableObject
 {
     [SerializeField] protected AIBase ai;
 
-    public virtual DungeonMap GenerateDungeon(out Vector3Int start_location)
+    public virtual DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager,out Vector3Int start_location)
     {
         start_location = new Vector3Int();
         return new DungeonMap(0, 0);

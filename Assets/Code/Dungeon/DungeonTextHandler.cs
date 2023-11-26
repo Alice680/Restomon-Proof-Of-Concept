@@ -26,8 +26,6 @@ public class DungeonTextHandler : MonoBehaviour
         if (new_text_holder.GetSize() == 0)
             return;
 
-        Debug.Log(new_text_holder.GetSize());
-
         while (new_text_holder.GetSize() != 0)
             current_text.Add(new_text_holder.Pop());
 

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MageAttack
   m_EditorClassIdentifier: 
   attack_name: Gather Ather
-  description: 
+  description: Gather a large amount of Ather from the environment.
   element: 1
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 100
   area:
     shape: 2
@@ -30,7 +30,8 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
-  affects:
-  - type: 1
+  effects:
+  - type: 2
     target: 0
-    variables: 000000000300000064000000
+    variables: 0000000003000000
+    requirements: []

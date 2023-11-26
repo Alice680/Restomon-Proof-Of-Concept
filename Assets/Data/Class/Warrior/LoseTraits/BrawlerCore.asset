@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: BrawlerCore
   m_EditorClassIdentifier: 
-  trait_name: Stunning Strike
+  trait_name: Staggering  Strike
   trait_description: Each strike has a small chance to cause target to become Staggered.
   effects:
   - ability: 5
-    ability_variables: 000000000000000019000000
+    ability_variables: 060000000000000019000000
     condition: 4
-    condition_variables: 00000000
+    condition_variables: 01000000
     requirements:
     - requirement: 1
       requirement_variables: 19000000
     - requirement: 2
-      requirement_variables: 0000000000000000ffffffff
+      requirement_variables: 0000000006000000ffffffff

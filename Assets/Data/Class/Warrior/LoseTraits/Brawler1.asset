@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Brawler1
   m_EditorClassIdentifier: 
   trait_name: Stuning Strike
-  trait_description: A
+  trait_description: When staggering a target, has a chance to instead stun them.
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
-    condition_variables: 
-    requirements: []
+  - ability: 5
+    ability_variables: 000000000600000000000000
+    condition: 11
+    condition_variables: 0600000001000000ffffffff
+    requirements:
+    - requirement: 1
+      requirement_variables: 19000000

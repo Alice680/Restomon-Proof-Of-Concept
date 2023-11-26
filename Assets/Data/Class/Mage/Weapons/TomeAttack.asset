@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: TomeAttack
   m_EditorClassIdentifier: 
-  attack_name: Ather Overload
-  description: Basic unarmed Attack
+  attack_name: Ather Drain
+  description: Drain ather from target, dealing a small amount of damage and having
+    a small chance of giving them the drained condition.
   element: 1
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 100
   area:
     shape: 3
@@ -30,10 +31,14 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 010000001900000064000000
-  - type: 4
+    variables: 0100000019000000
+    requirements: []
+  - type: 5
     target: 3
-    variables: 0900000023000000010000000100000032000000
+    variables: 080000000000000023000000
+    requirements:
+    - requirement: 2
+      requirement_variables: 000000000100000008000000ffffffff

@@ -12,25 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: TomeSpec
   m_EditorClassIdentifier: 
-  attack_name: Ather Drain
-  description: Unarmed attack using ather
+  attack_name: Ather Swap
+  description: Drain Ather from enemies and the environment and use it to heal allies.
   element: 1
-  cost: 070000000000000000000000
+  cost: 03000000
   hit_chance: 100
   area:
-    shape: 4
-    length: 1
-    width: 1
+    shape: 2
+    length: 0
+    width: 0
     rotatable: 0
-    Hollow: 1
+    Hollow: 0
   target:
-    shape: 1
+    shape: 3
     length: 3
     width: 3
-    rotatable: 1
+    rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
+  effects:
+  - type: 1
+    target: 1
+    variables: 0100000023000000
+    requirements: []
   - type: 2
-    target: 3
-    variables: 04000000ffffffff64000000
+    target: 2
+    variables: 010000000a000000
+    requirements: []

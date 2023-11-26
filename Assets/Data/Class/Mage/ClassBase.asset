@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: ClassBase
   m_EditorClassIdentifier: 
   class_name: Mage
-  description: A Mage
+  description: A Class bassed on the use of high Ather cost abilities, power area
+    of effects, and elemental damage.
   base_stats:
-    hp: 15
-    apr: 2
-    atk: 1
-    mag: 3
-    frc: 2
+    hp: 35
+    apr: 3
+    atk: 2
+    mag: 6
+    frc: 3
     def: 1
     shd: 1
     wil: 1
@@ -54,14 +55,14 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4cb0ce9e5e2e5144383e1551846fd03d, type: 2}
     attack: {fileID: 11400000, guid: 3b216c0ecd8d1ea4994862d41a41ad16, type: 2}
   - subclass_name: Sage
-    description: None
+    description: A Subclass based around spending and gaining large amount of mana.
     subclass_trait: {fileID: 11400000, guid: 87ab55f3a87d1e04ba448d5fff49ae7f, type: 2}
     free_traits:
     - {fileID: 11400000, guid: cf85de05606ed4f4591cc6734c488a41, type: 2}
     - {fileID: 11400000, guid: 5ca6c6fb267fb4548a83d8ce93f846cf, type: 2}
     attack: {fileID: 11400000, guid: 9083d49a847f3cf4484b00663f21bd2a, type: 2}
   - subclass_name: War Mage
-    description: None
+    description: A Subclass based around defensive and close-ranged options.
     subclass_trait: {fileID: 11400000, guid: cbb203b84e007ce40a1f4371f12d5973, type: 2}
     free_traits:
     - {fileID: 11400000, guid: d44c0c119fcc95e4a8fc2ad223d62ea4, type: 2}
@@ -70,42 +71,36 @@ MonoBehaviour:
   tamerclasses: []
   weapons:
   - weapon_name: Unarmed
-    description: None
+    description: Could you not find a weapon?
     basic_attack: {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
-    special_attack: {fileID: 11400000, guid: 38d4b0227b8c2c648ba2e3007160a243, type: 2}
+    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    special_ability: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - weapon_name: Staff
-    description: None
+    description: A weapon based around firing condensed ather.
     basic_attack: {fileID: 11400000, guid: d03db5a4355cd7e408fa13353a486ee2, type: 2}
     special_attack: {fileID: 11400000, guid: a023ee7eaec2f904780128e4caed441e, type: 2}
+    special_ability: {fileID: 11400000, guid: 4e42024856758984f9b4fd98fe75d9df, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - weapon_name: Tome
-    description: None
+    description: A weapon based around draining Ather.
     basic_attack: {fileID: 11400000, guid: 4234d79243abf344cbf92fa4b9134fee, type: 2}
     special_attack: {fileID: 11400000, guid: d32a1f2a94edeb94fbc8db52b65ffb2b, type: 2}
+    special_ability: {fileID: 11400000, guid: 9d96445dc424a6445a04e89c8b9b33ff, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   - weapon_name: Orb
-    description: None
+    description: A weapon based around firing blasts of ather.
     basic_attack: {fileID: 11400000, guid: a2a694e33d2b4b94bbfbbe52cea61c20, type: 2}
     special_attack: {fileID: 11400000, guid: 76bff8c72735e464495aea721edbac2b, type: 2}
+    special_ability: {fileID: 11400000, guid: f56736345b42c974cbe2e52aade6baaf, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   trinkets:
-  - trinket_name: None
-    description: None
-    special_attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - trinket_name: FireBall
-    description: None
-    special_attack: {fileID: 11400000, guid: 5112bf3c21326d24d85a1042014b850c, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - trinket_name: Tremors
-    description: None
-    special_attack: {fileID: 11400000, guid: d25e121a06cb9c5448fb00b21726515c, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
-  - trinket_name: Splash
-    description: None
-    special_attack: {fileID: 11400000, guid: adcf5ddfaeb2ff647b84bd26f71008b9, type: 2}
-    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: adcf5ddfaeb2ff647b84bd26f71008b9, type: 2}
+  - {fileID: 11400000, guid: 5b0b25ce90e143c419b809599f44f655, type: 2}
+  - {fileID: 11400000, guid: 5112bf3c21326d24d85a1042014b850c, type: 2}
+  - {fileID: 11400000, guid: d25e121a06cb9c5448fb00b21726515c, type: 2}
+  - {fileID: 11400000, guid: f758a5c3a345b814f9bab2eba32e64db, type: 2}
   model: {fileID: 4490433475202409575, guid: 296d3949ad7b71f4dadfe8f1599b2e00, type: 3}
   attack_list:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}

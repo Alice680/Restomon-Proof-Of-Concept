@@ -17,9 +17,9 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
     [SerializeField] private int spawn_rate;
     [SerializeField] private int total_waves;
 
-    public override DungeonMap GenerateDungeon(out Vector3Int start_location)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
     {
-        return base.GenerateDungeon(out start_location);
+        return base.GenerateDungeon(weather_manager, out start_location);
     }
 
     public override Vector3Int GetStartPosition()

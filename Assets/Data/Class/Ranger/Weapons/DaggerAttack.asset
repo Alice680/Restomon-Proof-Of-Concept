@@ -15,7 +15,7 @@ MonoBehaviour:
   attack_name: Double Slash
   description: 
   element: 1
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 100
   area:
     shape: 3
@@ -30,10 +30,12 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 000000002300000064000000
-  - type: 0
+    variables: 0000000023000000
+    requirements: []
+  - type: 1
     target: 3
-    variables: 000000002300000064000000
+    variables: 0000000023000000
+    requirements: []

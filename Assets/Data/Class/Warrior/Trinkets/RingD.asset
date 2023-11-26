@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RingD
   m_EditorClassIdentifier: 
   attack_name: TBD
-  description: Send me your idea if you have one.
+  description: Is not doing anything atm.
   element: 1
   cost: 0f270000
   hit_chance: 100

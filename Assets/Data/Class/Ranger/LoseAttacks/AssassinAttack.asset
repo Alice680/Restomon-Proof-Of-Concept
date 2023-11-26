@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AssassinAttack
   m_EditorClassIdentifier: 
   attack_name: Backstab
-  description: 
+  description: TBD
   element: 1
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 25
   area:
     shape: 3
@@ -30,7 +30,4 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
-    target: 3
-    variables: 000000003200000064000000
+  effects: []

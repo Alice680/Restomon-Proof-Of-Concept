@@ -204,6 +204,39 @@ public static class ApplyTrait
         }
     }
 
+    public static void OnConditon(Unit user, Unit target, Trait[] user_traits, Trait[] target_traits, DungeonManager manager, int index, int rank)
+    {
+        int[] temp_varaibles;
+
+        foreach (Trait trait in target_traits)
+        {
+            for (int i = 0; i < trait.GetNumberEffects(); ++i)
+            {
+                if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.GiveCondition)
+                    if (temp_varaibles[0] == 0 && temp_varaibles[1] == index && temp_varaibles[2] == rank)
+                        ConditionToAbility(trait, i, user, manager);
+
+                if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.GiveCondition)
+                    if (temp_varaibles[0] == 1 && temp_varaibles[1] == index && temp_varaibles[2] == rank)
+                        ConditionToAbility(trait, i, target, manager);
+            }
+        }
+
+        foreach (Trait trait in user_traits)
+        {
+            for (int i = 0; i < trait.GetNumberEffects(); ++i)
+            {
+                if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.GetCondition)
+                    if (temp_varaibles[0] == 0 && temp_varaibles[1] == index && temp_varaibles[2] == rank)
+                        ConditionToAbility(trait, i, user, manager);
+
+                if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.GiveCondition)
+                    if (temp_varaibles[0] == 1 && temp_varaibles[1] == index && temp_varaibles[2] == rank)
+                        ConditionToAbility(trait, i, target, manager);
+            }
+        }
+    }
+
     /*
      * Bridge the two
      */
@@ -255,8 +288,9 @@ public static class ApplyTrait
                 break;
 
             case TraitAbility.Weather:
-                Weather();
+                Weather(manager.GetMap(), trait.GetName(), temp_variables[0], temp_variables[1]);
                 break;
+
             case TraitAbility.Special:
                 Special(target, manager, trait.GetName(), temp_variables[0]);
                 break;
@@ -347,9 +381,9 @@ public static class ApplyTrait
         target.ChangeHp(-9999);
     }
 
-    private static void Weather()
+    private static void Weather(DungeonMap map, string trait_name, int index, int power)
     {
-        // TODO add weather
+        map.NewWeather(index, power);
     }
 
     private static void Special(Unit target, DungeonManager manager, string trait_name, int type)

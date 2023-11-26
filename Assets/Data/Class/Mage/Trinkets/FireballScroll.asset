@@ -15,7 +15,7 @@ MonoBehaviour:
   attack_name: Fireball
   description: 
   element: 2
-  cost: 0a0000000000000000000000
+  cost: 06000000
   hit_chance: 100
   area:
     shape: 2
@@ -30,10 +30,8 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 010000004b00000064000000
-  - type: 4
-    target: 3
-    variables: 01000000ffffffff000000003200000023000000
+    variables: 0100000041000000
+    requirements: []

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Knight2
   m_EditorClassIdentifier: 
-  trait_name: Action on Kill
-  trait_description: 
+  trait_name: TBD
+  trait_description: Is not doing anything atm.
   effects:
   - ability: 0
     ability_variables: 

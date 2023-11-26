@@ -12,25 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: CrossBowSpec
   m_EditorClassIdentifier: 
-  attack_name: Power Shoot
+  attack_name: Power Shot
   description: 
   element: 1
-  cost: 030000000000000000000000
+  cost: 02000000
   hit_chance: 100
   area:
     shape: 3
-    length: 1
-    width: 1
+    length: 3
+    width: 3
     rotatable: 0
     Hollow: 1
   target:
-    shape: 0
-    length: 4
+    shape: 2
+    length: 0
     width: 0
-    rotatable: 1
+    rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 000000000000000000000000
+    variables: 000000004b000000
+    requirements: []

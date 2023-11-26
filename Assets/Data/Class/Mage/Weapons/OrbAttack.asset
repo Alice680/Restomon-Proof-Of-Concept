@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: OrbAttack
   m_EditorClassIdentifier: 
-  attack_name: Ather Blast
-  description: Basic unarmed Attack
+  attack_name: Ather Burst
+  description: A small burst of Ather is sent out.
   element: 1
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 100
   area:
     shape: 4
@@ -25,12 +25,13 @@ MonoBehaviour:
     Hollow: 1
   target:
     shape: 0
-    length: 3
+    length: 2
     width: 0
     rotatable: 1
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
+  effects:
+  - type: 1
     target: 3
-    variables: 010000000f00000064000000
+    variables: 0100000019000000
+    requirements: []

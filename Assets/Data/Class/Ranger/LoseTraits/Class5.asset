@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Class5
   m_EditorClassIdentifier: 
-  trait_name: 
-  affects:
-  - ability: 6
-    ability_variables: 04000000ffffffff00000000190000000f000000
+  trait_name: Coating B
+  trait_description: Adds a small chance to apply Drowsy to each hit.
+  effects:
+  - ability: 5
+    ability_variables: 070000000000000019000000
     condition: 4
     condition_variables: 01000000
+    requirements:
+    - requirement: 1
+      requirement_variables: 0f000000
+    - requirement: 2
+      requirement_variables: 0700000000000000ffffffff

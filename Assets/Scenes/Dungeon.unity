@@ -1311,6 +1311,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weather_list:
   - {fileID: 11400000, guid: 52c8ab8086fb64241b17abdc95ae4447, type: 2}
+  - {fileID: 11400000, guid: 6e7284a84ae9e1a41af13546c0438fda, type: 2}
+  - {fileID: 11400000, guid: 0d8b8d6fda9a35d4f92e03f854ecc2eb, type: 2}
+  - {fileID: 11400000, guid: d9b0a444ba6c2ea4f8fce209b1a1aced, type: 2}
+  - {fileID: 11400000, guid: 53780e14e73a67d439ae922e8db19135, type: 2}
+  - {fileID: 11400000, guid: e129098105b90e04c8667a5aa59f88ad, type: 2}
+  - {fileID: 11400000, guid: 64ffea0365e4f3d42a3d9671461dc572, type: 2}
 --- !u!1 &409311575
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,6 +72,9 @@ public class DungeonMap
 
         public void SetTrait(int id, GameObject obj)
         {
+            if (tile_trait == 1)
+                return;
+
             ClearTrait();
             tile_trait = id;
             trait_model = GameObject.Instantiate(obj, new Vector3Int(x, y, 0), new Quaternion());
@@ -112,6 +115,8 @@ public class DungeonMap
 
     private TileConditionHolder tile_conditions;
 
+    private DungeonWeatherManager weather_manager;
+
     //Node and Map editing
     public DungeonMap(int x, int y)
     {
@@ -134,6 +139,29 @@ public class DungeonMap
 
         nodes[x, y].Clear();
         nodes[x, y] = new Node(type, model, model_num, x, y);
+    }
+
+    public void SetWeatherManager(DungeonWeatherManager weather_manager)
+    {
+        this.weather_manager = weather_manager;
+    }
+
+    public void NewWeather(int weather, int power)
+    {
+        weather_manager.NewWeather(weather, power);
+        UpdateWeather();
+    }
+
+        public void ForceWeather(int weather, int power)
+    {
+        weather_manager.ForceWeather(weather, power);
+        UpdateWeather();
+    }
+
+    //TODO update graphics
+    private void UpdateWeather()
+    {
+
     }
 
     public DungeonTileType GetTileType(Vector3Int vec)

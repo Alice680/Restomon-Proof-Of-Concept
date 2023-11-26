@@ -15,8 +15,13 @@ MonoBehaviour:
   trait_name: Burst Stance
   trait_description: 
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 1
+    ability_variables: 0000000002000000
+    condition: 2
     condition_variables: 
+    requirements: []
+  - ability: 8
+    ability_variables: 32000000
+    condition: 1
+    condition_variables: 00000000
     requirements: []

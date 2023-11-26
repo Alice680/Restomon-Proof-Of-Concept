@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: WarMage
   m_EditorClassIdentifier: 
   attack_name: Combat Ritual
-  description: 
+  description: Toggle a ritual to gain a massive increase in defense at the cost
+    of a massive reduction in movement.
   element: 0
-  cost: 000000000000000000000000
+  cost: 00000000
   hit_chance: 100
   area:
     shape: 2
@@ -30,7 +31,22 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
-  affects:
-  - type: 4
+  effects:
+  - type: 5
     target: 0
-    variables: 0b000000fdffffff01000000ffffffff64000000
+    variables: 0b00000000000000ffffffff
+    requirements:
+    - requirement: 2
+      requirement_variables: 000000000b00000003000000
+  - type: 5
+    target: 0
+    variables: 0b00000003000000ffffffff
+    requirements:
+    - requirement: 2
+      requirement_variables: 000000000b000000ffffffff
+  - type: 5
+    target: 0
+    variables: 0b000000ffffffffffffffff
+    requirements:
+    - requirement: 2
+      requirement_variables: 000000000b00000000000000

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: RitualCTrait
   m_EditorClassIdentifier: 
   trait_name: Ather Rtual
-  affects:
-  - ability: 3
-    ability_variables: 000000000100000064000000
-    condition: 2
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
     condition_variables: 
+    requirements: []

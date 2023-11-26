@@ -15,8 +15,8 @@ MonoBehaviour:
   trait_name: Ball Bearing
   trait_description: 
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
+  - ability: 9
+    ability_variables: 00000000
+    condition: 8
     condition_variables: 
     requirements: []

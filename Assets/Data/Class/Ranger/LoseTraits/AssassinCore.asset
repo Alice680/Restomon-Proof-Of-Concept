@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: AssassinCore
   m_EditorClassIdentifier: 
-  trait_name: 
-  affects:
-  - ability: 9
-    ability_variables: 03000000
+  trait_name: Crit Boost
+  trait_description: 
+  effects:
+  - ability: 8
+    ability_variables: 05000000
     condition: 1
     condition_variables: 02000000
+    requirements: []

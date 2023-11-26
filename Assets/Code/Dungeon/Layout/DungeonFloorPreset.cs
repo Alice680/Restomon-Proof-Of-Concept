@@ -21,7 +21,7 @@ public class DungeonFloorPreset : DungeonFloor
     [SerializeField] protected Vector3Int start_position;
 
     //Run time
-    public override DungeonMap GenerateDungeon(out Vector3Int start_location)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
     {
         DungeonMap map = new DungeonMap(x_size, y_size);
 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Class1
   m_EditorClassIdentifier: 
   trait_name: Atk Boost
-  trait_description: Lose Trait
+  trait_description: A small passive damage multiplier.
   effects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
-    condition_variables: 
+  - ability: 8
+    ability_variables: 05000000
+    condition: 1
+    condition_variables: 00000000
     requirements: []

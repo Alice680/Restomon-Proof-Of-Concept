@@ -14,4 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: Sword Style
   trait_description: 
-  effects: []
+  effects:
+  - ability: 8
+    ability_variables: fbffffff
+    condition: 1
+    condition_variables: 00000000
+    requirements: []
+  - ability: 8
+    ability_variables: 05000000
+    condition: 1
+    condition_variables: 03000000
+    requirements: []
+  - ability: 8
+    ability_variables: 02000000
+    condition: 1
+    condition_variables: 02000000
+    requirements: []

@@ -8,6 +8,7 @@ public class DungeonFloorRandom : DungeonFloor
     [SerializeField] protected TileSetHolder tile_set;
     [SerializeField] protected int x_size, y_size, min_rooms, max_room, room_min_size, room_max_size;
     [SerializeField] protected MonsterStats[] monsters;
+    [SerializeField] protected int weather_type, weather_power;
 
     protected class Room
     {
@@ -168,7 +169,7 @@ public class DungeonFloorRandom : DungeonFloor
         }
     }
 
-    public override DungeonMap GenerateDungeon(out Vector3Int start_location)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
     {
         List<Room> rooms = GenerateRooms(min_rooms, max_room);
 
@@ -179,6 +180,10 @@ public class DungeonFloorRandom : DungeonFloor
         start_location = rooms[Random.Range(0, rooms.Count)].GetRandomPoint();
 
         map.SetTileTrait(rooms[Random.Range(0, rooms.Count)].GetRandomPoint(), 1);
+
+        map.SetWeatherManager(weather_manager);
+
+        map.ForceWeather(weather_type,weather_power);
 
         return map;
     }

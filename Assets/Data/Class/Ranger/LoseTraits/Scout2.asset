@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Scout2
   m_EditorClassIdentifier: 
   trait_name: Quick Action
-  affects:
-  - ability: 5
-    ability_variables: 010000000100000005000000
-    condition: 8
+  trait_description: Adds a small chance to gain an extra action on the start of
+    each turn.
+  effects:
+  - ability: 4
+    ability_variables: 0000000001000000
+    condition: 2
     condition_variables: 
+    requirements:
+    - requirement: 1
+      requirement_variables: 19000000

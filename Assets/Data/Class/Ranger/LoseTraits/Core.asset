@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Core
   m_EditorClassIdentifier: 
-  trait_name: Learn Pattern
-  affects:
-  - ability: 4
-    ability_variables: 00000000ffffffff64000000
-    condition: 5
-    condition_variables: 01000000
+  trait_name: TBD
+  trait_description: 
+  effects: []

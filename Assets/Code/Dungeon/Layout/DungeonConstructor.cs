@@ -30,7 +30,7 @@ public class DungeonConstructor : MonoBehaviour
         if (new_layout)
             layout.Setup(x_size, y_size);
 
-        current_map = layout.GenerateDungeon(out Vector3Int empty_variable);
+        current_map = layout.GenerateDungeon(null,out Vector3Int empty_variable);
     }
 
     public void Update()
@@ -49,7 +49,7 @@ public class DungeonConstructor : MonoBehaviour
             layout.SetTile(vec.x,vec.y, current_tile);
 
             current_map.Clear();
-            current_map = layout.GenerateDungeon(out Vector3Int empty_variable);
+            current_map = layout.GenerateDungeon(null,out Vector3Int empty_variable);
 
             last_input = Time.time;
         }

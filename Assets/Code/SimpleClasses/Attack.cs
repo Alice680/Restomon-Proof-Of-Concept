@@ -11,7 +11,7 @@ using UnityEngine;
  */
 // TODO Weather
 public enum AttackEffect { None, Damage, Healing, Buff, AddToTurn, ChangeCondition, Weather, TileCondtion }
-public enum AttackRequirement { None, Chance }
+public enum AttackRequirement { None, Chance, Condition }
 public enum AttackTarget { Self, Enemy, Ally, All, Dungeon, Tile }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableAttack", order = 2)]
