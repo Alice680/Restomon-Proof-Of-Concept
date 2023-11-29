@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TremorsScroll
   m_EditorClassIdentifier: 
   attack_name: Tremor
-  description: 
+  description: A large crack in the ground.
   element: 4
   cost: 06000000
   hit_chance: 100

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodScroll
   m_EditorClassIdentifier: 
   attack_name: Overgrowth
-  description: 
+  description: A thick thorny vine.
   element: 3
   cost: 06000000
   hit_chance: 100

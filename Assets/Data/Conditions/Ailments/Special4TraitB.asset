@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Special4TraitB
   m_EditorClassIdentifier: 
-  trait_name: Poison
+  trait_name: Toxic
   trait_description: 
   effects:
   - ability: 1
-    ability_variables: 
+    ability_variables: 010000000a000000
     condition: 2
     condition_variables: 
     requirements: []
+  - ability: 5
+    ability_variables: 0900000000000000ffffffff
+    condition: 2
+    condition_variables: 
+    requirements:
+    - requirement: 1
+      requirement_variables: 0f000000

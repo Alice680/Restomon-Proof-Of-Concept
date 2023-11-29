@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: WarCore
   m_EditorClassIdentifier: 
-  affects:
-  - ability: 4
-    ability_variables: 000000000100000023000000
-    condition: 4
-    condition_variables: 00000000
+  trait_name: 
+  trait_description: 
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
+    condition_variables: 
+    requirements: []

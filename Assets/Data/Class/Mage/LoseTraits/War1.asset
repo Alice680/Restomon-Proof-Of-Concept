@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: War1
   m_EditorClassIdentifier: 
-  trait_name: Fast Movement
-  affects:
-  - ability: 1
-    ability_variables: 0000000000000000000000000000000000000000000000000000000000000000000000000200000000000000
-    condition: 1
-    condition_variables: 
+  trait_name: 'Draning Shield '
+  trait_description: When hit be an attack, your natural aura is able to drain a
+    small amount of Ather.
+  effects:
+  - ability: 2
+    ability_variables: 0000000001000000
+    condition: 5
+    condition_variables: 01000000
+    requirements: []

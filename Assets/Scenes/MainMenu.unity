@@ -8012,167 +8012,183 @@ MonoBehaviour:
       - Blaster
       - Brawler
       builds_a_name:
-      - Overwhelmer
-      - Overcharger
+      - Ather Storm
+      - Generalist
       builds_b_name:
       - Healer
-      - Purifier
+      - Blaster
       builds_c_name:
-      - Vampire
-      - Corruptor
+      - Tank
+      - Blaster
       base_builds_description:
-      - A
-      - B
-      - C
+      - A build focused on dealing mixed damage.
+      - A build focused on dealing magic damage.
+      - A build focused on dealing physical damage.
       builds_a_description:
-      - A
-      - B
+      - A build gaining the ather element and focused on summoning ather storm and
+        related effects.
+      - A build gaining the ather element and dealing mixed damage.
       builds_b_description:
-      - A
-      - B
+      - A build gaining the light element and healing your team.
+      - A build gaining the light element and dealing magical damage.
       builds_c_description:
-      - A
-      - B
+      - A build gaining the dark element and taking less damage.
+      - A build gaining the dark element and dealing magical damage.
     - name: Water
       description: 
       base_builds_name:
-      - A
-      - B
-      - C
+      - Blast
+      - Heal
+      - Damp
       builds_a_name:
-      - A
-      - B
+      - Rain
+      - Blaster
       builds_b_name:
-      - A
-      - B
+      - Acid Rain
+      - Brawler
       builds_c_name:
-      - A
-      - B
+      - Pollen
+      - 'Brawler '
       base_builds_description:
-      - A
-      - B
-      - C
+      - A build focused on dealing magic damage.
+      - A build based on healing your team.
+      - A build focused on applying the Damp status condition.
       builds_a_description:
-      - A
-      - B
+      - A build gaining the water element and focused on summoning rain and related
+        effects.
+      - A build gaining the water element and dealing magic damage.
       builds_b_description:
-      - A
-      - B
+      - A build gaining the metal element and focused on summoning acid rain and
+        related effects.
+      - A build gaining the metal element and dealing physical damage.
       builds_c_description:
-      - A
-      - B
-    - name: Wood
+      - A build gaining the nature element and focused on summoning pollen and related
+        effects.
+      - 'A build gaining the nature element and dealing physical damage. '
+    - name: Nature
       description: 
       base_builds_name:
-      - A
-      - B
-      - C
+      - Healer
+      - Brawler
+      - Tangle
       builds_a_name:
-      - A
-      - B
+      - Pollen
+      - Brawler
       builds_b_name:
-      - A
-      - B
+      - Rain
+      - Blaster
       builds_c_name:
-      - A
-      - B
+      - Sunlight
+      - Blaster
       base_builds_description:
-      - A
-      - B
-      - C
+      - A build based on healing your team.
+      - A build focused on dealing physical damage.
+      - A build focused on dealing magic damage.
       builds_a_description:
-      - A
-      - B
+      - A build gaining the nature element and focused on summoning pollen and related
+        effects.
+      - A build gaining the nature element and dealing physical damage.
       builds_b_description:
-      - A
-      - B
+      - A build gaining the water element and focused on summoning rain and related
+        effects.
+      - A build gaining the water element and dealing magic damage.
       builds_c_description:
-      - A
-      - B
+      - A build gaining the fire element and focused on summoning sunlight and related
+        effects.
+      - A build gaining the fire water element and dealing magic damage.
     - name: Fire
       description: 
       base_builds_name:
-      - A
-      - B
-      - C
+      - Blaster
+      - Bralwer
+      - Singe
       builds_a_name:
-      - A
-      - B
+      - Sunlight
+      - Blaster
       builds_b_name:
-      - A
-      - B
+      - Pollen
+      - Brawler
       builds_c_name:
-      - A
-      - B
+      - Dust
+      - Tank
       base_builds_description:
-      - A
-      - B
-      - C
+      - A build focused on dealing magic damage.
+      - A build focused on dealing physical damage.
+      - A build focused on applying the Singe status condition.
       builds_a_description:
-      - A
-      - B
+      - A build gaining the fire element and focused on summoning sunlight and related
+        effects.
+      - A build gaining the fire water element and dealing magic damage.
       builds_b_description:
-      - A
-      - B
+      - A build gaining the nature element and focused on summoning pollen and related
+        effects.
+      - A build gaining the nature element and dealing physical damage.
       builds_c_description:
-      - A
-      - B
+      - A build gaining the earth element and focused on summoning dust and related
+        effects.
+      - A build gaining the earth element and taking less damage.
     - name: Earth
       description: 
       base_builds_name:
-      - A
-      - B
-      - C
+      - Tank
+      - Brawler
+      - Coat
       builds_a_name:
-      - A
-      - B
+      - Dust
+      - Tank
       builds_b_name:
-      - A
-      - B
+      - Sunlight
+      - Blaster
       builds_c_name:
-      - A
-      - B
+      - Acid Rain
+      - Brawler
       base_builds_description:
-      - A
-      - B
-      - C
+      - A build focused on taking reduced damage.
+      - A build focused on dealing physical damage.
+      - A build focused on applying the Coated status condition.
       builds_a_description:
-      - A
-      - B
+      - A build gaining the earth element and focused on summoning dust and related
+        effects.
+      - A build gaining the earth element and taking less damage.
       builds_b_description:
-      - A
-      - B
+      - A build gaining the fire element and focused on summoning sunlight and related
+        effects.
+      - A build gaining the fire water element and dealing magic damage.
       builds_c_description:
-      - A
-      - B
+      - A build gaining the metal element and focused on summoning acid rain and
+        related effects.
+      - A build gaining the metal element and dealing physical damage.
     - name: Metal
       description: 
       base_builds_name:
-      - A
-      - B
-      - C
+      - Brawler
+      - Tank
+      - Magnetic
       builds_a_name:
-      - A
-      - B
+      - Acid Rain
+      - Brawler
       builds_b_name:
-      - A
-      - B
+      - Dust
+      - Tank
       builds_c_name:
-      - A
-      - B
+      - Rain
+      - Blaster
       base_builds_description:
-      - A
-      - B
-      - C
+      - A build focused on dealing physical damage.
+      - A build focused on taking reduced damage.
+      - A build focused on applying the Magnatized status condition.
       builds_a_description:
-      - A
-      - B
+      - A build gaining the metal element and focused on summoning acid rain and
+        related effects.
+      - A build gaining the metal element and dealing physical damage.
       builds_b_description:
-      - A
-      - B
+      - A build gaining the earth element and focused on summoning dust and related
+        effects.
+      - A build gaining the earth element and taking less damage.
       builds_c_description:
-      - A
-      - B
+      - A build gaining the water element and focused on summoning rain and related
+        effects.
+      - A build gaining the water element and dealing magic damage.
     text_boxes:
     - {fileID: 707514554}
     - {fileID: 1756058218}

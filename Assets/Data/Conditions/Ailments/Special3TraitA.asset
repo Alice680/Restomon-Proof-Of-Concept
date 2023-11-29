@@ -20,3 +20,10 @@ MonoBehaviour:
     condition: 0
     condition_variables: 
     requirements: []
+  - ability: 5
+    ability_variables: 08000000ffffffffffffffff
+    condition: 2
+    condition_variables: 
+    requirements:
+    - requirement: 1
+      requirement_variables: 19000000

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Sage1
   m_EditorClassIdentifier: 
-  trait_name: Ather Boost
-  affects:
-  - ability: 1
-    ability_variables: 0a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    condition: 1
-    condition_variables: 
+  trait_name: Ather Leach
+  trait_description: Drain ather from those you kill.
+  effects:
+  - ability: 2
+    ability_variables: 0000000002000000
+    condition: 6
+    condition_variables: 00000000
+    requirements: []

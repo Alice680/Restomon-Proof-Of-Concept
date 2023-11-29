@@ -36,4 +36,4 @@ MonoBehaviour:
     variables: 090000000000000032000000
     requirements:
     - requirement: 2
-      requirement_variables: 000000000100000009000000ffffffff
+      requirement_variables: 0000000009000000ffffffff

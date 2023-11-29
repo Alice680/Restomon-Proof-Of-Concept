@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: War2
   m_EditorClassIdentifier: 
   trait_name: Force Barrier
-  affects:
-  - ability: 0
-    ability_variables: 
-    condition: 0
-    condition_variables: 
+  trait_description: A small chance to greatly reduce damage on a hit.
+  effects:
+  - ability: 8
+    ability_variables: e8030000
+    condition: 1
+    condition_variables: 01000000
+    requirements:
+    - requirement: 1
+      requirement_variables: 05000000

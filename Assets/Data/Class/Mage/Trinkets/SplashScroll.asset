@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SplashScroll
   m_EditorClassIdentifier: 
   attack_name: Splash
-  description: 
+  description: A powerful jet of water.
   element: 6
   cost: 06000000
   hit_chance: 100

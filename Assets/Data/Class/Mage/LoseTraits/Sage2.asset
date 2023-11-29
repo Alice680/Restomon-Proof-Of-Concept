@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
   m_Name: Sage2
   m_EditorClassIdentifier: 
-  trait_name: Regen Boost
-  affects:
-  - ability: 1
-    ability_variables: 0000000002000000000000000000000000000000000000000000000000000000000000000000000000000000
-    condition: 1
+  trait_name: Ather Skin
+  trait_description: Gain a small chance of regaining an ather every time you move.
+  effects:
+  - ability: 2
+    ability_variables: 0000000001000000
+    condition: 8
     condition_variables: 
+    requirements:
+    - requirement: 1
+      requirement_variables: 05000000

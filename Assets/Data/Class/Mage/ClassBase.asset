@@ -48,7 +48,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   subclasses:
   - subclass_name: Scribe
-    description: None
+    description: Looking for ideas
     subclass_trait: {fileID: 11400000, guid: b893877e28db1754ea25a34c848b5608, type: 2}
     free_traits:
     - {fileID: 11400000, guid: af49fcf87cc23484c90bdf4b94614140, type: 2}
