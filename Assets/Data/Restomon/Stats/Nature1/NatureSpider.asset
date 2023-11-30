@@ -15,7 +15,6 @@ MonoBehaviour:
   id: 3
   growth_stats:
     hp: 0
-    sp: 0
     mp: 0
     atk: 0
     mag: 0
@@ -34,7 +33,6 @@ MonoBehaviour:
     form_name: Nature
     base_stats:
       hp: 5
-      sp: 5
       mp: 5
       atk: 3
       mag: 3
@@ -57,7 +55,6 @@ MonoBehaviour:
   - form_name: Nature-Nature
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -71,6 +68,9 @@ MonoBehaviour:
     cost: 010000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 0ebd506dbf593d549bc216b327df0809, type: 2}
+    - {fileID: 11400000, guid: 9953b5b77bc5db746ae2044c7c1ec808, type: 2}
+    - {fileID: 11400000, guid: 76433fa32932ba541bcf7e867e51bb86, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 3
@@ -78,7 +78,6 @@ MonoBehaviour:
   - form_name: Nature-Water
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -92,6 +91,9 @@ MonoBehaviour:
     cost: 010000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: e2f82c6df29cccd49bd00ee85307217f, type: 2}
+    - {fileID: 11400000, guid: 7f42e22fe3c3fc84dac21447100755e2, type: 2}
+    - {fileID: 11400000, guid: e2f82c6df29cccd49bd00ee85307217f, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 6
@@ -99,7 +101,6 @@ MonoBehaviour:
   - form_name: Nature-Fire
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -113,6 +114,9 @@ MonoBehaviour:
     cost: 010000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 8cac086b50216114993e9fc8f290eab9, type: 2}
+    - {fileID: 11400000, guid: acc4084aaf72118439e71d42c8dffbb1, type: 2}
+    - {fileID: 11400000, guid: 04b2984612510cd40b848867289fe6ba, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 2

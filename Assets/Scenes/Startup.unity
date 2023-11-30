@@ -285,9 +285,9 @@ MonoBehaviour:
     - attacks: 02000000010000000400000006000000
       trait: 2
     form_a:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_b:
     - attacks: 0000000000000000
@@ -299,7 +299,7 @@ MonoBehaviour:
       trait: 0
     - attacks: 0000000000000000
       trait: 0
-  - restomon_base: {fileID: 0}
+  - restomon_base: {fileID: 11400000, guid: 96f958fab14d48540bfbb12df31082c2, type: 2}
     base_form:
     - attacks: 00000000000000000000000000000000
       trait: 0
@@ -308,21 +308,21 @@ MonoBehaviour:
     - attacks: 00000000000000000000000000000000
       trait: 0
     form_a:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_b:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_c:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
-  - restomon_base: {fileID: 0}
+  - restomon_base: {fileID: 11400000, guid: b221d634731003141852345e3d0705f7, type: 2}
     base_form:
     - attacks: 00000000000000000000000000000000
       trait: 0
@@ -331,21 +331,21 @@ MonoBehaviour:
     - attacks: 00000000000000000000000000000000
       trait: 0
     form_a:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_b:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_c:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
-  - restomon_base: {fileID: 0}
+  - restomon_base: {fileID: 11400000, guid: 755ce1f92c4a92740a3085f9045112db, type: 2}
     base_form:
     - attacks: 00000000000000000000000000000000
       trait: 0
@@ -354,21 +354,21 @@ MonoBehaviour:
     - attacks: 00000000000000000000000000000000
       trait: 0
     form_a:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_b:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_c:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
-  - restomon_base: {fileID: 0}
+  - restomon_base: {fileID: 11400000, guid: f22e8f2657e32dd47b2d503acb110979, type: 2}
     base_form:
     - attacks: 00000000000000000000000000000000
       trait: 0
@@ -377,21 +377,21 @@ MonoBehaviour:
     - attacks: 00000000000000000000000000000000
       trait: 0
     form_a:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_b:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_c:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
-  - restomon_base: {fileID: 0}
+  - restomon_base: {fileID: 11400000, guid: cdcd5442abb873f4da6ccd08d844d82a, type: 2}
     base_form:
     - attacks: 00000000000000000000000000000000
       trait: 0
@@ -400,17 +400,17 @@ MonoBehaviour:
     - attacks: 00000000000000000000000000000000
       trait: 0
     form_a:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_b:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0
     form_c:
-    - attacks: 0000000000000000
+    - attacks: 0100000002000000
       trait: 0
-    - attacks: 0000000000000000
+    - attacks: 0100000003000000
       trait: 0

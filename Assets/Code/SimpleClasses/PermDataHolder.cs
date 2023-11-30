@@ -13,6 +13,7 @@ using UnityEngine;
 // TODO add values for score
 public class PermDataHolder : MonoBehaviour
 {
+    [Serializable]
     private class RestomonData
     {
         public int restomon_id;
@@ -41,7 +42,6 @@ public class PermDataHolder : MonoBehaviour
     [Serializable]
     private class RestomonBuild
     {
-
         public RestomonBase restomon_base;
         public Form[] base_form;
         public Form[] form_a;

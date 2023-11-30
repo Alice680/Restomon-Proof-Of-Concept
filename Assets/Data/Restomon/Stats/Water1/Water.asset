@@ -15,7 +15,6 @@ MonoBehaviour:
   id: 1
   growth_stats:
     hp: 0
-    sp: 0
     mp: 0
     atk: 0
     mag: 0
@@ -34,7 +33,6 @@ MonoBehaviour:
     form_name: Water
     base_stats:
       hp: 5
-      sp: 5
       mp: 5
       atk: 3
       mag: 3
@@ -57,7 +55,6 @@ MonoBehaviour:
   - form_name: Water-Water
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -71,6 +68,9 @@ MonoBehaviour:
     cost: 010000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 9ecc0489dcdc6ec4bbe27a7cafaffe10, type: 2}
+    - {fileID: 11400000, guid: 7f42e22fe3c3fc84dac21447100755e2, type: 2}
+    - {fileID: 11400000, guid: e2f82c6df29cccd49bd00ee85307217f, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 6
@@ -78,7 +78,6 @@ MonoBehaviour:
   - form_name: Water-Metal
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -92,6 +91,9 @@ MonoBehaviour:
     cost: 010000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: b008d63cf1735e24fb9bae3278234ed6, type: 2}
+    - {fileID: 11400000, guid: 7a653b953d3de334aaf6220302012eac, type: 2}
+    - {fileID: 11400000, guid: de4953b3ea18eaf43bc48643cd97cd68, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 5
@@ -99,7 +101,6 @@ MonoBehaviour:
   - form_name: Water-Nature
     base_stats:
       hp: 0
-      sp: 0
       mp: 0
       atk: 1
       mag: 1
@@ -113,6 +114,9 @@ MonoBehaviour:
     cost: 010000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 0ebd506dbf593d549bc216b327df0809, type: 2}
+    - {fileID: 11400000, guid: 9953b5b77bc5db746ae2044c7c1ec808, type: 2}
+    - {fileID: 11400000, guid: 76433fa32932ba541bcf7e867e51bb86, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 3

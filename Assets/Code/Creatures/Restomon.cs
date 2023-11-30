@@ -112,8 +112,10 @@ public class Restomon : Creature
 
         if (index < 4)
             return attacks[index];
-        else if (index == 4 || index == 5)
+        else if (current_evolution != RestomonEvolution.None && (index == 4 || index == 5))
             return attacks[index + (((int)current_evolution - 1) * 2)];
+        else if ((index == 4 || index == 5))
+            return empty_attack;
         else
             return empty_attack;
     }

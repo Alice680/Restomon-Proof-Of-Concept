@@ -45,7 +45,6 @@ public class MenuTeamBuilder : MenuSwapIcon
     {
         menu.SetActive(true);
 
-        UpdateMenu(Direction.None);
         Display();
     }
 
@@ -59,12 +58,12 @@ public class MenuTeamBuilder : MenuSwapIcon
                 y_value = 1;
 
             if (dir == Direction.Right || dir == Direction.Left)
+            {
                 GetInputValue(catalyst_value, 0, 3, 0, dir, out catalyst_value, out dead_variable);
 
-            x_value = 0;
-
-            for (int i = 0; i < 4; ++i)
-                restomon_values[i] = new RestomonData();
+                for (int i = 0; i < 4; ++i)
+                    restomon_values[i] = new RestomonData();
+            }
         }
         else if (y_value == 1)
         {
@@ -72,7 +71,10 @@ public class MenuTeamBuilder : MenuSwapIcon
                 y_value = 2;
 
             if (dir == Direction.Up)
+            {
+                x_value = 0;
                 y_value -= 1;
+            }
 
             if (dir == Direction.Right || dir == Direction.Left)
                 GetInputValue(x_value, 0, data_holder.GetDataCatalyst(catalyst_value).GetRestomonAmount(), 0, dir, out x_value, out dead_variable);
@@ -124,7 +126,11 @@ public class MenuTeamBuilder : MenuSwapIcon
 
         catalyst_value = data_holder.GetCatalystInt();
 
-        restomon_values = new RestomonData[4] { new RestomonData(), new RestomonData(), new RestomonData(), new RestomonData() };
+        restomon_values = new RestomonData[4];
+
+        int[] temp_values;
+        for (int i = 0; i < 4; ++i)
+            restomon_values[i] = new RestomonData(data_holder.GetRestomonInt(i, out temp_values), temp_values);
     }
 
     public void SetData()
