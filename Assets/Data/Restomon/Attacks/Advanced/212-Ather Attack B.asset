@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
   m_Name: 212-Ather Attack B
   m_EditorClassIdentifier: 
-  attack_name: Attack B
-  description: Disk
+  attack_name: TBD
+  description: Evolution attacks will be added once I know everything works.
   element: 1
-  cost: 0000000000000000
+  cost: 0f2700000f270000
   hit_chance: 100
   area:
     shape: 2

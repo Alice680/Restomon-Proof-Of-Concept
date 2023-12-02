@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: 214-Nature Attack B
+  m_Name: 103-Water 2
   m_EditorClassIdentifier: 
-  attack_name: TBD
-  description: Evolution attacks will be added once I know everything works.
-  element: 3
-  cost: 0f2700000f270000
+  attack_name: Geyser
+  description: Fire a large beam of condensed water that can hit multiple targets.
+  element: 6
+  cost: 0000000005000000
   hit_chance: 100
   area:
-    shape: 2
-    length: 0
-    width: 0
+    shape: 3
+    length: 1
+    width: 1
     rotatable: 0
-    Hollow: 0
+    Hollow: 1
   target:
-    shape: 2
-    length: 0
+    shape: 0
+    length: 4
     width: 0
-    rotatable: 0
+    rotatable: 1
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
   effects:
-  - type: 0
-    target: 0
-    variables: 
+  - type: 1
+    target: 3
+    variables: 0000000023000000
     requirements: []

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f53c3afc3429bd42a6ca40dad2d4f3a, type: 3}
-  m_Name: 001-Slam
+  m_Name: 123-Boost Shd
   m_EditorClassIdentifier: 
-  attack_name: Bite
-  description: Disk
-  element: 1
-  cost: 0000000000000000
+  attack_name: Shield
+  description: Draw Ather around your body to raise your magical defense.
+  element: 0
+  cost: 0000000003000000
   hit_chance: 100
   area:
-    shape: 3
-    length: 1
-    width: 1
+    shape: 2
+    length: 0
+    width: 0
     rotatable: 0
     Hollow: 1
   target:
@@ -30,7 +30,8 @@ MonoBehaviour:
     rotatable: 0
     Hollow: 0
   model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
-  affects:
-  - type: 0
-    target: 3
-    variables: 000000002800000064000000
+  effects:
+  - type: 3
+    target: 0
+    variables: 0500000001000000
+    requirements: []

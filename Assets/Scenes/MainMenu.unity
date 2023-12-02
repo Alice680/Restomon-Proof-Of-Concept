@@ -8037,7 +8037,7 @@ MonoBehaviour:
     - name: Water
       description: 
       base_builds_name:
-      - Blast
+      - Blaster
       - Heal
       - Damp
       builds_a_name:

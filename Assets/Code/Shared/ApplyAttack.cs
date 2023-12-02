@@ -184,9 +184,7 @@ public static class ApplyAttack
                 break;
         }
 
-        DungeonTextHandler.AddText(user + " healed " + target + " for " + (int)scale);
         target.ChangeHp((int)healing);
-
     }
 
     private static void Buff(Attack attack, int effect_num, Unit user, Unit target, Trait[] target_trait)

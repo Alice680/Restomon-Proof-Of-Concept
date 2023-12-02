@@ -46,7 +46,15 @@ MonoBehaviour:
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 945eee80795aa5a4aaa6d2e707d8bef4, type: 2}
+    - {fileID: 11400000, guid: 64136d718d0a150428701e7ae69a00b5, type: 2}
+    - {fileID: 11400000, guid: f267024f8352da04e9cc8522c8be478c, type: 2}
+    - {fileID: 11400000, guid: 217fc012bbbcd764ea52d29bad3e3a02, type: 2}
+    - {fileID: 11400000, guid: 3989161e440309c42a67939c6cfab790, type: 2}
+    - {fileID: 11400000, guid: dd8229a458a9e7448b2c4073ec404190, type: 2}
+    - {fileID: 11400000, guid: 7ab9cd1e00628c14f95b656066eb8fcf, type: 2}
+    - {fileID: 11400000, guid: e3a93f4386fe6824f96f252247f1bfe8, type: 2}
+    - {fileID: 11400000, guid: 213006652820e8a43b75dec166a414dd, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 5

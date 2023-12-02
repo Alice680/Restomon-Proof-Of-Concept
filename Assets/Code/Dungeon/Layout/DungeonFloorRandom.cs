@@ -51,6 +51,23 @@ public class DungeonFloorRandom : DungeonFloor
             return true;
         }
 
+        public int RoomsRelation(Room other)
+        {
+            /*if (x_point - 2 > other.x_point + other.x_size)
+                return false;
+
+            if (x_point + x_size + 2 < other.x_point)
+                return false;
+
+            if (y_point - 2 > other.y_point + other.y_size)
+                return false;
+
+            if (y_point + y_size + 2 < other.y_point)
+                return false;*/
+
+            return -1;
+        }
+
         public Vector3Int GetRandomPoint()
         {
             return new Vector3Int(Random.Range(x_point, x_point + x_size), Random.Range(y_point, y_point + y_size), 0);
@@ -91,6 +108,7 @@ public class DungeonFloorRandom : DungeonFloor
 
         public Path(Room room_start, Room room_end)
         {
+
             x_point = room_start.x_point + 1;
             y_point = room_start.y_point + 1;
 
@@ -217,7 +235,11 @@ public class DungeonFloorRandom : DungeonFloor
         List<Path> valid_path = new List<Path>();
 
         for (int i = 0; i < rooms.Count - 1; ++i)
-            valid_path.Add(new Path(rooms[i], rooms[i + 1]));
+        {
+            Path temp_path = new Path(rooms[i], rooms[i + 1]);
+
+            valid_path.Add(temp_path);
+        }
 
         return valid_path;
     }

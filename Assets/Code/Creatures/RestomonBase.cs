@@ -109,7 +109,7 @@ public class RestomonBase : ScriptableObject
         temp_attack[0] = base_attack[attack_id[0]];
 
         for (int i = 0; i < 3; ++i)
-            temp_attack[i + 1] = first_evo.attack[attack_id[i]];
+            temp_attack[i + 1] = first_evo.attack[attack_id[i + 1]];
 
         temp_models[0] = first_evo.model;
 
