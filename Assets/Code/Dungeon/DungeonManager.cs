@@ -240,8 +240,10 @@ public class DungeonManager : MonoBehaviour
     private void StartNewFloor()
     {
         Vector3Int start_position;
+        Creature[] temp_enemy;
+        Vector3Int[] temp_enemy_positions;
 
-        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(weather_manager,out start_position);
+        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(weather_manager, out start_position, out temp_enemy, out temp_enemy_positions);
 
         enemy_controller = new AICore(current_dungeon.GetFloor(current_floor).GetAI(), this);
 
@@ -250,6 +252,11 @@ public class DungeonManager : MonoBehaviour
         enemy = new Unit(current_dungeon.GetFloor(current_floor).GetDungeonManager(), enemy_controller);
 
         AddUnit(enemy, new Vector3Int(-1, -1, 0));
+
+        for (int i = 0; i < temp_enemy.Length; ++i)
+        {
+            AddUnit(new Unit(temp_enemy[i], enemy_controller),temp_enemy_positions[i]);
+        }
 
         dungeon_ui.Reset(map);
 

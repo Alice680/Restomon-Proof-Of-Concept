@@ -8,6 +8,7 @@ public class DungeonFloorRandom : DungeonFloor
     [SerializeField] protected TileSetHolder tile_set;
     [SerializeField] protected int x_size, y_size, min_rooms, max_room, room_min_size, room_max_size;
     [SerializeField] protected MonsterStats[] monsters;
+    [SerializeField] protected int min_monsters, max_monsters;
     [SerializeField] protected int weather_type, weather_power;
 
     protected class Room
@@ -23,15 +24,18 @@ public class DungeonFloorRandom : DungeonFloor
             y_point = Random.Range(1, y_limit - y_size - 1);
         }
 
-        public bool IsWithin(int x, int y)
+        public int GetInnerEdge(bool x_first, out int y)
         {
-            if (x < x_point || x > x_point + x_size)
-                return false;
-
-            if (y < y_point || y > y_point + y_size)
-                return false;
-
-            return true;
+            if (x_first)
+            {
+                y = Random.Range(y_point + 2, y_point + y_size - 1);
+                return Random.Range(0, 2) == 1 ? x_point + 1 : x_point + x_size - 1;
+            }
+            else
+            {
+                y = Random.Range(0, 2) == 1 ? y_point + 1 : y_point + y_size - 1;
+                return Random.Range(x_point + 2, x_point + x_size - 1);
+            }
         }
 
         public bool RoomsOverlap(Room other)
@@ -51,21 +55,9 @@ public class DungeonFloorRandom : DungeonFloor
             return true;
         }
 
-        public int RoomsRelation(Room other)
+        public bool PathValid(Path other)
         {
-            /*if (x_point - 2 > other.x_point + other.x_size)
-                return false;
-
-            if (x_point + x_size + 2 < other.x_point)
-                return false;
-
-            if (y_point - 2 > other.y_point + other.y_size)
-                return false;
-
-            if (y_point + y_size + 2 < other.y_point)
-                return false;*/
-
-            return -1;
+            return true;
         }
 
         public Vector3Int GetRandomPoint()
@@ -77,117 +69,130 @@ public class DungeonFloorRandom : DungeonFloor
         {
             for (int i = x_point; i < x_size + x_point; ++i)
                 for (int e = y_point; e < y_size + y_point; ++e)
-                {
-                    map.SetNode(i, e, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
-                }
+                    map.SetNode(i, e, Random.Range(14, 17));
 
             for (int i = x_point; i < x_size + x_point; ++i)
             {
-                map.SetNode(i, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(14), 14);
-                map.SetNode(i, y_point + y_size, DungeonTileType.Wall, tile_set.GetTileModel(9), 9);
+                map.SetNode(i, y_point - 1, 5);
+                map.SetNode(i, y_point + y_size, 1);
             }
 
             for (int i = y_point; i < y_size + y_point; ++i)
             {
-                map.SetNode(x_point - 1, i, DungeonTileType.Wall, tile_set.GetTileModel(4), 4);
-                map.SetNode(x_point + x_size, i, DungeonTileType.Wall, tile_set.GetTileModel(3), 3);
+                map.SetNode(x_point - 1, i, 7);
+                map.SetNode(x_point + x_size, i, 3);
             }
 
-            map.SetNode(x_point - 1, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(13), 13);
-            map.SetNode(x_point + x_size, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(15), 15);
-
-            map.SetNode(x_point - 1, y_point + y_size, DungeonTileType.Wall, tile_set.GetTileModel(8), 8);
-            map.SetNode(x_point + x_size, y_point + y_size, DungeonTileType.Wall, tile_set.GetTileModel(10), 10);
+            map.SetNode(x_point - 1, y_point - 1, 6);
+            map.SetNode(x_point - 1, y_point + y_size, 0);
+            map.SetNode(x_point + x_size, y_point - 1, 4);
+            map.SetNode(x_point + x_size, y_point + y_size, 2);
         }
     }
 
-    private class Path
+    protected class Path
     {
-        public int x_point, y_point, x_change, y_change;
+        public int x_point, y_point, x_goal, y_goal;
         public bool x_first;
 
         public Path(Room room_start, Room room_end)
         {
+            x_first = /*Random.Range(0, 2) == 1*/true;
 
-            x_point = room_start.x_point + 1;
-            y_point = room_start.y_point + 1;
+            x_point = room_start.GetInnerEdge(x_first, out y_point);
 
-            x_change = (room_end.x_point + 1) - (room_start.x_point + 1);
-            y_change = (room_end.y_point + 1) - (room_start.y_point + 1);
+            x_goal = room_end.GetInnerEdge(!x_first, out y_goal);
         }
 
-        public bool IsWithin(int x, int y)
+        public bool PathValid(Path other)
         {
-            if (y == y_point && x_change > 0 && x >= x_point && x <= x_point + x_change)
-                return true;
-
-            if (y == y_point && x_change < 0 && x <= x_point && x >= x_point + x_change)
-                return true;
-
-            if (x == x_point + x_change && y_change > 0 && y >= y_point && y <= y_point + y_change)
-                return true;
-
-            if (x == x_point + x_change && y_change < 0 && y <= y_point && y >= y_point + y_change)
-                return true;
-
-            return false;
+            return true;
         }
 
         public void SetUpMap(DungeonMap map, TileSetHolder tile_set)
         {
-            if (x_change > 0)
+            if (x_first)
             {
-                for (int i = x_point; i <= x_point + x_change; ++i)
-                {
-                    map.SetNode(i, y_point, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+                if (x_point > x_goal)
+                    SetUpX(map, tile_set, y_point, x_goal, x_point);
+                else
+                    SetUpX(map, tile_set, y_point, x_point, x_goal);
 
-                    if (map.GetTileModelNum(i, y_point + 1) == 19)
-                        map.SetNode(i, y_point + 1, DungeonTileType.Wall, tile_set.GetTileModel(9), 9);
-                    if (map.GetTileModelNum(i, y_point - 1) == 19)
-                        map.SetNode(i, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(14), 14);
+                if (y_point > y_goal)
+                    SetUpY(map, tile_set, x_goal, y_goal, y_point);
+                else
+                    SetUpY(map, tile_set, x_goal, y_point, y_goal);
+            }
+            else
+            {
+                if (x_point > x_goal)
+                    SetUpX(map, tile_set, y_goal, x_goal, x_point);
+                else
+                    SetUpX(map, tile_set, y_goal, x_point, x_goal);
+
+                if (y_point > y_goal)
+                    SetUpY(map, tile_set, x_point, y_goal, y_point);
+                else
+                    SetUpY(map, tile_set, x_point, y_point, y_goal);
+            }
+        }
+
+        private void SetUpX(DungeonMap map, TileSetHolder tile_set, int y, int x_start, int x_end)
+        {
+            for (int i = x_start; i <= x_end; ++i)
+            {
+                map.SetNode(i, y, 14);
+
+                if (map.GetTileModelNum(i, y + 1) < 14)
+                {
+                    if (map.GetTileModelNum(i, y + 1) == 7)
+                        map.SetNode(i, y + 1, 11);
+                    else if (map.GetTileModelNum(i, y + 1) == 3)
+                        map.SetNode(i, y + 1, 10);
+                    else
+                        map.SetNode(i, y + 1, 1);
+                }
+                if (map.GetTileModelNum(i, y - 1) < 14)
+                {
+                    if (map.GetTileModelNum(i, y - 1) == 7)
+                        map.SetNode(i, y - 1, 9);
+                    else if (map.GetTileModelNum(i, y - 1) == 3)
+                        map.SetNode(i, y - 1, 8);
+                    else
+                        map.SetNode(i, y - 1, 5);
                 }
             }
-            else if (x_change < 0)
-            {
-                for (int i = x_point + x_change; i <= x_point; ++i)
-                {
-                    map.SetNode(i, y_point, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
+        }
 
-                    if (map.GetTileModelNum(i, y_point + 1) == 19)
-                        map.SetNode(i, y_point + 1, DungeonTileType.Wall, tile_set.GetTileModel(9), 9);
-                    if (map.GetTileModelNum(i, y_point - 1) == 19)
-                        map.SetNode(i, y_point - 1, DungeonTileType.Wall, tile_set.GetTileModel(14), 14);
+        private void SetUpY(DungeonMap map, TileSetHolder tile_set, int x, int y_start, int y_end)
+        {
+            for (int i = y_start; i <= y_end; ++i)
+            {
+                map.SetNode(x, i, 14);
+
+                if (map.GetTileModelNum(x + 1, i) < 14)
+                {
+                    if (map.GetTileModelNum(x + 1, i) == 5)
+                        map.SetNode(x + 1, i, 8);
+                    else if (map.GetTileModelNum(x + 1, i) == 1)
+                        map.SetNode(x + 1, i, 10);
+                    else
+                        map.SetNode(x + 1, i, 3);
                 }
-            }
-
-            if (y_change > 0)
-            {
-                for (int i = y_point; i <= y_point + y_change; ++i)
+                if (map.GetTileModelNum(x - 1, i) < 14)
                 {
-                    map.SetNode(x_point + x_change, i, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
-
-                    if (map.GetTileModelNum(x_point + x_change + 1, i) == 19)
-                        map.SetNode(x_point + x_change + 1, i, DungeonTileType.Wall, tile_set.GetTileModel(3), 3);
-                    if (map.GetTileModelNum(x_point + x_change - 1, i) == 19)
-                        map.SetNode(x_point + x_change - 1, i, DungeonTileType.Wall, tile_set.GetTileModel(4), 4);
-                }
-            }
-            else if (y_change < 0)
-            {
-                for (int i = y_point + y_change; i <= y_point; ++i)
-                {
-                    map.SetNode(x_point + x_change, i, DungeonTileType.Ground, tile_set.GetTileModel(16), 16);
-
-                    if (map.GetTileModelNum(x_point + x_change + 1, i) == 19)
-                        map.SetNode(x_point + x_change + 1, i, DungeonTileType.Wall, tile_set.GetTileModel(3), 3);
-                    if (map.GetTileModelNum(x_point + x_change - 1, i) == 19)
-                        map.SetNode(x_point + x_change - 1, i, DungeonTileType.Wall, tile_set.GetTileModel(4), 4);
+                    if (map.GetTileModelNum(x - 1, i) == 5)
+                        map.SetNode(x - 1, i, 9);
+                    else if (map.GetTileModelNum(x - 1, i) == 1)
+                        map.SetNode(x - 1, i, 11);
+                    else
+                        map.SetNode(x - 1, i, 7);
                 }
             }
         }
     }
 
-    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
         List<Room> rooms = GenerateRooms(min_rooms, max_room);
 
@@ -201,7 +206,9 @@ public class DungeonFloorRandom : DungeonFloor
 
         map.SetWeatherManager(weather_manager);
 
-        map.ForceWeather(weather_type,weather_power);
+        map.ForceWeather(weather_type, weather_power);
+
+        GetEnemys(start_location, rooms.ToArray(), out enemies, out positions);
 
         return map;
     }
@@ -234,11 +241,42 @@ public class DungeonFloorRandom : DungeonFloor
     {
         List<Path> valid_path = new List<Path>();
 
-        for (int i = 0; i < rooms.Count - 1; ++i)
+        for (int i = 0; i < rooms.Count; ++i)
         {
-            Path temp_path = new Path(rooms[i], rooms[i + 1]);
+            while (true)
+            {
+                int temp_room = Random.Range(0, rooms.Count);
 
-            valid_path.Add(temp_path);
+                if (temp_room == i)
+                    continue;
+
+                Path temp_path = new Path(rooms[i], rooms[temp_room]);
+
+                bool temp_is_valid = true;
+
+                foreach (Room room in rooms)
+                    if (!room.PathValid(temp_path))
+                    {
+                        temp_is_valid = false;
+                        break;
+                    }
+
+                if (temp_is_valid == false)
+                    continue;
+
+                foreach (Path path in valid_path)
+                    if (!path.PathValid(temp_path))
+                    {
+                        temp_is_valid = false;
+                        break;
+                    }
+
+                if (temp_is_valid == false)
+                    continue;
+
+                valid_path.Add(temp_path);
+                break;
+            }
         }
 
         return valid_path;
@@ -246,11 +284,11 @@ public class DungeonFloorRandom : DungeonFloor
 
     private DungeonMap SetMap(List<Room> rooms, List<Path> paths)
     {
-        DungeonMap map = new DungeonMap(x_size, y_size);
+        DungeonMap map = new DungeonMap(x_size, y_size, tile_set);
 
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
-                map.SetNode(i, e, DungeonTileType.Wall, tile_set.GetTileModel(19), 19);
+                map.SetNode(i, e, 12);
 
         foreach (Room room in rooms)
             room.SetUpMap(map, tile_set);
@@ -259,6 +297,36 @@ public class DungeonFloorRandom : DungeonFloor
             path.SetUpMap(map, tile_set);
 
         return map;
+    }
+
+    private void GetEnemys(Vector3Int player_position, Room[] rooms, out Creature[] enemies, out Vector3Int[] positions)
+    {
+        enemies = new Creature[Random.Range(min_monsters, max_monsters + 1)];
+        positions = new Vector3Int[enemies.Length];
+
+        for(int i = 0; i< enemies.Length; ++i)
+        {
+            enemies[i] = GetRandomCreature();
+
+            while(true)
+            {
+                positions[i] = rooms[Random.Range(0, rooms.Length)].GetRandomPoint();
+
+                if (positions[i] == player_position)
+                    continue;
+
+                bool overlap = false;
+
+                for (int e = 0; e < i; ++e)
+                    if (positions[i] == positions[e])
+                        overlap = true;
+
+                if (overlap)
+                    continue;
+
+                break;
+            }
+        }
     }
 
     public override Creature GetRandomCreature()

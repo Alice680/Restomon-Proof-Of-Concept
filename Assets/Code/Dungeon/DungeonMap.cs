@@ -113,15 +113,19 @@ public class DungeonMap
     private int x_size, y_size;
     private Node[,] nodes;
 
+    private TileSetHolder tile_set;
+
     private TileConditionHolder tile_conditions;
 
     private DungeonWeatherManager weather_manager;
 
     //Node and Map editing
-    public DungeonMap(int x, int y)
+    public DungeonMap(int x, int y, TileSetHolder tile_set)
     {
         x_size = x;
         y_size = y;
+
+        this.tile_set = tile_set;
 
         nodes = new Node[x_size, y_size];
 
@@ -132,13 +136,13 @@ public class DungeonMap
         tile_conditions = (TileConditionHolder)Resources.Load("TileConditionHolder");
     }
 
-    public void SetNode(int x, int y, DungeonTileType type, GameObject model, int model_num)
+    public void SetNode(int x, int y, int model_num)
     {
         if (!IsInMap(x, y))
             return;
 
         nodes[x, y].Clear();
-        nodes[x, y] = new Node(type, model, model_num, x, y);
+        nodes[x, y] = new Node(tile_set.GetTileType(model_num), tile_set.GetTileModel(model_num), model_num, x, y);
     }
 
     public void SetWeatherManager(DungeonWeatherManager weather_manager)

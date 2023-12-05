@@ -17,8 +17,12 @@ MonoBehaviour:
   x_size: 50
   y_size: 50
   min_rooms: 5
-  max_room: 10
-  room_min_size: 8
+  max_room: 5
+  room_min_size: 6
   room_max_size: 10
   monsters:
   - {fileID: 11400000, guid: 54c20f9ea53b0514ca5a1b0ce9cb987c, type: 2}
+  min_monsters: 5
+  max_monsters: 8
+  weather_type: 0
+  weather_power: 0

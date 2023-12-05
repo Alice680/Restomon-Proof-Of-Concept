@@ -12,27 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7417898fed1e248a0f694f8a7e898a, type: 3}
   m_Name: _AtherTiles
   m_EditorClassIdentifier: 
-  out_tiles:
-    top_left: {fileID: 2382159315184546520, guid: a9785ccc8fedbd849982f3a6cc15a53c, type: 3}
-    top_center: {fileID: 28393521359701345, guid: 18c1fa49cb9a1c544851610bceb677b4, type: 3}
-    top_right: {fileID: 3686507284935310437, guid: bfe0431d697dd824e97a364d0d5cf3ed, type: 3}
-    middle_left: {fileID: 7888606503573915741, guid: 1df60d0f683809143addca1ae5f31eaf, type: 3}
-    middle_right: {fileID: 7904328245981040852, guid: 9e528e8168120f645a57cdc1ed0f40ef, type: 3}
-    bottom_left: {fileID: 3791985122504400458, guid: 6939640393665484aa163164ad355046, type: 3}
-    bottom_center: {fileID: 7878994069589597099, guid: 4e788448957baad419797bfd7e422ebe, type: 3}
-    bottom_right: {fileID: 2657853550889759798, guid: 41ff3d09d4b41324f9c1b9fca05a8808, type: 3}
-  in_tiles:
-    top_left: {fileID: 9192414631391460524, guid: 24ce7054f19a54148b05d19fce14f834, type: 3}
-    top_center: {fileID: 7272825171158574717, guid: 501114485247e5c43895b6c28c334be6, type: 3}
-    top_right: {fileID: 7398825149562069300, guid: 012fb023b405fe749a51e220be9e5940, type: 3}
-    middle_left: {fileID: 2814532213490842024, guid: 5cd362b049c9dfe45a24d904489e2f35, type: 3}
-    middle_right: {fileID: 3842416337279304113, guid: e0d24f4354a5c7541a2329fa21ff41fe, type: 3}
-    bottom_left: {fileID: 9003064437133889219, guid: 39a5e11980fdbbc4e98b1cbffe97ecb1, type: 3}
-    bottom_center: {fileID: 5438255998323661830, guid: 11c292a437fdb0241a3b02b06d7d0b2d, type: 3}
-    bottom_right: {fileID: 5589087810361588187, guid: 9d1805b6db4159c4c8861ce0dc694cb0, type: 3}
-  ground_tiles:
-    option_one: {fileID: 3939407294514496992, guid: 18e6f91fdc197ea4793411b264fc7832, type: 3}
-    option_two: {fileID: 8843861385500920067, guid: fb141c3b0be22ac4bb282a07a98b7f5a, type: 3}
-    option_three: {fileID: 9032745785169943611, guid: 7ab67340e4c75ea4daad4e798d013b03, type: 3}
-  center_wall: {fileID: 7603304616963681501, guid: 6e09bbfd8e7441145b74de81c09c0549, type: 3}
-  lone_wall: {fileID: 4588154136692359872, guid: b8a303f4d7a2b3c40b54bc832c559853, type: 3}
+  inner_wall:
+  - {fileID: 7918669636441035223, guid: b002244231b71e04fbc9b703a4f461bc, type: 3}
+  - {fileID: 6146038302369824664, guid: 731a96e3070b34242b772ba02017da22, type: 3}
+  - {fileID: 8209719305241754424, guid: 88f0aa5a64069874196926d82303a9a1, type: 3}
+  - {fileID: 7523696960125628645, guid: 777433450bf521041a2c5b8cb54040c0, type: 3}
+  - {fileID: 3717953003207359757, guid: 11e8ca4484d85f145a11e8f607762cf8, type: 3}
+  - {fileID: 5602137422581030589, guid: 1b7e696f5a27f424ea88c86cb6040601, type: 3}
+  - {fileID: 662960631008170614, guid: c15bc229068e39d45b75ce22ea9bbc63, type: 3}
+  - {fileID: 9108357084970356724, guid: 30b9870f4306e444498e684a9d50dd43, type: 3}
+  outter_wall:
+  - {fileID: 8731950984326288470, guid: a880699d5907acd4593875b3642284b1, type: 3}
+  - {fileID: 5115784772121453904, guid: 0b9643b8f5e1eea4da39c49072df190f, type: 3}
+  - {fileID: 5430836707588439891, guid: c99dd627c33dadf4882d914b55d3dc63, type: 3}
+  - {fileID: 923786310804295270, guid: bada1d2ba1a2c914ba5b9fc91e33b570, type: 3}
+  center_wall: {fileID: 5774026157762091248, guid: f3124a65910200a42b4c06314aab91f5, type: 3}
+  lone_wall: {fileID: 6992880961870231864, guid: 0d8ad08508e499f4ebf114279f4d4216, type: 3}
+  floor:
+  - {fileID: 1975002748497791414, guid: f3aab35aac0525b4f9eaba91e2bd46a1, type: 3}
+  - {fileID: 3244873846563510988, guid: 1fab44bc6142cae4ea221cb44bda1e4d, type: 3}
+  - {fileID: 144943418806086452, guid: 816123f181817a0479703f483ffb2f7b, type: 3}

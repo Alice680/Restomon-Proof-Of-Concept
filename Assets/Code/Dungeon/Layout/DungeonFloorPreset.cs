@@ -23,7 +23,7 @@ public class DungeonFloorPreset : DungeonFloor
     //Run time
     public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
     {
-        DungeonMap map = new DungeonMap(x_size, y_size);
+        DungeonMap map = new DungeonMap(x_size, y_size, tile_set);
 
         DungeonTileType type = DungeonTileType.Empty;
         GameObject model = null;
@@ -36,7 +36,7 @@ public class DungeonFloorPreset : DungeonFloor
                 type = tile_set.GetTileType(index);
                 model = tile_set.GetTileModel(index);
 
-                map.SetNode(i, e, type, model, index);
+                map.SetNode(i, e, index);
             }
 
         start_location = start_position;
