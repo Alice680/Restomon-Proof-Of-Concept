@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7417898fed1e248a0f694f8a7e898a, type: 3}
+  m_Name: _EarthTiles
+  m_EditorClassIdentifier: 
+  inner_wall:
+  - {fileID: 7918669636441035223, guid: e1ae02ab054287d4a9fc5e714fa2f910, type: 3}
+  - {fileID: 6146038302369824664, guid: 53f69d49d7cbbfe4a8143d3bf520a29a, type: 3}
+  - {fileID: 8209719305241754424, guid: aa5ef8488a430364c8082d87df982972, type: 3}
+  - {fileID: 7523696960125628645, guid: 5886a3d6037deed45a2e57925615a022, type: 3}
+  - {fileID: 3717953003207359757, guid: e8815f6e2ba14b442a48d6fbae189943, type: 3}
+  - {fileID: 5602137422581030589, guid: 3455eb2afc69fab4c9083186d50caf0d, type: 3}
+  - {fileID: 662960631008170614, guid: 56d5c197268acce46b80832f2e967416, type: 3}
+  - {fileID: 9108357084970356724, guid: 63f49f012de37a74db11e897affeea63, type: 3}
+  outter_wall:
+  - {fileID: 8731950984326288470, guid: ddca81f223b3d0c409c44d5005d6c55a, type: 3}
+  - {fileID: 5115784772121453904, guid: d45570bdc886eb0438dc98d58cb321ae, type: 3}
+  - {fileID: 5430836707588439891, guid: 480eba2ea70aded4ca4983ab73538393, type: 3}
+  - {fileID: 923786310804295270, guid: d120c152eba878f4e9d77032280453c8, type: 3}
+  center_wall: {fileID: 5774026157762091248, guid: 687f20c23f527bd47906559d94333ab6, type: 3}
+  lone_wall: {fileID: 6992880961870231864, guid: 480f56fe696af8e49816af173f66d907, type: 3}
+  floor:
+  - {fileID: 1975002748497791414, guid: 59d1f85fc8a204e4297b69883e80ba23, type: 3}
+  - {fileID: 3244873846563510988, guid: 41ec29106a3dca648aa71b1af1bd111f, type: 3}
+  - {fileID: 144943418806086452, guid: 5f58716b42bb87c4da651208bf4d156b, type: 3}

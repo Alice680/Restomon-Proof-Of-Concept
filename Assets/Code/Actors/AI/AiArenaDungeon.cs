@@ -14,7 +14,7 @@ public class AiArenaDungeon : AIBase
             return;
         }
 
-        int target_id = GetAttackTarget(manager, 0);
+        /*int target_id = GetAttackTarget(manager, out int x);
 
         if (target_id != -1)
         {
@@ -29,7 +29,7 @@ public class AiArenaDungeon : AIBase
             manager.Move(GetDirectionToNearEnemy(manager));
             manager.EndTurn();
         }
-
+        */
         manager.EndTurn();
     }
 }

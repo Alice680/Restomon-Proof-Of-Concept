@@ -7,7 +7,7 @@ public class DungeonFloorRandom : DungeonFloor
 {
     [SerializeField] protected TileSetHolder tile_set;
     [SerializeField] protected int x_size, y_size, min_rooms, max_room, room_min_size, room_max_size;
-    [SerializeField] protected MonsterStats[] monsters;
+    [SerializeField] protected MonsterChance[] monsters;
     [SerializeField] protected int min_monsters, max_monsters;
     [SerializeField] protected int weather_type, weather_power;
 
@@ -192,6 +192,13 @@ public class DungeonFloorRandom : DungeonFloor
         }
     }
 
+    [System.Serializable]
+    protected class MonsterChance
+    {
+        public int chance;
+        public MonsterStats monster;
+    }
+
     public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
         List<Room> rooms = GenerateRooms(min_rooms, max_room);
@@ -304,11 +311,11 @@ public class DungeonFloorRandom : DungeonFloor
         enemies = new Creature[Random.Range(min_monsters, max_monsters + 1)];
         positions = new Vector3Int[enemies.Length];
 
-        for(int i = 0; i< enemies.Length; ++i)
+        for (int i = 0; i < enemies.Length; ++i)
         {
             enemies[i] = GetRandomCreature();
 
-            while(true)
+            while (true)
             {
                 positions[i] = rooms[Random.Range(0, rooms.Length)].GetRandomPoint();
 
@@ -331,7 +338,16 @@ public class DungeonFloorRandom : DungeonFloor
 
     public override Creature GetRandomCreature()
     {
-        Creature creature = monsters[Random.Range(0, monsters.Length)].GetMonster();
+        Creature creature = null;
+
+        int temp_random = Random.Range(0, 100);
+
+        foreach (MonsterChance option in monsters)
+            if (option.chance > temp_random)
+            {
+                creature = option.monster.GetMonster();
+                break;
+            }
 
         return creature;
     }

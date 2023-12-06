@@ -27,7 +27,7 @@ public class AICore : Actor
 
     public override void Run()
     {
-        if (Time.time - last_input < 0.1F)
+        if (Time.time - last_input < 0.05F)
             return;
 
         last_input = Time.time;

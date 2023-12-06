@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7417898fed1e248a0f694f8a7e898a, type: 3}
+  m_Name: _WaterTiles
+  m_EditorClassIdentifier: 
+  inner_wall:
+  - {fileID: 7918669636441035223, guid: 993f2007f35d4b741bbd61fad760a1b5, type: 3}
+  - {fileID: 6146038302369824664, guid: 27131ff9fe21f0b4b9146ce3b9651d34, type: 3}
+  - {fileID: 8209719305241754424, guid: 944851fb9cbb8984d8f4ba9beb023300, type: 3}
+  - {fileID: 7523696960125628645, guid: 3086133bac059884caf05e72c9a5bdfd, type: 3}
+  - {fileID: 3717953003207359757, guid: 06b09700f794f0b4a9802044d090d5ec, type: 3}
+  - {fileID: 5602137422581030589, guid: 76f2abc3f2ca47142a8c54c479d63395, type: 3}
+  - {fileID: 662960631008170614, guid: aec03acf13d088945a0eb28670ff198a, type: 3}
+  - {fileID: 9108357084970356724, guid: af3537be73216234da6fd9634f0c0e19, type: 3}
+  outter_wall:
+  - {fileID: 8731950984326288470, guid: 705cef89018c7f24d84370dffde4a24c, type: 3}
+  - {fileID: 5115784772121453904, guid: 78c6476f4006c5949b77d6845d3af0cb, type: 3}
+  - {fileID: 5430836707588439891, guid: 2655d6047855aee43bdd757f7e745e3f, type: 3}
+  - {fileID: 923786310804295270, guid: 7fa05a03215c0c64a81daf57f8e08f90, type: 3}
+  center_wall: {fileID: 5774026157762091248, guid: c289f0373a7cc414a98299293f2a4706, type: 3}
+  lone_wall: {fileID: 6992880961870231864, guid: ce609ee003d57d24798264d7f63df964, type: 3}
+  floor:
+  - {fileID: 1975002748497791414, guid: af12b891d15cd0b4c828fd46b7f1b82e, type: 3}
+  - {fileID: 3244873846563510988, guid: 95ff0f9a9ec85d844b9eb98693a681a9, type: 3}
+  - {fileID: 144943418806086452, guid: b5e7364bd817e3d45af7c8f80ba0ef4f, type: 3}
