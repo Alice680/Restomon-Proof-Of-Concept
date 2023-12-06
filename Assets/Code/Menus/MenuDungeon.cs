@@ -57,6 +57,6 @@ public class MenuDungeon : MenuSwapIcon
     // TODO untabb once code is done
     public void SetData(PermDataHolder data)
     {
-        data.SetDungeon((/*dungeon_int*/0 * 4) + difficulty_int);
+        data.SetDungeon((dungeon_int * 4) + difficulty_int);
     }
 }

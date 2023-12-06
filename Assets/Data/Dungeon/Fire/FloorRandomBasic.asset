@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FloorRandomBasic
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
-  tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
+  tile_set: {fileID: 11400000, guid: 87740d754cd16b04393e1e167a00af48, type: 2}
   x_size: 50
   y_size: 50
   min_rooms: 5

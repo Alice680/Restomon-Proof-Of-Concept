@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LayoutEasy
   m_EditorClassIdentifier: 
   floor_options:
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
+  - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
+  - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
+  - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
