@@ -21,6 +21,12 @@ MonoBehaviour:
   room_min_size: 6
   room_max_size: 10
   monsters:
+  - chance: 5
+    monster: {fileID: 11400000, guid: 206c7af0e3c03c546a0ceb0c463af347, type: 2}
+  - chance: 10
+    monster: {fileID: 11400000, guid: 87e82a2258d8dd049acb822f2b87f8e4, type: 2}
+  - chance: 15
+    monster: {fileID: 11400000, guid: d5f4fea0cb3e049499e63629ebbacc05, type: 2}
   - chance: 100
     monster: {fileID: 11400000, guid: 4088dce7267ea514b94c6db82b10cfa7, type: 2}
   min_monsters: 5
