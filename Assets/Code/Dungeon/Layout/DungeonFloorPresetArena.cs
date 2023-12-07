@@ -13,13 +13,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Arena", menuName = "ScriptableObjects/Dungeons/Arena")]
 public class DungeonFloorPresetArena : DungeonFloorPreset
 {
-    [SerializeField] private MonsterSpawnInfo[] monster_spawns;
+    [System.Serializable]
+    protected class MonsterChance
+    {
+        public int chance;
+        public MonsterStats monster;
+    }
+
+    [SerializeField] private MonsterChance[] monsters;
     [SerializeField] private int spawn_rate;
     [SerializeField] private int total_waves;
 
     public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
     {
         return base.GenerateDungeon(weather_manager, out start_location);
+    }
+
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
+    {
+        return base.GenerateDungeon(weather_manager, out start_location, out enemies, out positions);
     }
 
     public override Vector3Int GetStartPosition()
@@ -39,12 +51,18 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
 
     public override Creature GetRandomCreature()
     {
-        List<CreatureSpawnInfo> list = new List<CreatureSpawnInfo>();
+        Creature creature = null;
 
-        foreach (CreatureSpawnInfo spawn_info in monster_spawns)
-            list.Add(spawn_info);
+        int temp_random = Random.Range(0, 100);
 
-        return list[Random.Range(0, list.Count)].GetCreature();
+        foreach (MonsterChance option in monsters)
+            if (option.chance > temp_random)
+            {
+                creature = option.monster.GetMonster();
+                break;
+            }
+
+        return creature;
     }
 
     public override AIBase GetAI()

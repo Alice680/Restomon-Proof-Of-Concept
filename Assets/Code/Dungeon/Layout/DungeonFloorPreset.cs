@@ -25,22 +25,27 @@ public class DungeonFloorPreset : DungeonFloor
     {
         DungeonMap map = new DungeonMap(x_size, y_size, tile_set);
 
-        DungeonTileType type = DungeonTileType.Empty;
-        GameObject model = null;
-        int index = 0;
-
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
-            {
-                index = tiles[i + (e * x_size)];
-                type = tile_set.GetTileType(index);
-                model = tile_set.GetTileModel(index);
-
-                map.SetNode(i, e, index);
-            }
+                map.SetNode(i, e, tiles[i + (e * x_size)]);
 
         start_location = start_position;
 
+        return map;
+    }
+
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
+    {
+        DungeonMap map = new DungeonMap(x_size, y_size, tile_set);
+
+        for (int i = 0; i < x_size; ++i)
+            for (int e = 0; e < y_size; ++e)
+                map.SetNode(i, e, tiles[i + (e * x_size)]);
+
+        start_location = start_position;
+
+        enemies = new Creature[0];
+        positions = new Vector3Int[0];
         return map;
     }
 

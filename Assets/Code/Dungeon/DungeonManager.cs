@@ -225,6 +225,7 @@ public class DungeonManager : MonoBehaviour
     private void EndCurrentFloor()
     {
         player_units.Remove(player);
+        turn_keeper.RemoveUnit(player);
 
         while (player_units.Count != 0)
             RemoveUnit(player_units[0]);

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2603b2e354a7fc4ab0e4af8c1d84e2a, type: 3}
-  m_Name: FloorRandomBasic
+  m_Name: FloorRandomLargeHardest
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
   tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
-  x_size: 50
-  y_size: 50
-  min_rooms: 6
-  max_room: 9
+  x_size: 75
+  y_size: 75
+  min_rooms: 10
+  max_room: 13
   room_min_size: 6
-  room_max_size: 10
+  room_max_size: 12
   monsters:
   - chance: 100
     monster: {fileID: 11400000, guid: 4088dce7267ea514b94c6db82b10cfa7, type: 2}
-  min_monsters: 5
-  max_monsters: 8
+  min_monsters: 7
+  max_monsters: 10
   weather_type: 0
   weather_power: 0

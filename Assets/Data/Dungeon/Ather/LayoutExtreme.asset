@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: LayoutExtreme
   m_EditorClassIdentifier: 
   floor_options:
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
+  - {fileID: 11400000, guid: 6f44f1d85a976a74d82edb2291f2a750, type: 2}
+  - {fileID: 11400000, guid: 6f44f1d85a976a74d82edb2291f2a750, type: 2}
+  - {fileID: 11400000, guid: 4e025940bd0e34343bbd4746b98048ff, type: 2}
+  - {fileID: 11400000, guid: 6f44f1d85a976a74d82edb2291f2a750, type: 2}
+  - {fileID: 11400000, guid: cecbfe41a3babbf4ea47e5373d70c61e, type: 2}
+  - {fileID: 11400000, guid: 37ad6a6e183e7424fbd66b93f31b763c, type: 2}
+  - {fileID: 11400000, guid: 37ad6a6e183e7424fbd66b93f31b763c, type: 2}
+  - {fileID: 11400000, guid: 8e6ec78b07d244e45b8db76fecd15262, type: 2}
+  - {fileID: 11400000, guid: 37ad6a6e183e7424fbd66b93f31b763c, type: 2}
+  - {fileID: 11400000, guid: 6991cd9b745a7b8469cf554dd430f1ae, type: 2}

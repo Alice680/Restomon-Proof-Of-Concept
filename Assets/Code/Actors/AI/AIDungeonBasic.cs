@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AI", menuName = "ScriptableObjects/AI/Basic/RandomDungeon")]
-public class AIRandomDungeon : AIBase
+[CreateAssetMenu(fileName = "AI", menuName = "ScriptableObjects/AI/Basic/DungeonBasic")]
+public class AIDungeonBasic : AIBase
 {
     public override void Run(DungeonManager manager)
     {

@@ -15,4 +15,4 @@ MonoBehaviour:
   floor_options:
   - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
   - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
-  - {fileID: 11400000, guid: 34384b77013fa354db4cf9f41a8ed1f9, type: 2}
+  - {fileID: 11400000, guid: 251d1f0d6ea259740b78899900798352, type: 2}
