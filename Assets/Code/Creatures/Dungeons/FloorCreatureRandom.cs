@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FloorCreatureRandom : FloorCreature
 {
-    public FloorCreatureRandom()
-    {
+    private int spawn_rate;
 
+    public FloorCreatureRandom(int spawn_rate)
+    {
+        this.spawn_rate = spawn_rate;
     }
 
     public override CreatureType GetCreatureType()
@@ -14,8 +16,11 @@ public class FloorCreatureRandom : FloorCreature
         return CreatureType.Floor;
     }
 
-    public override string ToString()
+    public override int GetStat(int index)
     {
-        return "Floor ";
+        if (index == 6)
+            return spawn_rate;
+
+        return -1;
     }
 }

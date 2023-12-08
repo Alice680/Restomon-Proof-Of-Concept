@@ -9,6 +9,7 @@ public class AIDungeonBasic : AIBase
     {
         if (manager.GetCreatureTypeFromID(manager.GetIDFromActive()) == CreatureType.Floor)
         {
+            Debug.Log("Spawn");
             SpawnRandomUnit(manager);
 
             manager.EndTurn();

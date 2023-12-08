@@ -8,6 +8,7 @@ public class DungeonFloorRandom : DungeonFloor
     [SerializeField] protected TileSetHolder tile_set;
     [SerializeField] protected int x_size, y_size, min_rooms, max_room, room_min_size, room_max_size;
     [SerializeField] protected MonsterChance[] monsters;
+    [SerializeField] private int spawn_rate;
     [SerializeField] protected int min_monsters, max_monsters;
     [SerializeField] protected int weather_type, weather_power;
 
@@ -354,7 +355,7 @@ public class DungeonFloorRandom : DungeonFloor
 
     public override Creature GetDungeonManager()
     {
-        return new FloorCreatureRandom();
+        return new FloorCreatureRandom(spawn_rate);
     }
 
     public override AIBase GetAI()

@@ -17,7 +17,7 @@ MonoBehaviour:
   traits:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   attacks:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
+  - {fileID: 11400000, guid: 75695ef3b417a024c8698bd3daafa1b6, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
@@ -26,14 +26,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   stats:
-    Hp: 5
-    Atk: 1
-    Mag: 1
-    Frc: 1
-    Def: 1
-    Shd: 1
-    Wil: 1
-    Spd: 3
+    Hp: 10
+    Atk: 2
+    Mag: 2
+    Frc: 2
+    Def: 3
+    Shd: 3
+    Wil: 3
+    Spd: 4
     Mov: 3
     Act: 1
   model: {fileID: 1462348107045490374, guid: 44fe0d5bdaff48343a0794e0af9a3184, type: 3}

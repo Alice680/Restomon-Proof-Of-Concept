@@ -13,7 +13,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Arena", menuName = "ScriptableObjects/Dungeons/Arena")]
 public class DungeonFloorPresetArena : DungeonFloorPreset
 {
-    [System.Serializable]
+    [System.Serializable] 
     protected class MonsterChance
     {
         public int chance;
@@ -21,8 +21,7 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
     }
 
     [SerializeField] private MonsterChance[] monsters;
-    [SerializeField] private int spawn_rate;
-    [SerializeField] private int total_waves;
+    [SerializeField] private int spawn_rate, total_waves;
 
     public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)
     {
@@ -37,11 +36,6 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
     public override Vector3Int GetStartPosition()
     {
         return base.GetStartPosition();
-    }
-
-    public override Creature GetDungeonManager()
-    {
-        return new ArenaStats(spawn_rate, total_waves);
     }
 
     public override Creature[] GetStartUnits()
@@ -63,6 +57,11 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
             }
 
         return creature;
+    }
+
+    public override Creature GetDungeonManager()
+    {
+        return new ArenaStats(spawn_rate, total_waves);
     }
 
     public override AIBase GetAI()

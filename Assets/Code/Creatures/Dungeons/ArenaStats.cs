@@ -10,7 +10,7 @@ using UnityEngine;
  * Phaze this out when you have the chance.
  * It exists outside the map so it can not be hit by attacks. If you make an attack that ignore palcement, remeber this!
  */
-// TODO remove
+// TODO rename
 public class ArenaStats : Creature
 {
     private int spawn_rate;

@@ -14,16 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
   tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
-  x_size: 50
-  y_size: 50
+  x_size: 40
+  y_size: 40
   min_rooms: 5
-  max_room: 5
-  room_min_size: 6
-  room_max_size: 10
+  max_room: 6
+  room_min_size: 5
+  room_max_size: 8
   monsters:
+  - chance: 30
+    monster: {fileID: 11400000, guid: 206c7af0e3c03c546a0ceb0c463af347, type: 2}
+  - chance: 60
+    monster: {fileID: 11400000, guid: 87e82a2258d8dd049acb822f2b87f8e4, type: 2}
+  - chance: 90
+    monster: {fileID: 11400000, guid: d5f4fea0cb3e049499e63629ebbacc05, type: 2}
   - chance: 100
     monster: {fileID: 11400000, guid: 4088dce7267ea514b94c6db82b10cfa7, type: 2}
-  min_monsters: 5
-  max_monsters: 8
+  spawn_rate: 2
+  min_monsters: 3
+  max_monsters: 5
   weather_type: 0
   weather_power: 0

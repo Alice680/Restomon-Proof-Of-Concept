@@ -17,23 +17,23 @@ MonoBehaviour:
   traits:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   attacks:
-  - {fileID: 11400000, guid: 6ee48debf8f60344785663a58c6c5615, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 75695ef3b417a024c8698bd3daafa1b6, type: 2}
+  - {fileID: 11400000, guid: 3e5b316635a8bd949b17a3ba85e50d1b, type: 2}
+  - {fileID: 11400000, guid: 3c7806fa6fce3d646825ca4b0c121e4d, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   stats:
-    Hp: 35
-    Atk: 1
-    Mag: 1
-    Frc: 1
-    Def: 1
-    Shd: 1
-    Wil: 1
-    Spd: 5
-    Mov: 3
-    Act: 1
+    Hp: 25
+    Atk: 3
+    Mag: 3
+    Frc: 3
+    Def: 3
+    Shd: 3
+    Wil: 3
+    Spd: 4
+    Mov: 5
+    Act: 2
   model: {fileID: 1462348107045490374, guid: 24eb7e921f04328498ab40f576711e4d, type: 3}
