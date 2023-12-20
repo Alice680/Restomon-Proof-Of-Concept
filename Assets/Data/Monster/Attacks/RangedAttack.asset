@@ -19,8 +19,8 @@ MonoBehaviour:
   hit_chance: 100
   area:
     shape: 4
-    length: 3
-    width: 3
+    length: 1
+    width: 1
     rotatable: 0
     Hollow: 0
   target:

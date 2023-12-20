@@ -85,10 +85,9 @@ public class Player : Actor
 
     private void Idle()
     {
-        if (inputer.GetDir() != Direction.None)
+        if (inputer.GetBack())
         {
-            if (manager_ref.MoveValid(inputer.GetDir()))
-                manager_ref.Move(inputer.GetDir());
+            manager_ref.EndTurn();
             return;
         }
 
@@ -122,10 +121,10 @@ public class Player : Actor
             return;
         }
 
-        if (inputer.GetBack())
+        if (inputer.GetDir() != Direction.None)
         {
-            inputer.Clear();
-            manager_ref.EndTurn();
+            if (manager_ref.MoveValid(inputer.GetDir()))
+                manager_ref.Move(inputer.GetDir());
             return;
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClassBase
   m_EditorClassIdentifier: 
   class_name: Mage
-  description: A Class bassed on the use of high Ather cost abilities, power area
+  description: A Class based on the use of high Ather cost abilities, power area
     of effects, and elemental damage.
   base_stats:
     hp: 35

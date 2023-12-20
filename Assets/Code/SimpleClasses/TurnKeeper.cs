@@ -24,7 +24,7 @@ public class TurnKeeper
         public Node(Unit u)
         {
             unit = u;
-            placement = -15;
+            placement = 0;
         }
 
         public Node(Unit u, int i)

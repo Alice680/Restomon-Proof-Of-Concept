@@ -39,6 +39,16 @@ public class Inputer
                 move_key_up = false;
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Return))
+            enter = true;
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+            back = true;
+
+        if (Input.GetKeyDown(KeyCode.E))
+            action_one = true;
+
         if (Time.time - last_input <= 0.1F)
             return;
 
@@ -51,16 +61,7 @@ public class Inputer
         if (Input.GetKey(KeyCode.A))
             dir = Direction.Left;
 
-        if (Input.GetKeyDown(KeyCode.Return) && Time.time - last_input > 0.15)
-            enter = true;
-
-        if (Input.GetKeyDown(KeyCode.Backspace) && Time.time - last_input > 0.15)
-            back = true;
-
-        if (Input.GetKeyDown(KeyCode.E) && Time.time - last_input > 0.15)
-            action_one = true;
-
-        if (dir != Direction.None || enter || back || action_one)
+        if (dir != Direction.None)
             last_input = Time.time;
     }
     
