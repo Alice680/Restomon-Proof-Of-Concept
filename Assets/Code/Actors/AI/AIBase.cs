@@ -12,12 +12,11 @@ using UnityEngine;
  */
 public class AIBase : ScriptableObject
 {
-    public virtual void Run(DungeonManager manager)
+    public virtual void Run(DungeonManager manager, float last_input, out float updated_input)
     {
-
+        updated_input = last_input;
     }
 
-    // TODO write GetNearestEnemy
     protected int GetNearestEnemy(DungeonManager manager)
     {
         int enemy_id = -1;
@@ -26,6 +25,7 @@ public class AIBase : ScriptableObject
 
         foreach (int i in manager.GetPlayerIDS())
         {
+            Debug.Log(enemy_id);
             Vector3Int[] temp_path = manager.GetPath(manager.GetPositionFromID(current_id), manager.GetPositionFromID(i));
 
             if (shortest_path == null || shortest_path.Length > temp_path.Length)
@@ -100,5 +100,19 @@ public class AIBase : ScriptableObject
             area = new Vector3Int(Random.Range(0, manager.GetMapSize().x), Random.Range(0, manager.GetMapSize().y), 0);
 
         manager.SpawnRandomUnit(area);
+    }
+
+    protected bool OnScreen(DungeonManager manager, int id)
+    {
+        Vector3Int current_postion = manager.GetPositionFromID(manager.GetIDFromActive());
+        Vector3Int enemy_postion = manager.GetPositionFromID(id);
+
+        if (Mathf.Abs(current_postion.x - enemy_postion.x) > 4)
+            return false;
+
+        if (Mathf.Abs(current_postion.y - enemy_postion.y) > 4)
+            return false;
+
+        return true;
     }
 }

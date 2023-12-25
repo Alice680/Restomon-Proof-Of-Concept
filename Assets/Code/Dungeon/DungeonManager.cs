@@ -91,7 +91,7 @@ public class DungeonManager : MonoBehaviour
      */
     public void Move(Direction dir)
     {
-        if (dir == Direction.None || !MoveValid(dir) || moves == 0 || performed_action)
+        if (dir == Direction.None || !MoveValid(dir) || (moves == 0 && actions == 0) || performed_action)
             return;
 
         Vector3Int new_position = current_unit.GetPosition() + DirectionMath.GetVectorChange(dir);
@@ -101,10 +101,11 @@ public class DungeonManager : MonoBehaviour
         ApplyTrait.OnMove(current_unit, GetAllTraits(current_unit), this);
 
         performed_action = true;
-        --moves;
 
-        if (moves < 0)
-            moves = 0;
+        if (moves > 0)
+            moves = Mathf.Max(0, moves - 1);
+        else if (actions > 0)
+            actions = Mathf.Max(0, actions - 1);
     }
 
     public void Attack(Vector3Int target, int index)
@@ -256,7 +257,7 @@ public class DungeonManager : MonoBehaviour
 
         for (int i = 0; i < temp_enemy.Length; ++i)
         {
-            AddUnit(new Unit(temp_enemy[i], enemy_controller),temp_enemy_positions[i]);
+            AddUnit(new Unit(temp_enemy[i], enemy_controller), temp_enemy_positions[i]);
         }
 
         dungeon_ui.Reset(map);
@@ -425,7 +426,11 @@ public class DungeonManager : MonoBehaviour
         performed_action = false;
     }
 
-    // TODO maybe put into dungeon UI or own script
+    public  void ShowCamera(Vector3Int target)
+    {
+        dungeon_ui.UpdateCam(target);
+    }
+
     public void ShowView(Vector3Int target)
     {
         map.RemoveAllMarker();

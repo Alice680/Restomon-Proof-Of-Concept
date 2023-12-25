@@ -58,7 +58,7 @@ MonoBehaviour:
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 3
-    model: {fileID: 2293371286737671067, guid: ff8ba7120285e9847a824c8c8b7a6fa3, type: 3}
+    model: {fileID: 8045714087497414710, guid: 3e02aa59782b514459fff94e613ed1d5, type: 3}
   second_evos:
   - form_name: Nature-Nature
     base_stats:
@@ -82,7 +82,7 @@ MonoBehaviour:
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 3
-    model: {fileID: 6542312029552046199, guid: e0b9c6f65ceea0249b27ccfdc76620c2, type: 3}
+    model: {fileID: 4161728265468885634, guid: ab0ab2e693566f240851709c873fc77d, type: 3}
   - form_name: Nature-Water
     base_stats:
       hp: 0

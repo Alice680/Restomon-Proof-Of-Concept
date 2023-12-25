@@ -85,6 +85,12 @@ public class Player : Actor
 
     private void Idle()
     {
+        if(manager_ref.GetMoves() == 0 && manager_ref.GetActions() == 0)
+        {
+            manager_ref.EndTurn();
+            return;
+        }
+
         if (inputer.GetBack())
         {
             manager_ref.EndTurn();

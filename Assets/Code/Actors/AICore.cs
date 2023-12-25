@@ -27,11 +27,6 @@ public class AICore : Actor
 
     public override void Run()
     {
-        if (Time.time - last_input < 0.05F)
-            return;
-
-        last_input = Time.time;
-
-        ai.Run(manager_ref);
+        ai.Run(manager_ref, last_input, out last_input);
     }
 }
