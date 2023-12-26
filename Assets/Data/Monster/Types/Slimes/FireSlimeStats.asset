@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc7dcf59c6821a49949e5a3a6802dfa, type: 3}
+  m_Name: FireSlimeStats
+  m_EditorClassIdentifier: 
+  monster_name: Fire Slime
+  lv: 3
+  traits:
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  attacks:
+  - {fileID: 11400000, guid: 75695ef3b417a024c8698bd3daafa1b6, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  elements: 010000000000000000000000
+  stats:
+    Hp: 5
+    Atk: 2
+    Mag: 2
+    Frc: 2
+    Def: 2
+    Shd: 2
+    Wil: 2
+    Spd: 4
+    Mov: 3
+    Act: 1
+  model: {fileID: 1462348107045490374, guid: 940639722d713d0419244b33d34f5934, type: 3}

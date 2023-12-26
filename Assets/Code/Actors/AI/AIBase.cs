@@ -25,10 +25,8 @@ public class AIBase : ScriptableObject
 
         foreach (int i in manager.GetPlayerIDS())
         {
-            Debug.Log(enemy_id);
             Vector3Int[] temp_path = manager.GetPath(manager.GetPositionFromID(current_id), manager.GetPositionFromID(i));
-
-            if (shortest_path == null || shortest_path.Length > temp_path.Length)
+            if (shortest_path == null || temp_path != null || shortest_path.Length > temp_path.Length)
             {
                 enemy_id = i;
                 shortest_path = temp_path;
@@ -71,11 +69,11 @@ public class AIBase : ScriptableObject
         return DirectionMath.GetDirectionChange(shortest_path[0], shortest_path[1]);
     }
 
-    protected Vector3Int GetAttackTarget(DungeonManager manager, out int index)
+    protected Vector3Int GetAttackTarget(DungeonManager manager, out int index, out int enemy_id)
     {
         index = -1;
 
-        int enemy_id = GetNearestEnemy(manager);
+        enemy_id = GetNearestEnemy(manager);
 
         if (enemy_id == -1)
             return new Vector3Int();

@@ -77,7 +77,10 @@ public class DungeonManager : MonoBehaviour
         if (attack_time != -1 && Time.time - attack_time > 0.1f)
             RemoveAttackModels();
 
-        current_unit.GetOwner().Run();
+        if (current_unit != null)
+            current_unit.GetOwner().Run();
+        else
+            EndTurn();
 
         if (performed_action)
         {
@@ -426,7 +429,7 @@ public class DungeonManager : MonoBehaviour
         performed_action = false;
     }
 
-    public  void ShowCamera(Vector3Int target)
+    public void ShowCamera(Vector3Int target)
     {
         dungeon_ui.UpdateCam(target);
     }

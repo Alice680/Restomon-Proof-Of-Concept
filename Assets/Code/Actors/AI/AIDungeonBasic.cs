@@ -20,13 +20,12 @@ public class AIDungeonBasic : AIBase
 
         if (manager.GetActions() > 0)
         {
-            Vector3Int target = GetAttackTarget(manager, out int target_id);
+            Vector3Int target = GetAttackTarget(manager, out int attack_id, out int enemy_id);
 
-            if (target_id != -1)
+            if (attack_id != -1)
             {
-                Debug.Log(target_id + " " + target);
-                manager.ShowCamera(manager.GetPositionFromID(target_id));
-                manager.Attack(target, target_id);
+                manager.ShowCamera(manager.GetPositionFromID(enemy_id));
+                manager.Attack(target, attack_id);
 
                 updated_input = Time.time;
                 return;
@@ -62,13 +61,13 @@ public class AIDungeonBasic : AIBase
             {
                 manager.Move(temp_dir);
 
-                updated_input = last_input;
+                updated_input = Time.time;
                 return;
             }
         }
 
         manager.EndTurn();
 
-        updated_input = last_input;
+        updated_input = Time.time;
     }
 }

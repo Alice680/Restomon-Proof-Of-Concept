@@ -16,15 +16,17 @@ public class Monster : Creature
     private int[] stats; //Hp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
     private Trait[] traits;
     private Attack[] attacks;
+    private Element[] elements;
     private GameObject model;
 
-    public Monster(string monster_name, int lv, int[] stats, Trait[] traits, Attack[] attacks, GameObject model)
+    public Monster(string monster_name, int lv, int[] stats, Trait[] traits, Attack[] attacks,Element[] elements, GameObject model)
     {
         this.monster_name = monster_name;
         this.lv = lv;
         this.stats = stats;
         this.traits = traits;
         this.attacks = attacks;
+        this.elements = elements;
         this.model = model;
     }
 
