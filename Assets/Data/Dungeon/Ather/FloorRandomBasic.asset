@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
   tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
-  x_size: 40
-  y_size: 40
+  x_size: 60
+  y_size: 60
   min_rooms: 5
   max_room: 6
   room_min_size: 5

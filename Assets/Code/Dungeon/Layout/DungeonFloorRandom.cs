@@ -110,35 +110,51 @@ public class DungeonFloorRandom : DungeonFloor
             return true;
         }
 
-        public void SetUpMap(DungeonMap map, TileSetHolder tile_set)
+        public void SetUpMap(DungeonMap map)
         {
+            Vector3Int temp_corner = new Vector3Int(0, 0, 0);
+
             if (x_first)
             {
                 if (x_point > x_goal)
-                    SetUpX(map, tile_set, y_point, x_goal, x_point);
+                {
+                    SetUpX(map, y_point, x_goal, x_point);
+                    temp_corner.x = -1;
+                }
                 else
-                    SetUpX(map, tile_set, y_point, x_point, x_goal);
+                {
+                    SetUpX(map, y_point, x_point, x_goal);
+                    temp_corner.x = 1;
+                }
 
                 if (y_point > y_goal)
-                    SetUpY(map, tile_set, x_goal, y_goal, y_point);
+                {
+                    SetUpY(map, x_goal, y_goal, y_point);
+                    temp_corner.y = 1;
+                }
                 else
-                    SetUpY(map, tile_set, x_goal, y_point, y_goal);
+                {
+                    SetUpY(map, x_goal, y_point, y_goal);
+                    temp_corner.y = -1;
+                }
+
+                SetUpCorner(map, new Vector3Int(x_goal, y_point, 0), temp_corner);
             }
             else
             {
                 if (x_point > x_goal)
-                    SetUpX(map, tile_set, y_goal, x_goal, x_point);
+                    SetUpX(map, y_goal, x_goal, x_point);
                 else
-                    SetUpX(map, tile_set, y_goal, x_point, x_goal);
+                    SetUpX(map, y_goal, x_point, x_goal);
 
                 if (y_point > y_goal)
-                    SetUpY(map, tile_set, x_point, y_goal, y_point);
+                    SetUpY(map, x_point, y_goal, y_point);
                 else
-                    SetUpY(map, tile_set, x_point, y_point, y_goal);
+                    SetUpY(map, x_point, y_point, y_goal);
             }
         }
 
-        private void SetUpX(DungeonMap map, TileSetHolder tile_set, int y, int x_start, int x_end)
+        private void SetUpX(DungeonMap map, int y, int x_start, int x_end)
         {
             for (int i = x_start; i <= x_end; ++i)
             {
@@ -165,7 +181,7 @@ public class DungeonFloorRandom : DungeonFloor
             }
         }
 
-        private void SetUpY(DungeonMap map, TileSetHolder tile_set, int x, int y_start, int y_end)
+        private void SetUpY(DungeonMap map, int x, int y_start, int y_end)
         {
             for (int i = y_start; i <= y_end; ++i)
             {
@@ -191,6 +207,23 @@ public class DungeonFloorRandom : DungeonFloor
                 }
             }
         }
+
+        private void SetUpCorner(DungeonMap map, Vector3Int edge, Vector3Int change)
+        {
+            int value = -1;
+
+            if (change.x == -1 && change.y == 1)
+                value = 0;
+            else if (change.x == 1 && change.y == 1)
+                value = 2;
+            else if (change.x == 1 && change.y == -1)
+                value = 4;
+            else if (change.x == -1 && change.y == -1)
+                value = 6;
+
+            if (map.GetTileModelNum(edge + change) < 14)
+                map.SetNode(edge.x + change.x, edge.y + change.y, value);
+        }
     }
 
     [System.Serializable]
@@ -202,9 +235,19 @@ public class DungeonFloorRandom : DungeonFloor
 
     public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
-        List<Room> rooms = GenerateRooms(min_rooms, max_room);
+        List<Room> rooms;
+        List<Path> paths;
 
-        List<Path> paths = GeneratePaths(rooms);
+        while (true)
+        {
+            if (!GenerateRooms(min_rooms, max_room, out rooms))
+                continue;
+
+            if (!GeneratePaths(rooms, out paths))
+                continue;
+
+            break;
+        }
 
         DungeonMap map = SetMap(rooms, paths);
 
@@ -221,16 +264,20 @@ public class DungeonFloorRandom : DungeonFloor
         return map;
     }
 
-    private List<Room> GenerateRooms(int min_rooms, int max_rooms)
+    private bool GenerateRooms(int min_rooms, int max_rooms, out List<Room> valid_rooms)
     {
-        List<Room> valid_rooms = new List<Room>();
+        valid_rooms = new List<Room>();
         Room temp_room = null;
 
         for (int i = 0; i < Random.Range(min_rooms, max_rooms + 1); ++i)
         {
+            int iteration_tracker = 0;
             bool invalid_room = true;
             while (invalid_room)
             {
+                if (++iteration_tracker == 250)
+                    return false;
+
                 temp_room = new Room(x_size, y_size, room_min_size, room_max_size);
 
                 invalid_room = false;
@@ -242,17 +289,21 @@ public class DungeonFloorRandom : DungeonFloor
             valid_rooms.Add(temp_room);
         }
 
-        return valid_rooms;
+        return true;
     }
 
-    private List<Path> GeneratePaths(List<Room> rooms)
+    private bool GeneratePaths(List<Room> rooms, out List<Path> valid_path)
     {
-        List<Path> valid_path = new List<Path>();
+        valid_path = new List<Path>();
 
         for (int i = 0; i < rooms.Count; ++i)
         {
+            int iteration_tracker = 0;
             while (true)
             {
+                if (++iteration_tracker == 250)
+                    return false;
+
                 int temp_room = Random.Range(0, rooms.Count);
 
                 if (temp_room == i)
@@ -287,7 +338,7 @@ public class DungeonFloorRandom : DungeonFloor
             }
         }
 
-        return valid_path;
+        return true;
     }
 
     private DungeonMap SetMap(List<Room> rooms, List<Path> paths)
@@ -302,7 +353,7 @@ public class DungeonFloorRandom : DungeonFloor
             room.SetUpMap(map, tile_set);
 
         foreach (Path path in paths)
-            path.SetUpMap(map, tile_set);
+            path.SetUpMap(map);
 
         return map;
     }
