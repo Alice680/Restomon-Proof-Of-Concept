@@ -287,6 +287,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8d3e167514f36c149adc19b332f83304, type: 2}
   - {fileID: 11400000, guid: 6cd60d2b37249d84db167612ed4a1034, type: 2}
   - {fileID: 11400000, guid: 98b9de664a7046f4fba4863fe6d5e35e, type: 2}
+  overworlds:
+  - {fileID: 11400000, guid: 6a3a37c7c01cd4c4e8116ebbd84043c7, type: 2}
   classes:
   - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}

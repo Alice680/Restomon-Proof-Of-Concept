@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63506fc4d25e3f54c8a41605877b75d9, type: 3}
   m_Name: LayoutHard
   m_EditorClassIdentifier: 
+  dungeon_name: Dungeon Name
   floor_options:
   - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
   - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}

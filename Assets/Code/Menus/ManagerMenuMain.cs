@@ -10,8 +10,6 @@ using UnityEngine.SceneManagement;
  * Notes:
  * Each sub menu should only be added in once that part of the game is being added in
  */ 
-// TODO Team menu
-// TODO Achivment menu
 // TODO Options menu
 public class ManagerMenuMain : MonoBehaviour
 {

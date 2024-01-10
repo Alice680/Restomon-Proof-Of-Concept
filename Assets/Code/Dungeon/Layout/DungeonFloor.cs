@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ using UnityEngine;
 public enum DungeonType { None, Arena, Boss, Lair }
 public class DungeonFloor : ScriptableObject
 {
+
+
     [SerializeField] protected AIBase ai;
 
     public virtual DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location)

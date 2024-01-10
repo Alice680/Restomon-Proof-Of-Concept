@@ -346,12 +346,14 @@ public class DungeonManager : MonoBehaviour
 
     public void WinDungeon()
     {
-        SceneManager.LoadScene(1);
+        current_dungeon.SetVictory(data_holder,true);
+        SceneManager.LoadScene(3);
     }
 
     public void LoseDungeon()
     {
-        SceneManager.LoadScene(1);
+        current_dungeon.SetVictory(data_holder, false);
+        SceneManager.LoadScene(3);
     }
 
     private void SetUpUnit()

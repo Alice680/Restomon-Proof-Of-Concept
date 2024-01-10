@@ -71,6 +71,10 @@ public class PermDataHolder : MonoBehaviour
     [SerializeField] private DungeonLayout[] dungeons;
     private int current_dungeon;
 
+    [SerializeField] private OverworldLayout[] overworlds;
+    private int current_overworld;
+    private Vector2Int current_position;
+
     [SerializeField] private HumanClass[] classes;
     private int[] current_player;
 
@@ -86,6 +90,10 @@ public class PermDataHolder : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         current_dungeon = 0;
+
+        current_overworld = 0;
+
+        current_position = new Vector2Int(7, 4);
 
         current_player = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -109,6 +117,29 @@ public class PermDataHolder : MonoBehaviour
     public DungeonLayout GetDungeon()
     {
         return dungeons[current_dungeon];
+    }
+
+    //Overworld
+    public void SetOverworld(int index, Vector2Int position)
+    {
+        current_overworld = index;
+        current_position = position;
+    }
+
+    public void SetPosition(Vector2Int position)
+    {
+        current_position = position;
+    }
+
+    public int GetOverworldInt()
+    {
+        return current_overworld;
+    }
+
+    public OverworldLayout GetOverworld(out Vector2Int position)
+    {
+        position = current_position;
+        return overworlds[current_overworld];
     }
 
     //Player

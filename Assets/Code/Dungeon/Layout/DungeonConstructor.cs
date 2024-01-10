@@ -11,6 +11,8 @@ using UnityEngine;
  */
 public class DungeonConstructor : MonoBehaviour
 {
+    public bool active;
+
     public DungeonFloorPreset layout;
     public bool new_layout;
     public int x_size;
@@ -23,6 +25,9 @@ public class DungeonConstructor : MonoBehaviour
 
     public void Start()
     {
+        if (!active)
+            return;
+
 #pragma warning disable CS0618 // Type or member is obsolete
         layout.SetDirty();
 #pragma warning restore CS0618 // Type or member is obsolete
@@ -35,6 +40,9 @@ public class DungeonConstructor : MonoBehaviour
 
     public void Update()
     {
+        if (!active)
+            return;
+
         if (Input.GetMouseButton(0) && Time.time - last_input > 0.025F)
         {
             var v3 = Input.mousePosition;
