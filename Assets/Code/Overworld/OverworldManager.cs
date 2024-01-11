@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class OverworldManager : MonoBehaviour
 {
-    private enum State { idle, enter_dungeon };
+    private enum State { idle, enter_dungeon, dialogue };
 
     private OverworldEntity player_entity;
 
@@ -17,6 +17,9 @@ public class OverworldManager : MonoBehaviour
     private PermDataHolder data_holder;
 
     private State current_state;
+
+    //Temp
+    public DialogueTree test_dialouge;
 
     private void Start()
     {
@@ -34,6 +37,10 @@ public class OverworldManager : MonoBehaviour
 
         UpdateCamera();
         overworld_ui.Startup();
+
+        //Temp
+        overworld_ui.ActivateDialogue(test_dialouge,0);
+        current_state = State.dialogue;
     }
 
     private void Update()
@@ -48,6 +55,9 @@ public class OverworldManager : MonoBehaviour
             case State.enter_dungeon:
                 EnterDungeon();
                 return;
+            case State.dialogue:
+                Dialogue();
+                break;
         }
     }
 
@@ -66,6 +76,12 @@ public class OverworldManager : MonoBehaviour
         if (overworld_ui.ChangeChoice(inputer, out bool deactive))
             SceneManager.LoadScene(2);
         else if (deactive)
+            current_state = State.idle;
+    }
+
+    private void Dialogue()
+    {
+        if (overworld_ui.ChangeDialogue(inputer))
             current_state = State.idle;
     }
 

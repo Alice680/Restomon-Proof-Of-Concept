@@ -15,6 +15,10 @@ public class OverworldUI : MonoBehaviour
     private bool current_choice;
     private string text_choice;
 
+    private DialogueTree dialogue_tree;
+    private bool making_choice;
+    private int current_node;
+
     public void Startup()
     {
         text_box.SetActive(false);
@@ -76,4 +80,68 @@ public class OverworldUI : MonoBehaviour
         return false;
     }
 
+    public void ActivateDialogue(DialogueTree dialogue_tree, int start_node)
+    {
+        this.dialogue_tree = dialogue_tree;
+        current_node = start_node;
+
+        text_box.SetActive(true);
+
+        dialogue.text = dialogue_tree.GetData(current_node, out string speaker_name, out string choice_name);
+        dialogue_name.text = speaker_name;
+    }
+
+    public void DeactivateDialogue()
+    {
+        DeactivateChoice();
+
+        dialogue_tree = null;
+        current_node = -1;
+
+        text_box.SetActive(false);
+
+        dialogue.text = "";
+        dialogue_name.text = "";
+    }
+
+    public bool ChangeDialogue(Inputer inputer)
+    {
+        if (inputer.GetEnter())
+        {
+            bool is_choice;
+
+            if (making_choice)
+                current_node = dialogue_tree.NextNode(current_node, ChangeChoice(inputer, out bool deactive), out is_choice);
+            else
+                current_node = dialogue_tree.NextNode(current_node, true, out is_choice);
+
+            if (current_node == -1)
+            {
+                DeactivateDialogue();
+                return true;
+            }
+
+            dialogue.text = dialogue_tree.GetData(current_node, out string speaker_name, out string choice_name);
+            dialogue_name.text = speaker_name;
+
+            if (is_choice)
+            {
+                ActivateChoice("", choice_name);
+                making_choice = true;
+            }
+            else
+            {
+                DeactivateChoice();
+                making_choice = false;
+            }
+
+            return false;
+        }
+        else if (!inputer.GetBack() && making_choice)
+        {
+            ChangeChoice(inputer, out bool deactive);
+        }
+
+        return false;
+    }
 }

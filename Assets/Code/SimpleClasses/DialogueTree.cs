@@ -6,28 +6,37 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Layout", menuName = "ScriptableObject/Dialogue")]
 public class DialogueTree : ScriptableObject
 {
-    [Serializable] private enum NodeType { Basic, Choice, End };
-
     [Serializable]
     private class Node
     {
-        public NodeType node_type;
+        public bool is_choice;
 
         public int next_node;
         public int optinal_node;
 
+        public string speaker_name;
         public string text;
+        public string choice_text;
     }
 
-    [SerializeField] private Node dialouge;
-        
-    public int NextNode(int current_node, bool selection = true)
+    [SerializeField] private Node[] dialouge;
+
+    public int NextNode(int current_node, bool selection, out bool is_choice)
     {
-        return 0;
+        int next_node = selection ? dialouge[current_node].next_node : dialouge[current_node].optinal_node;
+
+        if (next_node != -1)
+            is_choice = dialouge[next_node].is_choice;
+        else
+            is_choice = false;
+
+        return next_node;
     }
 
-    public string GetData()
+    public string GetData(int current_node, out string speaker_name, out string choice_name)
     {
-        return "";
+        speaker_name = dialouge[current_node].speaker_name;
+        choice_name = dialouge[current_node].choice_text;
+        return dialouge[current_node].text;
     }
 }
