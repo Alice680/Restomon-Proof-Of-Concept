@@ -10,7 +10,6 @@ using UnityEngine;
  * Notes:
  * Mose scenes load data from this, if you wan't to test in iscolation, make sure to overide.
  */
-// TODO add values for score
 public class PermDataHolder : MonoBehaviour
 {
     [Serializable]
@@ -84,6 +83,10 @@ public class PermDataHolder : MonoBehaviour
     [SerializeField] private RestomonBuild[] restomon_builds;
     private RestomonData[] current_team;
 
+    [SerializeField] private int[] main_quest_markers;
+    [SerializeField] private int[] side_quest_markers;
+    [SerializeField] private int[] dungeon_unlocked;
+    [SerializeField] private int[] dungeon_cleared;
 
     public void Setup()
     {
@@ -98,6 +101,13 @@ public class PermDataHolder : MonoBehaviour
         current_player = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
         current_catalyst = 0;
+
+        main_quest_markers = new int[1];
+        side_quest_markers = new int[0];
+        dungeon_unlocked = new int[1];
+        dungeon_cleared = new int[1];
+
+        dungeon_unlocked[0] = 1;
 
         current_team = new RestomonData[4] { new RestomonData(), new RestomonData(), new RestomonData(), new RestomonData() };
 
@@ -199,8 +209,34 @@ public class PermDataHolder : MonoBehaviour
         return restomon_builds[current_team[index].restomon_id].GetBuild(current_team[index].form_value);
     }
 
-    //Get Data
+    //Event Data
+    public int GetEventData(EventDataType data_type, int index)
+    {
+        switch (data_type)
+        {
+            case EventDataType.MainQuest:
+                return main_quest_markers[index];
+            case EventDataType.DungeonUnlocked:
+                return dungeon_unlocked[index];
+        }
 
+        return -1;
+    }
+
+    public void SetEventData(EventDataType data_type, int index, int value)
+    {
+        switch (data_type)
+        {
+            case EventDataType.MainQuest:
+                main_quest_markers[index] = value;
+                return;
+            case EventDataType.DungeonUnlocked:
+                dungeon_unlocked[index] = value;
+                return;
+        }
+    }
+
+    //Get Data
     public HumanClass GetDataHuman(int index)
     {
         return classes[index];

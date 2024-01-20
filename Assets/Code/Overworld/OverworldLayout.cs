@@ -20,15 +20,35 @@ public class OverworldLayout : ScriptableObject
     }
 
     [Serializable]
+    private class VariantNode
+    {
+        public Vector2Int location;
+
+        public GameObject model;
+        public bool traversable;
+        public int dungeon_layout;
+
+        public EventTrigger event_trigger;
+    }
+
+    [Serializable]
+    private class StartDialogue
+    {
+        public DialogueTree dialogue;
+        public EventTrigger trigger;
+    }
+
+    [Serializable]
     private class DungeonPlan
     {
         public Vector2Int location;
         public int layout;
     }
 
-
     [SerializeField] private int x_size, y_size;
     [SerializeField] private Node[] nodes;
+    [SerializeField] private VariantNode[] variant_nodes;
+    [SerializeField] private StartDialogue[] start_dialogues;
     [SerializeField] private DungeonPlan[] dungeon_layouts;
 
     public void Setup(int x_size, int y_size, GameObject model)
@@ -59,6 +79,23 @@ public class OverworldLayout : ScriptableObject
 
         foreach (DungeonPlan d_layout in dungeon_layouts)
             temp_map.SetDungeon(d_layout.location.x, d_layout.location.y, d_layout.layout);
+
+        return temp_map;
+    }
+
+    public OverworldMap GetMap(PermDataHolder dataHolder, out DialogueTree dialogue)
+    {
+        OverworldMap temp_map = GetMap();
+
+        dialogue = null;
+
+        foreach (VariantNode node in variant_nodes)
+            if (node.event_trigger.Check(dataHolder))
+                temp_map.SetTile(node.location.x, node.location.y, node.traversable, node.model, node.dungeon_layout);
+
+        foreach (StartDialogue start_dialogue in start_dialogues)
+            if (start_dialogue.trigger.Check(dataHolder))
+                dialogue = start_dialogue.dialogue;
 
         return temp_map;
     }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class OverworldManager : MonoBehaviour
 {
-    private enum State { idle, enter_dungeon, dialogue };
+    private enum State { idle, enter_dungeon, dialogue, town };
 
     private OverworldEntity player_entity;
 
@@ -19,7 +19,7 @@ public class OverworldManager : MonoBehaviour
     private State current_state;
 
     //Temp
-    public DialogueTree test_dialouge;
+    public OverworldTown temp_town;
 
     private void Start()
     {
@@ -32,15 +32,17 @@ public class OverworldManager : MonoBehaviour
         overworld_ui = GameObject.Find("Overworld UI").GetComponent<OverworldUI>();
 
         player_entity = new OverworldEntity(data_holder.GetPlayer().GetModel());
-        map = data_holder.GetOverworld(out Vector2Int position).GetMap();
+        map = data_holder.GetOverworld(out Vector2Int position).GetMap(data_holder, out DialogueTree dialogue);
         map.Move(player_entity, (Vector3Int)position);
 
         UpdateCamera();
-        overworld_ui.Startup();
+        overworld_ui.Startup(data_holder);
 
-        //Temp
-        overworld_ui.ActivateDialogue(test_dialouge,0);
-        current_state = State.dialogue;
+        if (dialogue != null)
+        {
+            overworld_ui.ActivateDialogue(dialogue);
+            current_state = State.dialogue;
+        }
     }
 
     private void Update()
@@ -57,6 +59,9 @@ public class OverworldManager : MonoBehaviour
                 return;
             case State.dialogue:
                 Dialogue();
+                break;
+            case State.town:
+                Town();
                 break;
         }
     }
@@ -81,8 +86,13 @@ public class OverworldManager : MonoBehaviour
 
     private void Dialogue()
     {
-        if (overworld_ui.ChangeDialogue(inputer))
+        if (overworld_ui.ChangeDialogue(inputer, data_holder))
             current_state = State.idle;
+    }
+
+    private void Town()
+    {
+        overworld_ui.ChangeTown(inputer);
     }
 
     private void UpdateCamera()
@@ -102,6 +112,10 @@ public class OverworldManager : MonoBehaviour
         int dungeon_layout;
 
         map.Interact(player_entity.GetPosition().x, player_entity.GetPosition().y, out dungeon_layout);
+
+        overworld_ui.ActivateTown(temp_town);
+        current_state = State.town;
+        return;
 
         if (dungeon_layout != -1)
         {

@@ -20,6 +20,13 @@ MonoBehaviour:
   lose_condition:
     overworld_id: 0
     position: {x: 7, y: 1}
+    event_effect:
+      data_effect: []
   win_condition:
     overworld_id: 0
     position: {x: 7, y: 4}
+    event_effect:
+      data_effect:
+      - event_type: 0
+        index: 0
+        value: 2

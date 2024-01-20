@@ -102,10 +102,17 @@ public class OverworldMap
         y = y_size;
     }
 
+    public void SetTile(int x, int y, bool traversable, GameObject model, int dungeon_layout)
+    {
+        SetTile(x, y, traversable, model);
+        SetDungeon(x, y, dungeon_layout);
+    }
+
     public void SetTile(int x, int y, bool traversable, GameObject model)
     {
         map[x, y].SetTile(traversable, model);
     }
+
 
     public void SetDungeon(int x, int y, int dungeon_layout)
     {

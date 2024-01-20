@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Layout", menuName = "ScriptableObject/Dialogue")]
+[CreateAssetMenu(fileName = "Layout", menuName = "ScriptableObjects/Dialogue")]
 public class DialogueTree : ScriptableObject
 {
     [Serializable]
@@ -20,6 +20,7 @@ public class DialogueTree : ScriptableObject
     }
 
     [SerializeField] private Node[] dialouge;
+    [SerializeField] private EventEffect[] event_effects;
 
     public int NextNode(int current_node, bool selection, out bool is_choice)
     {
@@ -38,5 +39,12 @@ public class DialogueTree : ScriptableObject
         speaker_name = dialouge[current_node].speaker_name;
         choice_name = dialouge[current_node].choice_text;
         return dialouge[current_node].text;
+    }
+
+    public void RunEvent(PermDataHolder data_holder, int index)
+    {
+        index = -1 - index;
+
+        event_effects[index].Apply(data_holder);
     }
 }

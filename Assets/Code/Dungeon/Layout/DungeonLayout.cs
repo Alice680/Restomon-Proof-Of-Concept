@@ -11,6 +11,8 @@ public class DungeonLayout : ScriptableObject
     {
         public int overworld_id;
         public Vector2Int position;
+
+        public EventEffect event_effect;
     }
 
     [SerializeField] private string dungeon_name;
@@ -29,10 +31,16 @@ public class DungeonLayout : ScriptableObject
 
     public void SetVictory(PermDataHolder data, bool victory)
     {
+        VictoryCondition temp_victory;
+
         if (victory)
-            data.SetOverworld(win_condition.overworld_id, win_condition.position);
+            temp_victory = win_condition;
         else
-            data.SetOverworld(lose_condition.overworld_id, lose_condition.position);
+            temp_victory = lose_condition;
+
+        data.SetOverworld(temp_victory.overworld_id, temp_victory.position);
+
+        temp_victory.event_effect.Apply(data);
     }
 
     public override string ToString()
