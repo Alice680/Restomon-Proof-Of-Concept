@@ -14,37 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
-    next_node: 1
-    optinal_node: 0
-    speaker_name: Tester
-    text: Hey there, is this working?
-    choice_text: 
-  - is_choice: 1
-    next_node: 2
-    optinal_node: 3
-    speaker_name: Tester
-    text: Seems like it is! Are you able to Make a choice?
-    choice_text: Can you?
-  - is_choice: 0
     next_node: -1
     optinal_node: 0
     speaker_name: Tester
-    text: That is good!
-    choice_text: 
-  - is_choice: 1
-    next_node: 4
-    optinal_node: 3
-    speaker_name: Tester
-    text: That is not right. Try agian.
-    choice_text: Can you?
-  - is_choice: 0
-    next_node: -1
-    optinal_node: 0
-    speaker_name: Tester
-    text: I knew you would get it.
+    text: Try once more.
     choice_text: 
   event_effects:
-  - data_effect:
-    - event_type: 0
-      index: 0
-      value: 3
+  - data_effect: []
+    dungeon_effect: []

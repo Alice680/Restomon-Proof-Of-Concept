@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   layout: {fileID: 11400000, guid: 6a3a37c7c01cd4c4e8116ebbd84043c7, type: 2}
-  new_layout: 1
+  new_layout: 0
   x_size: 15
   y_size: 15
   traversable: 1

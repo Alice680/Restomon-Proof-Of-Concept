@@ -85,8 +85,8 @@ public class PermDataHolder : MonoBehaviour
 
     [SerializeField] private int[] main_quest_markers;
     [SerializeField] private int[] side_quest_markers;
-    [SerializeField] private int[] dungeon_unlocked;
-    [SerializeField] private int[] dungeon_cleared;
+    [SerializeField] private bool[] dungeon_unlocked;
+    [SerializeField] private bool[] dungeon_cleared;
 
     public void Setup()
     {
@@ -104,10 +104,10 @@ public class PermDataHolder : MonoBehaviour
 
         main_quest_markers = new int[1];
         side_quest_markers = new int[0];
-        dungeon_unlocked = new int[1];
-        dungeon_cleared = new int[1];
+        dungeon_unlocked = new bool[2];
+        dungeon_cleared = new bool[2];
 
-        dungeon_unlocked[0] = 1;
+        dungeon_unlocked[0] = true;
 
         current_team = new RestomonData[4] { new RestomonData(), new RestomonData(), new RestomonData(), new RestomonData() };
 
@@ -209,15 +209,15 @@ public class PermDataHolder : MonoBehaviour
         return restomon_builds[current_team[index].restomon_id].GetBuild(current_team[index].form_value);
     }
 
-    //Event Data
+    //Data
     public int GetEventData(EventDataType data_type, int index)
     {
         switch (data_type)
         {
             case EventDataType.MainQuest:
                 return main_quest_markers[index];
-            case EventDataType.DungeonUnlocked:
-                return dungeon_unlocked[index];
+            case EventDataType.SideQuest:
+                return side_quest_markers[index];
         }
 
         return -1;
@@ -230,8 +230,34 @@ public class PermDataHolder : MonoBehaviour
             case EventDataType.MainQuest:
                 main_quest_markers[index] = value;
                 return;
-            case EventDataType.DungeonUnlocked:
+            case EventDataType.SideQuest:
+                side_quest_markers[index] = value;
+                return;
+        }
+    }
+
+    public bool GetDungeonData(DungeonDataType data_type, int index)
+    {
+        switch (data_type)
+        {
+            case DungeonDataType.DungeonUnlocked:
+                return dungeon_unlocked[index];
+            case DungeonDataType.DungeonCleared:
+                return dungeon_cleared[index];
+        }
+
+        return false;
+    }
+
+    public void SetDungeonData(DungeonDataType data_type, int index, bool value)
+    {
+        switch (data_type)
+        {
+            case DungeonDataType.DungeonUnlocked:
                 dungeon_unlocked[index] = value;
+                return;
+            case DungeonDataType.DungeonCleared:
+                dungeon_cleared[index] = value;
                 return;
         }
     }

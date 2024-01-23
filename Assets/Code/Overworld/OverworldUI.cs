@@ -169,16 +169,40 @@ public class OverworldUI : MonoBehaviour
         ChangeTown(null);
     }
 
-    public void ChangeTown(Inputer inputer)
+    public void DeactivateTown()
+    {
+        text_box.SetActive(false);
+        town_box.SetActive(false);
+
+        dialogue_name.text = "";
+        dialogue.text = "";
+
+        for (int i = 0; i < 8; ++i)
+            town_options[i].text = "";
+    }
+
+    public bool ChangeTown(Inputer inputer)
     {
         if (inputer != null)
         {
             if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
                 current_selection = DirectionMath.GetMenuChange(current_selection, inputer.GetDir(), 4, 2);
 
-            if(inputer.GetEnter())
+            if (inputer.GetEnter())
             {
-                int temp_selection = current_town.GetSelection(current_area, current_selection);
+                int temp_selection = current_town.GetSelection(data_holder, current_area, current_selection);
+
+                if (temp_selection == -1)
+                {
+                    DeactivateTown();
+                    return true;
+                }
+
+                if (temp_selection != -2)
+                {
+                    current_area = temp_selection;
+                    current_selection = 0;
+                }
             }
         }
 
@@ -187,5 +211,7 @@ public class OverworldUI : MonoBehaviour
 
         for (int i = 0; i < 8; ++i)
             town_options[i].text = (current_selection == i ? "*" : "") + (current_town.GetChoiceText(current_area, data_holder)[i]);
+
+        return false;
     }
 }

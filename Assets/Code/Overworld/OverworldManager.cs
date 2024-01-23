@@ -18,9 +18,6 @@ public class OverworldManager : MonoBehaviour
 
     private State current_state;
 
-    //Temp
-    public OverworldTown temp_town;
-
     private void Start()
     {
         inputer = new Inputer();
@@ -92,7 +89,8 @@ public class OverworldManager : MonoBehaviour
 
     private void Town()
     {
-        overworld_ui.ChangeTown(inputer);
+        if(overworld_ui.ChangeTown(inputer))
+            current_state = State.idle;
     }
 
     private void UpdateCamera()
@@ -109,13 +107,7 @@ public class OverworldManager : MonoBehaviour
 
     private void Interact()
     {
-        int dungeon_layout;
-
-        map.Interact(player_entity.GetPosition().x, player_entity.GetPosition().y, out dungeon_layout);
-
-        overworld_ui.ActivateTown(temp_town);
-        current_state = State.town;
-        return;
+        map.Interact(player_entity.GetPosition().x, player_entity.GetPosition().y, out int dungeon_layout, out OverworldTown town);
 
         if (dungeon_layout != -1)
         {
@@ -124,6 +116,12 @@ public class OverworldManager : MonoBehaviour
             overworld_ui.ActivateChoice("Enter", data_holder.GetDungeon() + "?");
 
             current_state = State.enter_dungeon;
+        }
+        else if(town != null)
+        {
+            overworld_ui.ActivateTown(town);
+
+            current_state = State.town;
         }
     }
 

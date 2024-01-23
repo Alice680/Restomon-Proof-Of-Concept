@@ -14,6 +14,8 @@ public class OverworldMap
 
         public int dungeon_layout;
 
+        public OverworldTown town;
+
         public GameObject model;
 
         public Node(int x, int y)
@@ -30,7 +32,9 @@ public class OverworldMap
                 GameObject.Destroy(this.model);
 
             this.traversable = traversable;
+
             dungeon_layout = -1;
+            town = null;
 
             if (model != null)
                 this.model = GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion());
@@ -39,6 +43,11 @@ public class OverworldMap
         public void SetDungeon(int dungeon_layout)
         {
             this.dungeon_layout = dungeon_layout;
+        }
+
+        public void SetTown(OverworldTown town)
+        {
+            this.town = town;
         }
 
         public void Clear()
@@ -91,9 +100,10 @@ public class OverworldMap
         entity.UpdatePosition(position);
     }
 
-    public void Interact(int x, int y, out int dungeonLayout)
+    public void Interact(int x, int y, out int dungeon_layout, out OverworldTown town)
     {
-        dungeonLayout = map[x, y].dungeon_layout;
+        dungeon_layout = map[x, y].dungeon_layout;
+        town = map[x, y].town;
     }
 
     public void GetSize(out int x, out int y)
@@ -113,10 +123,14 @@ public class OverworldMap
         map[x, y].SetTile(traversable, model);
     }
 
-
     public void SetDungeon(int x, int y, int dungeon_layout)
     {
         map[x, y].SetDungeon(dungeon_layout);
+    }
+
+    public void SetTown(int x, int y, OverworldTown town)
+    {
+        map[x, y].SetTown(town);
     }
 
     public void Clear()

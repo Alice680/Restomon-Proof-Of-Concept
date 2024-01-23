@@ -21,7 +21,11 @@ MonoBehaviour:
     overworld_id: 0
     position: {x: 7, y: 1}
     event_effect:
-      data_effect: []
+      data_effect:
+      - event_type: 0
+        index: 0
+        value: 1
+      dungeon_effect: []
   win_condition:
     overworld_id: 0
     position: {x: 7, y: 4}
@@ -30,3 +34,10 @@ MonoBehaviour:
       - event_type: 0
         index: 0
         value: 2
+      dungeon_effect:
+      - event_type: 0
+        index: 0
+        value: 0
+      - event_type: 1
+        index: 0
+        value: 1

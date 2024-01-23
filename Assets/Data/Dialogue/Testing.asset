@@ -44,7 +44,5 @@ MonoBehaviour:
     text: I knew you would get it.
     choice_text: 
   event_effects:
-  - data_effect:
-    - event_type: 0
-      index: 0
-      value: 1
+  - data_effect: []
+    dungeon_effect: []

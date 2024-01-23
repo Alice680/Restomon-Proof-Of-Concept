@@ -28,6 +28,9 @@ public class OverworldTown : ScriptableObject
     private class TownEvent
     {
         public string txt;
+
+        public int next_area;
+
         public EventTrigger event_trigger;
     }
 
@@ -65,8 +68,26 @@ public class OverworldTown : ScriptableObject
         return temp_string;
     }
 
-    public int GetSelection(int index, int choice)
+    public int GetSelection(PermDataHolder data_holder, int index, int choice)
     {
-        return -1;
+        if (choice == 7)
+            return -1;
+
+        TownArea temp_area = town_areas[index];
+
+        int current_box = 0;
+
+        for (int i = 0; i < temp_area.area_events.Length; ++i)
+        {
+            if (temp_area.area_events[i].event_trigger.Check(data_holder))
+            {
+                if (current_box == choice)
+                    return (temp_area.area_events[i].next_area);
+
+                ++current_box;
+            }
+        }
+
+        return -2;
     }
 }

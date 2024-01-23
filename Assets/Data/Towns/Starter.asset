@@ -21,14 +21,17 @@ MonoBehaviour:
         data_triggers: []
     area_events:
     - txt: a
+      next_area: 1
       event_trigger:
         data_triggers: []
     - txt: v
+      next_area: 2
       event_trigger:
         data_triggers:
         - event_type: 0
           index: 0
           value: 7
     - txt: c
+      next_area: 3
       event_trigger:
         data_triggers: []

@@ -4,4 +4,5 @@
  */
 public enum Direction { None, Up, Down, Left, Right };
 public enum Element { None, Ather, Fire, Nature, Earth, Metal, Water, Light, Dark, Wind, Lightning, Ice, Cosmic};
-public enum EventDataType { MainQuest, SideQuest, DungeonUnlocked, DungeonCleared };
+public enum EventDataType { MainQuest, SideQuest };
+public enum DungeonDataType { DungeonUnlocked, DungeonCleared };
