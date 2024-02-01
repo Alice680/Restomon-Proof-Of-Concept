@@ -11,6 +11,8 @@ public class OverworldUI : MonoBehaviour
 
     [SerializeField] private Text[] town_options;
 
+    [SerializeField] private ManagerMenuHome menu_home;
+
     private PermDataHolder data_holder;
 
     private bool current_choice;
@@ -23,6 +25,8 @@ public class OverworldUI : MonoBehaviour
     private OverworldTown current_town;
     private int current_selection;
     private int current_area;
+    private bool town_dialouge;
+    private TownFeatureType current_feature;
 
     public void Startup(PermDataHolder data_holder)
     {
@@ -36,8 +40,12 @@ public class OverworldUI : MonoBehaviour
         dialogue.text = "";
         choice.text = "";
 
+        current_feature = TownFeatureType.None;
+
         for (int i = 0; i < 8; ++i)
             town_options[i].text = "";
+
+        menu_home.SetData(data_holder);
     }
 
     public void ActivateChoice(string name_a, string name_b)
@@ -115,7 +123,7 @@ public class OverworldUI : MonoBehaviour
         dialogue_name.text = "";
     }
 
-    public bool ChangeDialogue(Inputer inputer, PermDataHolder data_holder)
+    public bool ChangeDialogue(Inputer inputer)
     {
         if (inputer.GetEnter())
         {
@@ -183,6 +191,43 @@ public class OverworldUI : MonoBehaviour
 
     public bool ChangeTown(Inputer inputer)
     {
+        if(town_dialouge)
+        {
+            if(ChangeDialogue(inputer))
+            {
+                town_dialouge = false;
+
+                int temp_int = current_area;
+                ActivateTown(current_town);
+                current_area = temp_int;
+
+                ChangeTown(null);
+            }
+
+            return false;
+        }
+
+        if(current_feature != TownFeatureType.None)
+        {
+            switch(current_feature)
+            {
+                case TownFeatureType.Home:
+                    if (menu_home.Change(inputer))
+                        current_feature = TownFeatureType.None;
+                    else
+                        return false;
+                    break;
+            }
+
+            int temp_int = current_area;
+            ActivateTown(current_town);
+            current_area = temp_int;
+
+            ChangeTown(null);
+
+            return false;
+        }
+
         if (inputer != null)
         {
             if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
@@ -190,7 +235,7 @@ public class OverworldUI : MonoBehaviour
 
             if (inputer.GetEnter())
             {
-                int temp_selection = current_town.GetSelection(data_holder, current_area, current_selection);
+                int temp_selection = current_town.GetSelection(data_holder, current_area, current_selection, out DialogueTree temp_dialogue, out TownFeatureType feature_type, out int feature_int);
 
                 if (temp_selection == -1)
                 {
@@ -202,6 +247,42 @@ public class OverworldUI : MonoBehaviour
                 {
                     current_area = temp_selection;
                     current_selection = 0;
+
+                    if(temp_dialogue != null)
+                    {
+                        town_dialouge = true;
+                        DeactivateTown();
+                        ActivateDialogue(temp_dialogue);
+                        return false;
+                    }
+                    
+                    if(feature_type != TownFeatureType.None)
+                    {
+                        current_feature = feature_type;
+
+                        DeactivateTown();
+
+                        switch(current_feature)
+                        {
+                            case TownFeatureType.Home:
+                                menu_home.Activate();
+                                return false;
+                            case TownFeatureType.Shop:
+
+                                return false;
+                            case TownFeatureType.Smith:
+
+                                return false;
+                            case TownFeatureType.Atelier:
+
+                                return false;
+                            case TownFeatureType.TBD:
+
+                                return false;
+                        }
+
+                        return false;
+                    }
                 }
             }
         }

@@ -184,7 +184,7 @@ public class MenuArmory : MenuSwapIcon
 
     public void LoadData(PermDataHolder data_holder)
     {
-        this.data_holder = data_holder;
+        /*this.data_holder = data_holder;
 
         int[] temp_int = data_holder.GetPlayerInt();
         current_class = temp_int[0];
@@ -193,12 +193,12 @@ public class MenuArmory : MenuSwapIcon
             current_values[i] = temp_int[i + 1];
 
         for (int i = 0; i < 3; ++i)
-            traits[i] = temp_int[i + 5];
+            traits[i] = temp_int[i + 5];*/
     }
 
     public void SetData()
     {
-        data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], traits[0], traits[1], traits[2]);
+       // data_holder.SetPlayer(current_class, current_values[0], current_values[1], current_values[2], current_values[3], traits[0], traits[1], traits[2]);
     }
 
     private void Display()

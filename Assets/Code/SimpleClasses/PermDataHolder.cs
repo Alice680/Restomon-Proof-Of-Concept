@@ -12,6 +12,71 @@ using UnityEngine;
  */
 public class PermDataHolder : MonoBehaviour
 {
+    //Data classes
+    private class GenericUnlocks
+    {
+        public int lv;
+        public bool[] traits, catalysts;
+
+        public GenericUnlocks()
+        {
+            lv = 1;
+
+            traits = new bool[10];
+            for (int i = 0; i < 10; ++i)
+                traits[i] = false;
+
+            catalysts = new bool[3];
+            for (int i = 0; i < 3; ++i)
+                catalysts[i] = false;
+        }
+    }
+
+    private class ClassUnlocks
+    {
+        public bool[] sub_classes, weapons, trinkets, loops, traits;
+
+        public ClassUnlocks()
+        {
+            sub_classes = new bool[5];
+            for (int i = 0; i < 5; ++i)
+                sub_classes[i] = false;
+
+            weapons = new bool[3];
+            for (int i = 0; i < 3; ++i)
+                weapons[i] = false;
+
+            trinkets = new bool[5];
+            for (int i = 0; i < 5; ++i)
+                trinkets[i] = false;
+
+            loops = new bool[1];
+            for (int i = 0; i < 1; ++i)
+                loops[i] = false;
+
+            traits = new bool[10];
+            for (int i = 0; i < 10; ++i)
+                traits[i] = false;
+        }
+    }
+
+    private class CurrentClassData
+    {
+        public int current_class, current_sub, current_weapon, current_trinket_a, current_trinket_b;
+        public int[] free_traits;
+
+        public CurrentClassData()
+        {
+            current_class = 0;
+            current_sub = 0;
+            current_weapon = 0;
+            current_trinket_a = 0;
+            current_trinket_b = 0;
+
+            free_traits = new int[2] { 0, 0 };
+        }
+    }
+
     [Serializable]
     private class RestomonData
     {
@@ -66,6 +131,13 @@ public class PermDataHolder : MonoBehaviour
             return restomon_base.GetRestomon(3, temp_attack, temp_trait);
         }
     }
+    //Console Data
+    [SerializeField] private HumanClass[] classes;
+
+    //Private Data
+    private GenericUnlocks generic_unlocks;
+    private ClassUnlocks[] class_unlocks;
+    private CurrentClassData current_class_data;
 
     [SerializeField] private DungeonLayout[] dungeons;
     private int current_dungeon;
@@ -74,22 +146,29 @@ public class PermDataHolder : MonoBehaviour
     private int current_overworld;
     private Vector2Int current_position;
 
-    [SerializeField] private HumanClass[] classes;
-    private int[] current_player;
-
     [SerializeField] private Catalyst[] catalysts;
     private int current_catalyst;
 
     [SerializeField] private RestomonBuild[] restomon_builds;
     private RestomonData[] current_team;
 
-    [SerializeField] private int[] main_quest_markers;
-    [SerializeField] private int[] side_quest_markers;
-    [SerializeField] private bool[] dungeon_unlocked;
-    [SerializeField] private bool[] dungeon_cleared;
+    private int[] main_quest_markers;
+    private int[] side_quest_markers;
+    private bool[] dungeon_unlocked;
+    private bool[] dungeon_cleared;
 
-    public void Setup()
+    //Methods
+    public void SetupData()
     {
+        generic_unlocks = new GenericUnlocks();
+
+        class_unlocks = new ClassUnlocks[3];
+
+        for (int i = 0; i < 3; ++i)
+            class_unlocks[i] = new ClassUnlocks();
+
+        current_class_data = new CurrentClassData();
+
         DontDestroyOnLoad(gameObject);
 
         current_dungeon = 0;
@@ -98,12 +177,11 @@ public class PermDataHolder : MonoBehaviour
 
         current_position = new Vector2Int(7, 4);
 
-        current_player = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
         current_catalyst = 0;
 
-        main_quest_markers = new int[1];
-        side_quest_markers = new int[0];
+        main_quest_markers = new int[2];
+        side_quest_markers = new int[3];
         dungeon_unlocked = new bool[2];
         dungeon_cleared = new bool[2];
 
@@ -111,6 +189,41 @@ public class PermDataHolder : MonoBehaviour
 
         current_team = new RestomonData[4] { new RestomonData(), new RestomonData(), new RestomonData(), new RestomonData() };
 
+    }
+
+    public void LoadData()
+    {
+
+    }
+
+    public void SaveData()
+    {
+
+    }
+
+    public int GetPlayerClass()
+    {
+        return current_class_data.current_class;
+    }
+
+    public void GetPlayerStats()
+    {
+
+    }
+
+    public void GetPlayerGear()
+    {
+
+    }
+
+    public void GetPlayerTraits()
+    {
+
+    }
+
+    public Human GetPlayer()
+    {
+        return classes[0].GetHuman(generic_unlocks.lv, current_class_data.current_sub, current_class_data.current_weapon, current_class_data.current_trinket_a, current_class_data.current_trinket_b, current_class_data.free_traits);
     }
 
     //Dungeon
@@ -150,22 +263,6 @@ public class PermDataHolder : MonoBehaviour
     {
         position = current_position;
         return overworlds[current_overworld];
-    }
-
-    //Player
-    public void SetPlayer(int class_i, int sub_i, int weapon_i, int armor_i, int trinket_i, int trait_a, int trait_b, int trait_c)
-    {
-        current_player = new int[8] { class_i, sub_i, weapon_i, armor_i, trinket_i, trait_a, trait_b, trait_c };
-    }
-
-    public int[] GetPlayerInt()
-    {
-        return current_player;
-    }
-
-    public Human GetPlayer()
-    {
-        return classes[current_player[0]].GetHuman(3, current_player[1], current_player[2], current_player[3], current_player[4], new int[3] { current_player[5], current_player[6], current_player[7] }, "Player");
     }
 
     //Team

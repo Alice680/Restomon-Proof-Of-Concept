@@ -16,7 +16,7 @@ public class StartupManager : MonoBehaviour
     {
         PermDataHolder data = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
 
-        data.Setup();
+        data.SetupData();
 
         SceneManager.LoadScene(1);
     }

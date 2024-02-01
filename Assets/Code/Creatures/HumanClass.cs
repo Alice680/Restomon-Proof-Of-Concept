@@ -135,28 +135,23 @@ public class HumanClass : ScriptableObject
         else
             temp_trinket_b = trinkets[trinket_b_i];
 
-        string temp_class_name = class_name;
-        string temp_sub_name = temp_sub_class.subclass_name;
-        string temp_unique_name = unique_name != "" ? unique_name : class_name;
-
         GameObject temp_model = model;
 
-        Trait[] temp_traits = new Trait[7];
+        Trait[] temp_traits = new Trait[3+traits_i.Length];
         temp_traits[0] = class_trait[0];
         temp_traits[1] = temp_sub_class.subclass_trait;
-        temp_traits[2] = trait_list[0]; // TODO add with tammer class
-        temp_traits[3] = temp_weapon.trait;
+        temp_traits[2] = temp_weapon.trait;
         
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < traits_i.Length; ++i)
         {
             if (traits_i.Length != 3 || traits_i[i] < 0)
-                temp_traits[4 + i] = trait_list[0];
+                temp_traits[3 + i] = trait_list[0];
             else if (traits_i[i] < trait_list.Length)
-                temp_traits[4 + i] = trait_list[traits_i[i]];
+                temp_traits[3 + i] = trait_list[traits_i[i]];
             else if (traits_i[i] < trait_list.Length + temp_sub_class.free_traits.Length)
-                temp_traits[4 + i] = temp_sub_class.free_traits[traits_i[i]- trait_list.Length];
+                temp_traits[3 + i] = temp_sub_class.free_traits[traits_i[i]- trait_list.Length];
             else
-                temp_traits[4 + i] = trait_list[0];
+                temp_traits[3 + i] = trait_list[0];
         }
 
         Attack[] temp_attacks = new Attack[8];
@@ -167,13 +162,13 @@ public class HumanClass : ScriptableObject
         temp_attacks[4] = temp_weapon.special_ability;
         temp_attacks[5] = class_attack;
         temp_attacks[6] = temp_sub_class.attack;
-        temp_attacks[7] = attack_list[0]; // TODO add with tammer class
+        temp_attacks[7] = attack_list[0]; // TODO decide orgin
 
         int[] temp_stats = new int[11];
         for (int i = 0; i < 11; ++i)
             temp_stats[i] += base_stats.GetStats(i) + (lv * stat_growth.GetStats(i));
 
-        return new Human(temp_unique_name, temp_class_name, temp_sub_name, lv, temp_stats, temp_attacks, temp_traits, temp_model);
+        return new Human(unique_name, lv, temp_stats, temp_attacks, temp_traits, temp_model);
     }
 
     public String GetClassName()

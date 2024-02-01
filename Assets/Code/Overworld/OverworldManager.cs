@@ -83,7 +83,7 @@ public class OverworldManager : MonoBehaviour
 
     private void Dialogue()
     {
-        if (overworld_ui.ChangeDialogue(inputer, data_holder))
+        if (overworld_ui.ChangeDialogue(inputer))
             current_state = State.idle;
     }
 

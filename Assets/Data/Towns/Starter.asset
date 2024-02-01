@@ -13,25 +13,205 @@ MonoBehaviour:
   m_Name: Starter
   m_EditorClassIdentifier: 
   town_areas:
-  - back_txt: Leave Town
+  - area_name: Town Center
+    back_txt: Leave Town
+    back_int: -1
     text_options:
-    - name: Town center
-      txt: Area disc
-      event_trigger:
-        data_triggers: []
-    area_events:
-    - txt: a
-      next_area: 1
-      event_trigger:
-        data_triggers: []
-    - txt: v
-      next_area: 2
+    - txt: The center of town.
       event_trigger:
         data_triggers:
         - event_type: 0
           index: 0
-          value: 7
-    - txt: c
-      next_area: 3
+          value: 3
+        dungeon_triggers: []
+    - txt: I have to talk to the elder.
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 0
+          value: 2
+        dungeon_triggers: []
+    - txt: I do not have time to be looking around.
       event_trigger:
         data_triggers: []
+        dungeon_triggers: []
+    area_events:
+    - txt: Talk To Elder
+      next_area: 0
+      dialogue: {fileID: 11400000, guid: a220034b613930f4a9b62b56e14ea13b, type: 2}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 0
+          value: 2
+        dungeon_triggers: []
+    - txt: Go Home
+      next_area: 0
+      dialogue: {fileID: 0}
+      feature_type: 1
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 1
+          value: 0
+        dungeon_triggers: []
+    - txt: Vist Elder
+      next_area: 1
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 0
+          value: 3
+        dungeon_triggers: []
+    - txt: Area A
+      next_area: 2
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 0
+          value: 3
+        dungeon_triggers: []
+    - txt: Area B
+      next_area: 3
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 0
+          value: 3
+        dungeon_triggers: []
+    - txt: Area C
+      next_area: 4
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          index: 0
+          value: 3
+        dungeon_triggers: []
+  - area_name: Elders Home
+    back_txt: Town Center
+    back_int: 0
+    text_options:
+    - txt: The elders home.
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    area_events:
+    - txt: Talk Elder
+      next_area: 1
+      dialogue: {fileID: 11400000, guid: 1d1d50e6ab4dd8c419bf6aeaee6a26c8, type: 2}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 1
+          index: 0
+          value: 1
+        - event_type: 1
+          index: 1
+          value: 1
+        - event_type: 1
+          index: 2
+          value: 1
+        - event_type: 0
+          index: 1
+          value: 0
+        dungeon_triggers: []
+  - area_name: Area A
+    back_txt: Town Center
+    back_int: 0
+    text_options:
+    - txt: Add Text
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    area_events:
+    - txt: Shop
+      next_area: 2
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    - txt: Talk Ranger
+      next_area: 2
+      dialogue: {fileID: 11400000, guid: 791e3d8d5e69ce44c89004ad29bc3ac5, type: 2}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 1
+          index: 0
+          value: 0
+        dungeon_triggers: []
+  - area_name: Area B
+    back_txt: Town Center
+    back_int: 0
+    text_options:
+    - txt: Add Text
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    area_events:
+    - txt: Smith
+      next_area: 3
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    - txt: Talk Warrior
+      next_area: 3
+      dialogue: {fileID: 11400000, guid: 89f690b48bf5705468fde6913da90ad5, type: 2}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 1
+          index: 1
+          value: 0
+        dungeon_triggers: []
+  - area_name: Area C
+    back_txt: Town Center
+    back_int: 0
+    text_options:
+    - txt: Add Text
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    area_events:
+    - txt: TBD
+      next_area: 4
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+    - txt: Talk Mage
+      next_area: 4
+      dialogue: {fileID: 11400000, guid: 3d29246715aa58449bbecde6529958a0, type: 2}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 1
+          index: 2
+          value: 0
+        dungeon_triggers: []

@@ -17,18 +17,16 @@ using UnityEngine;
  */
 public class Human : Creature
 {
-    private string unique_name, class_name, sub_name, tammer_name;
+    private string unique_name;
     private int lv;
     private int[] stats;
     private Attack[] attacks;
     private Trait[] traits;
     private GameObject model;
 
-    public Human(string unique_name, string class_name, string sub_name, int lv,int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
+    public Human(string unique_name, int lv, int[] stats, Attack[] attacks, Trait[] traits, GameObject model)
     {
         this.unique_name = unique_name;
-        this.class_name = class_name;
-        this.sub_name = sub_name;
         this.lv = lv;
         this.stats = stats;
         this.attacks = attacks;
@@ -39,7 +37,6 @@ public class Human : Creature
     /*
      * The following methods all getters
      */
-
     public override CreatureType GetCreatureType()
     {
         return CreatureType.Human;
