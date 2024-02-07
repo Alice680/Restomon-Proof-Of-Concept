@@ -55,18 +55,8 @@ public class HumanClass : ScriptableObject
         }
     }
 
-
     [Serializable]
     private class Subclass
-    {
-        public string subclass_name, description;
-        public Trait subclass_trait;
-        public Trait[] free_traits;
-        public Attack attack;
-    }
-
-    [Serializable]
-    private class Tamerclass
     {
         public string subclass_name, description;
         public Trait subclass_trait;
@@ -82,17 +72,24 @@ public class HumanClass : ScriptableObject
         public Trait trait;
     }
 
+    [Serializable]
+    private class Trinket
+    {
+        public string trinket_name, description;
+        public Attack attack;
+    }
+
     [SerializeField] private string class_name, description;
     [SerializeField] private StatHolder base_stats, stat_growth;
     [SerializeField] private Attack class_attack;
     [SerializeField] private Trait[] class_trait;
     [SerializeField] private Subclass[] subclasses;
-    [SerializeField] private Tamerclass[] tamerclasses;
     [SerializeField] private Weapon[] weapons;
-    [SerializeField] private Attack[] trinkets;
-    [SerializeField] private GameObject model;
-    [SerializeField] private Attack[] attack_list;
+    [SerializeField] private Trinket[] trinkets;
     [SerializeField] private Trait[] trait_list;
+    [SerializeField] private Trait[] job_trait_list;
+    [SerializeField] private Attack[] job_attack_list;
+    [SerializeField] private GameObject model;
 
     /*
      * Takes various ints as inputs so as to set which gear and sub classes the human will be using.
@@ -109,7 +106,7 @@ public class HumanClass : ScriptableObject
      * @return human once everything is set
      */
     // TODO re orginize once done humans to be easier to follow and remove any fluf
-    public Human GetHuman(int lv, int s_class_i, int weapon_i, int trinket_a_i, int trinket_b_i, int[] traits_i, string unique_name = "")
+    public Human GetHuman(int lv, int s_class_i, int weapon_i, int trinket_a_i, int trinket_b_i, int[] traits_i, int job_i, string unique_name = "")
     {
         Subclass temp_sub_class;
         if (s_class_i < 0 || s_class_i > subclasses.Length)
@@ -123,25 +120,26 @@ public class HumanClass : ScriptableObject
         else
             temp_weapon = weapons[weapon_i];
 
-       Attack temp_trinket_a;
+        Attack temp_trinket_a;
         if (trinket_a_i < 0 || trinket_a_i > trinkets.Length)
-            temp_trinket_a = trinkets[0];
+            temp_trinket_a = trinkets[0].attack;
         else
-            temp_trinket_a = trinkets[trinket_a_i];
+            temp_trinket_a = trinkets[trinket_a_i].attack;
 
         Attack temp_trinket_b;
         if (trinket_b_i < 0 || trinket_b_i > trinkets.Length || trinket_b_i == trinket_a_i)
-            temp_trinket_b = trinkets[0];
+            temp_trinket_b = trinkets[0].attack;
         else
-            temp_trinket_b = trinkets[trinket_b_i];
+            temp_trinket_b = trinkets[trinket_b_i].attack;
 
         GameObject temp_model = model;
 
-        Trait[] temp_traits = new Trait[3+traits_i.Length];
+        Trait[] temp_traits = new Trait[4 + traits_i.Length];
         temp_traits[0] = class_trait[0];
         temp_traits[1] = temp_sub_class.subclass_trait;
         temp_traits[2] = temp_weapon.trait;
-        
+        temp_traits[3] = job_trait_list[job_i];
+
         for (int i = 0; i < traits_i.Length; ++i)
         {
             if (traits_i.Length != 3 || traits_i[i] < 0)
@@ -149,7 +147,7 @@ public class HumanClass : ScriptableObject
             else if (traits_i[i] < trait_list.Length)
                 temp_traits[3 + i] = trait_list[traits_i[i]];
             else if (traits_i[i] < trait_list.Length + temp_sub_class.free_traits.Length)
-                temp_traits[3 + i] = temp_sub_class.free_traits[traits_i[i]- trait_list.Length];
+                temp_traits[3 + i] = temp_sub_class.free_traits[traits_i[i] - trait_list.Length];
             else
                 temp_traits[3 + i] = trait_list[0];
         }
@@ -162,7 +160,7 @@ public class HumanClass : ScriptableObject
         temp_attacks[4] = temp_weapon.special_ability;
         temp_attacks[5] = class_attack;
         temp_attacks[6] = temp_sub_class.attack;
-        temp_attacks[7] = attack_list[0]; // TODO decide orgin
+        temp_attacks[7] = job_attack_list[job_i];
 
         int[] temp_stats = new int[11];
         for (int i = 0; i < 11; ++i)
@@ -202,30 +200,30 @@ public class HumanClass : ScriptableObject
 
     public String GetTrinketName(int index)
     {
-        return trinkets[index].GetName();
+        return trinkets[index].trinket_name;
     }
 
     public String GetTrinketDescription(int index)
     {
-        return trinkets[index].GetDescription();
+        return trinkets[index].description;
     }
 
     public String GetTraitName(int index)
     {
         return trait_list[index].GetName();
-    }    
+    }
 
     public String GetTraitDescription(int index)
     {
         return trait_list[index].GetDescription();
     }
 
-    public String GetSubTraitName(int sub,int index)
+    public String GetSubTraitName(int sub, int index)
     {
         return subclasses[sub].free_traits[index].GetName();
     }
 
-    public String GetSubTraitDescription(int sub,int index)
+    public String GetSubTraitDescription(int sub, int index)
     {
         return subclasses[sub].free_traits[index].GetDescription();
     }

@@ -12,12 +12,16 @@ public class MenuClass : MenuSwapIcon
     [SerializeField] private GameObject initial_menu, core_menu, stats_menu, gear_menu, traits_menu;
     [SerializeField] private GameObject[] initial_select, initial_star, core_select;
 
-    [SerializeField] private GameObject[] attack_data, trait_data;
-    [SerializeField] private Text[] attack_text, stat_text, trait_text;
+    [SerializeField] private GameObject[] attack_data, trait_data, gear_data;
 
+    [SerializeField] private Text[] attack_text, stat_text, trait_text, gear_text;
     [SerializeField] private Text[] text_boxes;
 
     private int class_chosen;
+
+    private int[] gear_chosen;
+
+    private string[,] sub_string, weapon_string, trinket_string;
 
     private PermDataHolder data_holder;
 
@@ -55,6 +59,12 @@ public class MenuClass : MenuSwapIcon
             initial_star[i].SetActive(false);
             core_select[i].SetActive(false);
         }
+
+        for (int i = 0; i < 8; ++i)
+            attack_data[i].SetActive(false);
+
+        for (int i = 0; i < 4; ++i)
+            trait_data[i].SetActive(false);
     }
 
     private void OpenInitial()
@@ -79,12 +89,47 @@ public class MenuClass : MenuSwapIcon
 
     private void OpenStats()
     {
+        x_value = 0;
+        y_value = 0;
 
+        stats_menu.SetActive(true);
+        attack_data[0].SetActive(true);
+
+        Human temp_human = data_holder.GetPlayer();
+
+        text_boxes[0].text = "" + data_holder.GetPlayer().GetAttack(x_value + (y_value * 2)).GetDescription();
+
+        stat_text[0].text = "" + temp_human.GetHp() + "+" + temp_human.GetApr();
+
+        for (int i = 0; i < 9; ++i)
+            stat_text[i + 1].text = "" + temp_human.GetStat(i);
+
+        for (int i = 0; i < 8; ++i)
+            attack_text[i].text = temp_human.GetAttack(i).GetName();
+
+        for (int i = 0; i < 4; ++i)
+            trait_text[i].text = temp_human.GetTraits()[i].GetName();
     }
 
     private void OpenGear()
     {
+        gear_menu.SetActive(true);
+        gear_chosen = data_holder.GetPlayerGear(out sub_string, out weapon_string, out trinket_string);
 
+        x_value = 0;
+        y_value = 0;
+
+        for (int i = 0; i < 4; ++i)
+            gear_data[i].SetActive(false);
+
+        gear_data[y_value].SetActive(true);
+
+        gear_text[0].text = sub_string[gear_chosen[0], 0];
+        gear_text[1].text = weapon_string[gear_chosen[1], 0];
+        gear_text[2].text = trinket_string[gear_chosen[2], 0];
+        gear_text[3].text = trinket_string[gear_chosen[3], 0];
+
+        text_boxes[1].text = sub_string[gear_chosen[0], 1];
     }
 
     private void OpenTraits()
@@ -133,6 +178,8 @@ public class MenuClass : MenuSwapIcon
         {
             class_chosen = y_value;
 
+            data_holder.SetPlayerClass(class_chosen);
+
             x_value = 0;
 
             CloseMenus();
@@ -149,7 +196,6 @@ public class MenuClass : MenuSwapIcon
 
     private void CoreState(Inputer input)
     {
-
         if (input.GetDir() != Direction.None && input.GetMoveKeyUp())
         {
             for (int i = 0; i < 3; ++i)
@@ -179,8 +225,6 @@ public class MenuClass : MenuSwapIcon
         }
         else if (input.GetBack())
         {
-            UpdateData();
-
             CloseMenus();
             OpenInitial();
 
@@ -190,21 +234,111 @@ public class MenuClass : MenuSwapIcon
 
     private void StatsState(Inputer input)
     {
+        if (input.GetDir() != Direction.None && input.GetMoveKeyUp())
+        {
+            for (int i = 0; i < 8; ++i)
+                attack_data[i].SetActive(false);
+            for (int i = 0; i < 4; ++i)
+                trait_data[i].SetActive(false);
 
+            GetInputValue(x_value, y_value, 3, 4, input.GetDir(), out x_value, out y_value);
+
+            if (x_value < 2)
+            {
+                attack_data[x_value + (y_value * 2)].SetActive(true);
+                text_boxes[0].text = "" + data_holder.GetPlayer().GetAttack(x_value + (y_value * 2)).GetDescription();
+            }
+            else
+            {
+                trait_data[y_value].SetActive(true);
+                text_boxes[0].text = "" + data_holder.GetPlayer().GetTraits()[y_value].GetDescription();
+            }
+        }
+        else if (input.GetEnter())
+        {
+
+        }
+        else if (input.GetBack())
+        {
+            CloseMenus();
+            x_value = 0;
+            OpenCore();
+
+            current_state = State.Core;
+        }
     }
 
     private void GearState(Inputer input)
     {
 
+        if (input.GetDir() != Direction.None && input.GetMoveKeyUp())
+        {
+            if (input.GetDir() == Direction.Up || input.GetDir() == Direction.Down)
+                GetInputValue(x_value, y_value, 1, 4, input.GetDir(), out x_value, out y_value);
+            else
+            {
+                if (y_value < 2)
+                    GetInputValue(gear_chosen[y_value], 0, 5, 1, input.GetDir(), out gear_chosen[y_value], out int temp_value);
+                else
+                    GetInputValue(gear_chosen[y_value], 0, 6, 1, input.GetDir(), out gear_chosen[y_value], out int temp_value);
+            }
+
+            for (int i = 0; i < 4; ++i)
+                gear_data[i].SetActive(false);
+
+            gear_data[y_value].SetActive(true);
+
+            gear_text[0].text = sub_string[gear_chosen[0], 0];
+            if (y_value == 0)
+                text_boxes[1].text = sub_string[gear_chosen[0], 1];
+
+            gear_text[1].text = weapon_string[gear_chosen[1], 0];
+            if (y_value == 1)
+                text_boxes[1].text = weapon_string[gear_chosen[1], 1];
+
+            gear_text[2].text = trinket_string[gear_chosen[2], 0];
+            if (y_value == 2)
+                text_boxes[1].text = trinket_string[gear_chosen[2], 1];
+
+            gear_text[3].text = trinket_string[gear_chosen[3], 0];
+            if (y_value == 3)
+                text_boxes[1].text = trinket_string[gear_chosen[3], 1];
+        }
+        else if (input.GetEnter())
+        {
+
+        }
+        else if (input.GetBack())
+        {
+            data_holder.SetPlayerGear(gear_chosen[0], gear_chosen[1], gear_chosen[2], gear_chosen[3]);
+
+            CloseMenus();
+            x_value = 1;
+            OpenCore();
+
+            current_state = State.Core;
+        }
     }
 
     private void TraitsState(Inputer input)
     {
 
+        if (input.GetDir() != Direction.None && input.GetMoveKeyUp())
+        {
+
+        }
+        else if (input.GetEnter())
+        {
+
+        }
+        else if (input.GetBack())
+        {
+            CloseMenus();
+            x_value = 2;
+            OpenCore();
+
+            current_state = State.Core;
+        }
     }
 
-    private void UpdateData()
-    {
-
-    }
 }

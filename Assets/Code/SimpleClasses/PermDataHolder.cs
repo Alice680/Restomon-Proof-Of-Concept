@@ -39,16 +39,19 @@ public class PermDataHolder : MonoBehaviour
         public ClassUnlocks()
         {
             sub_classes = new bool[5];
-            for (int i = 0; i < 5; ++i)
-                sub_classes[i] = false;
+            sub_classes[0] = true;
+            for (int i = 1; i < 5; ++i)
+                sub_classes[i] = true;
 
-            weapons = new bool[3];
-            for (int i = 0; i < 3; ++i)
-                weapons[i] = false;
+            weapons = new bool[5];
+            weapons[0] = true;
+            for (int i = 1; i < 5; ++i)
+                weapons[i] = true;
 
-            trinkets = new bool[5];
-            for (int i = 0; i < 5; ++i)
-                trinkets[i] = false;
+            trinkets = new bool[6];
+            trinkets[0] = true;
+            for (int i = 1; i < 6; ++i)
+                trinkets[i] = true;
 
             loops = new bool[1];
             for (int i = 0; i < 1; ++i)
@@ -62,12 +65,11 @@ public class PermDataHolder : MonoBehaviour
 
     private class CurrentClassData
     {
-        public int current_class, current_sub, current_weapon, current_trinket_a, current_trinket_b;
+        public int current_sub, current_weapon, current_trinket_a, current_trinket_b;
         public int[] free_traits;
 
         public CurrentClassData()
         {
-            current_class = 0;
             current_sub = 0;
             current_weapon = 0;
             current_trinket_a = 0;
@@ -136,8 +138,10 @@ public class PermDataHolder : MonoBehaviour
 
     //Private Data
     private GenericUnlocks generic_unlocks;
+
+    private int current_class;
     private ClassUnlocks[] class_unlocks;
-    private CurrentClassData current_class_data;
+    private CurrentClassData[] current_class_data;
 
     [SerializeField] private DungeonLayout[] dungeons;
     private int current_dungeon;
@@ -163,11 +167,13 @@ public class PermDataHolder : MonoBehaviour
         generic_unlocks = new GenericUnlocks();
 
         class_unlocks = new ClassUnlocks[3];
+        current_class_data = new CurrentClassData[3];
 
         for (int i = 0; i < 3; ++i)
+        {
             class_unlocks[i] = new ClassUnlocks();
-
-        current_class_data = new CurrentClassData();
+            current_class_data[i] = new CurrentClassData();
+        }
 
         DontDestroyOnLoad(gameObject);
 
@@ -203,17 +209,77 @@ public class PermDataHolder : MonoBehaviour
 
     public int GetPlayerClass()
     {
-        return current_class_data.current_class;
+        return current_class;
     }
 
-    public void GetPlayerStats()
+    public void SetPlayerClass(int new_class)
     {
-
+        current_class = new_class;
     }
 
-    public void GetPlayerGear()
+    public int[] GetPlayerGear(out string[,] sub_string, out string[,] weapon_string, out string[,] trinket_string)
     {
+        HumanClass temp_human = classes[current_class];
+        ClassUnlocks temp_unlocks = class_unlocks[current_class];
+        CurrentClassData temp_class = current_class_data[current_class];
 
+        sub_string = new string[5, 2];
+        weapon_string = new string[6, 2];
+        trinket_string = new string[6, 2];
+
+        for (int i = 0; i < 5; ++i)
+        {
+            if (temp_unlocks.sub_classes[i])
+            {
+                sub_string[i, 0] = temp_human.GetSubclassName(i);
+                sub_string[i, 1] = temp_human.GetSubclassDescription(i);
+            }
+            else if (temp_unlocks.sub_classes[0])
+            {
+                sub_string[i, 0] = "Locked.";
+                sub_string[i, 1] = "Find someone to train you in this subclass first";
+            }
+        }
+
+        for (int i = 0; i < 5; ++i)
+        {
+            if (temp_unlocks.weapons[i])
+            {
+                weapon_string[i, 0] = temp_human.GetWeaponName(i);
+                weapon_string[i, 1] = temp_human.GetWeaponDescription(i);
+            }
+            else
+            {
+                weapon_string[i, 0] = "Locked.";
+                weapon_string[i, 1] = "Find this weapon to be able to use it.";
+            }
+        }
+
+        for (int i = 0; i < 6; ++i)
+        {
+            if (temp_unlocks.trinkets[i])
+            {
+                trinket_string[i, 0] = temp_human.GetTrinketName(i);
+                trinket_string[i, 1] = temp_human.GetTrinketDescription(i);
+            }
+            else
+            {
+                trinket_string[i, 0] = "Locked.";
+                trinket_string[i, 1] = "Find this weapon to be able to use it.";
+            }
+        }
+
+        return new int[4] { temp_class.current_sub, temp_class.current_weapon, temp_class.current_trinket_a, temp_class.current_trinket_b };
+    }
+    
+    public void SetPlayerGear(int sub_value, int weapon_value, int trinket_a_value, int trinket_b_value)
+    {
+        CurrentClassData temp_class = current_class_data[current_class];
+
+        temp_class.current_sub = sub_value;
+        temp_class.current_weapon = weapon_value;
+        temp_class.current_trinket_a = trinket_a_value;
+        temp_class.current_trinket_b = trinket_b_value;
     }
 
     public void GetPlayerTraits()
@@ -223,7 +289,8 @@ public class PermDataHolder : MonoBehaviour
 
     public Human GetPlayer()
     {
-        return classes[0].GetHuman(generic_unlocks.lv, current_class_data.current_sub, current_class_data.current_weapon, current_class_data.current_trinket_a, current_class_data.current_trinket_b, current_class_data.free_traits);
+        CurrentClassData temp_data = current_class_data[current_class];
+        return classes[current_class].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
     }
 
     //Dungeon
