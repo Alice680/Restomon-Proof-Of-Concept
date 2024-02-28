@@ -58,20 +58,64 @@ public class DungeonFloorRandom : DungeonFloor
 
         public bool PathValid(Path other)
         {
-            if(other.x_first)
+            if (other.x_first)
             {
-                for (int i = 0; i < 3; ++i)
-                {
-                    if (other.x_goal == 0)
-                        return false;
-                }
+                if (!PathXValid(other.x_point, other.x_goal, other.y_point))
+                    return false;
+
+                if (!PathYValid(other.y_point, other.y_goal, other.x_goal))
+                    return false;
             }
             else
             {
+                if (!PathXValid(other.x_point, other.x_goal, other.y_goal))
+                    return false;
 
+                if (!PathYValid(other.y_point, other.y_goal, other.x_point))
+                    return false;
             }
 
             return true;
+        }
+
+        private bool PathXValid(int x_start, int x_goal, int y)
+        {
+            if (y - 3 >= y_point + y_size)
+                return true;
+
+            if (y + 3 <= y_point)
+                return true;
+
+            if (y + 3 <= y_point + y_size && y - 3 >= y_point)
+                return true;
+
+            if (Mathf.Min(x_start, x_goal) - 2 > x_point + x_goal)
+                return true;
+
+            if (Mathf.Max(x_start, x_goal) + 2 < x_point)
+                return true;
+
+            return false;
+        }
+
+        private bool PathYValid(int y_start, int y_goal, int x)
+        {
+            if (x - 3 >= x_point + x_size)
+                return true;
+
+            if (x + 3 <= x_point)
+                return true;
+
+            if (x + 3 <= x_point + x_size && x - 3 >= x_point)
+                return true;
+
+            if (Mathf.Min(y_start, y_goal) - 2 > y_point + y_goal)
+                return true;
+
+            if (Mathf.Max(y_start, y_goal) + 2 < y_point)
+                return true;
+
+            return false;
         }
 
         public Vector3Int GetRandomPoint()
@@ -111,6 +155,7 @@ public class DungeonFloorRandom : DungeonFloor
 
         public Path(Room room_start, Room room_end)
         {
+            //TODO add variants
             x_first = /*Random.Range(0, 2) == 1*/true;
 
             x_point = room_start.GetInnerEdge(x_first, out y_point);
@@ -120,7 +165,58 @@ public class DungeonFloorRandom : DungeonFloor
 
         public bool PathValid(Path other)
         {
+            if (x_first)
+            {
+                if (other.x_first)
+                {
+                    if (!CompareLine(new Vector3Int(x_point, x_goal, y_point), new Vector3Int(other.x_point, other.x_goal, other.y_point)))
+                        return false;
+                    if (!CompareLine(new Vector3Int(y_point, y_goal, x_goal), new Vector3Int(other.y_point, other.y_goal, other.x_goal)))
+                        return false;
+                }
+                else
+                {
+                    if (!CompareLine(new Vector3Int(x_point, x_goal, y_point), new Vector3Int(other.x_point, other.x_goal, other.y_goal)))
+                        return false;
+                    if (!CompareLine(new Vector3Int(y_point, y_goal, x_goal), new Vector3Int(other.y_point, other.y_goal, other.x_point)))
+                        return false;
+                }
+            }
+            else
+            {
+                if (other.x_first)
+                {
+                    if (!CompareLine(new Vector3Int(x_point, x_goal, y_goal), new Vector3Int(other.x_point, other.x_goal, other.y_point)))
+                        return false;
+                    if (!CompareLine(new Vector3Int(y_point, y_goal, x_point), new Vector3Int(other.y_point, other.y_goal, other.x_goal)))
+                        return false;
+                }
+                else
+                {
+                    if (!CompareLine(new Vector3Int(x_point, x_goal, y_goal), new Vector3Int(other.x_point, other.x_goal, other.y_goal)))
+                        return false;
+                    if (!CompareLine(new Vector3Int(y_point, y_goal, x_point), new Vector3Int(other.y_point, other.y_goal, other.x_point)))
+                        return false;
+                }
+            }
             return true;
+        }
+
+        public bool CompareLine(Vector3Int line_a, Vector3Int line_b)
+        {
+            if (line_a.z + 3 <= line_b.z)
+                return true;
+
+            if (line_a.z - 3 >= line_b.z)
+                return true;
+
+            if (Mathf.Min(line_a.x, line_a.y) > Mathf.Max(line_b.x, line_b.y))
+                return true;
+
+            if (Mathf.Max(line_a.x, line_a.y) < Mathf.Min(line_b.x, line_b.y))
+                return true;
+
+            return false;
         }
 
         public void SetUpMap(DungeonMap map)
@@ -234,8 +330,13 @@ public class DungeonFloorRandom : DungeonFloor
             else if (change.x == -1 && change.y == -1)
                 value = 6;
 
-            if (map.GetTileModelNum(edge + change) < 14)
+            if (value != -1 && map.GetTileModelNum(edge + change) < 14)
                 map.SetNode(edge.x + change.x, edge.y + change.y, value);
+        }
+
+        public override string ToString()
+        {
+            return "(" + (x_first ? "x" : "y") + x_point + "," + y_point + "->" + x_goal + "," + y_goal + ")";
         }
     }
 

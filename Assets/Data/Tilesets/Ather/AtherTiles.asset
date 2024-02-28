@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb7417898fed1e248a0f694f8a7e898a, type: 3}
-  m_Name: _AtherTiles
+  m_Name: AtherTiles
   m_EditorClassIdentifier: 
   inner_wall:
   - {fileID: 7918669636441035223, guid: b002244231b71e04fbc9b703a4f461bc, type: 3}
