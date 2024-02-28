@@ -251,7 +251,6 @@ public class DungeonManager : MonoBehaviour
         map = current_dungeon.GetFloor(current_floor).GenerateDungeon(weather_manager, out start_position, out temp_enemy, out temp_enemy_positions);
 
         enemy_controller = new AICore(current_dungeon.GetFloor(current_floor).GetAI(), this);
-
         AddUnit(player, start_position);
 
         enemy = new Unit(current_dungeon.GetFloor(current_floor).GetDungeonManager(), enemy_controller);
@@ -698,7 +697,6 @@ public class DungeonManager : MonoBehaviour
             trait_list.Add(trait);
 
         trait_list.Add(weather_manager.GetTrait());
-
         trait_list.Add(map.GetTileTrait(unit.GetPosition()));
 
         int index = -1, rank = -1;

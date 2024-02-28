@@ -15,15 +15,16 @@ public class PermDataHolder : MonoBehaviour
     //Data classes
     private class GenericUnlocks
     {
-        public int lv;
+        public int lv, trait_slots;
         public bool[] traits, catalysts;
 
         public GenericUnlocks()
         {
-            lv = 1;
+            lv = 20;
+            trait_slots = 2;
 
-            traits = new bool[10];
-            for (int i = 0; i < 10; ++i)
+            traits = new bool[5];
+            for (int i = 0; i < 5; ++i)
                 traits[i] = false;
 
             catalysts = new bool[3];
@@ -41,25 +42,40 @@ public class PermDataHolder : MonoBehaviour
             sub_classes = new bool[5];
             sub_classes[0] = true;
             for (int i = 1; i < 5; ++i)
-                sub_classes[i] = true;
+                sub_classes[i] = false;
 
             weapons = new bool[5];
             weapons[0] = true;
             for (int i = 1; i < 5; ++i)
-                weapons[i] = true;
+                weapons[i] = false;
 
             trinkets = new bool[6];
             trinkets[0] = true;
             for (int i = 1; i < 6; ++i)
-                trinkets[i] = true;
+                trinkets[i] = false;
 
             loops = new bool[1];
             for (int i = 0; i < 1; ++i)
                 loops[i] = false;
 
-            traits = new bool[10];
-            for (int i = 0; i < 10; ++i)
+            traits = new bool[5];
+            for (int i = 0; i < 5; ++i)
                 traits[i] = false;
+        }
+    }
+
+    private class CurrenGenericData
+    {
+        public int job;
+        public int money, pack_upgrades;
+        public List<int> inventory;
+
+        public CurrenGenericData()
+        {
+            job = 0;
+            money = 15;
+            pack_upgrades = 0;
+            inventory = new List<int>();
         }
     }
 
@@ -75,7 +91,7 @@ public class PermDataHolder : MonoBehaviour
             current_trinket_a = 0;
             current_trinket_b = 0;
 
-            free_traits = new int[2] { 0, 0 };
+            free_traits = new int[2] { -1, -1 };
         }
     }
 
@@ -133,14 +149,17 @@ public class PermDataHolder : MonoBehaviour
             return restomon_base.GetRestomon(3, temp_attack, temp_trait);
         }
     }
+
     //Console Data
     [SerializeField] private HumanClass[] classes;
+    [SerializeField] private ItemHolder item_holder;
 
     //Private Data
     private GenericUnlocks generic_unlocks;
 
     private int current_class;
     private ClassUnlocks[] class_unlocks;
+    private CurrenGenericData current_generic_data;
     private CurrentClassData[] current_class_data;
 
     [SerializeField] private DungeonLayout[] dungeons;
@@ -165,6 +184,7 @@ public class PermDataHolder : MonoBehaviour
     public void SetupData()
     {
         generic_unlocks = new GenericUnlocks();
+        current_generic_data = new CurrenGenericData();
 
         class_unlocks = new ClassUnlocks[3];
         current_class_data = new CurrentClassData[3];
@@ -174,6 +194,8 @@ public class PermDataHolder : MonoBehaviour
             class_unlocks[i] = new ClassUnlocks();
             current_class_data[i] = new CurrentClassData();
         }
+
+        item_holder.SetList();
 
         DontDestroyOnLoad(gameObject);
 
@@ -207,6 +229,7 @@ public class PermDataHolder : MonoBehaviour
 
     }
 
+    //Class Data
     public int GetPlayerClass()
     {
         return current_class;
@@ -271,26 +294,180 @@ public class PermDataHolder : MonoBehaviour
 
         return new int[4] { temp_class.current_sub, temp_class.current_weapon, temp_class.current_trinket_a, temp_class.current_trinket_b };
     }
-    
+
     public void SetPlayerGear(int sub_value, int weapon_value, int trinket_a_value, int trinket_b_value)
     {
+        ClassUnlocks temp_unlocks = class_unlocks[current_class];
         CurrentClassData temp_class = current_class_data[current_class];
 
-        temp_class.current_sub = sub_value;
-        temp_class.current_weapon = weapon_value;
-        temp_class.current_trinket_a = trinket_a_value;
-        temp_class.current_trinket_b = trinket_b_value;
+        if (temp_class.current_sub != sub_value)
+        {
+            for (int i = 0; i < 5; ++i)
+                if (current_class_data[current_class].free_traits[i] >= 25)
+                    current_class_data[current_class].free_traits[i] = -1;
+        }
+
+        if (temp_unlocks.sub_classes[sub_value])
+            temp_class.current_sub = sub_value;
+        else
+            temp_class.current_sub = 0;
+
+        if (temp_unlocks.weapons[weapon_value])
+            temp_class.current_weapon = weapon_value;
+        else
+            temp_class.current_weapon = 0;
+
+        if (temp_unlocks.trinkets[trinket_a_value])
+            temp_class.current_trinket_a = trinket_a_value;
+        else
+            temp_class.current_trinket_a = 0;
+
+        if (temp_unlocks.trinkets[trinket_b_value] && trinket_a_value != trinket_b_value)
+            temp_class.current_trinket_b = trinket_b_value;
+        else
+            temp_class.current_trinket_b = 0;
     }
 
-    public void GetPlayerTraits()
+    public string[,] GetPlayerTraits(out bool[] unlocked, out int[] selected)
     {
+        string[,] temp_string = new string[30, 2];
+        unlocked = new bool[30];
 
+        for (int i = 0; i < 5; ++i)
+        {
+            if (generic_unlocks.traits[i])
+            {
+                temp_string[i, 0] = classes[current_class].GetTraitName(i + 1);
+                temp_string[i, 1] = classes[current_class].GetTraitDescription(i + 1);
+                unlocked[i] = true;
+            }
+            else
+            {
+                temp_string[i, 0] = "Locked";
+                temp_string[i, 1] = "Find and complete the related quest to unlock this trait.";
+                unlocked[i] = false;
+            }
+
+            if (class_unlocks[current_class].traits[i])
+            {
+                temp_string[i + 5, 0] = classes[current_class].GetTraitName(i + 6);
+                temp_string[i + 5, 1] = classes[current_class].GetTraitDescription(i + 6);
+                unlocked[i + 5] = true;
+            }
+            else
+            {
+                temp_string[i + 5, 0] = "Locked";
+                temp_string[i + 5, 1] = "Find and complete the related quest to unlock this trait.";
+                unlocked[i + 5] = false;
+            }
+        }
+
+        for (int i = 0; i < 10; ++i)
+        {
+            if (generic_unlocks.lv >= 1 + (i * 2))
+            {
+                temp_string[i + 10, 0] = classes[current_class].GetTraitName(i + 10);
+                temp_string[i + 10, 1] = classes[current_class].GetTraitDescription(i + 10);
+                unlocked[i + 10] = true;
+            }
+            else
+            {
+                temp_string[i + 10, 0] = "Locked";
+                temp_string[i + 10, 1] = "Reach level " + (1 + (i * 2)) + " to unlock this trait.";
+                unlocked[i + 10] = false;
+            }
+
+            if (generic_unlocks.lv >= (i + 1 * 2))
+            {
+                if (i % 2 == 0)
+                {
+                    temp_string[i + 20, 0] = classes[current_class].GetTraitName(20 + (i/2));
+                    temp_string[i + 20, 1] = classes[current_class].GetTraitDescription(20 + (i / 2));
+                }
+                else
+                {
+                    temp_string[i + 20, 0] = classes[current_class].GetSubTraitName(current_class_data[current_class].current_sub, i / 2);
+                    temp_string[i + 20, 1] = classes[current_class].GetSubTraitDescription(current_class_data[current_class].current_sub, i / 2);
+                }
+                unlocked[i + 20] = true;
+            }
+            else
+            {
+                temp_string[i + 20, 0] = "Locked";
+                temp_string[i + 20, 1] = "Reach level " + ((i + 1) * 2) + " to unlock this trait.";
+                unlocked[i + 20] = false;
+            }
+        }
+
+        selected = new int[generic_unlocks.trait_slots];
+
+        for (int i = 0; i < selected.Length; ++i)
+            selected[i] = current_class_data[current_class].free_traits[i];
+
+        return temp_string;
+    }
+
+    public void SetPlayerTraits(int[] selected)
+    {
+        for (int i = 0; i < selected.Length; ++i)
+        {
+            if (i < generic_unlocks.trait_slots)
+                current_class_data[current_class].free_traits[i] = selected[i];
+            else
+                current_class_data[current_class].free_traits[i] = -1;
+        }
     }
 
     public Human GetPlayer()
     {
         CurrentClassData temp_data = current_class_data[current_class];
         return classes[current_class].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
+    }
+
+    //Inventory
+    public int GetMoney()
+    {
+        return current_generic_data.money;
+    }
+
+    public void AddMoney(int money)
+    {
+        current_generic_data.money = money;
+    }
+
+    public int GetInventorySize()
+    {
+        return 4 + (current_generic_data.pack_upgrades * 2);
+    }
+
+    public int GetInventoryCount()
+    {
+        return current_generic_data.inventory.Count;
+    }
+
+    public int GetInventorySlot(int index)
+    {
+        if (index < GetInventoryCount())
+            return current_generic_data.inventory[index];
+
+        return 0;
+    }
+
+    public void AddInventory(int index)
+    {
+        if (GetInventoryCount() < GetInventorySize())
+            current_generic_data.inventory.Add(index);
+    }
+
+    public void RemoveInventory(int index)
+    {
+        if (index < GetInventoryCount())
+            current_generic_data.inventory.RemoveAt(index);
+    }
+
+    public void UpgradeInventory()
+    {
+        ++current_generic_data.pack_upgrades;
     }
 
     //Dungeon

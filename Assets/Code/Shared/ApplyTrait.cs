@@ -195,13 +195,9 @@ public static class ApplyTrait
         int[] temp_varaibles;
 
         foreach (Trait trait in target_traits)
-        {
             for (int i = 0; i < trait.GetNumberEffects(); ++i)
-            {
                 if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.OnSpawn)
                     ConditionToAbility(trait, i, user, manager);
-            }
-        }
     }
 
     public static void OnConditon(Unit user, Unit target, Trait[] user_traits, Trait[] target_traits, DungeonManager manager, int index, int rank)

@@ -142,14 +142,12 @@ public class HumanClass : ScriptableObject
 
         for (int i = 0; i < traits_i.Length; ++i)
         {
-            if (traits_i.Length != 3 || traits_i[i] < 0)
-                temp_traits[3 + i] = trait_list[0];
-            else if (traits_i[i] < trait_list.Length)
-                temp_traits[3 + i] = trait_list[traits_i[i]];
-            else if (traits_i[i] < trait_list.Length + temp_sub_class.free_traits.Length)
-                temp_traits[3 + i] = temp_sub_class.free_traits[traits_i[i] - trait_list.Length];
+            if (traits_i[i] < 0 || traits_i[i] >= 30)
+                temp_traits[4 + i] = trait_list[0];
+            else if (traits_i[i] < 26)
+                temp_traits[4 + i] = trait_list[traits_i[i + 1]];
             else
-                temp_traits[3 + i] = trait_list[0];
+                temp_traits[4 + i] = temp_sub_class.free_traits[traits_i[i] - 25];
         }
 
         Attack[] temp_attacks = new Attack[8];
@@ -173,6 +171,7 @@ public class HumanClass : ScriptableObject
     {
         return class_name;
     }
+
     public String GetClassDescription()
     {
         return description;

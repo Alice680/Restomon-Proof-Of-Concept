@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trait_name: None
   trait_description: No trait in this slot
-  effects: []
+  effects:
+  - ability: 0
+    ability_variables: 
+    condition: 0
+    condition_variables: 
+    requirements: []

@@ -58,6 +58,19 @@ public class DungeonFloorRandom : DungeonFloor
 
         public bool PathValid(Path other)
         {
+            if(other.x_first)
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    if (other.x_goal == 0)
+                        return false;
+                }
+            }
+            else
+            {
+
+            }
+
             return true;
         }
 
@@ -231,6 +244,12 @@ public class DungeonFloorRandom : DungeonFloor
     {
         public int chance;
         public MonsterStats monster;
+    }
+
+    protected class ItemChance
+    {
+        public int index, chance;
+        public bool unique;
     }
 
     public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)

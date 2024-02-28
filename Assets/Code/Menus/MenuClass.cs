@@ -12,16 +12,19 @@ public class MenuClass : MenuSwapIcon
     [SerializeField] private GameObject initial_menu, core_menu, stats_menu, gear_menu, traits_menu;
     [SerializeField] private GameObject[] initial_select, initial_star, core_select;
 
-    [SerializeField] private GameObject[] attack_data, trait_data, gear_data;
+    [SerializeField] private GameObject[] attack_data, trait_data, gear_data, free_data, free_marked;
 
-    [SerializeField] private Text[] attack_text, stat_text, trait_text, gear_text;
+    [SerializeField] private Text free_traits;
+    [SerializeField] private Text[] attack_text, stat_text, trait_text, gear_text, free_text;
     [SerializeField] private Text[] text_boxes;
 
     private int class_chosen;
 
-    private int[] gear_chosen;
+    private int[] gear_chosen, traits_chosen;
 
-    private string[,] sub_string, weapon_string, trinket_string;
+    private bool[] traits_unlocked;
+
+    private string[,] sub_string, weapon_string, trinket_string, trait_string;
 
     private PermDataHolder data_holder;
 
@@ -65,6 +68,15 @@ public class MenuClass : MenuSwapIcon
 
         for (int i = 0; i < 4; ++i)
             trait_data[i].SetActive(false);
+
+        for (int i = 0; i < 4; ++i)
+            gear_data[i].SetActive(false);
+
+        for (int i = 0; i < 15; ++i)
+        {
+            free_data[i].SetActive(false);
+            free_marked[i].SetActive(false);
+        }
     }
 
     private void OpenInitial()
@@ -97,7 +109,7 @@ public class MenuClass : MenuSwapIcon
 
         Human temp_human = data_holder.GetPlayer();
 
-        text_boxes[0].text = "" + data_holder.GetPlayer().GetAttack(x_value + (y_value * 2)).GetDescription();
+        text_boxes[0].text = "" + temp_human.GetAttack(x_value + (y_value * 2)).GetDescription();
 
         stat_text[0].text = "" + temp_human.GetHp() + "+" + temp_human.GetApr();
 
@@ -134,7 +146,40 @@ public class MenuClass : MenuSwapIcon
 
     private void OpenTraits()
     {
+        traits_menu.SetActive(true);
+        trait_string = data_holder.GetPlayerTraits(out traits_unlocked, out traits_chosen);
 
+        x_value = 0;
+        y_value = 0;
+
+        free_data[y_value + (x_size * 5)].SetActive(true);
+
+        for (int i = 0; i < 5; ++i)
+        {
+            free_text[i].text = trait_string[i, 0];
+            free_text[i + 5].text = trait_string[i + 10, 0];
+            free_text[i + 10].text = trait_string[i + 20, 0];
+        }
+
+        text_boxes[2].text = trait_string[y_value + (x_value * 10), 1];
+
+        int temp_chosen = 0;
+
+        for (int i = 0; i < traits_chosen.Length; ++i)
+        {
+            if (traits_chosen[i] != -1)
+            {
+                ++temp_chosen;
+
+                if ((traits_chosen[i] % 10 < 5 && y_value < 5))
+                    free_marked[(traits_chosen[i] / 10 * 5) + (traits_chosen[i] % 5)].SetActive(true);
+
+                if ((traits_chosen[i] % 10 >= 5 && y_value >= 5))
+                    free_marked[(traits_chosen[i] / 10 * 5) + (traits_chosen[i] % 5)].SetActive(true);
+            }
+        }
+
+        free_traits.text = temp_chosen + "/" + traits_chosen.Length;
     }
 
     public bool Run(Inputer input)
@@ -325,11 +370,51 @@ public class MenuClass : MenuSwapIcon
 
         if (input.GetDir() != Direction.None && input.GetMoveKeyUp())
         {
+            GetInputValue(x_value, y_value, 3, 10, input.GetDir(), out x_value, out y_value);
 
+            for (int i = 0; i < 15; ++i)
+                free_data[i].SetActive(false);
+
+            free_data[y_value % 5 + (x_value * 5)].SetActive(true);
+
+            if (y_value < 5)
+                for (int i = 0; i < 5; ++i)
+                {
+                    free_text[i + 0].text = trait_string[i + 0, 0];
+                    free_text[i + 5].text = trait_string[i + 10, 0];
+                    free_text[i + 10].text = trait_string[i + 20, 0];
+                }
+            else
+                for (int i = 0; i < 5; ++i)
+                {
+                    free_text[i + 0].text = trait_string[i + 5, 0];
+                    free_text[i + 5].text = trait_string[i + 15, 0];
+                    free_text[i + 10].text = trait_string[i + 25, 0];
+                }
+
+            text_boxes[2].text = trait_string[y_value + (x_value * 10), 1];
         }
         else if (input.GetEnter())
         {
+            if (traits_unlocked[y_value + (x_value * 10)])
+            {
+                int i;
 
+                for (i = 0; i < traits_chosen.Length; ++i)
+                    if (traits_chosen[i] == y_value + (x_value * 10))
+                    {
+                        traits_chosen[i] = -1;
+                        break;
+                    }
+
+                if (i == traits_chosen.Length)
+                    for (i = 0; i < traits_chosen.Length; ++i)
+                        if (traits_chosen[i] == -1)
+                        {
+                            traits_chosen[i] = y_value + (x_value * 10);
+                            break;
+                        }
+            }
         }
         else if (input.GetBack())
         {
@@ -337,8 +422,35 @@ public class MenuClass : MenuSwapIcon
             x_value = 2;
             OpenCore();
 
-            current_state = State.Core;
-        }
-    }
+            data_holder.SetPlayerTraits(traits_chosen);
 
+            current_state = State.Core;
+            return;
+        }
+        else
+        {
+            return;
+        }
+
+        for (int i = 0; i < 15; ++i)
+            free_marked[i].SetActive(false);
+
+        int temp_chosen = 0;
+
+        for (int i = 0; i < traits_chosen.Length; ++i)
+        {
+            if (traits_chosen[i] != -1)
+            {
+                ++temp_chosen;
+
+                if ((traits_chosen[i] % 10 < 5 && y_value < 5))
+                    free_marked[(traits_chosen[i] / 10 * 5) + (traits_chosen[i] % 5)].SetActive(true);
+
+                if ((traits_chosen[i] % 10 >= 5 && y_value >= 5))
+                    free_marked[(traits_chosen[i] / 10 * 5) + (traits_chosen[i] % 5)].SetActive(true);
+            }
+        }
+
+        free_traits.text = temp_chosen + "/" + traits_chosen.Length;
+    }
 }
