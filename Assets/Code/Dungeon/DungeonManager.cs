@@ -105,6 +105,9 @@ public class DungeonManager : MonoBehaviour
 
         performed_action = true;
 
+        if (current_unit == player && map.GetTileItem(current_unit.GetPosition()) != -1)
+            GrabItem(current_unit.GetPosition());
+
         if (moves > 0)
             moves = Mathf.Max(0, moves - 1);
         else if (actions > 0)
@@ -304,6 +307,27 @@ public class DungeonManager : MonoBehaviour
         performed_action = true;
     }
 
+    private void GrabItem(Vector3Int position)
+    {
+        int temp_index = map.GetTileItem(position);
+
+        if (temp_index == -1)
+            return;
+
+        string temp_name = ItemHolder.GetItem(temp_index).GetInfo(out string temp_description);
+
+        if (data_holder.GetInventoryCount() < data_holder.GetInventorySize())
+        {
+            data_holder.AddInventory(temp_index);
+            map.SetTileItem(position, -1);
+            DungeonTextHandler.AddText("Picked up " + temp_name);
+        }
+        else
+        {
+            DungeonTextHandler.AddText("Found " + temp_name + " but inventory was already full.");
+        }
+    }
+
     public void ChangeMovement(int value)
     {
         moves += value;
@@ -345,7 +369,7 @@ public class DungeonManager : MonoBehaviour
 
     public void WinDungeon()
     {
-        current_dungeon.SetVictory(data_holder,true);
+        current_dungeon.SetVictory(data_holder, true);
         SceneManager.LoadScene(3);
     }
 

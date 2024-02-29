@@ -17,16 +17,13 @@ public class DungeonMap
 {
     private class Node
     {
-        public DungeonTileType type;
-        public GameObject model;
-        public GameObject marker;
-        public GameObject trait_model;
-        public GameObject weather_model;
-        public Unit current_unit;
-        public int tile_trait;
-        public int model_num;
-
         public int x, y;
+        public DungeonTileType type;
+
+        public Unit current_unit;
+
+        public int model_num, tile_trait, item_num;
+        public GameObject model, marker, trait_model, weather_model, item_model;
 
         public Node()
         {
@@ -34,6 +31,7 @@ public class DungeonMap
             model = null;
             current_unit = null;
             tile_trait = 0;
+            item_num = -1;
         }
 
         public Node(DungeonTileType type, GameObject model, int model_num, int x, int y)
@@ -45,6 +43,7 @@ public class DungeonMap
             this.model_num = model_num;
             current_unit = null;
             tile_trait = 0;
+            item_num = -1;
         }
 
         public void SetMarker(int id)
@@ -99,11 +98,28 @@ public class DungeonMap
                 GameObject.Destroy(weather_model);
         }
 
+        public void SetItem(int index)
+        {
+            item_num = index;
+
+            item_model = ItemHolder.GetItem(item_num).GetDungeonModel();
+            item_model.transform.position = new Vector3Int(x, y, 0);
+        }
+
+        public void ClearItem()
+        {
+            item_num = -1;
+
+            if (item_model != null)
+                GameObject.Destroy(item_model);
+        }
+
         public void Clear()
         {
             ClearMarker();
             ClearWeather();
             ClearTrait();
+            ClearItem();
 
             if (model != null)
                 GameObject.Destroy(model);
@@ -156,7 +172,7 @@ public class DungeonMap
         UpdateWeather();
     }
 
-        public void ForceWeather(int weather, int power)
+    public void ForceWeather(int weather, int power)
     {
         weather_manager.ForceWeather(weather, power);
         UpdateWeather();
@@ -271,6 +287,28 @@ public class DungeonMap
             return;
 
         nodes[x, y].SetTrait(id, tile_conditions.GetModel(id));
+    }
+
+    //Items
+    public int GetTileItem(Vector3Int vec)
+    {
+        return GetTileItem(vec.x, vec.y);
+    }
+    public int GetTileItem(int x, int y)
+    {
+        return nodes[x, y].item_num;
+    }
+
+    public void SetTileItem(Vector3Int vec, int index)
+    {
+        SetTileItem(vec.x, vec.y, index);
+    }
+    public void SetTileItem(int x, int y, int index)
+    {
+        if (index == -1)
+            nodes[x, y].ClearItem();
+        else
+            nodes[x, y].SetItem(index);
     }
 
     //Checks

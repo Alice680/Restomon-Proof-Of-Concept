@@ -6,10 +6,11 @@ using UnityEngine;
 public class DungeonFloorRandom : DungeonFloor
 {
     [SerializeField] protected TileSetHolder tile_set;
-    [SerializeField] protected int x_size, y_size, min_rooms, max_room, room_min_size, room_max_size;
+    [SerializeField] protected int x_size, y_size, min_rooms, max_room, room_min_size, room_max_size, extra_paths;
     [SerializeField] protected MonsterChance[] monsters;
+    [SerializeField] protected ItemChance[] items;
     [SerializeField] private int spawn_rate;
-    [SerializeField] protected int min_monsters, max_monsters;
+    [SerializeField] protected int min_monsters, max_monsters, min_items, max_items;
     [SerializeField] protected int weather_type, weather_power;
 
     protected class Room
@@ -347,6 +348,7 @@ public class DungeonFloorRandom : DungeonFloor
         public MonsterStats monster;
     }
 
+    [System.Serializable]
     protected class ItemChance
     {
         public int index, chance;
@@ -373,13 +375,20 @@ public class DungeonFloorRandom : DungeonFloor
 
         start_location = rooms[Random.Range(0, rooms.Count)].GetRandomPoint();
 
-        map.SetTileTrait(rooms[Random.Range(0, rooms.Count)].GetRandomPoint(), 1);
+        Vector3Int end_location = start_location;
+
+        while(end_location == start_location)
+            end_location = rooms[Random.Range(0, rooms.Count)].GetRandomPoint();
+
+        map.SetTileTrait(end_location, 1);
 
         map.SetWeatherManager(weather_manager);
 
         map.ForceWeather(weather_type, weather_power);
 
         GetEnemys(start_location, rooms.ToArray(), out enemies, out positions);
+
+        GetItems(start_location,end_location, rooms.ToArray(), map);
 
         return map;
     }
@@ -395,7 +404,7 @@ public class DungeonFloorRandom : DungeonFloor
             bool invalid_room = true;
             while (invalid_room)
             {
-                if (++iteration_tracker == 250)
+                if (++iteration_tracker == 100)
                     return false;
 
                 temp_room = new Room(x_size, y_size, room_min_size, room_max_size);
@@ -416,20 +425,65 @@ public class DungeonFloorRandom : DungeonFloor
     {
         valid_path = new List<Path>();
 
-        for (int i = 0; i < rooms.Count; ++i)
+        for (int i = 0; i < rooms.Count - 1; ++i)
         {
             int iteration_tracker = 0;
             while (true)
             {
-                if (++iteration_tracker == 250)
+                if (++iteration_tracker == 100)
                     return false;
 
-                int temp_room = Random.Range(0, rooms.Count);
+                int temp_room = i + 1;
 
                 if (temp_room == i)
                     continue;
 
                 Path temp_path = new Path(rooms[i], rooms[temp_room]);
+
+                bool temp_is_valid = true;
+
+                foreach (Room room in rooms)
+                    if (!room.PathValid(temp_path))
+                    {
+                        temp_is_valid = false;
+                        break;
+                    }
+
+                if (temp_is_valid == false)
+                    continue;
+
+                foreach (Path path in valid_path)
+                    if (!path.PathValid(temp_path))
+                    {
+                        temp_is_valid = false;
+                        break;
+                    }
+
+                if (temp_is_valid == false)
+                    continue;
+
+                valid_path.Add(temp_path);
+                break;
+            }
+
+
+        }
+
+        for (int i = 0; i < extra_paths; ++i)
+        {
+            int iteration_tracker = 0;
+            while (true)
+            {
+                if (++iteration_tracker == 100)
+                    return false;
+
+                int temp_room_a = Random.Range(0, rooms.Count);
+                int temp_room_b = Random.Range(0, rooms.Count);
+
+                if (temp_room_a == temp_room_b)
+                    continue;
+
+                Path temp_path = new Path(rooms[temp_room_a], rooms[temp_room_b]);
 
                 bool temp_is_valid = true;
 
@@ -508,6 +562,38 @@ public class DungeonFloorRandom : DungeonFloor
         }
     }
 
+    private void GetItems(Vector3Int player_position, Vector3Int end_position, Room[] rooms, DungeonMap map)
+    {
+        int[] ground_items = new int[Random.Range(min_items, max_items + 1)];
+        Vector3Int[] positions = new Vector3Int[ground_items.Length];
+
+        for (int i = 0; i < ground_items.Length; ++i)
+        {
+            ground_items[i] = GetRandomItem();
+
+            while (true)
+            {
+                positions[i] = rooms[Random.Range(0, rooms.Length)].GetRandomPoint();
+
+                if (positions[i] == player_position)
+                    continue;
+
+                bool overlap = false;
+
+                for (int e = 0; e < i; ++e)
+                    if (positions[i] == positions[e])
+                        overlap = true;
+
+                if (overlap)
+                    continue;
+
+                break;
+            }
+
+            map.SetTileItem(positions[i], ground_items[i]);
+        }
+    }
+
     public override Creature GetRandomCreature()
     {
         Creature creature = null;
@@ -522,6 +608,11 @@ public class DungeonFloorRandom : DungeonFloor
             }
 
         return creature;
+    }
+
+    public int GetRandomItem()
+    {
+        return 0;
     }
 
     public override Creature GetDungeonManager()

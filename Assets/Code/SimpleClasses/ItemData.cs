@@ -11,7 +11,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private Attack effect;
     [SerializeField] private GameObject dungeon_model, inventory_model;
 
-    public string GetInfo(string info)
+    public string GetInfo(out string info)
     {
         info = description;
         return item_name;
@@ -31,11 +31,11 @@ public class ItemData : ScriptableObject
 
     public GameObject GetDungeonModel()
     {
-        return dungeon_model;
+        return Instantiate(dungeon_model);
     }
 
     public GameObject GetInventoryModel()
     {
-        return inventory_model;
+        return Instantiate(inventory_model);
     }
 }

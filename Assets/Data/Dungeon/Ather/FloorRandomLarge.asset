@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
   tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
-  x_size: 50
-  y_size: 50
+  x_size: 80
+  y_size: 80
   min_rooms: 8
   max_room: 10
   room_min_size: 6
   room_max_size: 10
+  extra_paths: 0
   monsters:
   - chance: 5
     monster: {fileID: 11400000, guid: 206c7af0e3c03c546a0ceb0c463af347, type: 2}
