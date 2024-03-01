@@ -520,33 +520,20 @@ public class DungeonManager : MonoBehaviour
 
         Vector3Int unit_position = current_unit.GetPosition();
 
-        Vector3Int[] positions = attack.GetArea(unit_position);
+        Vector3Int[] area_positions = attack.GetArea(unit_position);
+        Vector3Int[] target_positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
 
-        map.SetMarker(target.x, target.y, 0);
+        for (int i = 0; i < target_positions.Length; ++i)
+            map.SetMarker(target_positions[i].x, target_positions[i].y, 3);
 
-        for (int i = 0; i < positions.Length; ++i)
+        for (int i = 0; i < area_positions.Length; ++i)
         {
-            if (positions[i] == target)
-                map.SetMarker(positions[i].x, positions[i].y, 2);
-            else
-                map.SetMarker(positions[i].x, positions[i].y, 1);
+            map.SetMarker(area_positions[i].x, area_positions[i].y, 1);
+
+            if (area_positions[i] == target)
+                for (int e = 0; e < target_positions.Length; ++e)
+                    map.SetMarker(target_positions[e].x, target_positions[e].y, 2);
         }
-    }
-
-    public void ShowAttackTarget(Vector3Int target, int index)
-    {
-        map.RemoveAllMarker();
-
-        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
-
-        Attack attack = current_unit.GetAttack(index);
-
-        Vector3Int[] positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
-
-        map.SetMarker(target.x, target.y, 0);
-
-        for (int i = 0; i < positions.Length; ++i)
-            map.SetMarker(positions[i].x, positions[i].y, 3);
     }
 
     public void ShownSummonTarget(Vector3Int target, int index)
@@ -606,13 +593,17 @@ public class DungeonManager : MonoBehaviour
         Vector3Int[] area_positions = attack.GetArea(unit_position);
         Vector3Int[] target_positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
 
-        map.SetMarker(target.x, target.y, 0);
-
-        for (int i = 0; i < area_positions.Length; ++i)
-            map.SetMarker(area_positions[i].x, area_positions[i].y, 1);
-
         for (int i = 0; i < target_positions.Length; ++i)
             map.SetMarker(target_positions[i].x, target_positions[i].y, 3);
+
+        for (int i = 0; i < area_positions.Length; ++i)
+        {
+            map.SetMarker(area_positions[i].x, area_positions[i].y, 1);
+
+            if (area_positions[i] == target)
+                for (int e = 0; e < target_positions.Length; ++e)
+                    map.SetMarker(target_positions[e].x, target_positions[e].y, 2);
+        }
     }
 
     public void RemoveMarker()

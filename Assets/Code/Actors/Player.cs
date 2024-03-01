@@ -13,7 +13,7 @@ using UnityEngine;
 // TODO restrcuture into a main method that splits off based on state and input.
 public class Player : Actor
 {
-    private enum State { startup, idle, human_action_ui, restomon_action_ui, view, aim_attack, view_attack, view_summon, view_evolution, view_item };
+    private enum State { startup, idle, human_action_ui, restomon_action_ui, view, view_attack, view_summon, view_evolution, view_item };
 
     private DungeonManager manager_ref;
 
@@ -62,9 +62,6 @@ public class Player : Actor
             case State.view:
                 View();
                 break;
-            case State.aim_attack:
-                AimAttack();
-                break;
             case State.view_attack:
                 ViewAttack();
                 break;
@@ -111,7 +108,7 @@ public class Player : Actor
 
             manager_ref.ShowAttackArea(target, action_num);
 
-            state = State.aim_attack;
+            state = State.view_attack;
             return;
         }
 
@@ -169,7 +166,7 @@ public class Player : Actor
 
                     manager_ref.ShowAttackArea(target, action_num);
 
-                    state = State.aim_attack;
+                    state = State.view_attack;
                     return;
 
                 case 2:
@@ -252,7 +249,7 @@ public class Player : Actor
 
                     manager_ref.ShowAttackArea(target, action_num);
 
-                    state = State.aim_attack;
+                    state = State.view_attack;
                     return;
 
 
@@ -296,7 +293,7 @@ public class Player : Actor
         }
     }
 
-    private void AimAttack()
+    private void ViewAttack()
     {
         if (inputer.GetDir() != Direction.None)
         {
@@ -314,9 +311,9 @@ public class Player : Actor
             {
                 manager_ref.RemoveMarker();
 
-                manager_ref.ShowAttackTarget(target, action_num);
+                manager_ref.Attack(target, action_num);
 
-                state = State.view_attack;
+                state = State.idle;
             }
 
             return;
@@ -329,26 +326,6 @@ public class Player : Actor
             manager_ref.RemoveMarker();
 
             state = State.idle;
-            return;
-        }
-    }
-
-    private void ViewAttack()
-    {
-        if (inputer.GetEnter())
-        {
-            manager_ref.Attack(target, action_num);
-
-            manager_ref.RemoveMarker();
-
-            state = State.idle;
-        }
-
-        if (inputer.GetBack())
-        {
-            manager_ref.ShowAttackArea(target, action_num);
-
-            state = State.aim_attack;
             return;
         }
     }
