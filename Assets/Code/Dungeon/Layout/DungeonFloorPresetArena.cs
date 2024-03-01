@@ -28,9 +28,9 @@ public class DungeonFloorPresetArena : DungeonFloorPreset
         return base.GenerateDungeon(weather_manager, out start_location);
     }
 
-    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, PermDataHolder data_holder, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
-        return base.GenerateDungeon(weather_manager, out start_location, out enemies, out positions);
+        return base.GenerateDungeon(weather_manager,data_holder, out start_location, out enemies, out positions);
     }
 
     public override Vector3Int GetStartPosition()

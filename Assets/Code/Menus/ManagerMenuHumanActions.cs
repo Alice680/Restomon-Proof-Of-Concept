@@ -11,29 +11,28 @@ using UnityEngine.UI;
  * 
  * Notes:
  */
-// TODO ADD in items
 public class ManagerMenuHumanActions : MonoBehaviour
 {
-    private enum State { main, attack, summon };
+    private enum State { main, attack, summon, item };
 
     [SerializeField] private DungeonManager manager_ref;
     [SerializeField] private PermDataHolder data_holder;
 
-    [SerializeField] private MenuSwapIcon main_menu;
-    [SerializeField] private MenuSwapIcon attack_menu;
-    [SerializeField] private MenuSwapIcon summon_menu;
-
     [SerializeField] private GameObject text_box;
-    [SerializeField] private Text[] attack_text;
-    [SerializeField] private Text[] summon_text;
-    [SerializeField] private Text attack_box_text;
-    [SerializeField] private Text attack_hp_text;
+
+    [SerializeField] private MenuSwapIcon main_menu;
+    [SerializeField] private MenuSwapIcon attack_menu, summon_menu;
+    [SerializeField] private MenuInventory item_menu;
+
+    [SerializeField] private Text[] attack_text, summon_text;
+    [SerializeField] private Text attack_box_text, attack_hp_text;
 
     private State state;
 
     public void SetDataHolder(PermDataHolder data_holder)
     {
         this.data_holder = data_holder;
+        item_menu.Startup(data_holder);
     }
 
     public void OpenActionMenu()
@@ -111,8 +110,15 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     return 3;
 
                 case 4:
+                    main_menu.DeActivate();
+                    item_menu.Activate();
 
-                    break;
+                    text_box.SetActive(true);
+                    attack_box_text.text = item_menu.GetDescription();
+
+                    state = State.item;
+                    exit_value = 0;
+                    return -1;
 
                 case 5:
                     main_menu.DeActivate();
@@ -169,6 +175,23 @@ public class ManagerMenuHumanActions : MonoBehaviour
                 return 2;
             }
         }
+        else if (state == State.item)
+        {
+            exit_value = item_menu.GetItem(out bool is_active_item);
+
+            if (is_active_item && manager_ref.GetActions() > 0)
+            {
+                item_menu.DeActivate();
+
+                text_box.SetActive(false);
+                attack_box_text.text = "";
+                attack_hp_text.text = "";
+
+                state = State.main;
+
+                return 4;
+            }
+        }
 
         exit_value = -1;
         return -1;
@@ -196,9 +219,15 @@ public class ManagerMenuHumanActions : MonoBehaviour
 
                 summon_menu.GetValues(out x, out y);
                 if (y < data_holder.GetCatalyst().GetRestomonAmount())
-                    attack_hp_text.text = data_holder.GetCatalyst().GetSummonCost(data_holder.GetTeam(y).GetSummonCost(RestomonEvolution.None, -1) )+ "";
+                    attack_hp_text.text = data_holder.GetCatalyst().GetSummonCost(data_holder.GetTeam(y).GetSummonCost(RestomonEvolution.None, -1)) + "";
                 else
                     attack_hp_text.text = "0";
+                break;
+
+            case State.item:
+                item_menu.UpdateMenu(dir);
+                attack_box_text.text = item_menu.GetDescription();
+
                 break;
         }
     }
@@ -219,6 +248,9 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     break;
                 case State.summon:
                     summon_menu.DeActivate();
+                    break;
+                case State.item:
+                    item_menu.DeActivate();
                     break;
             }
 

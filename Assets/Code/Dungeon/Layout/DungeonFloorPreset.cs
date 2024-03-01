@@ -34,7 +34,7 @@ public class DungeonFloorPreset : DungeonFloor
         return map;
     }
 
-    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, PermDataHolder data_holder, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
         DungeonMap map = new DungeonMap(x_size, y_size, tile_set);
 

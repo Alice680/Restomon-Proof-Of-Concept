@@ -7,7 +7,7 @@ public class ItemData : ScriptableObject
 {
     [SerializeField] private string item_name, description;
     [SerializeField] private int value;
-    [SerializeField] private bool is_active, is_sellable;
+    [SerializeField] private bool is_active, is_sellable, is_unique;
     [SerializeField] private Attack effect;
     [SerializeField] private GameObject dungeon_model, inventory_model;
 
@@ -17,16 +17,21 @@ public class ItemData : ScriptableObject
         return item_name;
     }
 
-    public Attack GetEffect(bool has_effect)
+    public Attack GetEffect(out bool has_effect)
     {
         has_effect = is_active;
         return effect;
     }
 
-    public int GetValue(bool has_value)
+    public int GetValue(out bool has_value)
     {
         has_value = is_sellable;
         return value;
+    }
+
+    public bool GetUnique()
+    {
+        return is_unique;
     }
 
     public GameObject GetDungeonModel()

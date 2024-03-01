@@ -14,7 +14,7 @@ public enum AttackEffect { None, Damage, Healing, Buff, AddToTurn, ChangeConditi
 public enum AttackRequirement { None, Chance, Condition }
 public enum AttackTarget { Self, Enemy, Ally, All, Dungeon, Tile }
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableAttack", order = 2)]
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Attack")]
 public class Attack : ScriptableObject
 {
     [Serializable]

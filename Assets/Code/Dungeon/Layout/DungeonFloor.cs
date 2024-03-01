@@ -24,7 +24,7 @@ public class DungeonFloor : ScriptableObject
         return new DungeonMap(0, 0, null);
     }
 
-    public virtual DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager,out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
+    public virtual DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, PermDataHolder data_holder, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
         start_location = new Vector3Int();
         enemies = null;
@@ -34,7 +34,7 @@ public class DungeonFloor : ScriptableObject
 
     public virtual Vector3Int GetStartPosition()
     {
-        return new Vector3Int(-1, -1,0);
+        return new Vector3Int(-1, -1, 0);
     }
 
     public virtual Creature GetDungeonManager()

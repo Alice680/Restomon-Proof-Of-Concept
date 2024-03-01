@@ -352,10 +352,9 @@ public class DungeonFloorRandom : DungeonFloor
     protected class ItemChance
     {
         public int index, chance;
-        public bool unique;
     }
 
-    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
+    public override DungeonMap GenerateDungeon(DungeonWeatherManager weather_manager, PermDataHolder data_holder, out Vector3Int start_location, out Creature[] enemies, out Vector3Int[] positions)
     {
         List<Room> rooms;
         List<Path> paths;
@@ -377,7 +376,7 @@ public class DungeonFloorRandom : DungeonFloor
 
         Vector3Int end_location = start_location;
 
-        while(end_location == start_location)
+        while (end_location == start_location)
             end_location = rooms[Random.Range(0, rooms.Count)].GetRandomPoint();
 
         map.SetTileTrait(end_location, 1);
@@ -388,7 +387,7 @@ public class DungeonFloorRandom : DungeonFloor
 
         GetEnemys(start_location, rooms.ToArray(), out enemies, out positions);
 
-        GetItems(start_location,end_location, rooms.ToArray(), map);
+        GetItems(start_location, end_location, rooms.ToArray(), map, data_holder);
 
         return map;
     }
@@ -562,14 +561,37 @@ public class DungeonFloorRandom : DungeonFloor
         }
     }
 
-    private void GetItems(Vector3Int player_position, Vector3Int end_position, Room[] rooms, DungeonMap map)
+    private void GetItems(Vector3Int player_position, Vector3Int end_position, Room[] rooms, DungeonMap map, PermDataHolder data_holder)
     {
         int[] ground_items = new int[Random.Range(min_items, max_items + 1)];
         Vector3Int[] positions = new Vector3Int[ground_items.Length];
 
         for (int i = 0; i < ground_items.Length; ++i)
         {
-            ground_items[i] = GetRandomItem();
+            while (true)
+            {
+                ground_items[i] = GetRandomItem();
+
+                if (ground_items[i] == -1)
+                    continue;
+
+                if (ItemHolder.GetItem(ground_items[i]).GetUnique())
+                {
+                    bool temp_unique = true;
+
+                    for (int e = 0; e < i; ++e)
+                        if (ground_items[i] == ground_items[e])
+                            temp_unique = false;
+
+                    if (temp_unique == false)
+                        continue;
+
+                    if (data_holder.GetNumberOfItem(ground_items[i]) != 0)
+                        continue;
+                }
+
+                break;
+            }
 
             while (true)
             {
@@ -612,7 +634,12 @@ public class DungeonFloorRandom : DungeonFloor
 
     public int GetRandomItem()
     {
-        return 0;
+        int random_temp = Random.Range(0, 1000);
+        for (int i = 0; i < items.Length; ++i)
+            if (random_temp >= items[i].chance)
+                return items[i].index;
+
+        return -1;
     }
 
     public override Creature GetDungeonManager()

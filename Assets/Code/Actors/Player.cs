@@ -13,7 +13,7 @@ using UnityEngine;
 // TODO restrcuture into a main method that splits off based on state and input.
 public class Player : Actor
 {
-    private enum State { startup, idle, human_action_ui, restomon_action_ui, view, aim_attack, view_attack, view_summon, view_evolution };
+    private enum State { startup, idle, human_action_ui, restomon_action_ui, view, aim_attack, view_attack, view_summon, view_evolution, view_item };
 
     private DungeonManager manager_ref;
 
@@ -74,6 +74,9 @@ public class Player : Actor
             case State.view_evolution:
                 ViewEvolution();
                 break;
+            case State.view_item:
+                ViewItem();
+                break;
         }
     }
 
@@ -85,7 +88,7 @@ public class Player : Actor
 
     private void Idle()
     {
-        if(manager_ref.GetMoves() == 0 && manager_ref.GetActions() == 0)
+        if (manager_ref.GetMoves() == 0 && manager_ref.GetActions() == 0)
         {
             manager_ref.EndTurn();
             return;
@@ -191,6 +194,13 @@ public class Player : Actor
                     return;
 
                 case 4:
+                    action_num = exit_value;
+
+                    target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
+
+                    manager_ref.ShowItemArea(target, action_num);
+
+                    state = State.view_item;
 
                     return;
 
@@ -421,6 +431,43 @@ public class Player : Actor
         {
             manager_ref.ShowEvolutionTarget(target, target, -1);
 
+            target = new Vector3Int();
+
+            manager_ref.RemoveMarker();
+
+            state = State.idle;
+            return;
+        }
+    }
+
+    private void ViewItem()
+    {
+        if (inputer.GetDir() != Direction.None)
+        {
+            if (manager_ref.PositionValid(target + DirectionMath.GetVectorChange(inputer.GetDir())))
+                target += DirectionMath.GetVectorChange(inputer.GetDir());
+
+            manager_ref.ShowItemArea(target, action_num);
+
+            return;
+        }
+
+        if (inputer.GetEnter())
+        {
+            if (manager_ref.ItemTargetValid(target, action_num))
+            {
+                manager_ref.RemoveMarker();
+
+                manager_ref.UseItem(target, action_num);
+
+                state = State.idle;
+            }
+
+            return;
+        }
+
+        if (inputer.GetBack())
+        {
             target = new Vector3Int();
 
             manager_ref.RemoveMarker();

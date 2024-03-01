@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DropB
   m_EditorClassIdentifier: 
   item_name: Drop B
-  description: Can be sold for money.
-  id: 1
+  description: Can heal small amount of hp
   value: 5
-  is_active: 0
+  is_active: 1
   is_sellable: 1
-  effect: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
-  dungeon_model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
-  inventory_model: {fileID: 5872982894680375880, guid: 82b611333a51e934ba02e3f4df4160ae, type: 3}
+  is_unique: 0
+  effect: {fileID: 11400000, guid: 8c0ef2239e432f744a273c75eeccd01f, type: 2}
+  dungeon_model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}
+  inventory_model: {fileID: 1257950678454338468, guid: 8942a280ad8119f49a7c83bd026b50d1, type: 3}

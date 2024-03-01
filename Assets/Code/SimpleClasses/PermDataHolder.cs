@@ -470,6 +470,17 @@ public class PermDataHolder : MonoBehaviour
         ++current_generic_data.pack_upgrades;
     }
 
+    public int GetNumberOfItem(int index)
+    {
+        int temp_value = 0;
+
+        for (int i = 0; i < GetInventoryCount(); ++i)
+            if (current_generic_data.inventory[i] == index)
+                ++temp_value;
+
+            return temp_value;
+    }
+
     //Dungeon
     public void SetDungeon(int index)
     {

@@ -187,6 +187,41 @@ public class DungeonManager : MonoBehaviour
         temp_unit.Evolve(new_form);
     }
 
+    public void UseItem(Vector3Int target, int index)
+    {
+        Attack attack = ItemHolder.GetItem(data_holder.GetInventorySlot(index)).GetEffect(out bool has_effect);
+
+        List<Unit> attack_targets = new List<Unit>();
+        List<Trait[]> trait_targets = new List<Trait[]>();
+
+        RemoveAttackModels();
+
+        Vector3Int[] positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
+
+        for (int i = 0; i < positions.Length; ++i)
+        {
+            attack_moddels.Add(Instantiate(attack.GetModel(), positions[i], new Quaternion()));
+
+            if (map.GetUnit(positions[i]) != null)
+            {
+                attack_targets.Add(map.GetUnit(positions[i]));
+                trait_targets.Add(GetAllTraits(map.GetUnit(positions[i])));
+            }
+        }
+
+        ApplyAttack.ApplyEffect(attack, current_unit, GetAllTraits(current_unit), attack_targets.ToArray(), trait_targets, positions, map, this);
+
+        attack_time = Time.time;
+        performed_action = true;
+        --actions;
+
+        if (actions < 0)
+            actions = 0;
+
+        if (actions > 4)
+            actions = 4;
+    }
+
     public void SpawnRandomUnit(Vector3Int position)
     {
         if (current_unit.GetCreatureType() != CreatureType.Floor)
@@ -251,7 +286,7 @@ public class DungeonManager : MonoBehaviour
         Creature[] temp_enemy;
         Vector3Int[] temp_enemy_positions;
 
-        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(weather_manager, out start_position, out temp_enemy, out temp_enemy_positions);
+        map = current_dungeon.GetFloor(current_floor).GenerateDungeon(weather_manager, data_holder, out start_position, out temp_enemy, out temp_enemy_positions);
 
         enemy_controller = new AICore(current_dungeon.GetFloor(current_floor).GetAI(), this);
         AddUnit(player, start_position);
@@ -558,6 +593,28 @@ public class DungeonManager : MonoBehaviour
             temp_unit.ShowEvolution(new_form);
     }
 
+    public void ShowItemArea(Vector3Int target, int index)
+    {
+        map.RemoveAllMarker();
+
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+
+        Attack attack = ItemHolder.GetItem(data_holder.GetInventorySlot(index)).GetEffect(out bool has_effect);
+
+        Vector3Int unit_position = current_unit.GetPosition();
+
+        Vector3Int[] area_positions = attack.GetArea(unit_position);
+        Vector3Int[] target_positions = attack.GetTarget(target, DirectionMath.GetDirectionChange(current_unit.GetPosition(), target));
+
+        map.SetMarker(target.x, target.y, 0);
+
+        for (int i = 0; i < area_positions.Length; ++i)
+            map.SetMarker(area_positions[i].x, area_positions[i].y, 1);
+
+        for (int i = 0; i < target_positions.Length; ++i)
+            map.SetMarker(target_positions[i].x, target_positions[i].y, 3);
+    }
+
     public void RemoveMarker()
     {
         dungeon_ui.UpdateUnitStatus(null);
@@ -657,6 +714,25 @@ public class DungeonManager : MonoBehaviour
             return false;
 
         return true;
+    }
+
+    public bool ItemTargetValid(Vector3Int target, int index)
+    {
+        if (current_unit != player || actions == 0)
+            return false;
+
+        Attack attack = ItemHolder.GetItem(data_holder.GetInventorySlot(index)).GetEffect(out bool has_effect);
+
+        if (!has_effect)
+            return false;
+
+        Vector3Int[] positions = attack.GetArea(current_unit.GetPosition());
+
+        for (int i = 0; i < positions.Length; ++i)
+            if (positions[i] == target)
+                return true;
+
+        return false;
     }
 
     public int GetMoves()
