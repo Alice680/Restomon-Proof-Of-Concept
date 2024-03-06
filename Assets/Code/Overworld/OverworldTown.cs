@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TownFeatureType { None, Home, Shop, Smith, Atelier, TBD }
+public enum TownFeatureType { None, Home, Shop, Smith, Atelier, Workshop }
 
 [CreateAssetMenu(fileName = "Town", menuName = "ScriptableObjects/Town")]
 public class OverworldTown : ScriptableObject

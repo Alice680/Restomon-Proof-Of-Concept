@@ -12,6 +12,10 @@ public class OverworldUI : MonoBehaviour
     [SerializeField] private Text[] town_options;
 
     [SerializeField] private ManagerMenuHome menu_home;
+    [SerializeField] private MenuShop menu_shop;
+    [SerializeField] private MenuSmith menu_smith;
+    [SerializeField] private MenuAtelier menu_atelier;
+    [SerializeField] private MenuWorkshop menu_workshop;
 
     private PermDataHolder data_holder;
 
@@ -46,6 +50,10 @@ public class OverworldUI : MonoBehaviour
             town_options[i].text = "";
 
         menu_home.SetData(data_holder);
+        menu_shop.Startup(data_holder);
+        menu_smith.Startup(data_holder);
+        menu_atelier.Startup(data_holder);
+        menu_workshop.Startup(data_holder);
     }
 
     public void ActivateChoice(string name_a, string name_b)
@@ -217,6 +225,31 @@ public class OverworldUI : MonoBehaviour
                     else
                         return false;
                     break;
+
+                case TownFeatureType.Shop:
+                    if (menu_shop.Change(inputer))
+                        current_feature = TownFeatureType.None;
+                    else
+                        return false;
+                    break;
+                case TownFeatureType.Smith:
+                    if (menu_smith.Change(inputer))
+                        current_feature = TownFeatureType.None;
+                    else
+                        return false;
+                    break;
+                case TownFeatureType.Atelier:
+                    if (menu_atelier.Change(inputer))
+                        current_feature = TownFeatureType.None;
+                    else
+                        return false;
+                    break;
+                case TownFeatureType.Workshop:
+                    if (menu_workshop.Change(inputer))
+                        current_feature = TownFeatureType.None;
+                    else
+                        return false;
+                    break;
             }
 
             int temp_int = current_area;
@@ -268,16 +301,16 @@ public class OverworldUI : MonoBehaviour
                                 menu_home.Activate();
                                 return false;
                             case TownFeatureType.Shop:
-
+                                menu_shop.Activate();
                                 return false;
                             case TownFeatureType.Smith:
-
+                                menu_smith.Activate();
                                 return false;
                             case TownFeatureType.Atelier:
-
+                                menu_atelier.Activate();
                                 return false;
-                            case TownFeatureType.TBD:
-
+                            case TownFeatureType.Workshop:
+                                menu_workshop.Activate();
                                 return false;
                         }
 

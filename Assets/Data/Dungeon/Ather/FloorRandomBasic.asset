@@ -36,7 +36,7 @@ MonoBehaviour:
   spawn_rate: 2
   min_monsters: 2
   max_monsters: 4
-  min_items: 1
-  max_items: 2
+  min_items: 10
+  max_items: 15
   weather_type: 0
   weather_power: 0

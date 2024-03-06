@@ -69,6 +69,7 @@ public class PermDataHolder : MonoBehaviour
         public int job;
         public int money, pack_upgrades;
         public List<int> inventory;
+        public int[] storage;
 
         public CurrenGenericData()
         {
@@ -76,6 +77,7 @@ public class PermDataHolder : MonoBehaviour
             money = 15;
             pack_upgrades = 0;
             inventory = new List<int>();
+            storage = new int[5];
         }
     }
 
@@ -227,6 +229,12 @@ public class PermDataHolder : MonoBehaviour
     public void SaveData()
     {
 
+    }
+
+    //Core methods
+    public void Rest()
+    {
+        Debug.Log("Rest");
     }
 
     //Class Data
@@ -381,7 +389,7 @@ public class PermDataHolder : MonoBehaviour
             {
                 if (i % 2 == 0)
                 {
-                    temp_string[i + 20, 0] = classes[current_class].GetTraitName(20 + (i/2));
+                    temp_string[i + 20, 0] = classes[current_class].GetTraitName(20 + (i / 2));
                     temp_string[i + 20, 1] = classes[current_class].GetTraitDescription(20 + (i / 2));
                 }
                 else
@@ -424,13 +432,13 @@ public class PermDataHolder : MonoBehaviour
         return classes[current_class].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
     }
 
-    //Inventory
+    //Items
     public int GetMoney()
     {
         return current_generic_data.money;
     }
 
-    public void AddMoney(int money)
+    public void ChangeMoney(int money)
     {
         current_generic_data.money = money;
     }
@@ -470,6 +478,30 @@ public class PermDataHolder : MonoBehaviour
         ++current_generic_data.pack_upgrades;
     }
 
+    public string[] GetStorageData(out int[] ids, out string[] descriptions)
+    {
+        List<int> temp_ids = new List<int>();
+        List<string> temp_descriptions = new List<string>();
+        List<string> temp_names = new List<string>();
+
+        for (int i = 0; i < current_generic_data.storage.Length; ++i)
+            if (current_generic_data.storage[i] != 0)
+            {
+                temp_ids.Add(i);
+                temp_names.Add(current_generic_data.storage[i] + "  " + ItemHolder.GetItem(i).GetInfo(out string temp_des));
+                temp_descriptions.Add(temp_des);
+            }
+
+        ids = temp_ids.ToArray();
+        descriptions = temp_descriptions.ToArray();
+        return temp_names.ToArray();
+    }
+
+    public void ChangeStorage(int index, int value)
+    {
+        current_generic_data.storage[index] = Mathf.Max(0, current_generic_data.storage[index] + value);
+    }
+
     public int GetNumberOfItem(int index)
     {
         int temp_value = 0;
@@ -478,7 +510,7 @@ public class PermDataHolder : MonoBehaviour
             if (current_generic_data.inventory[i] == index)
                 ++temp_value;
 
-            return temp_value;
+        return temp_value;
     }
 
     //Dungeon
