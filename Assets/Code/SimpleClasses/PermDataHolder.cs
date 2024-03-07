@@ -440,7 +440,7 @@ public class PermDataHolder : MonoBehaviour
 
     public void ChangeMoney(int money)
     {
-        current_generic_data.money = money;
+        current_generic_data.money += money;
     }
 
     public int GetInventorySize()
@@ -511,6 +511,121 @@ public class PermDataHolder : MonoBehaviour
                 ++temp_value;
 
         return temp_value;
+    }
+
+    public void AddItem(int index, int quantity)
+    {
+        while (quantity > 0 && GetInventoryCount() < GetInventorySize())
+        {
+            --quantity;
+
+            AddInventory(index);
+        }
+
+        ChangeStorage(index, quantity);
+    }
+
+    public void RemoveItem(int index, int quantity)
+    {
+        while (quantity > 0 && GetInventoryCount() > 0)
+        {
+            bool remove = false;
+            for (int i = 0; i < GetInventoryCount(); ++i)
+            {
+                if (GetInventorySlot(i) == index)
+                {
+                    --quantity;
+
+                    RemoveInventory(i);
+
+                    break;
+                }
+            }
+
+            if (!remove)
+                break;
+        }
+
+        ChangeStorage(index, -quantity);
+    }
+
+    public int CheckItem(int index)
+    {
+        int temp_value = current_generic_data.storage[index];
+
+        for (int i = 0; i < GetInventoryCount(); ++i)
+            if (GetInventorySlot(i) == index)
+                ++temp_value;
+
+        return temp_value;
+    }
+
+    public string[] GetsellableItems(out string[] descriptions,out int[] index, out int[] values)
+    {
+        List<int> temp_indexs_l = new List<int>();
+        List<int> temp_counts_l = new List<int>();
+        List<int> temp_values_l = new List<int>();
+
+        List<string> temp_names_l = new List<string>();
+        List<string> temp_descriptions_l = new List<string>();
+
+        for (int i = 0; i < current_generic_data.storage.Length; ++i)
+        {
+            int temp_value = ItemHolder.GetItem(i).GetValue(out bool temp_has_value);
+
+            if (temp_has_value && current_generic_data.storage[i] > 0)
+            {
+                temp_indexs_l.Add(i);
+                temp_counts_l.Add(current_generic_data.storage[i]);
+                temp_names_l.Add(ItemHolder.GetItem(i).GetInfo(out string temp_description));
+                temp_descriptions_l.Add(temp_description);
+                temp_values_l.Add(temp_value);
+            }
+        }
+
+        for (int i = 0; i < GetInventoryCount(); ++i)
+        {
+            bool temp_check = false;
+            for (int e = 0; e < temp_indexs_l.Count; ++e)
+            {
+                if (GetInventorySlot(i) == temp_indexs_l[e])
+                {
+                    ++temp_counts_l[e];
+                    temp_check = true;
+                    break;
+                }
+            }
+
+            if (!temp_check)
+            {
+                int temp_value = ItemHolder.GetItem(i).GetValue(out bool temp_has_value);
+
+                if (temp_has_value)
+                {
+                    temp_indexs_l.Add(GetInventorySlot(i));
+                    temp_counts_l.Add(1);
+                    temp_names_l.Add(ItemHolder.GetItem(i).GetInfo(out string temp_description));
+                    temp_descriptions_l.Add(temp_description);
+                    temp_values_l.Add(temp_value);
+                }
+            }
+        }
+
+        for (int i = 0; i < temp_indexs_l.Count; ++i)
+            temp_names_l[i] += "   " + temp_counts_l[i] + "   " + temp_values_l[i];
+
+        if (temp_names_l.Count == 0)
+        {
+            values = new int[0];
+            index = new int[0];
+            descriptions = new string[0];
+            return new string[0];
+        }
+
+        values = temp_values_l.ToArray();
+        index = temp_indexs_l.ToArray();
+        descriptions = temp_descriptions_l.ToArray();
+        return temp_names_l.ToArray();
     }
 
     //Dungeon

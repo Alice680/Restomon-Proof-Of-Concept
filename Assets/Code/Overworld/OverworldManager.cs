@@ -28,9 +28,13 @@ public class OverworldManager : MonoBehaviour
 
         overworld_ui = GameObject.Find("Overworld UI").GetComponent<OverworldUI>();
 
+        OverworldLayout temp_layout = data_holder.GetOverworld(out Vector2Int position);
+
         player_entity = new OverworldEntity(data_holder.GetPlayer().GetModel());
-        map = data_holder.GetOverworld(out Vector2Int position).GetMap(data_holder, out DialogueTree dialogue);
+
+        map = temp_layout.GetMap(data_holder, out DialogueTree dialogue);
         map.Move(player_entity, (Vector3Int)position);
+        temp_layout.SetUIValues(overworld_ui);
 
         UpdateCamera();
         overworld_ui.Startup(data_holder);

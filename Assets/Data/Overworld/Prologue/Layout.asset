@@ -511,3 +511,7 @@ MonoBehaviour:
         index: 0
         value: 2
       dungeon_triggers: []
+  shop_info:
+  - values:
+    - {x: 0, y: 5}
+    - {x: 2, y: 3}

@@ -5,6 +5,26 @@ using UnityEngine.UI;
 
 public class OverworldUI : MonoBehaviour
 {
+    private class ShopInfo
+    {
+        public Vector2Int[] values;
+
+        public ShopInfo(Vector2Int[] values)
+        {
+            this.values = values;
+        }
+    }
+
+    private class SmithInfo
+    {
+
+    }
+
+    private class AtelierInfo
+    {
+
+    }
+
     [SerializeField] private GameObject text_box, choice_box, town_box;
 
     [SerializeField] private Text dialogue_name, dialogue, choice;
@@ -18,6 +38,10 @@ public class OverworldUI : MonoBehaviour
     [SerializeField] private MenuWorkshop menu_workshop;
 
     private PermDataHolder data_holder;
+
+    private ShopInfo[] shop_info;
+    private SmithInfo[] smith_info;
+    private AtelierInfo[] atelier_info;
 
     private bool current_choice;
     private string text_choice;
@@ -54,6 +78,24 @@ public class OverworldUI : MonoBehaviour
         menu_smith.Startup(data_holder);
         menu_atelier.Startup(data_holder);
         menu_workshop.Startup(data_holder);
+    }
+
+    public void SetShop(List<Vector2Int[]> values)
+    {
+        shop_info = new ShopInfo[values.Count];
+
+        for (int i = 0; i < shop_info.Length; ++i)
+            shop_info[i] = new ShopInfo(values[i]);
+    }
+
+    public void SetSmith()
+    {
+
+    }
+
+    public void Set_Atelier()
+    {
+
     }
 
     public void ActivateChoice(string name_a, string name_b)
@@ -199,9 +241,9 @@ public class OverworldUI : MonoBehaviour
 
     public bool ChangeTown(Inputer inputer)
     {
-        if(town_dialouge)
+        if (town_dialouge)
         {
-            if(ChangeDialogue(inputer))
+            if (ChangeDialogue(inputer))
             {
                 town_dialouge = false;
 
@@ -215,9 +257,9 @@ public class OverworldUI : MonoBehaviour
             return false;
         }
 
-        if(current_feature != TownFeatureType.None)
+        if (current_feature != TownFeatureType.None)
         {
-            switch(current_feature)
+            switch (current_feature)
             {
                 case TownFeatureType.Home:
                     if (menu_home.Change(inputer))
@@ -281,33 +323,33 @@ public class OverworldUI : MonoBehaviour
                     current_area = temp_selection;
                     current_selection = 0;
 
-                    if(temp_dialogue != null)
+                    if (temp_dialogue != null)
                     {
                         town_dialouge = true;
                         DeactivateTown();
                         ActivateDialogue(temp_dialogue);
                         return false;
                     }
-                    
-                    if(feature_type != TownFeatureType.None)
+
+                    if (feature_type != TownFeatureType.None)
                     {
                         current_feature = feature_type;
 
                         DeactivateTown();
 
-                        switch(current_feature)
+                        switch (current_feature)
                         {
                             case TownFeatureType.Home:
                                 menu_home.Activate();
                                 return false;
                             case TownFeatureType.Shop:
-                                menu_shop.Activate();
+                                menu_shop.ActivateEX(shop_info[feature_int].values);
                                 return false;
                             case TownFeatureType.Smith:
-                                menu_smith.Activate();
+                                menu_smith.ActivateEX();
                                 return false;
                             case TownFeatureType.Atelier:
-                                menu_atelier.Activate();
+                                menu_atelier.ActivateEX();
                                 return false;
                             case TownFeatureType.Workshop:
                                 menu_workshop.Activate();

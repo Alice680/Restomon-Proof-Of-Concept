@@ -12,7 +12,7 @@ public class MenuSmith : MenuSwapIcon
         this.data_holder = data_holder;
     }
 
-    public override void Activate()
+    public void ActivateEX()
     {
         base.Activate();
     }

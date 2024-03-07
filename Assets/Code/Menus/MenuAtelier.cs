@@ -12,7 +12,7 @@ public class MenuAtelier : MenuSwapIcon
         this.data_holder = data_holder;
     }
 
-    public override void Activate()
+    public void ActivateEX()
     {
         base.Activate();
     }

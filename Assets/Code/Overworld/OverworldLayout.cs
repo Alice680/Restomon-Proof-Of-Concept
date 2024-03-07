@@ -46,11 +46,32 @@ public class OverworldLayout : ScriptableObject
         public EventTrigger trigger;
     }
 
+    [Serializable]
+    private class ShopInfo
+    {
+        public Vector2Int[] values;
+    }
+
+    [Serializable]
+    private class SmithInfo
+    {
+
+    }
+
+    [Serializable]
+    private class AtelierInfo
+    {
+
+    }
+
     [SerializeField] private int x_size, y_size;
     [SerializeField] private Node[] nodes;
     [SerializeField] private VariantNode[] variant_nodes;
     [SerializeField] private TownNode[] town_nodes;
     [SerializeField] private StartDialogue[] start_dialogues;
+    [SerializeField] private ShopInfo[] shop_info;
+    [SerializeField] private SmithInfo smith_info;
+    [SerializeField] private AtelierInfo atelier_info;
 
     public void Setup(int x_size, int y_size, GameObject model)
     {
@@ -99,5 +120,18 @@ public class OverworldLayout : ScriptableObject
                 dialogue = start_dialogue.dialogue;
 
         return temp_map;
+    }
+
+    public void SetUIValues(OverworldUI overworld_UI)
+    {
+        List<Vector2Int[]> shop_values_temp = new List<Vector2Int[]>();
+        for (int i = 0;i< shop_info.Length;++i)
+            shop_values_temp.Add(shop_info[i].values);
+
+        overworld_UI.SetShop(shop_values_temp);
+
+        overworld_UI.SetSmith();
+        
+        overworld_UI.Set_Atelier();
     }
 }
