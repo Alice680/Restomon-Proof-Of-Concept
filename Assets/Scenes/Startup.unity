@@ -266,6 +266,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}
   - {fileID: 11400000, guid: 16badff5bf9b63c4488c0a9392412c3c, type: 2}
+  research_data:
+  - {fileID: 11400000, guid: 73a4756b042dd5641bf968dc52d1eef3, type: 2}
   item_holder: {fileID: 11400000, guid: 7ba60b3f702e12645a9d0426f5f62ecf, type: 2}
   dungeons:
   - {fileID: 11400000, guid: 3f27f1b9b19d75140a7b41e36776b71b, type: 2}

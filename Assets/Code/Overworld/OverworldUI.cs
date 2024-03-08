@@ -17,12 +17,23 @@ public class OverworldUI : MonoBehaviour
 
     private class SmithInfo
     {
+        public int[] values;
 
+        public SmithInfo(int[] values)
+        {
+            this.values = values;
+        }
     }
 
     private class AtelierInfo
     {
 
+        public int[] values;
+
+        public AtelierInfo(int[] values)
+        {
+            this.values = values;
+        }
     }
 
     [SerializeField] private GameObject text_box, choice_box, town_box;
@@ -93,9 +104,12 @@ public class OverworldUI : MonoBehaviour
 
     }
 
-    public void Set_Atelier()
+    public void Set_Atelier(List<int[]> values)
     {
+        atelier_info = new AtelierInfo[values.Count];
 
+        for (int i = 0; i < atelier_info.Length; ++i)
+            atelier_info[i] = new AtelierInfo(values[i]);
     }
 
     public void ActivateChoice(string name_a, string name_b)
@@ -349,7 +363,7 @@ public class OverworldUI : MonoBehaviour
                                 menu_smith.ActivateEX();
                                 return false;
                             case TownFeatureType.Atelier:
-                                menu_atelier.ActivateEX();
+                                menu_atelier.ActivateEX(atelier_info[feature_int].values);
                                 return false;
                             case TownFeatureType.Workshop:
                                 menu_workshop.Activate();

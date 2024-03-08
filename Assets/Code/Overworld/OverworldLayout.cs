@@ -61,7 +61,7 @@ public class OverworldLayout : ScriptableObject
     [Serializable]
     private class AtelierInfo
     {
-
+        public int[] values;
     }
 
     [SerializeField] private int x_size, y_size;
@@ -70,8 +70,8 @@ public class OverworldLayout : ScriptableObject
     [SerializeField] private TownNode[] town_nodes;
     [SerializeField] private StartDialogue[] start_dialogues;
     [SerializeField] private ShopInfo[] shop_info;
-    [SerializeField] private SmithInfo smith_info;
-    [SerializeField] private AtelierInfo atelier_info;
+    [SerializeField] private SmithInfo[] smith_info;
+    [SerializeField] private AtelierInfo[] atelier_info;
 
     public void Setup(int x_size, int y_size, GameObject model)
     {
@@ -131,7 +131,11 @@ public class OverworldLayout : ScriptableObject
         overworld_UI.SetShop(shop_values_temp);
 
         overworld_UI.SetSmith();
-        
-        overworld_UI.Set_Atelier();
+
+        List<int[]> atelier_values_temp = new List<int[]>();
+        for (int i = 0; i < atelier_info.Length; ++i)
+            atelier_values_temp.Add(atelier_info[i].values);
+
+        overworld_UI.Set_Atelier(atelier_values_temp);
     }
 }

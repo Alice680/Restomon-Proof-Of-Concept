@@ -8,7 +8,6 @@ public class MenuShop : MenuSwapIcon
 {
     private enum State { Core, Buy, Sell };
 
-
     [SerializeField] private GameObject[] core_options;
     [SerializeField] private Text[] item_text;
     [SerializeField] private Text money_text, description_text;
@@ -42,6 +41,9 @@ public class MenuShop : MenuSwapIcon
         core_options[1].SetActive(!buying_selling);
 
         y_value = 0;
+
+        for (int i = 0; i < 8; ++i)
+            icons[i].SetActive(false);
 
         current_state = State.Core;
         ReloadString();
@@ -141,6 +143,7 @@ public class MenuShop : MenuSwapIcon
         {
             if ((y_overflow * 8) + y_value < current_index.Length)
             {
+                Debug.Log((y_overflow * 8) + y_value);
                 data_holder.RemoveItem(current_index[(y_overflow * 8) + y_value], 1);
 
                 data_holder.ChangeMoney(current_values[(y_overflow * 8) + y_value]);

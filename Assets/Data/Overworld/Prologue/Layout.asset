@@ -515,3 +515,6 @@ MonoBehaviour:
   - values:
     - {x: 0, y: 5}
     - {x: 2, y: 3}
+  smith_info: []
+  atelier_info:
+  - values: 00000000

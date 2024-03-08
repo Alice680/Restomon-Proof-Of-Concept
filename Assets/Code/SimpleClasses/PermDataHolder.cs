@@ -16,9 +16,9 @@ public class PermDataHolder : MonoBehaviour
     private class GenericUnlocks
     {
         public int lv, trait_slots;
-        public bool[] traits, catalysts;
+        public bool[] traits, catalysts, researches;
 
-        public GenericUnlocks()
+        public GenericUnlocks(int research_length)
         {
             lv = 20;
             trait_slots = 2;
@@ -29,6 +29,10 @@ public class PermDataHolder : MonoBehaviour
 
             catalysts = new bool[3];
             for (int i = 0; i < 3; ++i)
+                catalysts[i] = false;
+
+            researches = new bool[research_length];
+            for (int i = 0; i < research_length; ++i)
                 catalysts[i] = false;
         }
     }
@@ -154,6 +158,7 @@ public class PermDataHolder : MonoBehaviour
 
     //Console Data
     [SerializeField] private HumanClass[] classes;
+    [SerializeField] private ResearchData[] research_data;
     [SerializeField] private ItemHolder item_holder;
 
     //Private Data
@@ -185,7 +190,7 @@ public class PermDataHolder : MonoBehaviour
     //Methods
     public void SetupData()
     {
-        generic_unlocks = new GenericUnlocks();
+        generic_unlocks = new GenericUnlocks(research_data.Length);
         current_generic_data = new CurrenGenericData();
 
         class_unlocks = new ClassUnlocks[3];
@@ -235,6 +240,11 @@ public class PermDataHolder : MonoBehaviour
     public void Rest()
     {
         Debug.Log("Rest");
+    }
+
+    public Catalyst GetDataCatalyst(int index)
+    {
+        return catalysts[index];
     }
 
     //Class Data
@@ -432,7 +442,58 @@ public class PermDataHolder : MonoBehaviour
         return classes[current_class].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
     }
 
-    //Items
+    public HumanClass GetDataHuman(int index)
+    {
+        return classes[index];
+    }
+
+    //Restomon Data
+    public void SetCatalyst(int index)
+    {
+        if (index < 0)
+            current_catalyst = 0;
+        else
+            current_catalyst = index;
+    }
+
+    public int GetCatalystInt()
+    {
+        return current_catalyst;
+    }
+
+    public Catalyst GetCatalyst()
+    {
+        return catalysts[current_catalyst];
+    }
+
+    public void SetRestomon(int index)
+    {
+        current_team[index] = new RestomonData();
+    }
+
+    public void SetRestomon(int index, int restomon_id, int[] form_value)
+    {
+        current_team[index] = new RestomonData(restomon_id, form_value);
+    }
+
+    public int GetRestomonInt(int index, out int[] form_value)
+    {
+        form_value = current_team[index].form_value;
+
+        return current_team[index].restomon_id;
+    }
+
+    public Restomon GetTeam(int index)
+    {
+        return restomon_builds[current_team[index].restomon_id].GetBuild(current_team[index].form_value);
+    }
+
+    public RestomonBase GetDataRestomon(int index)
+    {
+        return restomon_builds[index].restomon_base;
+    }
+
+    //Items Data
     public int GetMoney()
     {
         return current_generic_data.money;
@@ -560,7 +621,7 @@ public class PermDataHolder : MonoBehaviour
         return temp_value;
     }
 
-    public string[] GetsellableItems(out string[] descriptions,out int[] index, out int[] values)
+    public string[] GetsellableItems(out string[] descriptions, out int[] index, out int[] values)
     {
         List<int> temp_indexs_l = new List<int>();
         List<int> temp_counts_l = new List<int>();
@@ -598,13 +659,13 @@ public class PermDataHolder : MonoBehaviour
 
             if (!temp_check)
             {
-                int temp_value = ItemHolder.GetItem(i).GetValue(out bool temp_has_value);
+                int temp_value = ItemHolder.GetItem(GetInventorySlot(i)).GetValue(out bool temp_has_value);
 
                 if (temp_has_value)
                 {
                     temp_indexs_l.Add(GetInventorySlot(i));
                     temp_counts_l.Add(1);
-                    temp_names_l.Add(ItemHolder.GetItem(i).GetInfo(out string temp_description));
+                    temp_names_l.Add(ItemHolder.GetItem(GetInventorySlot(i)).GetInfo(out string temp_description));
                     temp_descriptions_l.Add(temp_description);
                     temp_values_l.Add(temp_value);
                 }
@@ -626,6 +687,109 @@ public class PermDataHolder : MonoBehaviour
         index = temp_indexs_l.ToArray();
         descriptions = temp_descriptions_l.ToArray();
         return temp_names_l.ToArray();
+    }
+
+    public void GetRearchUnlock(int[] indexs, out string[] names, out string[] descriptions, out string[] costs)
+    {
+        names = new string[indexs.Length];
+        descriptions = new string[indexs.Length];
+        costs = new string[indexs.Length];
+
+        for (int i = 0; i < indexs.Length; ++i)
+        {
+            ResearchData temp_research = research_data[indexs[i]];
+
+            names[i] = ItemHolder.GetItem(temp_research.GetItems(out int temp_quantity)).GetInfo(out string temp_description);
+            names[i] += "   " + (generic_unlocks.researches[indexs[i]] ? "O" : "X");
+
+            descriptions[i] = temp_description;
+            costs[i] = "";
+
+            Vector2Int[] temp_cost = temp_research.GetResearchCost();
+            for (int e = 0; e < temp_cost.Length; ++e)
+            {
+                costs[i] += ItemHolder.GetItem(temp_cost[e].x).GetInfo(out string dead_info);
+                costs[i] += "   " + temp_cost[e].y + "(" + GetNumberOfItem(temp_cost[e].x) + ")\n";
+            }
+        }
+    }
+
+    public void UnlockResearch(int index)
+    {
+        if (generic_unlocks.researches[index])
+            return;
+
+        Vector2Int[] temp_cost = research_data[index].GetResearchCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            if (temp_cost[i].y > GetNumberOfItem(temp_cost[i].x))
+                return;
+        }
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+        }
+
+        generic_unlocks.researches[index] = true;
+    }
+
+    public void GetRearchPurchase(out string[] names, out string[] descriptions, out string[] costs, out int[] indexes)
+    {
+        List<string> temp_names = new List<string>();
+        List<string> temp_descriptions = new List<string>();
+        List<string> temp_costs = new List<string>();
+        List<int> temp_indexes = new List<int>();
+
+        for (int i = 0; i < research_data.Length; ++i)
+        {
+            if (!generic_unlocks.researches[i])
+                continue;
+
+            ResearchData temp_research = research_data[i];
+            Vector2Int[] temp_cost = temp_research.GetCraftCost();
+
+            temp_indexes.Add(i);
+
+            temp_names.Add(ItemHolder.GetItem(temp_research.GetItems(out int temp_quantity)).GetInfo(out string temp_description));
+            temp_names[i] += "   " + GetNumberOfItem(i) + "   " + temp_quantity;
+
+            temp_descriptions.Add(temp_description);
+
+            temp_costs.Add("");
+            for (int e = 0; e < temp_cost.Length; ++e)
+            {
+                temp_costs[i] += ItemHolder.GetItem(temp_cost[e].x).GetInfo(out string dead_info);
+                temp_costs[i] += "   " + temp_cost[e].y + "(" + GetNumberOfItem(temp_cost[e].x) + ")\n";
+            }
+        }
+
+        indexes = temp_indexes.ToArray();
+        costs = temp_costs.ToArray();
+        descriptions = temp_descriptions.ToArray();
+        names = temp_names.ToArray();
+    }
+
+    public void PurchaseResearch(int index)
+    {
+        if (!generic_unlocks.researches[index])
+            return;
+
+        Vector2Int[] temp_cost = research_data[index].GetCraftCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            if (temp_cost[i].y > GetNumberOfItem(temp_cost[i].x))
+                return;
+        }
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+        }
+
+        AddItem(research_data[index].GetItems(out int quantity), quantity);
     }
 
     //Dungeon
@@ -667,48 +831,7 @@ public class PermDataHolder : MonoBehaviour
         return overworlds[current_overworld];
     }
 
-    //Team
-    public void SetCatalyst(int index)
-    {
-        if (index < 0)
-            current_catalyst = 0;
-        else
-            current_catalyst = index;
-    }
-
-    public int GetCatalystInt()
-    {
-        return current_catalyst;
-    }
-
-    public Catalyst GetCatalyst()
-    {
-        return catalysts[current_catalyst];
-    }
-
-    public void SetRestomon(int index)
-    {
-        current_team[index] = new RestomonData();
-    }
-
-    public void SetRestomon(int index, int restomon_id, int[] form_value)
-    {
-        current_team[index] = new RestomonData(restomon_id, form_value);
-    }
-
-    public int GetRestomonInt(int index, out int[] form_value)
-    {
-        form_value = current_team[index].form_value;
-
-        return current_team[index].restomon_id;
-    }
-
-    public Restomon GetTeam(int index)
-    {
-        return restomon_builds[current_team[index].restomon_id].GetBuild(current_team[index].form_value);
-    }
-
-    //Data
+    //Event Data
     public int GetEventData(EventDataType data_type, int index)
     {
         switch (data_type)
@@ -759,21 +882,5 @@ public class PermDataHolder : MonoBehaviour
                 dungeon_cleared[index] = value;
                 return;
         }
-    }
-
-    //Get Data
-    public HumanClass GetDataHuman(int index)
-    {
-        return classes[index];
-    }
-
-    public Catalyst GetDataCatalyst(int index)
-    {
-        return catalysts[index];
-    }
-
-    public RestomonBase GetDataRestomon(int index)
-    {
-        return restomon_builds[index].restomon_base;
     }
 }
