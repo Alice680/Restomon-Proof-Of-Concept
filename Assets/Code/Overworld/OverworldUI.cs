@@ -17,11 +17,13 @@ public class OverworldUI : MonoBehaviour
 
     private class SmithInfo
     {
-        public int[] values;
+        public int[] weapon_values;
+        public int[] accessory_value;
 
-        public SmithInfo(int[] values)
+        public SmithInfo(int[] weapon_values, int[] accessory_value)
         {
-            this.values = values;
+            this.weapon_values = weapon_values;
+            this.accessory_value = accessory_value;
         }
     }
 
@@ -99,9 +101,12 @@ public class OverworldUI : MonoBehaviour
             shop_info[i] = new ShopInfo(values[i]);
     }
 
-    public void SetSmith()
+    public void SetSmith(List<int[]> weapon_values, List<int[]> accessory_value)
     {
+        smith_info = new SmithInfo[weapon_values.Count];
 
+        for (int i = 0; i < smith_info.Length; ++i)
+            smith_info[i] = new SmithInfo(weapon_values[i], accessory_value[i]);
     }
 
     public void Set_Atelier(List<int[]> values)
@@ -322,7 +327,7 @@ public class OverworldUI : MonoBehaviour
             if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
                 current_selection = DirectionMath.GetMenuChange(current_selection, inputer.GetDir(), 4, 2);
 
-            if (inputer.GetEnter())
+            else if (inputer.GetEnter())
             {
                 int temp_selection = current_town.GetSelection(data_holder, current_area, current_selection, out DialogueTree temp_dialogue, out TownFeatureType feature_type, out int feature_int);
 
@@ -360,7 +365,7 @@ public class OverworldUI : MonoBehaviour
                                 menu_shop.ActivateEX(shop_info[feature_int].values);
                                 return false;
                             case TownFeatureType.Smith:
-                                menu_smith.ActivateEX();
+                                menu_smith.ActivateEX(smith_info[feature_int].weapon_values, smith_info[feature_int].accessory_value);
                                 return false;
                             case TownFeatureType.Atelier:
                                 menu_atelier.ActivateEX(atelier_info[feature_int].values);
@@ -372,6 +377,18 @@ public class OverworldUI : MonoBehaviour
 
                         return false;
                     }
+                }
+            }
+        
+            else if (inputer.GetBack())
+            {
+                current_area = current_town.GetSelection(data_holder, current_area, 7, out DialogueTree temp_dialogue, out TownFeatureType feature_type, out int feature_int);
+                current_selection = 0;
+
+                if (current_area == -1)
+                {
+                    DeactivateTown();
+                    return true;
                 }
             }
         }

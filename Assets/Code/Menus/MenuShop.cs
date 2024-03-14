@@ -143,7 +143,6 @@ public class MenuShop : MenuSwapIcon
         {
             if ((y_overflow * 8) + y_value < current_index.Length)
             {
-                Debug.Log((y_overflow * 8) + y_value);
                 data_holder.RemoveItem(current_index[(y_overflow * 8) + y_value], 1);
 
                 data_holder.ChangeMoney(current_values[(y_overflow * 8) + y_value]);

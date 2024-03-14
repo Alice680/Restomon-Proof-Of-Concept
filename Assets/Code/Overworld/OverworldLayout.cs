@@ -55,7 +55,8 @@ public class OverworldLayout : ScriptableObject
     [Serializable]
     private class SmithInfo
     {
-
+        public int[] weapon_values;
+        public int[] accessory_value;
     }
 
     [Serializable]
@@ -130,7 +131,16 @@ public class OverworldLayout : ScriptableObject
 
         overworld_UI.SetShop(shop_values_temp);
 
-        overworld_UI.SetSmith();
+        List<int[]> smith_a_values_temp = new List<int[]>();
+        List<int[]> smith_b_values_temp = new List<int[]>();
+
+        for(int i = 0; i < smith_info.Length; ++i)
+        {
+            smith_a_values_temp.Add(smith_info[i].weapon_values);
+            smith_b_values_temp.Add(smith_info[i].accessory_value);
+        }
+
+        overworld_UI.SetSmith(smith_a_values_temp, smith_b_values_temp);
 
         List<int[]> atelier_values_temp = new List<int[]>();
         for (int i = 0; i < atelier_info.Length; ++i)

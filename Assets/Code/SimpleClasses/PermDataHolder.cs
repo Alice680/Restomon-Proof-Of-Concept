@@ -159,6 +159,8 @@ public class PermDataHolder : MonoBehaviour
     //Console Data
     [SerializeField] private HumanClass[] classes;
     [SerializeField] private ResearchData[] research_data;
+    [SerializeField] private GearData[] weapon_data;
+    [SerializeField] private GearData[] trinket_data;
     [SerializeField] private ItemHolder item_holder;
 
     //Private Data
@@ -565,7 +567,7 @@ public class PermDataHolder : MonoBehaviour
 
     public int GetNumberOfItem(int index)
     {
-        int temp_value = 0;
+        int temp_value = current_generic_data.storage[index];
 
         for (int i = 0; i < GetInventoryCount(); ++i)
             if (current_generic_data.inventory[i] == index)
@@ -613,10 +615,12 @@ public class PermDataHolder : MonoBehaviour
     public int CheckItem(int index)
     {
         int temp_value = current_generic_data.storage[index];
-
+        Debug.Log(temp_value);
         for (int i = 0; i < GetInventoryCount(); ++i)
             if (GetInventorySlot(i) == index)
                 ++temp_value;
+
+        Debug.Log(temp_value);
 
         return temp_value;
     }
@@ -790,6 +794,85 @@ public class PermDataHolder : MonoBehaviour
         }
 
         AddItem(research_data[index].GetItems(out int quantity), quantity);
+    }
+
+    public void GetGearData(bool gear_type, int[] indexs, out string[] names, out string[] descriptions, out string[] costs)
+    {
+        names = new string[indexs.Length];
+        descriptions = new string[indexs.Length];
+        costs = new string[indexs.Length];
+
+        for (int i = 0; i < indexs.Length; ++i)
+        {
+            GearData temp_gear;
+            if (gear_type)
+                temp_gear = weapon_data[indexs[i]];
+            else
+                temp_gear = trinket_data[indexs[i]];
+
+            int temp_class = temp_gear.GetData(out int temp_slot);
+
+            if (gear_type)
+            {
+                names[i] = classes[temp_class].GetWeaponName(temp_slot);
+                names[i] += "   " + (class_unlocks[temp_class].weapons[temp_slot] ? "O" : "X");
+
+                descriptions[i] = classes[temp_class].GetClassName() + "\n" + classes[temp_class].GetWeaponDescription(temp_slot);
+            }
+            else
+            {
+                names[i] = classes[temp_class].GetTraitName(temp_slot);
+                names[i] += "   " + (class_unlocks[temp_class].trinkets[temp_slot] ? "O" : "X");
+
+                descriptions[i] = classes[temp_class].GetClassName() + "\n" + classes[temp_class].GetTrinketDescription(temp_slot);
+            }
+
+            costs[i] = "";
+            Vector2Int[] temp_cost = temp_gear.GetCost();
+            for (int e = 0; e < temp_cost.Length; ++e)
+            {
+                costs[i] += ItemHolder.GetItem(temp_cost[e].x).GetInfo(out string dead_info);
+                costs[i] += "   " + temp_cost[e].y + "(" + GetNumberOfItem(temp_cost[e].x) + ")\n";
+            }
+        }
+    }
+
+    public void PurchaseGear(bool gear_type, int index)
+    {
+        GearData temp_gear;
+        if (gear_type)
+            temp_gear = weapon_data[index];
+        else
+            temp_gear = trinket_data[index];
+
+        int temp_class = temp_gear.GetData(out int temp_slot);
+
+        Vector2Int[] temp_cost;
+        if (gear_type)
+        {
+            if (class_unlocks[temp_class].weapons[temp_slot])
+                return;
+
+            temp_cost = weapon_data[index].GetCost();
+        }
+        else
+        {
+            if (class_unlocks[temp_class].trinkets[temp_slot])
+                return;
+
+            temp_cost = trinket_data[index].GetCost();
+        }
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (temp_cost[i].y > GetNumberOfItem(temp_cost[i].x))
+                return;
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
+        if (gear_type)
+            class_unlocks[temp_class].weapons[temp_slot] = true;
+        else
+            class_unlocks[temp_class].trinkets[temp_slot] = true;
     }
 
     //Dungeon
