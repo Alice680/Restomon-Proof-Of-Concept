@@ -36,6 +36,12 @@ public class MenuBasic
         y = y_value;
     }
 
+    public virtual void Reset()
+    {
+        x_value = 0;
+        y_value = 0;
+    }
+
     protected void GetInputValue(int x, int y, int x_max, int y_max, Direction dir, out int new_x, out int new_y)
     {
         new_x = x;

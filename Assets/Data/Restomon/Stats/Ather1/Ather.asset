@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ather
   m_EditorClassIdentifier: 
   id: 1
+  restomon_name: Aith
   growth_stats:
     hp: 0
     mp: 0
@@ -30,7 +31,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 149dbff248f94134a888b31dca1d4d41, type: 2}
   - {fileID: 11400000, guid: 0445531b664c93a4ab502984e224636d, type: 2}
   first_evo:
-    form_name: Ather
     base_stats:
       hp: 20
       mp: 15
@@ -60,8 +60,7 @@ MonoBehaviour:
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   second_evos:
-  - form_name: Ather-Ather
-    base_stats:
+  - base_stats:
       hp: 0
       mp: 0
       atk: 1
@@ -83,8 +82,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 1
     model: {fileID: 1973129930027680841, guid: 4ef26474f979858479e8631daf57836a, type: 3}
-  - form_name: Ather-Light
-    base_stats:
+  - base_stats:
       hp: 0
       mp: 0
       atk: 1
@@ -106,8 +104,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 1
     model: {fileID: 8334389087539164346, guid: dff99c25fafc15d4cbd4092410afb93c, type: 3}
-  - form_name: Ather-Dark
-    base_stats:
+  - base_stats:
       hp: 0
       mp: 0
       atk: 1
@@ -129,3 +126,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 1
     model: {fileID: 1585346889742929428, guid: 8f0857fcd7804a143ada14b0ec528ea3, type: 3}
+  mixed_evos: []
+  third_evos: []

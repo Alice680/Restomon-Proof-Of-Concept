@@ -20,7 +20,7 @@ public class ManagerMenuMain : MonoBehaviour
     [SerializeField] MenuSwapIcon core_menu;
     [SerializeField] MenuDungeon dungeon_menu;
     [SerializeField] MenuArmory armory_menu;
-    [SerializeField] MenuTeamBuilder team_menu;
+    //[SerializeField] MenuTeamBuilder team_menu;
     [SerializeField] MenuBasic achievements_menu;
 
     private Inputer inputer;
@@ -59,7 +59,7 @@ public class ManagerMenuMain : MonoBehaviour
                 ArmoryMenu();
                 break;
             case State.team:
-                TeamMenu();
+                //TeamMenu();
                 break;
             case State.achievements:
                 AchievementsMenu();
@@ -93,7 +93,7 @@ public class ManagerMenuMain : MonoBehaviour
                     state = State.armory;
                     break;
                 case 2:
-                    team_menu.Activate();
+                    //team_menu.Activate();
                     state = State.team;
                     break;
                 case 3:
@@ -148,7 +148,7 @@ public class ManagerMenuMain : MonoBehaviour
         }
     }
 
-    private void TeamMenu()
+   /* private void TeamMenu()
     {
         if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
@@ -160,7 +160,7 @@ public class ManagerMenuMain : MonoBehaviour
             core_menu.Activate();
             state = State.core;
         }
-    }
+    }*/
 
     private void AchievementsMenu()
     {
@@ -184,13 +184,13 @@ public class ManagerMenuMain : MonoBehaviour
     {
         dungeon_menu.LoadData(data_holder);
         armory_menu.LoadData(data_holder);
-        team_menu.LoadData(data_holder);
+        //team_menu.LoadData(data_holder);
     }
 
     private void UpdateData()
     {
         dungeon_menu.SetData(data_holder);
         armory_menu.SetData();
-        team_menu.SetData();
+        //team_menu.SetData();
     }
 }

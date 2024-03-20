@@ -13,7 +13,7 @@ public class ManagerMenuHome : MonoBehaviour
     [SerializeField] private MenuSwapIcon core_menu;
     [SerializeField] private MenuSwapIcon rest_menu;
     [SerializeField] private MenuClass class_menu;
-    [SerializeField] private MenuSwapIcon team_menu;
+    [SerializeField] private MenuTeamBuilder team_menu;
     [SerializeField] private MenuStorage storage_menu;
 
     public void SetData(PermDataHolder data_holder)
@@ -21,6 +21,7 @@ public class ManagerMenuHome : MonoBehaviour
         this.data_holder = data_holder;
 
         class_menu.SetData(data_holder);
+        team_menu.SetData(data_holder);
         storage_menu.SetData(data_holder);
 
         current_state = State.core;
@@ -77,7 +78,9 @@ public class ManagerMenuHome : MonoBehaviour
                     current_state = State.classing;
                     return false;
                 case 2:
-                    //current_state = State.teaming;
+                    core_menu.DeActivate();
+                    team_menu.Activate();
+                    current_state = State.teaming;
                     return false;
                 case 3:
                     core_menu.DeActivate();
@@ -135,7 +138,12 @@ public class ManagerMenuHome : MonoBehaviour
 
     private void TeamState(Inputer inputer)
     {
-
+        if (team_menu.Run(inputer))
+        {
+            core_menu.Activate();
+            team_menu.DeActivate();
+            current_state = State.core;
+        }
     }
 
     private void StorageState(Inputer inputer)

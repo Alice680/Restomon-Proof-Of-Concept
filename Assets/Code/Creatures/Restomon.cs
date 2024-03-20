@@ -19,7 +19,7 @@ using UnityEngine;
 public enum RestomonEvolution { None, FormA, FormB, FormC };
 public class Restomon : Creature
 {
-    private string restomon_name;
+    private string restomon_name, restomon_description;
     private int id, lv;
     private int[,] cost;
     private int[,] stats; //Hp, SP, MP Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
@@ -46,6 +46,16 @@ public class Restomon : Creature
     /*
      * All the follow methods are just getters.
      */
+
+    public string GetName()
+    {
+        return restomon_name;
+    }
+
+    public string GetDescription()
+    {
+        return restomon_description;
+    }
 
     public override CreatureType GetCreatureType()
     {

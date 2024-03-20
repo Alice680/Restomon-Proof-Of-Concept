@@ -7,195 +7,336 @@ using UnityEngine.UI;
 [Serializable]
 public class MenuTeamBuilder : MenuSwapIcon
 {
+    private enum State { Initial, Catalyst, SelectSlot, SelectRestomon, ChoseRestomon, EditRestomon };
+
+    [SerializeField] private MenuSwapIcon initial_menu, selector_menu, restomon_menu;
+
+    [SerializeField] private MenuRestomonEditor edit_menu;
+
+    [SerializeField] private Text[] selector_texts, restomon_texts;
+    [SerializeField] private Text selector_box;
+    [SerializeField] private GameObject[] selector_stars;
+
+    private int int_variable_a, int_variable_b;
+
     private PermDataHolder data_holder;
 
-    private class RestomonData
-    {
-        public int restomon_id;
-        public int[] form_value;
+    private State current_state;
 
-        public RestomonData()
-        {
-            restomon_id = 0;
-            form_value = new int[4] { 0, 0, 0, 0 };
-        }
-
-        public RestomonData(int restomon_id, int[] form_value)
-        {
-            this.restomon_id = restomon_id;
-            this.form_value = form_value;
-        }
-    }
-
-    [Serializable]
-    private class CreatureBuild
-    {
-        public string name, description;
-        public string[] base_builds_name, builds_a_name, builds_b_name, builds_c_name;
-        public string[] base_builds_description, builds_a_description, builds_b_description, builds_c_description;
-    }
-
-    [SerializeField] private CreatureBuild[] creature_builds;
-    [SerializeField] private Text[] text_boxes;
-
-    private int catalyst_value;
-    private RestomonData[] restomon_values;
-
-    public override void Activate()
-    {
-        menu.SetActive(true);
-
-        Display();
-    }
-
-    public override void UpdateMenu(Direction dir)
-    {
-        int dead_variable;
-
-        if (y_value == 0)
-        {
-            if (dir == Direction.Down)
-                y_value = 1;
-
-            if (dir == Direction.Right || dir == Direction.Left)
-            {
-                GetInputValue(catalyst_value, 0, 3, 0, dir, out catalyst_value, out dead_variable);
-
-                for (int i = 0; i < 4; ++i)
-                    restomon_values[i] = new RestomonData();
-            }
-        }
-        else if (y_value == 1)
-        {
-            if (dir == Direction.Down)
-                y_value = 2;
-
-            if (dir == Direction.Up)
-            {
-                x_value = 0;
-                y_value -= 1;
-            }
-
-            if (dir == Direction.Right || dir == Direction.Left)
-                GetInputValue(x_value, 0, data_holder.GetDataCatalyst(catalyst_value).GetRestomonAmount(), 0, dir, out x_value, out dead_variable);
-        }
-        else
-        {
-            if (dir == Direction.Down && y_value != 6)
-                y_value += 1;
-
-            if (dir == Direction.Up)
-                y_value -= 1;
-
-
-            if (dir == Direction.Right || dir == Direction.Left)
-            {
-                if (y_value == 2)
-                {
-                    GetInputValue(restomon_values[x_value].restomon_id, 0, 6, 0, dir, out restomon_values[x_value].restomon_id, out dead_variable);
-
-                    for (int i = 0; i < 4; ++i)
-                        restomon_values[x_value].form_value[i] = 0;
-                }
-
-                else if (y_value == 3)
-                    GetInputValue(restomon_values[x_value].form_value[y_value - 3], 0, 3, 0, dir, out restomon_values[x_value].form_value[y_value - 3], out dead_variable);
-                else
-                    GetInputValue(restomon_values[x_value].form_value[y_value - 3], 0, 2, 0, dir, out restomon_values[x_value].form_value[y_value - 3], out dead_variable);
-
-            }
-        }
-
-        for (int i = 0; i < 10; ++i)
-            icons[i].SetActive(false);
-
-        icons[x_value + 1].SetActive(true);
-
-        if (y_value == 0)
-            icons[0].SetActive(true);
-
-        if (y_value > 1)
-            icons[3 + y_value].SetActive(true);
-
-        Display();
-    }
-
-    public void LoadData(PermDataHolder data_holder)
+    public void SetData(PermDataHolder data_holder)
     {
         this.data_holder = data_holder;
 
-        catalyst_value = data_holder.GetCatalystInt();
+        edit_menu.SetData(data_holder);
 
-        restomon_values = new RestomonData[4];
-
-        int[] temp_values;
-        for (int i = 0; i < 4; ++i)
-            restomon_values[i] = new RestomonData(data_holder.GetRestomonInt(i, out temp_values), temp_values);
+        current_state = State.Initial;
     }
 
-    public void SetData()
+    public override void Activate()
     {
-        data_holder.SetCatalyst(catalyst_value);
-
-        for (int i = 0; i < 4; ++i)
-            data_holder.SetRestomon(i, restomon_values[i].restomon_id, restomon_values[i].form_value);
+        CloseMenus();
+        OpenInitial();
+        current_state = State.Initial;
     }
 
-    private void Display()
+    public override void DeActivate()
     {
-        Catalyst temp_catalyst = data_holder.GetDataCatalyst(catalyst_value);
 
-        text_boxes[0].text = "";
+    }
 
-        if (y_value == 0)
+    private void CloseMenus()
+    {
+        initial_menu.DeActivate();
+        selector_menu.DeActivate();
+        selector_menu.Reset();
+        restomon_menu.DeActivate();
+
+        for (int i = 0; i < 8; ++i)
         {
-            text_boxes[1].text = "< " + temp_catalyst.GetName() + " >";
-            text_boxes[0].text = temp_catalyst.GetDescription();
+            selector_texts[i].text = "";
+            selector_stars[i].SetActive(false);
         }
-        else
-            text_boxes[1].text = temp_catalyst.GetName();
 
-        int form_id = restomon_values[x_value].restomon_id;
+        for (int i = 0; i < 36; ++i)
+            restomon_texts[i].text = "";
 
-        if (y_value == 2)
+        selector_box.text = "";
+    }
+
+    private void OpenInitial()
+    {
+        initial_menu.Activate();
+    }
+
+    private void OpenCatalyst()
+    {
+        selector_menu.Activate();
+
+        for (int i = 0; i < 8; ++i)
         {
-            text_boxes[2].text = "< " + creature_builds[form_id].name + " >";
-            text_boxes[0].text = creature_builds[form_id].description;
+            if (data_holder.CatalystUnloked(i))
+                selector_texts[i].text = data_holder.GetCatalyst(i).GetName();
+            else
+                selector_texts[i].text = "Locked";
         }
+
+        selector_menu.GetValues(out int x, out int y);
+
+        if (data_holder.CatalystUnloked(y + (x * 4)))
+            selector_box.text = data_holder.GetCatalyst(y + (x * 4)).GetDescription();
         else
-            text_boxes[2].text = creature_builds[form_id].name;
+            selector_box.text = "Catalyst Locked";
 
+        selector_stars[data_holder.GetCatalystInt()].SetActive(true);
+    }
 
-        if (y_value == 3)
+    private void OpenSelectSlot()
+    {
+        selector_menu.Activate();
+
+        for (int i = 0; i < 8; ++i)
         {
-            text_boxes[3].text = "< " + creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[0]] + " >";
-            text_boxes[0].text = creature_builds[form_id].base_builds_description[restomon_values[x_value].form_value[0]];
+            if (i < data_holder.GetCatalyst(int_variable_a).GetTeamSize())
+            {
+                if (data_holder.GetRestomonInt(i) != -1)
+                    selector_texts[i].text = data_holder.GetRestomonData(data_holder.GetRestomonInt(i)).GetName();
+                else
+                    selector_texts[i].text = "Empty";
+            }
+            else
+            {
+                selector_texts[i].text = "Void";
+            }
         }
-        else
-            text_boxes[3].text = creature_builds[form_id].base_builds_name[restomon_values[x_value].form_value[0]];
 
-        if (y_value == 4)
-        {
-            text_boxes[4].text = "< " + creature_builds[form_id].builds_a_name[restomon_values[x_value].form_value[1]] + " >";
-            text_boxes[0].text = creature_builds[form_id].builds_a_description[restomon_values[x_value].form_value[1]];
-        }
+        selector_menu.GetValues(out int x, out int y);
+        if (y + (x * 4) < data_holder.GetCatalyst(int_variable_a).GetTeamSize() && data_holder.GetTeam(y + (x * 4)) != null)
+            selector_box.text = data_holder.GetTeam(y + (x * 4)).GetDescription();
         else
-            text_boxes[4].text = creature_builds[form_id].builds_a_name[restomon_values[x_value].form_value[1]];
+            selector_box.text = "";
+    }
 
-        if (y_value == 5)
-        {
-            text_boxes[5].text = "< " + creature_builds[form_id].builds_b_name[restomon_values[x_value].form_value[2]] + " >";
-            text_boxes[0].text = creature_builds[form_id].builds_b_description[restomon_values[x_value].form_value[2]];
-        }
-        else
-            text_boxes[5].text = creature_builds[form_id].builds_b_name[restomon_values[x_value].form_value[2]];
+    private void OpenSelectRestomon()
+    {
+        restomon_menu.Activate();
 
-        if (y_value == 6)
+        for (int i = 0; i < 36; ++i)
         {
-            text_boxes[6].text = "< " + creature_builds[form_id].builds_c_name[restomon_values[x_value].form_value[3]] + " >";
-            text_boxes[0].text = creature_builds[form_id].builds_c_description[restomon_values[x_value].form_value[3]];
+            if (data_holder.GetRestomonUnlocked(i))
+                restomon_texts[i].text = data_holder.GetRestomonData(i).GetName();
+            else
+                restomon_texts[i].text = "Locked";
         }
-        else
-            text_boxes[6].text = creature_builds[form_id].builds_c_name[restomon_values[x_value].form_value[3]];
+    }
+
+    private void OpenChoseRestomon()
+    {
+        restomon_menu.Activate();
+
+        for (int i = 0; i < 36; ++i)
+        {
+            if (data_holder.GetRestomonUnlocked(i))
+                restomon_texts[i].text = data_holder.GetRestomonData(i).GetName();
+            else
+                restomon_texts[i].text = "Locked";
+        }
+    }
+
+    private void OpenEditRestomon()
+    {
+        edit_menu.Activate(int_variable_a);
+    }
+
+    public bool Run(Inputer input)
+    {
+        if (input.GetBack() && current_state == State.Initial)
+        {
+            CloseMenus();
+            return true;
+        }
+
+        switch (current_state)
+        {
+            case State.Initial:
+                Initial(input);
+                break;
+            case State.Catalyst:
+                Catalyst(input);
+                break;
+            case State.SelectSlot:
+                SelectSlot(input);
+                break;
+            case State.SelectRestomon:
+                SelectRestomon(input);
+                break;
+            case State.ChoseRestomon:
+                ChoseRestomon(input);
+                break;
+            case State.EditRestomon:
+                EditRestomon(input);
+                break;
+        }
+
+        return false;
+    }
+
+    private void Initial(Inputer input)
+    {
+        if (input.GetDir() != Direction.None)
+        {
+            initial_menu.UpdateMenu(input.GetDir());
+        }
+        else if (input.GetEnter())
+        {
+            initial_menu.GetValues(out int x, out int y);
+
+            if (x == 0)
+            {
+                CloseMenus();
+                OpenCatalyst();
+                current_state = State.Catalyst;
+            }
+            else
+            {
+                CloseMenus();
+                OpenChoseRestomon();
+                current_state = State.ChoseRestomon;
+            }
+        }
+        else if (input.GetBack())
+        {
+
+        }
+    }
+
+    private void Catalyst(Inputer input)
+    {
+        if (input.GetDir() != Direction.None)
+        {
+            selector_menu.UpdateMenu(input.GetDir());
+
+            selector_menu.GetValues(out int x, out int y);
+
+            if (data_holder.CatalystUnloked(y + (x * 4)))
+                selector_box.text = data_holder.GetCatalyst(y + (x * 4)).GetDescription();
+            else
+                selector_box.text = "Catalyst Locked";
+        }
+        else if (input.GetEnter())
+        {
+            selector_menu.GetValues(out int x, out int y);
+
+            if (data_holder.CatalystUnloked(y + (x * 4)))
+            {
+                int_variable_a = y + (x * 4);
+
+                data_holder.SetCatalyst(int_variable_a);
+
+                CloseMenus();
+                OpenSelectSlot();
+                current_state = State.SelectSlot;
+            }
+        }
+        else if (input.GetBack())
+        {
+            CloseMenus();
+            OpenInitial();
+            current_state = State.Initial;
+        }
+    }
+
+    private void SelectSlot(Inputer input)
+    {
+        if (input.GetDir() != Direction.None)
+        {
+            selector_menu.UpdateMenu(input.GetDir());
+
+            selector_menu.GetValues(out int x, out int y);
+            if (y + (x * 4) < data_holder.GetCatalyst(int_variable_a).GetTeamSize() && data_holder.GetTeam(y + (x * 4)) != null)
+                selector_box.text = data_holder.GetTeam(y + (x * 4)).GetDescription();
+            else
+                selector_box.text = "";
+        }
+        else if (input.GetEnter())
+        {
+            selector_menu.GetValues(out int x, out int y);
+            if (y + (x * 4) < data_holder.GetCatalyst(int_variable_a).GetTeamSize())
+            {
+                int_variable_b = y + (x * 4);
+
+                CloseMenus();
+                OpenSelectRestomon();
+                current_state = State.SelectRestomon;
+            }
+        }
+        else if (input.GetBack())
+        {
+            CloseMenus();
+            OpenCatalyst();
+            current_state = State.Catalyst;
+        }
+    }
+
+    private void SelectRestomon(Inputer input)
+    {
+        if (input.GetDir() != Direction.None)
+        {
+            restomon_menu.UpdateMenu(input.GetDir());
+        }
+        else if (input.GetEnter())
+        {
+            restomon_menu.GetValues(out int x, out int y);
+            data_holder.SetRestomon(int_variable_b, x + (y * 6));
+
+            CloseMenus();
+            OpenSelectSlot();
+            current_state = State.SelectSlot;
+        }
+        else if (input.GetBack())
+        {
+            data_holder.SetRestomon(int_variable_b, -1);
+
+            CloseMenus();
+            OpenSelectSlot();
+            current_state = State.SelectSlot;
+        }
+    }
+
+    private void ChoseRestomon(Inputer input)
+    {
+        if (input.GetDir() != Direction.None)
+        {
+            restomon_menu.UpdateMenu(input.GetDir());
+        }
+        else if (input.GetEnter())
+        {
+            restomon_menu.GetValues(out int x, out int y);
+
+            if (data_holder.GetRestomonUnlocked(x + (y * 6)))
+            {
+                int_variable_a = x + (y * 6);
+
+                CloseMenus();
+                OpenEditRestomon();
+                current_state = State.EditRestomon;
+            }
+        }
+        else if (input.GetBack())
+        {
+            CloseMenus();
+            OpenInitial();
+            current_state = State.Initial;
+        }
+    }
+
+    private void EditRestomon(Inputer input)
+    {
+        if (edit_menu.Run(input))
+        {
+            edit_menu.DeActivate();
+            CloseMenus();
+            OpenInitial();
+            current_state = State.Initial;
+        }
     }
 }

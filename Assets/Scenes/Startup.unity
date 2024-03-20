@@ -266,14 +266,52 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}
   - {fileID: 11400000, guid: 16badff5bf9b63c4488c0a9392412c3c, type: 2}
-  research_data:
-  - {fileID: 11400000, guid: 73a4756b042dd5641bf968dc52d1eef3, type: 2}
-  weapon_data:
-  - {fileID: 11400000, guid: 36c5f31901522b54980922a0f25cade3, type: 2}
-  - {fileID: 11400000, guid: 7248e35923dab2043a4e04da3066377b, type: 2}
-  - {fileID: 11400000, guid: 3ee8c9988ab46d04087a2017d05ba3ad, type: 2}
-  trinket_data: []
-  item_holder: {fileID: 11400000, guid: 7ba60b3f702e12645a9d0426f5f62ecf, type: 2}
+  restomon_bases:
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
+  catalysts:
+  - {fileID: 11400000, guid: 4ff3fb4ed6d3e294fbd844459214dc1c, type: 2}
+  - {fileID: 11400000, guid: 11f027dae36aff74fba9ef782f7dd821, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
+  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
   dungeons:
   - {fileID: 11400000, guid: 3f27f1b9b19d75140a7b41e36776b71b, type: 2}
   - {fileID: 11400000, guid: fe824d5042b5c484686e32d69f396573, type: 2}
@@ -301,146 +339,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98b9de664a7046f4fba4863fe6d5e35e, type: 2}
   overworlds:
   - {fileID: 11400000, guid: 6a3a37c7c01cd4c4e8116ebbd84043c7, type: 2}
-  catalysts:
-  - {fileID: 11400000, guid: 4ff3fb4ed6d3e294fbd844459214dc1c, type: 2}
-  - {fileID: 11400000, guid: 11f027dae36aff74fba9ef782f7dd821, type: 2}
-  - {fileID: 11400000, guid: d23c58ece23a59f4b9b2f17d92fff116, type: 2}
-  restomon_builds:
-  - restomon_base: {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
-    base_form:
-    - attacks: 00000000010000000200000004000000
-      trait: 0
-    - attacks: 00000000010000000300000005000000
-      trait: 1
-    - attacks: 01000000020000000600000007000000
-      trait: 2
-    form_a:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_b:
-    - attacks: 0000000000000000
-      trait: 0
-    - attacks: 0000000000000000
-      trait: 0
-    form_c:
-    - attacks: 0000000000000000
-      trait: 0
-    - attacks: 0000000000000000
-      trait: 0
-  - restomon_base: {fileID: 11400000, guid: 96f958fab14d48540bfbb12df31082c2, type: 2}
-    base_form:
-    - attacks: 01000000030000000100000004000000
-      trait: 0
-    - attacks: 01000000030000000900000007000000
-      trait: 0
-    - attacks: 01000000030000000500000006000000
-      trait: 0
-    form_a:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_b:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_c:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-  - restomon_base: {fileID: 11400000, guid: b221d634731003141852345e3d0705f7, type: 2}
-    base_form:
-    - attacks: 00000000030000000200000004000000
-      trait: 0
-    - attacks: 01000000030000000900000008000000
-      trait: 0
-    - attacks: 01000000030000000500000006000000
-      trait: 0
-    form_a:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_b:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_c:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-  - restomon_base: {fileID: 11400000, guid: 755ce1f92c4a92740a3085f9045112db, type: 2}
-    base_form:
-    - attacks: 01000000030000000200000004000000
-      trait: 0
-    - attacks: 00000000030000000100000004000000
-      trait: 0
-    - attacks: 01000000030000000500000006000000
-      trait: 0
-    form_a:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_b:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_c:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-  - restomon_base: {fileID: 11400000, guid: f22e8f2657e32dd47b2d503acb110979, type: 2}
-    base_form:
-    - attacks: 00000000030000000700000008000000
-      trait: 0
-    - attacks: 00000000030000000200000004000000
-      trait: 0
-    - attacks: 00000000030000000500000006000000
-      trait: 0
-    form_a:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_b:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_c:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-  - restomon_base: {fileID: 11400000, guid: cdcd5442abb873f4da6ccd08d844d82a, type: 2}
-    base_form:
-    - attacks: 00000000030000000200000004000000
-      trait: 0
-    - attacks: 00000000030000000700000008000000
-      trait: 0
-    - attacks: 00000000030000000500000006000000
-      trait: 0
-    form_a:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_b:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
-    form_c:
-    - attacks: 0100000002000000
-      trait: 0
-    - attacks: 0100000003000000
-      trait: 0
+  research_data:
+  - {fileID: 11400000, guid: 73a4756b042dd5641bf968dc52d1eef3, type: 2}
+  weapon_data:
+  - {fileID: 11400000, guid: 36c5f31901522b54980922a0f25cade3, type: 2}
+  - {fileID: 11400000, guid: 7248e35923dab2043a4e04da3066377b, type: 2}
+  - {fileID: 11400000, guid: 3ee8c9988ab46d04087a2017d05ba3ad, type: 2}
+  trinket_data: []
+  item_holder: {fileID: 11400000, guid: 7ba60b3f702e12645a9d0426f5f62ecf, type: 2}

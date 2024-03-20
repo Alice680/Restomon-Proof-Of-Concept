@@ -58,8 +58,6 @@ public class RestomonBase : ScriptableObject
     [Serializable]
     private class EvolutionStats
     {
-        public string form_name;
-
         public StatHolder base_stats;
 
         public int[] cost;
@@ -73,6 +71,7 @@ public class RestomonBase : ScriptableObject
     }
 
     [SerializeField] private int id;
+    [SerializeField] private string restomon_name;
 
     [SerializeField] private StatHolder growth_stats;
 
@@ -80,6 +79,8 @@ public class RestomonBase : ScriptableObject
 
     [SerializeField] private EvolutionStats first_evo;
     [SerializeField] private EvolutionStats[] second_evos;
+    [SerializeField] private EvolutionStats[] mixed_evos;
+    [SerializeField] private EvolutionStats[] third_evos;
 
     /*
      * All data for monsters is set in in editor. As such, all that needs to be done it turning stats into an int array.
@@ -89,7 +90,6 @@ public class RestomonBase : ScriptableObject
      * attack_id ints that refrences which attacks are to be set
      * return Restomon after setting its data
      */
-    // TODO add traits
     public Restomon GetRestomon(int lv, int[] attack_id, int[] trait_id)
     {
         int[,] temp_stats = new int[4, 11];
@@ -132,6 +132,11 @@ public class RestomonBase : ScriptableObject
             temp_models[i + 1] = second_evos[i].model;
         }
 
-        return new Restomon(first_evo.form_name, id, lv, temp_cost, temp_stats, first_evo.traits[0], temp_traits, first_evo.attack[0], temp_attack, temp_models);
+        return new Restomon(restomon_name, id, lv, temp_cost, temp_stats, first_evo.traits[0], temp_traits, first_evo.attack[0], temp_attack, temp_models);
+    }
+
+    public String GetName()
+    {
+        return restomon_name;
     }
 }
