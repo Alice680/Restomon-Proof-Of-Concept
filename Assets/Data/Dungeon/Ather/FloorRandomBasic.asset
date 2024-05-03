@@ -16,8 +16,8 @@ MonoBehaviour:
   tile_set: {fileID: 11400000, guid: e2abc74c9b3cb7548bba65400b82211a, type: 2}
   x_size: 60
   y_size: 60
-  min_rooms: 5
-  max_room: 7
+  min_rooms: 6
+  max_room: 8
   room_min_size: 6
   room_max_size: 8
   extra_paths: 2

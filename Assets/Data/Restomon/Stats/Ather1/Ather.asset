@@ -29,7 +29,7 @@ MonoBehaviour:
   base_attack:
   - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
   - {fileID: 11400000, guid: 149dbff248f94134a888b31dca1d4d41, type: 2}
-  - {fileID: 11400000, guid: 0445531b664c93a4ab502984e224636d, type: 2}
+  - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
   first_evo:
     base_stats:
       hp: 20
@@ -126,5 +126,107 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     element: 1
     model: {fileID: 1585346889742929428, guid: 8f0857fcd7804a143ada14b0ec528ea3, type: 3}
-  mixed_evos: []
-  third_evos: []
+  mixed_evos:
+  - base_stats:
+      hp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 
+    attack: []
+    traits: []
+    element: 0
+    model: {fileID: 0}
+  - base_stats:
+      hp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 
+    attack: []
+    traits: []
+    element: 0
+    model: {fileID: 0}
+  - base_stats:
+      hp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 
+    attack: []
+    traits: []
+    element: 0
+    model: {fileID: 0}
+  third_evos:
+  - base_stats:
+      hp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 
+    attack: []
+    traits: []
+    element: 0
+    model: {fileID: 0}
+  - base_stats:
+      hp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 
+    attack: []
+    traits: []
+    element: 0
+    model: {fileID: 0}
+  - base_stats:
+      hp: 0
+      mp: 0
+      atk: 0
+      mag: 0
+      frc: 0
+      def: 0
+      shd: 0
+      wil: 0
+      spd: 0
+      mov: 0
+      act: 0
+    cost: 
+    attack: []
+    traits: []
+    element: 0
+    model: {fileID: 0}

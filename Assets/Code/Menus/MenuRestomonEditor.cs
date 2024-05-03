@@ -15,6 +15,12 @@ public class MenuRestomonEditor : MenuSwapIcon
     [SerializeField] private GameObject[] core_icons, sub_icons, choice_icons;
 
     private int restomon_index;
+    private RestomonBase restomon_base;
+
+    private int menu_a_index;
+    private bool menu_a_tracker;
+
+    private string[] stat_icons = new string[12] { "Str", "Mag", "Frc", "Def", "Shd", "Wil", "Spd", "Mov", "Act", "Cst", "Drn", "Abs" };
 
     private PermDataHolder data_holder;
 
@@ -28,11 +34,14 @@ public class MenuRestomonEditor : MenuSwapIcon
 
     public void Activate(int value)
     {
+        y_value = 0;
         base.Activate();
 
-        CloseMenus();
-
         restomon_index = value;
+        restomon_base = data_holder.GetRestomonData(restomon_index);
+
+        CloseMenus();
+        OpenCore();
 
         name_text.text = data_holder.GetRestomonData(value).GetName();
 
@@ -53,7 +62,7 @@ public class MenuRestomonEditor : MenuSwapIcon
         core_menu.SetActive(false);
         sub_menu.SetActive(false);
 
-        for(int i = 0;i<17;++i)
+        for (int i = 0; i < 17; ++i)
         {
             core_text[i].text = "";
             core_icons[i].SetActive(false);
@@ -64,7 +73,20 @@ public class MenuRestomonEditor : MenuSwapIcon
 
     private void OpenCore()
     {
+        data_holder.GetRestomonInfo(restomon_index, out Vector2Int[] current_attacks);
+
         core_menu.SetActive(true);
+
+        for (int i = 0; i < 12; ++i)
+        {
+            core_text[i].text = stat_icons[i] + " (" + "0" + ") " + "0";
+        }
+
+        core_text[12].text = restomon_base.GetBasicAttacks()[current_attacks[0].x].GetName();
+        core_text[13].text = restomon_base.GetBasicAttacks()[current_attacks[0].y].GetName();
+        core_text[14].text = "2";
+        core_text[15].text = "3";
+        core_text[16].text = "Locked";
     }
 
     private void OpenSub()
@@ -79,7 +101,10 @@ public class MenuRestomonEditor : MenuSwapIcon
 
     private void OpenChoice()
     {
+        choice_menu.SetActive(true);
 
+        for (int i = 0; i < 24; ++i)
+            choice_icons[i].SetActive(false);
     }
 
     public bool Run(Inputer input)
@@ -122,7 +147,16 @@ public class MenuRestomonEditor : MenuSwapIcon
         }
         else if (input.GetEnter())
         {
+            if (y_value == 0)
+            {
+                menu_a_index = 0;
+                core_icons[menu_a_index].SetActive(true);
+                current_state = State.Core;
+            }
+            else
+            {
 
+            }
         }
         else if (input.GetBack())
         {
@@ -134,15 +168,77 @@ public class MenuRestomonEditor : MenuSwapIcon
     {
         if (input.GetDir() != Direction.None)
         {
+            if (menu_a_tracker)
+            {
 
+            }
+            else
+            {
+                for (int i = 0; i < 17; ++i)
+                    core_icons[i].SetActive(false);
+
+                if ((input.GetDir() == Direction.Right || input.GetDir() == Direction.Left) && (menu_a_index == 0 || menu_a_index == 6))
+                {
+                    menu_a_index = menu_a_index == 0 ? 6 : 0;
+                }
+                else if (input.GetDir() == Direction.Right || input.GetDir() == Direction.Left)
+                {
+                    if (menu_a_index / 6 == 2)
+                        menu_a_index++;
+                    else if ((menu_a_index / 6 == 0 && input.GetDir() == Direction.Left) || (menu_a_index / 6 == 1 && input.GetDir() == Direction.Right))
+                        menu_a_index--;
+
+                    GetInputValue(menu_a_index / 6, 0, 3, 1, input.GetDir(), out int temp_x, out int temp_y);
+                    menu_a_index = (menu_a_index % 6) + temp_x * 6;
+                }
+                else if (menu_a_index < 12)
+                {
+                    GetInputValue(0, menu_a_index % 6, 1, 6, input.GetDir(), out int temp_x, out int temp_y);
+                    menu_a_index = menu_a_index - (menu_a_index % 6) + temp_y;
+                }
+                else
+                {
+                    GetInputValue(0, menu_a_index % 6, 1, 5, input.GetDir(), out int temp_x, out int temp_y);
+                    menu_a_index = menu_a_index - (menu_a_index % 6) + temp_y;
+                }
+            }
+
+            core_icons[menu_a_index].SetActive(true);
         }
         else if (input.GetEnter())
         {
+            if (menu_a_tracker)
+            {
+                menu_a_tracker = false;
+            }
+            else
+            {
+                if (menu_a_index < 12)
+                {
+                    menu_a_tracker = true;
+                }
+                else if (menu_a_index == 12 || menu_a_index == 13)
+                {
+                    OpenChoice();
+
+                    current_state = State.Choice;
+                }
+            }
 
         }
         else if (input.GetBack())
         {
+            if (menu_a_tracker)
+            {
+                menu_a_tracker = false;
+            }
+            else
+            {
+                for (int i = 0; i < 17; ++i)
+                    core_icons[i].SetActive(false);
 
+                current_state = State.Initial;
+            }
         }
     }
 

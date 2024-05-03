@@ -76,7 +76,8 @@ public class PermDataHolder : MonoBehaviour
         public bool unlocked;
         public int rank, reforges, refinements;
 
-        public bool[] attacks, traits, mutations;
+        public bool[] mutations, basic_attacks;
+        public List<bool[]> attacks, traits;
 
         public RestomonUnlocks(RestomonBase base_data)
         {
@@ -87,7 +88,16 @@ public class PermDataHolder : MonoBehaviour
 
             mutations = new bool[2] { false, false };
 
-            //attacks = new bool[base_data.]
+            basic_attacks = new bool[base_data.GetBasicAttacks().Length];
+
+            attacks = new List<bool[]>();
+            traits = new List<bool[]>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                attacks.Add(new bool[base_data.GetAttacks(i).Length]);
+                traits.Add(new bool[base_data.GetTraits(i).Length]);
+            }
         }
     }
 
@@ -129,10 +139,11 @@ public class PermDataHolder : MonoBehaviour
 
     private class CurrentRestomonData
     {
+        public Vector2Int[] current_attacks;
 
         public CurrentRestomonData()
         {
-
+            current_attacks = new Vector2Int[11];
         }
     }
 
@@ -496,9 +507,15 @@ public class PermDataHolder : MonoBehaviour
         return restomon_unlocks[index].unlocked;
     }
 
-    public void GetRestomonUnlockInfo(int index)
+    public void GetRestomonUnlockInfo(int index, out int rank, out int reforges, out int refinements, out bool[] mutations, out bool[] basic_attacks, out List<bool[]> attacks, out List<bool[]> traits)
     {
-
+        rank = restomon_unlocks[index].rank;
+        reforges = restomon_unlocks[index].reforges;
+        refinements = restomon_unlocks[index].refinements;
+        mutations = restomon_unlocks[index].mutations;
+        basic_attacks = restomon_unlocks[index].basic_attacks;
+        attacks = restomon_unlocks[index].attacks;
+        traits = restomon_unlocks[index].traits;
     }
 
     public int GetRestomonInt(int index)
@@ -506,9 +523,9 @@ public class PermDataHolder : MonoBehaviour
         return current_team_data[current_generic_data.current_catalyst].restomon_id[index];
     }
 
-    public void GetRestomonInfo(int index)
+    public void GetRestomonInfo(int index, out Vector2Int[] current_attacks)
     {
-
+        current_attacks = current_restomon_data[index].current_attacks;
     }
 
     public RestomonBase GetRestomonData(int index)

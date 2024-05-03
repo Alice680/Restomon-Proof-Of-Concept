@@ -139,4 +139,55 @@ public class RestomonBase : ScriptableObject
     {
         return restomon_name;
     }
+
+    public Attack[] GetBasicAttacks()
+    {
+       return base_attack;
+    }
+
+    public Attack[] GetAttacks(int index)
+    {
+        if (index < 0 || index >= 10)
+            return null;
+
+        if (index == 0)
+        {
+            return first_evo.attack;
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].attack;
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].attack;
+        }
+        else
+        {
+            return third_evos[index - 7].attack;
+        }
+    }
+
+    public Trait[] GetTraits(int index)
+    {
+        if (index < 0 || index >= 10)
+            return null;
+
+        if (index == 0)
+        {
+            return first_evo.traits;
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].traits;
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].traits;
+        }
+        else
+        {
+            return third_evos[index - 7].traits;
+        }
+    }
 }
