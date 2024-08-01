@@ -139,11 +139,14 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
-    cost: 
-    attack: []
-    traits: []
-    element: 0
-    model: {fileID: 0}
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 1
+    model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
       hp: 0
       mp: 0
@@ -156,11 +159,14 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
-    cost: 
-    attack: []
-    traits: []
-    element: 0
-    model: {fileID: 0}
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 1
+    model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
       hp: 0
       mp: 0
@@ -173,11 +179,14 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
-    cost: 
-    attack: []
-    traits: []
-    element: 0
-    model: {fileID: 0}
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 1
+    model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   third_evos:
   - base_stats:
       hp: 0
@@ -191,11 +200,14 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
-    cost: 
-    attack: []
-    traits: []
-    element: 0
-    model: {fileID: 0}
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 1
+    model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
       hp: 0
       mp: 0
@@ -208,11 +220,14 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
-    cost: 
-    attack: []
-    traits: []
-    element: 0
-    model: {fileID: 0}
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 1
+    model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
       hp: 0
       mp: 0
@@ -225,8 +240,11 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
-    cost: 
-    attack: []
-    traits: []
-    element: 0
-    model: {fileID: 0}
+    cost: 000000000000000000000000
+    attack:
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+    traits:
+    - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    element: 1
+    model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}

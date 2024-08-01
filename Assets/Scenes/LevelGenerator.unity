@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 212256460410476520, guid: e0589da6908dfed4fac38a35ee63b8f6, type: 3}
+      propertyPath: orthographic size
+      value: 2.69
+      objectReference: {fileID: 0}
     - target: {fileID: 212256460410476522, guid: e0589da6908dfed4fac38a35ee63b8f6, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -228,9 +232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  layout: {fileID: 11400000, guid: 6a3a37c7c01cd4c4e8116ebbd84043c7, type: 2}
+  layout: {fileID: 11400000, guid: 422c651a187a31b48b1236126a7fcb02, type: 2}
   new_layout: 0
-  x_size: 15
-  y_size: 15
+  x_size: 50
+  y_size: 50
   traversable: 1
-  current_model: {fileID: 1273251059124002432, guid: ea7e2ae4319473e4d997e4bcd8c379fc, type: 3}
+  current_model: {fileID: 3125491893750818500, guid: ab9001fe75905684ebc30144b33b7708, type: 3}

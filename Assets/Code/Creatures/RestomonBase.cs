@@ -90,49 +90,61 @@ public class RestomonBase : ScriptableObject
      * attack_id ints that refrences which attacks are to be set
      * return Restomon after setting its data
      */
-    public Restomon GetRestomon(int lv, int[] attack_id, int[] trait_id)
+    public Restomon GetRestomon(int reforges, int[] refinements, int mutation, Vector2Int[] attack_id, int[] trait_id)
     {
-        int[,] temp_stats = new int[4, 11];
-        int[,] temp_cost = new int[4, 3];
-        Attack[] temp_attack = new Attack[10];
-        Trait[] temp_traits = new Trait[4];
-        GameObject[] temp_models = new GameObject[4];
+        int[,] temp_stats = new int[11, 11];
+        int[,] temp_cost = new int[11, 3];
+        Attack[] temp_attack = new Attack[22];
+        Trait[] temp_traits = new Trait[11];
+        GameObject[] temp_models = new GameObject[11];
 
         for (int i = 0; i < 11; ++i)
-            temp_stats[0, i] = first_evo.base_stats.GetStats(i) + (growth_stats.GetStats(i) * lv);
+            temp_stats[0, i] = first_evo.base_stats.GetStats(i) + (growth_stats.GetStats(i));
 
         for (int i = 0; i < 3; ++i)
             temp_cost[0, i] = first_evo.cost[i];
 
         temp_traits[0] = first_evo.traits[0];
+        temp_traits[1] = first_evo.traits[1];
 
-        temp_attack[0] = base_attack[attack_id[0]];
-
-        for (int i = 0; i < 3; ++i)
-            temp_attack[i + 1] = first_evo.attack[attack_id[i + 1]];
+        temp_attack[0] = base_attack[attack_id[0].x];
+        temp_attack[1] = base_attack[attack_id[0].y];
+        temp_attack[2] = first_evo.attack[attack_id[1].x];
+        temp_attack[3] = first_evo.attack[attack_id[1].y];
 
         temp_models[0] = first_evo.model;
-
-        for (int i = 0; i < 3; ++i)
+        for (int I = 0; I < 3; ++I)
         {
-            for (int e = 0; e < 11; ++e)
-                temp_stats[1 + i, e] = second_evos[i].base_stats.GetStats(e);
+            EvolutionStats[] temp_stats_holder;
 
-            for (int e = 0; e < 3; ++e)
-                temp_cost[i + 1, e] = second_evos[i].cost[e];
+            if (I == 0)
+                temp_stats_holder = second_evos;
+            else if (I == 1)
+                temp_stats_holder = mixed_evos;
+            else
+                temp_stats_holder = third_evos;
 
-            for (int e = 0; e < 3; ++e)
-                temp_cost[1 + i, e] = second_evos[i].cost[e];
+            for (int i = 0; i < 3; ++i)
+            {
+                for (int e = 0; e < 11; ++e)
+                    temp_stats[1 + i + (I * 3), e] = temp_stats_holder[i].base_stats.GetStats(e);
 
-            temp_attack[4 + (i * 2)] = second_evos[i].attack[attack_id[4 + (i * 2)]];
-            temp_attack[5 + (i * 2)] = second_evos[i].attack[attack_id[5 + (i * 2)]];
+                for (int e = 0; e < 3; ++e)
+                    temp_cost[1 + i + (I * 3), e] = temp_stats_holder[i].cost[e];
 
-            temp_traits[1 + i] = second_evos[i].traits[trait_id[1 + i]];
+                for (int e = 0; e < 3; ++e)
+                    temp_cost[1 + i + (I * 3), e] = temp_stats_holder[i].cost[e];
 
-            temp_models[i + 1] = second_evos[i].model;
+                temp_attack[4 + (i * 2) + (I * 6)] = temp_stats_holder[i].attack[attack_id[1 + i + (I * 3)].x];
+                temp_attack[5 + (i * 2) + (I * 6)] = temp_stats_holder[i].attack[attack_id[1 + i + (I * 3)].y];
+
+                temp_traits[2 + i + (I * 3)] = temp_stats_holder[i].traits[trait_id[2 + i + (I * 3)]];
+
+                temp_models[1 + i + (I * 3)] = temp_stats_holder[i].model;
+            }
         }
 
-        return new Restomon(restomon_name, id, lv, temp_cost, temp_stats, first_evo.traits[0], temp_traits, first_evo.attack[0], temp_attack, temp_models);
+        return new Restomon(restomon_name, id, temp_cost, temp_stats, first_evo.traits[0], temp_traits, first_evo.attack[0], temp_attack, temp_models);
     }
 
     public String GetName()
@@ -142,7 +154,7 @@ public class RestomonBase : ScriptableObject
 
     public Attack[] GetBasicAttacks()
     {
-       return base_attack;
+        return base_attack;
     }
 
     public Attack[] GetAttacks(int index)

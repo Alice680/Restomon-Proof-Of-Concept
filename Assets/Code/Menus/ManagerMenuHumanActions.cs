@@ -84,7 +84,7 @@ public class ManagerMenuHumanActions : MonoBehaviour
 
                     for (int i = 0; i < 4; ++i)
                     {
-                        if (i < temp_catalyst.GetRestomonAmount())
+                        if (i < temp_catalyst.GetRestomonAmount() && data_holder.GetTeam(i) != null)
                             summon_text[i].text = data_holder.GetTeam(i).ToString();
                         else
                             summon_text[i].text = "Empty Slot";
@@ -92,7 +92,7 @@ public class ManagerMenuHumanActions : MonoBehaviour
 
                     summon_menu.GetValues(out x, out y);
 
-                    if (y < data_holder.GetCatalyst().GetRestomonAmount())
+                    if (y < data_holder.GetCatalyst().GetRestomonAmount() && data_holder.GetTeam(y) != null)
                         attack_hp_text.text = data_holder.GetCatalyst().GetSummonCost(data_holder.GetTeam(y).GetSummonCost(RestomonEvolution.None, -1)) + "";
                     else
                         attack_hp_text.text = "0";
@@ -218,7 +218,7 @@ public class ManagerMenuHumanActions : MonoBehaviour
                 summon_menu.UpdateMenu(dir);
 
                 summon_menu.GetValues(out x, out y);
-                if (y < data_holder.GetCatalyst().GetRestomonAmount())
+                if (y < data_holder.GetCatalyst().GetRestomonAmount() && data_holder.GetTeam(y) != null)
                     attack_hp_text.text = data_holder.GetCatalyst().GetSummonCost(data_holder.GetTeam(y).GetSummonCost(RestomonEvolution.None, -1)) + "";
                 else
                     attack_hp_text.text = "0";

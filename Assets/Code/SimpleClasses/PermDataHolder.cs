@@ -98,6 +98,10 @@ public class PermDataHolder : MonoBehaviour
                 attacks.Add(new bool[base_data.GetAttacks(i).Length]);
                 traits.Add(new bool[base_data.GetTraits(i).Length]);
             }
+
+            //TODO Remove later
+            for (int i = 0; i < basic_attacks.Length; ++i)
+                basic_attacks[i] = true;
         }
     }
 
@@ -139,11 +143,23 @@ public class PermDataHolder : MonoBehaviour
 
     private class CurrentRestomonData
     {
+        public int[] current_refinements;
+        public int current_mutation;
         public Vector2Int[] current_attacks;
+        public int[] current_traits;
 
         public CurrentRestomonData()
         {
+            current_mutation = 0;
             current_attacks = new Vector2Int[11];
+            current_traits = new int[11];
+
+            for (int i = 0; i < current_attacks.Length; ++i)
+            {
+                current_attacks[i].x = 0;
+                current_attacks[i].y = 1;
+                current_traits[i] = 0;
+            }
         }
     }
 
@@ -234,7 +250,7 @@ public class PermDataHolder : MonoBehaviour
 
         current_overworld = 0;
 
-        current_position = new Vector2Int(7, 4);
+        current_position = new Vector2Int(26, 25);
 
         main_quest_markers = new int[2];
         side_quest_markers = new int[3];
@@ -243,6 +259,8 @@ public class PermDataHolder : MonoBehaviour
 
         dungeon_unlocked[0] = true;
 
+        //TODO delete
+        current_team_data[0].restomon_id[0] = 0;
     }
 
     public void LoadData()
@@ -518,6 +536,17 @@ public class PermDataHolder : MonoBehaviour
         traits = restomon_unlocks[index].traits;
     }
 
+    public void SetRestomonUnlockInfo(int index, int rank, int reforges, int refinements, bool[] mutations, bool[] basic_attacks, List<bool[]> attacks, List<bool[]> traits)
+    {
+        restomon_unlocks[index].rank = rank;
+        restomon_unlocks[index].reforges = reforges;
+        restomon_unlocks[index].refinements = refinements;
+        restomon_unlocks[index].mutations = mutations;
+        restomon_unlocks[index].basic_attacks = basic_attacks;
+        restomon_unlocks[index].attacks = attacks;
+        restomon_unlocks[index].traits = traits;
+    }
+
     public int GetRestomonInt(int index)
     {
         return current_team_data[current_generic_data.current_catalyst].restomon_id[index];
@@ -528,6 +557,11 @@ public class PermDataHolder : MonoBehaviour
         current_attacks = current_restomon_data[index].current_attacks;
     }
 
+    public void SetRestomonInfo(int index, Vector2Int[] current_attacks)
+    {
+        current_restomon_data[index].current_attacks = current_attacks;
+    }
+
     public RestomonBase GetRestomonData(int index)
     {
         return restomon_bases[index];
@@ -535,7 +569,14 @@ public class PermDataHolder : MonoBehaviour
 
     public Restomon GetTeam(int index)
     {
-        return null;
+        if (index < 0 || index >= current_team_data[current_generic_data.current_catalyst].size || current_team_data[current_generic_data.current_catalyst].restomon_id[index] == -1)
+            return null;
+
+        int temp_restomon = current_team_data[current_generic_data.current_catalyst].restomon_id[index];
+
+        CurrentRestomonData temp_data = current_restomon_data[temp_restomon];
+
+        return restomon_bases[temp_restomon].GetRestomon(restomon_unlocks[temp_restomon].reforges, temp_data.current_refinements, 0, temp_data.current_attacks, temp_data.current_traits);
     }
 
     //Items Data
@@ -939,11 +980,6 @@ public class PermDataHolder : MonoBehaviour
     public void SetOverworld(int index, Vector2Int position)
     {
         current_overworld = index;
-        current_position = position;
-    }
-
-    public void SetPosition(Vector2Int position)
-    {
         current_position = position;
     }
 

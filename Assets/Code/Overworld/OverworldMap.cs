@@ -40,6 +40,19 @@ public class OverworldMap
                 this.model = GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion());
         }
 
+        public void UpdateTile(bool traversable, GameObject model)
+        {
+            if (this.model == null)
+                return;
+
+            this.traversable = traversable;
+
+            dungeon_layout = -1;
+            town = null;
+
+            GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion()).transform.parent  = this.model.transform;
+        }
+
         public void SetDungeon(int dungeon_layout)
         {
             this.dungeon_layout = dungeon_layout;
@@ -114,13 +127,18 @@ public class OverworldMap
 
     public void SetTile(int x, int y, bool traversable, GameObject model, int dungeon_layout)
     {
-        SetTile(x, y, traversable, model);
+        UpdateTile(x, y, traversable, model);
         SetDungeon(x, y, dungeon_layout);
     }
 
     public void SetTile(int x, int y, bool traversable, GameObject model)
     {
         map[x, y].SetTile(traversable, model);
+    }
+
+    public void UpdateTile(int x, int y, bool traversable, GameObject model)
+    {
+        map[x, y].UpdateTile(traversable, model);
     }
 
     public void SetDungeon(int x, int y, int dungeon_layout)

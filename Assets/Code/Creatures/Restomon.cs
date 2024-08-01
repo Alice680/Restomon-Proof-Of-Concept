@@ -20,7 +20,7 @@ public enum RestomonEvolution { None, FormA, FormB, FormC };
 public class Restomon : Creature
 {
     private string restomon_name, restomon_description;
-    private int id, lv;
+    private int id;
     private int[,] cost;
     private int[,] stats; //Hp, SP, MP Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
     private Attack empty_attack;
@@ -29,11 +29,10 @@ public class Restomon : Creature
     private Trait[] traits;
     private GameObject[] model;
 
-    public Restomon(string restomon_name, int id, int lv, int[,] cost, int[,] stats, Trait empty_trait,Trait[] traits, Attack empty_attack, Attack[] attacks, GameObject[] model)
+    public Restomon(string restomon_name, int id,  int[,] cost, int[,] stats, Trait empty_trait,Trait[] traits, Attack empty_attack, Attack[] attacks, GameObject[] model)
     {
         this.restomon_name = restomon_name;
         this.id = id;
-        this.lv = lv;
         this.cost = cost;
         this.stats = stats;
         this.empty_attack = empty_attack;
@@ -89,11 +88,6 @@ public class Restomon : Creature
             return cost[0, 2];
     }
 
-    public override int GetLV()
-    {
-        return lv;
-    }
-
     public override int GetHp()
     {
         return stats[0, 0];
@@ -132,15 +126,22 @@ public class Restomon : Creature
 
     public Trait[] GetTraits(RestomonEvolution current_evolution)
     {
-        Trait[] temp_traits = new Trait[3];
+        Trait[] temp_traits = new Trait[4];
 
         temp_traits[0] = traits[0];
-        temp_traits[1] = traits[1];
+        /*temp_traits[1] = traits[1];
 
         if (current_evolution == RestomonEvolution.None)
             temp_traits[2] = empty_trait;
         else
             temp_traits[2] = traits[(int)current_evolution + 1];
+        */
+
+        // TODO add in
+        temp_traits[0] = traits[0];
+        temp_traits[1] = traits[0];
+        temp_traits[2] = traits[0];
+        temp_traits[3] = traits[0];
 
         return traits;
     }

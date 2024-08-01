@@ -20,6 +20,7 @@ public class DungeonManager : MonoBehaviour
     private ManagerMenuHumanActions human_action_menu;
     private ManagerMenuRestomonActions restomon_action_menu;
     private DungeonTextHandler text_handler;
+    private DungeonDialogue dungeon_dialogue;
     private DungeonWeatherManager weather_manager;
     private StatusConditions condition_list;
 
@@ -27,6 +28,7 @@ public class DungeonManager : MonoBehaviour
     private int current_floor;
 
     private DungeonMap map;
+    private DialogueTree current_dialogue;
     private TurnKeeper turn_keeper;
 
     private Unit player;
@@ -37,6 +39,7 @@ public class DungeonManager : MonoBehaviour
     private List<Unit> enemy_units;
     private Actor enemy_controller;
 
+    private bool in_dialogue;
     private int moves, actions;
     private Unit current_unit;
     private float attack_time;
@@ -50,6 +53,7 @@ public class DungeonManager : MonoBehaviour
         human_action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuHumanActions>();
         restomon_action_menu = GameObject.Find("UIManager").GetComponent<ManagerMenuRestomonActions>();
         text_handler = GameObject.Find("UIManager").GetComponent<DungeonTextHandler>();
+        dungeon_dialogue = GameObject.Find("UIManager").GetComponent<DungeonDialogue>();
         weather_manager = GameObject.Find("WeatherManager").GetComponent<DungeonWeatherManager>();
         condition_list = (StatusConditions)Resources.Load("Conditions");
 
@@ -77,6 +81,17 @@ public class DungeonManager : MonoBehaviour
         if (attack_time != -1 && Time.time - attack_time > 0.1f)
             RemoveAttackModels();
 
+        if(in_dialogue)
+        {
+            if(dungeon_dialogue.ChangeDialogue())
+            {
+                current_dialogue = null;
+                in_dialogue = false;
+            }
+
+            return;
+        }
+
         if (current_unit != null)
             current_unit.GetOwner().Run();
         else
@@ -87,6 +102,9 @@ public class DungeonManager : MonoBehaviour
             ActionCleanup();
             text_handler.Run();
         }
+
+        if (current_dialogue != null)
+            in_dialogue = true;
     }
 
     /*
@@ -303,6 +321,13 @@ public class DungeonManager : MonoBehaviour
         dungeon_ui.Reset(map);
 
         performed_action = false;
+
+        current_dialogue = current_dungeon.GetDialogue(current_floor, data_holder);
+
+        if (current_dialogue != null)
+        {
+            dungeon_dialogue.Activate(current_dialogue);
+        }
 
         EndTurn();
     }
@@ -664,6 +689,9 @@ public class DungeonManager : MonoBehaviour
             return false;
 
         if (player_units.Count > temp_catalyst.GetTeamSize())
+            return false; 
+
+        if(data_holder.GetTeam(index) == null)
             return false;
 
         if (current_unit.GetHp() < temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)))
@@ -796,6 +824,7 @@ public class DungeonManager : MonoBehaviour
             index = unit.GetCondition(i, out rank);
             trait_list.Add(condition_list.GetTrait(index, rank));
         }
+
 
         return trait_list.ToArray();
     }

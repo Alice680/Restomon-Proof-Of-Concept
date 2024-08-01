@@ -453,4 +453,9 @@ public class Player : Actor
             return;
         }
     }
+
+    public Inputer GetInputer()
+    {
+        return inputer;
+    }
 }

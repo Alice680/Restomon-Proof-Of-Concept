@@ -92,13 +92,28 @@ public class OverworldLayout : ScriptableObject
         nodes[x + (y * x_size)].traversable = traversable;
     }
 
+    public void UpdateTile (int x, int y, GameObject model, bool traversable)
+    {
+        nodes[x + (y * x_size)].model = model;
+        nodes[x + (y * x_size)].traversable = traversable;
+    }
     public OverworldMap GetMap()
     {
         OverworldMap temp_map = new OverworldMap(x_size, y_size);
 
         for (int i = 0; i < x_size; ++i)
             for (int e = 0; e < y_size; ++e)
+            {
                 temp_map.SetTile(i, e, nodes[i + (e * x_size)].traversable, nodes[i + (e * this.x_size)].model);
+
+                if (!nodes[i + (e * x_size)].traversable)
+                {
+                    Debug.DrawLine(new Vector3(i-0.5F, e - 0.5F, 0), new Vector3(i + 0.5F, e - 0.5F, 0), Color.red, 10);
+                    Debug.DrawLine(new Vector3(i - 0.5F, e - 0.5F, 0), new Vector3(i - 0.5F, e + 0.5F, 0), Color.red, 10);
+                    Debug.DrawLine(new Vector3(i + 0.5F, e + 0.5F, 0), new Vector3(i + 0.5F, e - 0.5F, 0), Color.red, 10);
+                    Debug.DrawLine(new Vector3(i + 0.5F, e + 0.5F, 0), new Vector3(i - 0.5F, e + 0.5F, 0), Color.red, 10);
+                }
+            }
 
         return temp_map;
     }
@@ -126,7 +141,7 @@ public class OverworldLayout : ScriptableObject
     public void SetUIValues(OverworldUI overworld_UI)
     {
         List<Vector2Int[]> shop_values_temp = new List<Vector2Int[]>();
-        for (int i = 0;i< shop_info.Length;++i)
+        for (int i = 0; i < shop_info.Length; ++i)
             shop_values_temp.Add(shop_info[i].values);
 
         overworld_UI.SetShop(shop_values_temp);
@@ -134,7 +149,7 @@ public class OverworldLayout : ScriptableObject
         List<int[]> smith_a_values_temp = new List<int[]>();
         List<int[]> smith_b_values_temp = new List<int[]>();
 
-        for(int i = 0; i < smith_info.Length; ++i)
+        for (int i = 0; i < smith_info.Length; ++i)
         {
             smith_a_values_temp.Add(smith_info[i].weapon_values);
             smith_b_values_temp.Add(smith_info[i].accessory_value);

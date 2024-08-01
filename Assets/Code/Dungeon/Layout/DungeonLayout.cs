@@ -7,6 +7,14 @@ using UnityEngine;
 public class DungeonLayout : ScriptableObject
 {
     [Serializable]
+    private class TextOption
+    {
+        public int floor;
+        public DialogueTree dialogue_tree;
+        public EventTrigger trigger;
+    }
+
+    [Serializable]
     private class VictoryCondition
     {
         public int overworld_id;
@@ -18,10 +26,20 @@ public class DungeonLayout : ScriptableObject
     [SerializeField] private string dungeon_name;
     [SerializeField] private DungeonFloor[] floor_options;
     [SerializeField] private VictoryCondition lose_condition, win_condition;
+    [SerializeField] private TextOption[] text_options;
 
     public DungeonFloor GetFloor(int index)
     {
         return floor_options[index];
+    }
+
+    public DialogueTree GetDialogue(int index, PermDataHolder data_holder) 
+    {
+        foreach (TextOption option in text_options)
+            if (option.floor == index && option.trigger.Check(data_holder))
+                return option.dialogue_tree;
+
+        return null;
     }
 
     public int GetNumberOfFloor()

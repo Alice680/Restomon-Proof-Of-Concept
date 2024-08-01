@@ -193,11 +193,14 @@ public static class ApplyTrait
     public static void OnSpawn(Unit user, Trait[] target_traits, DungeonManager manager)
     {
         int[] temp_varaibles;
-
+        //Debug.Log("UNIT " + user);
         foreach (Trait trait in target_traits)
+        {
+            //Debug.Log(trait);
             for (int i = 0; i < trait.GetNumberEffects(); ++i)
                 if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.OnSpawn)
                     ConditionToAbility(trait, i, user, manager);
+        }
     }
 
     public static void OnConditon(Unit user, Unit target, Trait[] user_traits, Trait[] target_traits, DungeonManager manager, int index, int rank)
