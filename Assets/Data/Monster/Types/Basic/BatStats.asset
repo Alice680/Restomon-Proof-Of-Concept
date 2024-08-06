@@ -25,9 +25,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  elements: 000000000000000000000000
   stats:
     Hp: 5
-    Atk: 2
+    Atk: 3
     Mag: 2
     Frc: 2
     Def: 2

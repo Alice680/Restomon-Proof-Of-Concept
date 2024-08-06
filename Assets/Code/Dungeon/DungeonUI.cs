@@ -14,6 +14,8 @@ using UnityEngine.UI;
 // TODO move tile markers into this class. Maybe?
 public class DungeonUI : MonoBehaviour
 {
+    public GameObject cam;
+
     public GameObject[] move_normal;
     public GameObject[] move_end;
     public GameObject[] action_marker;
@@ -22,10 +24,16 @@ public class DungeonUI : MonoBehaviour
     public Text player_name_text, ap_text;
     public Text[] name_text, hp_text, mp_text;
 
-    public Text condition_name;
+    public GameObject condition_icon;
+    public GameObject condition_mp_stat;
+    public GameObject[] condition_transforms;
+
+    private GameObject condition_model;
     private GameObject[] condition_icons;
 
-    public GameObject cam;
+    public Text condition_name;
+    public Text condition_cost;
+    public Text[] condition_text;
 
     public StatusConditions condition_list;
 
@@ -81,7 +89,7 @@ public class DungeonUI : MonoBehaviour
         ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
         player_name_text.text = "Player";
 
-        for (int i = 1; i < 4; ++i)
+        for (int i = 1; i < 9; ++i)
         {
             if (player_units.Count > i)
             {
@@ -100,18 +108,50 @@ public class DungeonUI : MonoBehaviour
         }
     }
 
-    public void UpdateUnitStatus(Unit target)
+    public void UpdateUnitStatus(Unit target , int show_cost)
     {
+        if (condition_model != null)
+            Destroy(condition_model);
+
         int index = -1, rank = -1;
 
+        condition_icon.SetActive(false);
         condition_name.text = "";
+        condition_cost.text = "";
 
-        for (int i = 0; i < 12; ++i)
+        for (int i = 0; i < 10; ++i)
             if (condition_icons[i] != null)
                 Destroy(condition_icons[i]);
 
         if (target == null)
             return;
+
+        condition_icon.SetActive(true);
+
+        if(show_cost >= 0)
+            condition_cost.text = "Cost: " + show_cost;
+
+        condition_model = target.GetModel();
+        condition_model.transform.parent = cam.transform;
+        condition_model.transform.localPosition = new Vector3(5.4f ,-0.8f,10);
+        condition_model.GetComponent<Renderer>().sortingLayerName = "UI";
+        condition_model.GetComponent<Renderer>().sortingOrder = 15;
+
+        if (target.GetCreatureType() == CreatureType.Restomon)
+        {
+            condition_mp_stat.SetActive(true);
+            condition_text[1].text = "" + target.GetMaxMP();
+        }
+        else
+        {
+            condition_mp_stat.SetActive(false);
+            condition_text[1].text = "";
+        }
+
+        condition_text[0].text = "" + target.GetMaxHP();
+
+        for (int i = 0; i < 9; ++i)
+            condition_text[i+2].text = "" + target.GetStat(i);
 
         condition_name.text = target.ToString();
         for (int i = 0; i < target.GetNumConditions(); ++i)
@@ -127,6 +167,9 @@ public class DungeonUI : MonoBehaviour
     {
         current_map = map;
 
-        condition_icons = new GameObject[12];
+        condition_icons = new GameObject[10];
+        for (int i = 0; i < 10; ++i)
+            if (condition_icons[i] != null)
+                Destroy(condition_icons[i]);
     }
 }

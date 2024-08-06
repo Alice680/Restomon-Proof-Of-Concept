@@ -108,6 +108,8 @@ public class HumanClass : ScriptableObject
     // TODO re orginize once done humans to be easier to follow and remove any fluf
     public Human GetHuman(int lv, int s_class_i, int weapon_i, int trinket_a_i, int trinket_b_i, int[] traits_i, int job_i, string unique_name = "")
     {
+        unique_name = "Player";
+
         Subclass temp_sub_class;
         if (s_class_i < 0 || s_class_i > subclasses.Length)
             temp_sub_class = subclasses[0];

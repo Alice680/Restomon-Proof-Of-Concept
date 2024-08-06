@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 /*
  * The main class for dungeon game phase.
@@ -81,9 +83,9 @@ public class DungeonManager : MonoBehaviour
         if (attack_time != -1 && Time.time - attack_time > 0.1f)
             RemoveAttackModels();
 
-        if(in_dialogue)
+        if (in_dialogue)
         {
-            if(dungeon_dialogue.ChangeDialogue())
+            if (dungeon_dialogue.ChangeDialogue())
             {
                 current_dialogue = null;
                 in_dialogue = false;
@@ -102,9 +104,6 @@ public class DungeonManager : MonoBehaviour
             ActionCleanup();
             text_handler.Run();
         }
-
-        if (current_dialogue != null)
-            in_dialogue = true;
     }
 
     /*
@@ -183,7 +182,6 @@ public class DungeonManager : MonoBehaviour
         Restomon temp_restomon = data_holder.GetTeam(index);
 
         actions -= 1;
-
         current_unit.ChangeHp(-temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)));
 
         Unit temp_unit = new Unit(temp_restomon, current_unit.GetOwner());
@@ -326,10 +324,14 @@ public class DungeonManager : MonoBehaviour
 
         if (current_dialogue != null)
         {
+            in_dialogue = true;
             dungeon_dialogue.Activate(current_dialogue);
         }
 
         EndTurn();
+
+        ActionCleanup();
+        text_handler.Run();
     }
 
     private void AddUnit(Unit unit, Vector3Int position)
@@ -514,6 +516,20 @@ public class DungeonManager : MonoBehaviour
         performed_action = false;
     }
 
+    public void ShowSummon(int index)
+    {
+        if (index == -1)
+        {
+            dungeon_ui.UpdateUnitStatus(null, -1);
+            return;
+        }
+
+        Catalyst temp_catalyst = data_holder.GetCatalyst();
+        Restomon temp_restomon = data_holder.GetTeam(index);
+
+        dungeon_ui.UpdateUnitStatus(new Unit(temp_restomon, player_controller), temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)));
+    }
+
     public void ShowCamera(Vector3Int target)
     {
         dungeon_ui.UpdateCam(target);
@@ -525,7 +541,7 @@ public class DungeonManager : MonoBehaviour
 
         Unit temp_unit = map.GetUnit(target);
 
-        dungeon_ui.UpdateUnitStatus(temp_unit);
+        dungeon_ui.UpdateUnitStatus(temp_unit, -1);
 
         if (temp_unit == null)
             map.SetMarker(target.x, target.y, 0);
@@ -539,7 +555,7 @@ public class DungeonManager : MonoBehaviour
     {
         map.RemoveAllMarker();
 
-        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target), -1);
 
         Attack attack = current_unit.GetAttack(index);
 
@@ -565,7 +581,7 @@ public class DungeonManager : MonoBehaviour
     {
         map.RemoveAllMarker();
 
-        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target), -1);
 
         Vector3Int[] positions = data_holder.GetCatalyst().GetArea(current_unit.GetPosition());
 
@@ -582,7 +598,7 @@ public class DungeonManager : MonoBehaviour
     {
         map.RemoveAllMarker();
 
-        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target), -1);
 
         Vector3Int[] positions = data_holder.GetCatalyst().GetArea(current_unit.GetPosition());
 
@@ -601,15 +617,20 @@ public class DungeonManager : MonoBehaviour
 
         temp_unit = map.GetUnit(target);
 
+        Catalyst temp_catalyst = data_holder.GetCatalyst();
+
         if (temp_unit != null && temp_unit.GetCreatureType() == CreatureType.Restomon && temp_unit.GetCurrentEvolution() == RestomonEvolution.None)
+        {
             temp_unit.ShowEvolution(new_form);
+            dungeon_ui.UpdateUnitStatus(temp_unit.GetEvolution(new_form), temp_catalyst.GetEvolutionCost(temp_unit.GetEvolutionCost(new_form)));
+        }
     }
 
     public void ShowItemArea(Vector3Int target, int index)
     {
         map.RemoveAllMarker();
 
-        dungeon_ui.UpdateUnitStatus(map.GetUnit(target));
+        dungeon_ui.UpdateUnitStatus(map.GetUnit(target), -1);
 
         Attack attack = ItemHolder.GetItem(data_holder.GetInventorySlot(index)).GetEffect(out bool has_effect);
 
@@ -633,7 +654,7 @@ public class DungeonManager : MonoBehaviour
 
     public void RemoveMarker()
     {
-        dungeon_ui.UpdateUnitStatus(null);
+        dungeon_ui.UpdateUnitStatus(null, -1);
         map.RemoveAllMarker();
     }
 
@@ -642,7 +663,22 @@ public class DungeonManager : MonoBehaviour
      */
     public bool PositionValid(Vector3Int position)
     {
-        return map.IsInMap(position);
+        if (!map.IsInMap(position))
+            return false;
+
+        if (position.x - 4 > current_unit.GetPosition().x)
+            return false;
+
+        if (position.x + 4 < current_unit.GetPosition().x)
+            return false;
+
+        if (position.y - 4 > current_unit.GetPosition().y)
+            return false;
+
+        if (position.y + 4 < current_unit.GetPosition().y)
+            return false;
+
+        return true;
     }
 
     public bool TileEmpty(Vector3Int position)
@@ -689,9 +725,9 @@ public class DungeonManager : MonoBehaviour
             return false;
 
         if (player_units.Count > temp_catalyst.GetTeamSize())
-            return false; 
+            return false;
 
-        if(data_holder.GetTeam(index) == null)
+        if (data_holder.GetTeam(index) == null)
             return false;
 
         if (current_unit.GetHp() < temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)))

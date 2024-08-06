@@ -266,6 +266,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be943c03f819c6740bfa04269c5bd80c, type: 2}
   - {fileID: 11400000, guid: 1888ef26c7cd716418431e0b931804e8, type: 2}
   - {fileID: 11400000, guid: 16badff5bf9b63c4488c0a9392412c3c, type: 2}
+  - {fileID: 11400000, guid: 935b6a66b1942e5498cc6bd9305a0fa8, type: 2}
   restomon_bases:
   - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}
   - {fileID: 11400000, guid: cf33d2d70c742ea4592de3cc0b80268e, type: 2}

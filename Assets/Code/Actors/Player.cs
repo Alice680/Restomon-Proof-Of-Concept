@@ -175,6 +175,7 @@ public class Player : Actor
                     target = manager_ref.GetPositionFromID(manager_ref.GetIDFromActive());
 
                     manager_ref.ShownSummonTarget(target, action_num);
+                    manager_ref.ShowSummon(action_num);
 
                     state = State.view_summon;
                     return;
@@ -338,6 +339,7 @@ public class Player : Actor
                 target += DirectionMath.GetVectorChange(inputer.GetDir());
 
             manager_ref.ShownSummonTarget(target, action_num);
+            manager_ref.ShowSummon(action_num);
 
             return;
         }

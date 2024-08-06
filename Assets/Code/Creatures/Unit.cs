@@ -272,6 +272,16 @@ public class Unit
         return affinity;
     }
 
+    //TODO add second form handling
+    public Unit GetEvolution(int index)
+    {
+        Unit temp_unit = new Unit(creature, owner);
+
+        temp_unit.Evolve(index);
+
+        return temp_unit;
+    }
+
     // TODO add in
     public int GetResistance(Element element)
     {
@@ -395,6 +405,11 @@ public class Unit
     public RestomonEvolution GetCurrentEvolution()
     {
         return restomon_evolution;
+    }
+
+    public GameObject GetModel()
+    {
+       return GameObject.Instantiate(model);
     }
 
     public override string ToString()

@@ -120,7 +120,7 @@ public class PermDataHolder : MonoBehaviour
             pack_upgrades = 0;
             inventory = new List<int>();
             storage = new int[5];
-            current_class = 0;
+            current_class = 3;
             current_catalyst = 0;
         }
     }
@@ -235,8 +235,6 @@ public class PermDataHolder : MonoBehaviour
             current_restomon_data[i] = new CurrentRestomonData();
         }
 
-        restomon_unlocks[0].unlocked = true;
-
         for (int i = 0; i < 8; ++i)
         {
             current_team_data[i] = new CurrentTeamData(catalysts[i]);
@@ -258,9 +256,6 @@ public class PermDataHolder : MonoBehaviour
         dungeon_cleared = new bool[2];
 
         dungeon_unlocked[0] = true;
-
-        //TODO delete
-        current_team_data[0].restomon_id[0] = 0;
     }
 
     public void LoadData()
@@ -470,8 +465,16 @@ public class PermDataHolder : MonoBehaviour
 
     public Human GetPlayer()
     {
-        CurrentClassData temp_data = current_class_data[current_generic_data.current_class];
-        return classes[current_generic_data.current_class].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
+        if (current_generic_data.current_class != 3)
+        {
+            CurrentClassData temp_data = current_class_data[current_generic_data.current_class];
+            return classes[current_generic_data.current_class].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
+        }
+        else
+        {
+            CurrentClassData temp_data = current_class_data[0];
+            return classes[3].GetHuman(generic_unlocks.lv, temp_data.current_sub, temp_data.current_weapon, temp_data.current_trinket_a, temp_data.current_trinket_b, temp_data.free_traits, 0);
+        }
     }
 
     public HumanClass GetDataHuman(int index)

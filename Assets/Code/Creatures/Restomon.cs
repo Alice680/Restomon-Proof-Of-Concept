@@ -63,6 +63,7 @@ public class Restomon : Creature
 
     public int GetSummonCost(RestomonEvolution current_evolution, int new_form)
     {
+        //Temp
         if (current_evolution != RestomonEvolution.None)
             return -1;
 

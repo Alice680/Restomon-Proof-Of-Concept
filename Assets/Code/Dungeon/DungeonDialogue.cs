@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DungeonDialogue : MonoBehaviour
 {
     [SerializeField] private GameObject text_box, choice_box;
-    [SerializeField] private Text text_name, text_body, text_choice;
+    [SerializeField] private Text text_body, text_choice;
 
     private Inputer inputer;
     private DialogueTree dialogue_tree;
@@ -23,7 +23,6 @@ public class DungeonDialogue : MonoBehaviour
         text_box.SetActive(true);
 
         text_body.text = dialogue_tree.GetData(current_node, out string speaker_name, out string choice_name);
-        text_name.text = speaker_name;
     }
 
     public bool ChangeDialogue()
@@ -46,7 +45,6 @@ public class DungeonDialogue : MonoBehaviour
             }
 
             text_body.text = dialogue_tree.GetData(current_node, out string speaker_name, out string choice_name);
-            text_name.text = speaker_name;
 
             if (is_choice)
             {
@@ -79,7 +77,6 @@ public class DungeonDialogue : MonoBehaviour
         text_box.SetActive(false);
 
         text_body.text = "";
-        text_name.text = "";
     }
 
     private void ActivateChoice(string line_a, string line_b)

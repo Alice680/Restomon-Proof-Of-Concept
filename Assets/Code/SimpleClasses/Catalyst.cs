@@ -28,7 +28,8 @@ public class Catalyst : ScriptableObject
 
     public int GetSummonCost(int base_cost)
     {
-        return (int)(1.0f * base_cost * summon_cost / 100);
+        return base_cost;
+       // return (int)(1.0f * base_cost * summon_cost / 100);
     }
 
     public int GetEvolutionCost(int base_cost)
