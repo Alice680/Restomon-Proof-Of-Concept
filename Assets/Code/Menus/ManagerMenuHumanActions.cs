@@ -75,7 +75,6 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     state = State.attack;
                     exit_value = 0;
                     return -1;
-
                 case 2:
                     main_menu.DeActivate();
                     summon_menu.Activate();

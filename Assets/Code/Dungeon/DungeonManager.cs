@@ -89,6 +89,7 @@ public class DungeonManager : MonoBehaviour
             {
                 current_dialogue = null;
                 in_dialogue = false;
+                ApplyTrait.OnEndDialogue(current_unit, GetAllTraits(current_unit), this);
             }
 
             return;

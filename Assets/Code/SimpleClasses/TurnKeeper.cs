@@ -83,6 +83,7 @@ public class TurnKeeper
                 if (next_unit == null || next_unit.GetPlacement() < node.GetPlacement())
                     next_unit = node;
             }
+
         while (next_unit.GetPlacement() < 10);
     }
 
@@ -111,6 +112,11 @@ public class TurnKeeper
     {
         if (next_unit == null)
             return null;
+
+        if (next_unit.GetUnit().GetCreatureType() == CreatureType.Floor)
+        {
+            //Debug.Log(next_unit.GetPlacement() + " " + next_unit.GetUnit().GetStat(6));
+        }
 
         return next_unit.GetUnit();
     }

@@ -1,31 +1,34 @@
 fileFormatVersion: 2
-guid: 1e0f0c9aabfbda84ab248cef9524d6de
+guid: ffacc489797295c49b6a3fe59756a238
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1660547414782076750
-    second: FirstMap_0
+      213: 1034472788680285899
+    second: TownIcons_0
   - first:
-      213: -8715954124292324004
-    second: FirstMap_1
+      213: 5680865152938119637
+    second: TownIcons_1
   - first:
-      213: -8311623630993379109
-    second: FirstMap_2
+      213: -2005550675750562063
+    second: TownIcons_2
   - first:
-      213: -5029445665852252665
-    second: FirstMap_3
+      213: -8713225144878585498
+    second: TownIcons_3
   - first:
-      213: -189190791267841149
-    second: FirstMap_4
+      213: 5307028692039833309
+    second: TownIcons_4
   - first:
-      213: 3748095688585664814
-    second: FirstMap_5
+      213: -8786656433605056045
+    second: TownIcons_5
   - first:
-      213: 8999903715845917974
-    second: FirstMap_6
+      213: 8569778125118358542
+    second: TownIcons_6
   - first:
-      213: 6782261412417206279
-    second: FirstMap_7
+      213: 7050462037446746287
+    second: TownIcons_7
+  - first:
+      213: 2172932399245763850
+    second: TownIcons_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -115,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FirstMap_0
+      name: TownIcons_0
       rect:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,20 +132,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b898399cec84f8e0800000000000000
-      internalID: -1660547414782076750
+      spriteID: bce981b358f2b5e00800000000000000
+      internalID: 1034472788680285899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstMap_1
+      name: TownIcons_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d195c112cc76de40800000000000000
+      internalID: 5680865152938119637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TownIcons_2
       rect:
         serializedVersion: 2
         x: 32
         y: 32
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5584fe27e5ba0780800000000000000
-      internalID: -8715954124292324004
+      spriteID: 1f6d7d8494ada24e0800000000000000
+      internalID: -2005550675750562063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstMap_2
+      name: TownIcons_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
+        x: 0
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd0b5ef285e27ac80800000000000000
-      internalID: -8311623630993379109
+      spriteID: 669a28735e7641780800000000000000
+      internalID: -8713225144878585498
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstMap_3
+      name: TownIcons_4
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,20 +216,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70e9fb560d1d33ab0800000000000000
-      internalID: -5029445665852252665
+      spriteID: dd617d14a7a56a940800000000000000
+      internalID: 5307028692039833309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstMap_4
+      name: TownIcons_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d9e19ff6868f0680800000000000000
+      internalID: -8786656433605056045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TownIcons_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +258,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38b84bb4afbdf5df0800000000000000
-      internalID: -189190791267841149
+      spriteID: e04c797dcc7fde670800000000000000
+      internalID: 8569778125118358542
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstMap_5
+      name: TownIcons_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa0e36c3ed548d160800000000000000
+      internalID: 7050462037446746287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TownIcons_8
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,50 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e295256ab29e30430800000000000000
-      internalID: 3748095688585664814
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FirstMap_6
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 61dc6bbfeb416ec70800000000000000
-      internalID: 8999903715845917974
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FirstMap_7
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70877f412de6f1e50800000000000000
-      internalID: 6782261412417206279
+      spriteID: a052bf1218ec72e10800000000000000
+      internalID: 2172932399245763850
       vertices: []
       indices: 
       edges: []

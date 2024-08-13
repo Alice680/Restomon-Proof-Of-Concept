@@ -2298,6 +2298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weather_list:
   - {fileID: 11400000, guid: 52c8ab8086fb64241b17abdc95ae4447, type: 2}
+  - {fileID: 11400000, guid: f35842e608be42d4aa64be9a5de5fb85, type: 2}
   - {fileID: 11400000, guid: 6e7284a84ae9e1a41af13546c0438fda, type: 2}
   - {fileID: 11400000, guid: 0d8b8d6fda9a35d4f92e03f854ecc2eb, type: 2}
   - {fileID: 11400000, guid: d9b0a444ba6c2ea4f8fce209b1a1aced, type: 2}

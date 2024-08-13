@@ -37,11 +37,14 @@ public class OverworldUI : MonoBehaviour
             this.values = values;
         }
     }
+    [SerializeField] private GameObject[] town_icon_ref;
 
-    [SerializeField] private GameObject text_box, choice_box, town_box;
+    [SerializeField] private GameObject text_box, choice_box, town_box, cam;
 
     [SerializeField] private Text dialogue_name, dialogue, choice;
 
+    [SerializeField] private Text town_name, town_description, town_current_option;
+    [SerializeField] private GameObject[] town_bars, town_icons;
     [SerializeField] private Text[] town_options;
 
     [SerializeField] private ManagerMenuHome menu_home;
@@ -66,6 +69,7 @@ public class OverworldUI : MonoBehaviour
     private OverworldTown current_town;
     private int current_selection;
     private int current_area;
+    private GameObject[] town_icon_objects;
     private bool town_dialouge;
     private TownFeatureType current_feature;
 
@@ -85,6 +89,8 @@ public class OverworldUI : MonoBehaviour
 
         for (int i = 0; i < 8; ++i)
             town_options[i].text = "";
+
+        town_icon_objects = new GameObject[8];
 
         menu_home.SetData(data_holder);
         menu_shop.Startup(data_holder);
@@ -236,7 +242,6 @@ public class OverworldUI : MonoBehaviour
 
     public void ActivateTown(OverworldTown town)
     {
-        text_box.SetActive(true);
         town_box.SetActive(true);
 
         current_area = 0;
@@ -248,14 +253,21 @@ public class OverworldUI : MonoBehaviour
 
     public void DeactivateTown()
     {
-        text_box.SetActive(false);
         town_box.SetActive(false);
 
-        dialogue_name.text = "";
-        dialogue.text = "";
+        town_name.text = "";
+        town_description.text = "";
+        town_current_option.text = "";
 
         for (int i = 0; i < 8; ++i)
+        {
+            town_bars[i].SetActive(false);
+
             town_options[i].text = "";
+
+            if (town_icon_objects[i] != null)
+                Destroy(town_icon_objects[i]);
+        }
     }
 
     public bool ChangeTown(Inputer inputer)
@@ -325,7 +337,7 @@ public class OverworldUI : MonoBehaviour
         if (inputer != null)
         {
             if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
-                current_selection = DirectionMath.GetMenuChange(current_selection, inputer.GetDir(), 4, 2);
+                current_selection = DirectionMath.GetMenuChange(current_selection, inputer.GetDir(), 2, 4);
 
             else if (inputer.GetEnter())
             {
@@ -345,7 +357,7 @@ public class OverworldUI : MonoBehaviour
                     if (temp_dialogue != null)
                     {
                         town_dialouge = true;
-                        DeactivateTown();
+                        //DeactivateTown();
                         ActivateDialogue(temp_dialogue);
                         return false;
                     }
@@ -393,11 +405,29 @@ public class OverworldUI : MonoBehaviour
             }
         }
 
-        dialogue.text = current_town.GetBodyText(current_area, data_holder, out string area_name);
-        dialogue_name.text = area_name;
+        town_description.text= current_town.GetBodyText(current_area, out string area_name);
+        town_name.text = area_name;
 
         for (int i = 0; i < 8; ++i)
-            town_options[i].text = (current_selection == i ? "*" : "") + (current_town.GetChoiceText(current_area, data_holder)[i]);
+        {
+            town_bars[i].SetActive(false);
+            town_options[i].text = current_town.GetChoiceText(current_area, data_holder,out int[] temp_icon, out string[] temp_descriptions)[i];
+
+            if (town_icon_objects[i] != null)
+                Destroy(town_icon_objects[i]);
+
+            if (i == current_selection)
+                town_current_option.text = temp_descriptions[i];
+
+            if (temp_icon[i] != 0)
+            {
+                town_icon_objects[i] = Instantiate(town_icon_ref[temp_icon[i]-1]);
+                town_icon_objects[i].transform.parent = cam.transform;
+                town_icon_objects[i].transform.position = town_icons[i].transform.position;
+            }
+        }
+
+        town_bars[current_selection].SetActive(true);
 
         return false;
     }

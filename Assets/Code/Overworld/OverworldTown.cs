@@ -11,13 +11,12 @@ public class OverworldTown : ScriptableObject
     [Serializable]
     private class TownArea
     {
-        public string area_name;
+        public string area_name, area_description;
 
         public string back_txt;
+        public string back_description;
 
         public int back_int;
-
-        public AreaText[] text_options;
 
         public TownEvent[] area_events;
     }
@@ -33,6 +32,8 @@ public class OverworldTown : ScriptableObject
     private class TownEvent
     {
         public string txt;
+        public string description;
+        public int event_type;
 
         public int next_area;
 
@@ -47,25 +48,17 @@ public class OverworldTown : ScriptableObject
 
     [SerializeField] private TownArea[] town_areas;
 
-    public string GetBodyText(int index, PermDataHolder data_holder, out string area_name)
+    public string GetBodyText(int index, out string area_name)
     {
         area_name = town_areas[index].area_name;
-
-        foreach (AreaText area in town_areas[index].text_options)
-        {
-            if(area.event_trigger.Check(data_holder))
-            {
-                return area.txt;
-            }
-        }
-
-        area_name = "";
-        return "";
+        return town_areas[index].area_description;
     }
 
-    public string[] GetChoiceText(int index, PermDataHolder data_holder)
+    public string[] GetChoiceText(int index, PermDataHolder data_holder, out int[] icons, out string[] descriptions)
     {
         string[] temp_string = new string[8];
+        icons = new int[8];
+        descriptions = new string[8];
 
         TownArea temp_area = town_areas[index];
 
@@ -79,12 +72,15 @@ public class OverworldTown : ScriptableObject
             if(temp_area.area_events[i].event_trigger.Check(data_holder))
             {
                 temp_string[current_box] = temp_area.area_events[i].txt;
+                descriptions[current_box] = temp_area.area_events[i].description;
+                icons[current_box] = temp_area.area_events[i].event_type;
 
                 ++current_box;
             }
         }
 
         temp_string[7] = temp_area.back_txt;
+        descriptions[7] = temp_area.back_description;
 
         return temp_string;
     }

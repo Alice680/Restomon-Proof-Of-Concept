@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 706cc037d351a5843ba67d1d407a1815, type: 3}
-  m_Name: StairsTrait
+  m_Script: {fileID: 11500000, guid: 1ccd9508accb21f458c3053b59d63e1f, type: 3}
+  m_Name: PortalConditione
   m_EditorClassIdentifier: 
-  trait_name: Ball Bearing
-  trait_description: 
-  effects:
-  - ability: 9
-    ability_variables: 00000000
-    condition: 8
-    condition_variables: 
-    requirements: []
+  condition_name: Stairs
+  model: {fileID: 3151037332348045168, guid: 0209f87761dce8b4e84ee382926bba52, type: 3}
+  effect: {fileID: 11400000, guid: 794502058c879574caf7dfb9460a5265, type: 2}

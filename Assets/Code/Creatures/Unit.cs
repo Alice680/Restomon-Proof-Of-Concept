@@ -322,6 +322,9 @@ public class Unit
         if (index < 0 || index > 9)
             return -1;
 
+        if (creature_type == CreatureType.Floor)
+            return creature.GetStat(index);
+
         int base_stat;
 
         if (creature_type == CreatureType.Restomon)

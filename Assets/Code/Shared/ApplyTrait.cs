@@ -236,6 +236,19 @@ public static class ApplyTrait
         }
     }
 
+    public static void OnEndDialogue(Unit user, Trait[] target_traits, DungeonManager manager)
+    {
+        int[] temp_varaibles;
+        //Debug.Log("UNIT " + user);
+        foreach (Trait trait in target_traits)
+        {
+            //Debug.Log(trait);
+            for (int i = 0; i < trait.GetNumberEffects(); ++i)
+                if (trait.GetCondition(i, out temp_varaibles) == TraitCondition.EndDialogue)
+                    ConditionToAbility(trait, i, user, manager);
+        }
+    }
+
     /*
      * Bridge the two
      */
