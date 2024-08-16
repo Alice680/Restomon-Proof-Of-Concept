@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class ManagerMenuHome : MonoBehaviour
 {
-    private enum State { core, resting, classing, teaming, storing };
+    private enum State { core, classing, teaming, storing };
 
     private PermDataHolder data_holder;
     private State current_state;
 
+    [SerializeField] private GameObject background;
     [SerializeField] private MenuSwapIcon core_menu;
-    [SerializeField] private MenuSwapIcon rest_menu;
     [SerializeField] private MenuClass class_menu;
     [SerializeField] private MenuTeamBuilder team_menu;
     [SerializeField] private MenuStorage storage_menu;
@@ -29,7 +29,9 @@ public class ManagerMenuHome : MonoBehaviour
 
     public void Activate()
     {
+        data_holder.Rest();
         core_menu.Activate();
+        background.SetActive(true);
     }
 
     public bool Change(Inputer inputer)
@@ -38,9 +40,6 @@ public class ManagerMenuHome : MonoBehaviour
         {
             case State.core:
                 return CoreState(inputer);
-            case State.resting:
-                RestState(inputer);
-                return false;
             case State.classing:
                 ClassState(inputer);
                 return false;
@@ -69,61 +68,33 @@ public class ManagerMenuHome : MonoBehaviour
             {
                 case 0:
                     core_menu.DeActivate();
-                    rest_menu.Activate();
-                    current_state = State.resting;
-                    return false;
-                case 1:
-                    core_menu.DeActivate();
                     class_menu.Activate();
                     current_state = State.classing;
                     return false;
-                case 2:
+                case 1:
                     core_menu.DeActivate();
                     team_menu.Activate();
                     current_state = State.teaming;
                     return false;
-                case 3:
+                case 2:
                     core_menu.DeActivate();
                     storage_menu.Activate();
                     current_state = State.storing;
                     return false;
-                case 4:
+                case 3:
                     core_menu.DeActivate();
+                    background.SetActive(false);
                     return true;
             }
         }
         else if(inputer.GetBack())
         {
             core_menu.DeActivate();
+            background.SetActive(false);
             return true;
         }
 
         return false;
-    }
-
-    private void RestState(Inputer inputer)
-    {
-        if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
-        {
-            rest_menu.UpdateMenu(inputer.GetDir());
-        }
-        else if (inputer.GetEnter())
-        {
-            rest_menu.GetValues(out int x, out int y);
-
-            if (x == 0)
-                data_holder.Rest();
-
-            core_menu.Activate();
-            rest_menu.DeActivate();
-            current_state = State.core;
-        }
-        else if(inputer.GetBack())
-        {
-            core_menu.Activate();
-            rest_menu.DeActivate();
-            current_state = State.core;
-        }
     }
 
     private void ClassState(Inputer inputer)

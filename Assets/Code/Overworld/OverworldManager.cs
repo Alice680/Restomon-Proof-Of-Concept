@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class OverworldManager : MonoBehaviour
 {
@@ -93,8 +94,19 @@ public class OverworldManager : MonoBehaviour
 
     private void Town()
     {
-        if(overworld_ui.ChangeTown(inputer))
+        if (overworld_ui.ChangeTown(inputer))
+        {
+            Vector3Int temp_pos = player_entity.GetPosition();
+
+            map.RemoveUnit(player_entity);
+            player_entity.Remove();
+
+            player_entity = new OverworldEntity(data_holder.GetPlayer().GetModel());
+            map.Move(player_entity, temp_pos);
+
+
             current_state = State.idle;
+        }
     }
 
     private void UpdateCamera()

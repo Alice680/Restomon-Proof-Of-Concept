@@ -5082,9 +5082,11 @@ MonoBehaviour:
         value: 0
       dungeon_triggers: []
   shop_info:
-  - values: []
+  - values:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
   smith_info:
-  - weapon_values: 
+  - weapon_values: 000000000100000002000000
     accessory_value: 
   atelier_info:
-  - values: 
+  - values: 00000000

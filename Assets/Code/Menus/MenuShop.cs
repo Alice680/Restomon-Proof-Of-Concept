@@ -10,7 +10,7 @@ public class MenuShop : MenuSwapIcon
 
     [SerializeField] private GameObject[] core_options;
     [SerializeField] private Text[] item_text;
-    [SerializeField] private Text money_text, description_text;
+    [SerializeField] private Text money_text, page_text, description_text;
 
     private PermDataHolder data_holder;
 
@@ -200,6 +200,7 @@ public class MenuShop : MenuSwapIcon
             y_max_overflow = (buy_values.Length / 8) + 1;
 
             current_names = new string[buy_values.Length];
+            page_text.text = (y_value / 8 + 1) + "/" + y_max_overflow;
             current_descriptions = new string[buy_values.Length];
 
             for (int i = 0; i < buy_values.Length; ++i)
@@ -216,6 +217,7 @@ public class MenuShop : MenuSwapIcon
             y_max_overflow = (temp_names.Length / 8) + 1;
 
             current_names = temp_names;
+            page_text.text = (y_value / 8 + 1) + "/" + y_max_overflow;
             current_descriptions = temp_descriptions;
             current_index = temp_index;
             current_values = temp_values;

@@ -27,4 +27,9 @@ public class OverworldEntity
         y_position = position.y;
         model.transform.position = position;
     }
+
+    public void Remove()
+    {
+        GameObject.Destroy(model);
+    }
 }

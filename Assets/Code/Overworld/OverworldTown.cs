@@ -97,6 +97,8 @@ public class OverworldTown : ScriptableObject
             return temp_area.back_int;
         }
 
+        choice = (choice / 2) + ((choice % 2) * 4);
+
         int current_box = 0;
 
         for (int i = 0; i < temp_area.area_events.Length; ++i)

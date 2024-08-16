@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MenuStorage : MenuSwapIcon
 {
     [SerializeField] private Text[] name_text;
+    [SerializeField] private Text inventory_page_text, storage_page_text;
 
     private PermDataHolder data_holder;
     private int inventory_page, storage_page, inventory_page_count, storage_page_count;
@@ -33,12 +34,16 @@ public class MenuStorage : MenuSwapIcon
     {
         if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
-            // TODO add scroll
-            base.UpdateMenu(inputer.GetDir());
+            GetInputValue(x_value, y_value, 2, 8, inputer.GetDir(), out x_value, out y_value);
+
+            for (int i = 0; i < icons.Length; ++i)
+                icons[i].SetActive(false);
+
+            icons[y_value + (x_value * 8)].SetActive(true);
         }
         else if (inputer.GetEnter())
         {
-            if(x_value == 0)
+            if (x_value == 0)
             {
                 if ((inventory_page * 8) + y_value < data_holder.GetInventoryCount())
                 {
@@ -51,7 +56,7 @@ public class MenuStorage : MenuSwapIcon
             }
             else
             {
-                if(data_holder.GetInventoryCount() < data_holder.GetInventorySize() && storage_names.Length != 0)
+                if (data_holder.GetInventoryCount() < data_holder.GetInventorySize() && storage_names.Length != 0)
                 {
                     data_holder.ChangeStorage(storage_index[(storage_page * 8) + y_value], -1);
 
@@ -77,12 +82,15 @@ public class MenuStorage : MenuSwapIcon
                 name_text[i].text = inventory_names[(inventory_page * 8) + i];
             else
                 name_text[i].text = "";
-            
+
             if ((storage_page * 8) + i < storage_names.Length)
-                name_text[i+8].text = storage_names[(inventory_page * 8) + i];
+                name_text[i + 8].text = storage_names[(inventory_page * 8) + i];
             else
-                name_text[i+8].text = "";
+                name_text[i + 8].text = "";
         }
+
+        inventory_page_text.text = (inventory_page + 1) + "/" + (inventory_names.Length / 8 + 1);
+        storage_page_text.text = (storage_page + 1) + "/" + (storage_names.Length / 8 + 1);
     }
 
     private void UpdateString()
@@ -96,7 +104,7 @@ public class MenuStorage : MenuSwapIcon
             inventory_descriptions[i] = inventory_info;
         }
 
-        storage_names = data_holder.GetStorageData(out storage_index,out storage_descriptions);
+        storage_names = data_holder.GetStorageData(out storage_index, out storage_descriptions);
 
         UpdateText();
     }

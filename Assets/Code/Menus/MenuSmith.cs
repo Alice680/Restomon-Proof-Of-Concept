@@ -10,13 +10,11 @@ public class MenuSmith : MenuSwapIcon
 
     [SerializeField] private GameObject[] core_options;
     [SerializeField] private Text[] item_text;
-    [SerializeField] private Text material_text, description_text;
+    [SerializeField] private Text material_text, description_text, page_text;
 
     private PermDataHolder data_holder;
 
     private State current_state;
-
-    //private int[] research_options;
 
     private bool weapons_accessories;
 
@@ -184,6 +182,11 @@ public class MenuSmith : MenuSwapIcon
             material_text.text = "";
         else
             material_text.text = current_costs[(y_overflow * 8) + y_value];
+
+        if (current_state == State.Core)
+            page_text.text = "";
+        else
+            page_text.text = (y_overflow + 1) + "/" + (current_descriptions.Length / 8 + 1);
     }
 
     private void ReloadString()

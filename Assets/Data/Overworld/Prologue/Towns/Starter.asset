@@ -19,9 +19,23 @@ MonoBehaviour:
     back_description: 
     back_int: -1
     area_events:
-    - txt: Market
+    - txt: Go to Elder
       description: 
       event_type: 0
+      next_area: 1
+      dialogue: {fileID: 0}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          is_equal: 1
+          index: 1
+          value: 2
+        dungeon_triggers: []
+    - txt: Market
+      description: 
+      event_type: 7
       next_area: 2
       dialogue: {fileID: 0}
       feature_type: 0
@@ -29,13 +43,13 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 0
-          is_equal: 0
+          is_equal: 1
           index: 1
-          value: 0
+          value: 2
         dungeon_triggers: []
     - txt: Smith
       description: 
-      event_type: 0
+      event_type: 8
       next_area: 3
       dialogue: {fileID: 0}
       feature_type: 0
@@ -43,13 +57,13 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 0
-          is_equal: 0
+          is_equal: 1
           index: 1
-          value: 0
+          value: 2
         dungeon_triggers: []
     - txt: Atelier
       description: 
-      event_type: 0
+      event_type: 9
       next_area: 4
       dialogue: {fileID: 0}
       feature_type: 0
@@ -57,13 +71,13 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 0
-          is_equal: 0
+          is_equal: 1
           index: 1
-          value: 0
+          value: 2
         dungeon_triggers: []
     - txt: Go Home
       description: 
-      event_type: 0
+      event_type: 5
       next_area: 0
       dialogue: {fileID: 0}
       feature_type: 1
@@ -72,8 +86,8 @@ MonoBehaviour:
         data_triggers:
         - event_type: 0
           is_equal: 1
-          index: 1
-          value: 2
+          index: 2
+          value: 0
         dungeon_triggers: []
     - txt: Vist Elder
       description: The elder is looking to speak with you.
@@ -93,20 +107,6 @@ MonoBehaviour:
           index: 1
           value: 0
         dungeon_triggers: []
-    - txt: Talk To Elder
-      description: 
-      event_type: 0
-      next_area: 0
-      dialogue: {fileID: 11400000, guid: a220034b613930f4a9b62b56e14ea13b, type: 2}
-      feature_type: 0
-      feature_int: 0
-      event_trigger:
-        data_triggers:
-        - event_type: 0
-          is_equal: 0
-          index: 0
-          value: 2
-        dungeon_triggers: []
   - area_name: Elders Home
     area_description: 
     back_txt: Town Center
@@ -117,7 +117,7 @@ MonoBehaviour:
       description: 'Tell the Elder you '
       event_type: 3
       next_area: 1
-      dialogue: {fileID: 11400000, guid: 1d1d50e6ab4dd8c419bf6aeaee6a26c8, type: 2}
+      dialogue: {fileID: 11400000, guid: 280eb552de281da4c93492f395e843ff, type: 2}
       feature_type: 0
       feature_int: 0
       event_trigger:
@@ -131,7 +131,7 @@ MonoBehaviour:
       description: 'Tell the Elder you '
       event_type: 3
       next_area: 1
-      dialogue: {fileID: 11400000, guid: 1d1d50e6ab4dd8c419bf6aeaee6a26c8, type: 2}
+      dialogue: {fileID: 11400000, guid: 18177ac7fa49acd448c1b28588e07931, type: 2}
       feature_type: 0
       feature_int: 0
       event_trigger:
@@ -150,8 +150,8 @@ MonoBehaviour:
           value: 1
         - event_type: 0
           is_equal: 1
-          index: 1
-          value: 1
+          index: 2
+          value: 0
         dungeon_triggers: []
   - area_name: Market
     area_description: 
@@ -171,7 +171,7 @@ MonoBehaviour:
         dungeon_triggers: []
     - txt: Talk Ranger
       description: 
-      event_type: 0
+      event_type: 2
       next_area: 2
       dialogue: {fileID: 11400000, guid: 791e3d8d5e69ce44c89004ad29bc3ac5, type: 2}
       feature_type: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 1
-          is_equal: 0
+          is_equal: 1
           index: 0
           value: 0
         dungeon_triggers: []
@@ -201,7 +201,7 @@ MonoBehaviour:
         dungeon_triggers: []
     - txt: Talk Warrior
       description: 
-      event_type: 0
+      event_type: 2
       next_area: 3
       dialogue: {fileID: 11400000, guid: 89f690b48bf5705468fde6913da90ad5, type: 2}
       feature_type: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 1
-          is_equal: 0
+          is_equal: 1
           index: 1
           value: 0
         dungeon_triggers: []
@@ -239,7 +239,7 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 1
-          is_equal: 0
+          is_equal: 1
           index: 2
           value: 0
         dungeon_triggers: []

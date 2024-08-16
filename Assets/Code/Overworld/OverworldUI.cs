@@ -357,7 +357,6 @@ public class OverworldUI : MonoBehaviour
                     if (temp_dialogue != null)
                     {
                         town_dialouge = true;
-                        //DeactivateTown();
                         ActivateDialogue(temp_dialogue);
                         return false;
                     }

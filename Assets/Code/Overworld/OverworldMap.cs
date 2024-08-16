@@ -113,6 +113,14 @@ public class OverworldMap
         entity.UpdatePosition(position);
     }
 
+    public void RemoveUnit(OverworldEntity entity)
+    {
+        for (int i = 0; i < x_size; ++i)
+            for (int e = 0; e < y_size; ++e)
+                if (map[i, e].entity == entity)
+                    map[i, e].entity = null;
+    }
+
     public void Interact(int x, int y, out int dungeon_layout, out OverworldTown town)
     {
         dungeon_layout = map[x, y].dungeon_layout;

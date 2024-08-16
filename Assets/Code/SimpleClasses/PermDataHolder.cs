@@ -46,19 +46,19 @@ public class PermDataHolder : MonoBehaviour
 
         public ClassUnlocks()
         {
-            sub_classes = new bool[5];
+            sub_classes = new bool[6];
             sub_classes[0] = true;
-            for (int i = 1; i < 5; ++i)
+            for (int i = 1; i < 6; ++i)
                 sub_classes[i] = false;
 
-            weapons = new bool[5];
+            weapons = new bool[24];
             weapons[0] = true;
-            for (int i = 1; i < 5; ++i)
+            for (int i = 1; i < 24; ++i)
                 weapons[i] = false;
 
-            trinkets = new bool[6];
+            trinkets = new bool[12];
             trinkets[0] = true;
-            for (int i = 1; i < 6; ++i)
+            for (int i = 1; i < 12; ++i)
                 trinkets[i] = false;
 
             loops = new bool[1];
@@ -250,7 +250,7 @@ public class PermDataHolder : MonoBehaviour
 
         current_position = new Vector2Int(26, 25);
 
-        main_quest_markers = new int[2];
+        main_quest_markers = new int[5];
         side_quest_markers = new int[3];
         dungeon_unlocked = new bool[2];
         dungeon_cleared = new bool[2];
@@ -271,6 +271,7 @@ public class PermDataHolder : MonoBehaviour
     //Core methods
     public void Rest()
     {
+        // TODO add rest
         Debug.Log("Rest");
     }
 
@@ -291,25 +292,25 @@ public class PermDataHolder : MonoBehaviour
         ClassUnlocks temp_unlocks = class_unlocks[current_generic_data.current_class];
         CurrentClassData temp_class = current_class_data[current_generic_data.current_class];
 
-        sub_string = new string[5, 2];
-        weapon_string = new string[6, 2];
-        trinket_string = new string[6, 2];
+        sub_string = new string[6, 2];
+        weapon_string = new string[24, 2];
+        trinket_string = new string[12, 2];
 
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 6; ++i)
         {
             if (temp_unlocks.sub_classes[i])
             {
                 sub_string[i, 0] = temp_human.GetSubclassName(i);
                 sub_string[i, 1] = temp_human.GetSubclassDescription(i);
             }
-            else if (temp_unlocks.sub_classes[0])
+            else
             {
-                sub_string[i, 0] = "Locked.";
+                sub_string[i, 0] = "Locked";
                 sub_string[i, 1] = "Find someone to train you in this subclass first";
             }
         }
 
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 24; ++i)
         {
             if (temp_unlocks.weapons[i])
             {
@@ -318,12 +319,12 @@ public class PermDataHolder : MonoBehaviour
             }
             else
             {
-                weapon_string[i, 0] = "Locked.";
+                weapon_string[i, 0] = "Locked";
                 weapon_string[i, 1] = "Find this weapon to be able to use it.";
             }
         }
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 12; ++i)
         {
             if (temp_unlocks.trinkets[i])
             {
@@ -332,7 +333,7 @@ public class PermDataHolder : MonoBehaviour
             }
             else
             {
-                trinket_string[i, 0] = "Locked.";
+                trinket_string[i, 0] = "Locked";
                 trinket_string[i, 1] = "Find this weapon to be able to use it.";
             }
         }

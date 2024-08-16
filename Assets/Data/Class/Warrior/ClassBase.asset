@@ -96,6 +96,16 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
     - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
     attack: {fileID: 11400000, guid: aba4e90519b82a949b9d903fb16a21e9, type: 2}
+  - subclass_name: Guardian
+    description: A Subclass based on tanking damage.
+    subclass_trait: {fileID: 11400000, guid: d2a9aa72dfcac6e44b4d0c120d5773fb, type: 2}
+    free_traits:
+    - {fileID: 11400000, guid: 1ebdae98ef0473c4189819f527bf277e, type: 2}
+    - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
+    - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
+    - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
+    - {fileID: 11400000, guid: 74ff703c3a6c4b24c89e1645e3e08634, type: 2}
+    attack: {fileID: 11400000, guid: aba4e90519b82a949b9d903fb16a21e9, type: 2}
   weapons:
   - weapon_name: Unarmed
     description: Could you not find a weapon?
@@ -130,10 +140,161 @@ MonoBehaviour:
     special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
     special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
     trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - weapon_name: Hammer
+    description: A slow and massive weapon, it exsels at taking out larger tanky
+      enemies.
+    basic_attack: {fileID: 11400000, guid: 6d1c4491276e98f439767457c809e351, type: 2}
+    special_attack: {fileID: 11400000, guid: 5e5855f6742b5d148b58a774b608fe86, type: 2}
+    special_ability: {fileID: 11400000, guid: 920d869531e9d734f94f097d7370c458, type: 2}
+    trait: {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   trinkets:
   - trinket_name: None
     description: No trinket in this slot.
     attack: {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - trinket_name: 
+    description: 
+    attack: {fileID: 0}
+  - trinket_name: 
+    description: 
+    attack: {fileID: 0}
+  - trinket_name: 
+    description: 
+    attack: {fileID: 0}
+  - trinket_name: 
+    description: 
+    attack: {fileID: 0}
+  - trinket_name: 
+    description: 
+    attack: {fileID: 0}
+  - trinket_name: 
+    description: 
+    attack: {fileID: 0}
   - trinket_name: 
     description: 
     attack: {fileID: 0}
