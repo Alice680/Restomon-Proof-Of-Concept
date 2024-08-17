@@ -326,3 +326,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ee8c9988ab46d04087a2017d05ba3ad, type: 2}
   trinket_data: []
   item_holder: {fileID: 11400000, guid: 7ba60b3f702e12645a9d0426f5f62ecf, type: 2}
+  RankCost:
+  - craft_cost:
+    - {x: 0, y: 1}
+  - craft_cost:
+    - {x: 0, y: 2}
+  - craft_cost:
+    - {x: 0, y: 3}
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []

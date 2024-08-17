@@ -98,9 +98,10 @@ public class OverworldManager : MonoBehaviour
         {
             Vector3Int temp_pos = player_entity.GetPosition();
 
-            map.RemoveUnit(player_entity);
             player_entity.Remove();
+            map.Clear();
 
+            map = data_holder.GetOverworld(out Vector2Int position).GetMap(data_holder, out DialogueTree dialogue);
             player_entity = new OverworldEntity(data_holder.GetPlayer().GetModel());
             map.Move(player_entity, temp_pos);
 

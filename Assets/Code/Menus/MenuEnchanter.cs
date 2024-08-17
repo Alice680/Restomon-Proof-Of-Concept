@@ -5,15 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class MenuWorkshop : MenuSwapIcon
+public class MenuEnchanter : MenuSwapIcon
 {
-    private enum State { Core, Rank, Refine, Reforge };
+    private enum State { Core, Moves, Traits, Evolve };
 
     [SerializeField] private GameObject[] restomon_marker, choice_marker;
     [SerializeField] private GameObject cost_marker;
 
     [SerializeField] private Text[] restmon_text, choice_text;
-    [SerializeField] private Text cost_text, page_text;
+    [SerializeField] private Text cost_text, page_text, dialogue_text;
 
     private PermDataHolder data_holder;
 
@@ -81,7 +81,7 @@ public class MenuWorkshop : MenuSwapIcon
             restmon_text[i].text = "";
         }
 
-        for (int i = 0; i < 2; ++i)
+        for (int i = 0; i < 8; ++i)
         {
             choice_marker[i].SetActive(false);
             choice_text[i].text = "";
@@ -90,8 +90,9 @@ public class MenuWorkshop : MenuSwapIcon
         cost_marker.SetActive(false);
         cost_text.text = "";
         page_text.text = "";
+        dialogue_text.text = "";
     }
-
+   
     private void OpenChoice()
     {
         x_value = 0;
@@ -144,18 +145,18 @@ public class MenuWorkshop : MenuSwapIcon
             switch (x_value)
             {
                 case 0:
-                    current_state = State.Rank;
-                    OpenChoice();
-                    cost_text.text = data_holder.GetRankUp(out can_get);
+                    in_restomon = true;
+                    current_state = State.Moves;
+                    OpenRestomon();
                     break;
                 case 1:
                     in_restomon = true;
-                    current_state = State.Refine;
+                    current_state = State.Traits;
                     OpenRestomon();
                     break;
                 case 2:
                     in_restomon = true;
-                    current_state = State.Reforge;
+                    current_state = State.Evolve;
                     OpenRestomon();
                     break;
             }
@@ -191,15 +192,15 @@ public class MenuWorkshop : MenuSwapIcon
                 {
                     switch (current_state)
                     {
-                        case State.Rank:
+                        case State.Moves:
                             data_holder.PurchasRankUp();
                             cost_text.text = data_holder.GetRankUp(out can_get);
                             break;
-                        case State.Refine:
+                        case State.Traits:
                             data_holder.PurchasRefineUp(restomon_chosen);
                             cost_text.text = data_holder.GetRefineUp(restomon_chosen, out can_get);
                             break;
-                        case State.Reforge:
+                        case State.Evolve:
                             data_holder.PurchasReforgeUp(restomon_chosen);
                             cost_text.text = data_holder.GetReforgeUp(restomon_chosen, out can_get);
                             break;
@@ -212,13 +213,13 @@ public class MenuWorkshop : MenuSwapIcon
 
                 switch (current_state)
                 {
-                    case State.Rank:
+                    case State.Moves:
                         x_value = 0;
                         break;
-                    case State.Refine:
+                    case State.Traits:
                         x_value = 1;
                         break;
-                    case State.Reforge:
+                    case State.Evolve:
                         x_value = 2;
                         break;
                 }
@@ -235,13 +236,13 @@ public class MenuWorkshop : MenuSwapIcon
 
             switch (current_state)
             {
-                case State.Rank:
+                case State.Moves:
                     x_value = 0;
                     break;
-                case State.Refine:
+                case State.Traits:
                     x_value = 1;
                     break;
-                case State.Reforge:
+                case State.Evolve:
                     x_value = 2;
                     break;
             }
@@ -278,11 +279,15 @@ public class MenuWorkshop : MenuSwapIcon
 
                 switch (current_state)
                 {
-                    case State.Refine:
+                    case State.Moves:
+                        cost_text.text = data_holder.GetRefineUp(restomon_chosen, out can_get);
+                        x_value = 0;
+                        break;
+                    case State.Traits:
                         cost_text.text = data_holder.GetRefineUp(restomon_chosen, out can_get);
                         x_value = 1;
                         break;
-                    case State.Reforge:
+                    case State.Evolve:
                         cost_text.text = data_holder.GetReforgeUp(restomon_chosen, out can_get);
                         x_value = 2;
                         break;
@@ -300,10 +305,13 @@ public class MenuWorkshop : MenuSwapIcon
 
             switch (current_state)
             {
-                case State.Refine:
+                case State.Moves:
+                    x_value = 0;
+                    break;
+                case State.Traits:
                     x_value = 1;
                     break;
-                case State.Reforge:
+                case State.Evolve:
                     x_value = 2;
                     break;
             }

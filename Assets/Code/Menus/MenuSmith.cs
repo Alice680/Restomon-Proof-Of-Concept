@@ -97,7 +97,6 @@ public class MenuSmith : MenuSwapIcon
 
     private void WeaponState(Inputer inputer)
     {
-
         if (inputer.GetDir() != 0)
         {
             base.UpdateMenu(inputer.GetDir());

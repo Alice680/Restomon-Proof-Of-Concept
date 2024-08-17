@@ -33,6 +33,7 @@ MonoBehaviour:
           index: 1
           value: 2
         dungeon_triggers: []
+        save_triggers: []
     - txt: Market
       description: 
       event_type: 7
@@ -47,6 +48,7 @@ MonoBehaviour:
           index: 1
           value: 2
         dungeon_triggers: []
+        save_triggers: []
     - txt: Smith
       description: 
       event_type: 8
@@ -61,6 +63,7 @@ MonoBehaviour:
           index: 1
           value: 2
         dungeon_triggers: []
+        save_triggers: []
     - txt: Atelier
       description: 
       event_type: 9
@@ -75,6 +78,7 @@ MonoBehaviour:
           index: 1
           value: 2
         dungeon_triggers: []
+        save_triggers: []
     - txt: Go Home
       description: 
       event_type: 5
@@ -83,12 +87,9 @@ MonoBehaviour:
       feature_type: 1
       feature_int: 0
       event_trigger:
-        data_triggers:
-        - event_type: 0
-          is_equal: 1
-          index: 2
-          value: 0
+        data_triggers: []
         dungeon_triggers: []
+        save_triggers: []
     - txt: Vist Elder
       description: The elder is looking to speak with you.
       event_type: 3
@@ -107,6 +108,7 @@ MonoBehaviour:
           index: 1
           value: 0
         dungeon_triggers: []
+        save_triggers: []
   - area_name: Elders Home
     area_description: 
     back_txt: Town Center
@@ -127,6 +129,7 @@ MonoBehaviour:
           index: 1
           value: 1
         dungeon_triggers: []
+        save_triggers: []
     - txt: Talk to Elder
       description: 'Tell the Elder you '
       event_type: 3
@@ -153,6 +156,56 @@ MonoBehaviour:
           index: 2
           value: 0
         dungeon_triggers: []
+        save_triggers: []
+    - txt: Meet Elder
+      description: 'Tell the Elder you '
+      event_type: 3
+      next_area: 1
+      dialogue: {fileID: 11400000, guid: 3d29246715aa58449bbecde6529958a0, type: 2}
+      feature_type: 0
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          is_equal: 0
+          index: 2
+          value: 1
+        dungeon_triggers: []
+        save_triggers:
+        - data_type: 0
+          is_equal: 0
+          index: 0
+          value: 3
+    - txt: Use Workshop
+      description: Use the Elders workshop.
+      event_type: 0
+      next_area: 1
+      dialogue: {fileID: 0}
+      feature_type: 5
+      feature_int: 0
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+        save_triggers:
+        - data_type: 0
+          is_equal: 0
+          index: 0
+          value: 3
+    - txt: Use Enchanter
+      description: Use the Elders workshop.
+      event_type: 0
+      next_area: 1
+      dialogue: {fileID: 0}
+      feature_type: 6
+      feature_int: 0
+      event_trigger:
+        data_triggers: []
+        dungeon_triggers: []
+        save_triggers:
+        - data_type: 0
+          is_equal: 0
+          index: 0
+          value: 3
   - area_name: Market
     area_description: 
     back_txt: Town Center
@@ -169,11 +222,12 @@ MonoBehaviour:
       event_trigger:
         data_triggers: []
         dungeon_triggers: []
+        save_triggers: []
     - txt: Talk Ranger
       description: 
       event_type: 2
       next_area: 2
-      dialogue: {fileID: 11400000, guid: 791e3d8d5e69ce44c89004ad29bc3ac5, type: 2}
+      dialogue: {fileID: 11400000, guid: 957a49fdc7e44f64eb6e748f9c48524e, type: 2}
       feature_type: 0
       feature_int: 0
       event_trigger:
@@ -183,6 +237,7 @@ MonoBehaviour:
           index: 0
           value: 0
         dungeon_triggers: []
+        save_triggers: []
   - area_name: Smith
     area_description: 
     back_txt: Town Center
@@ -199,11 +254,12 @@ MonoBehaviour:
       event_trigger:
         data_triggers: []
         dungeon_triggers: []
+        save_triggers: []
     - txt: Talk Warrior
       description: 
       event_type: 2
       next_area: 3
-      dialogue: {fileID: 11400000, guid: 89f690b48bf5705468fde6913da90ad5, type: 2}
+      dialogue: {fileID: 11400000, guid: f5290bb0f52b12a4ca1afa3981edae20, type: 2}
       feature_type: 0
       feature_int: 0
       event_trigger:
@@ -213,6 +269,7 @@ MonoBehaviour:
           index: 1
           value: 0
         dungeon_triggers: []
+        save_triggers: []
   - area_name: Atelier
     area_description: 
     back_txt: Town Center
@@ -229,11 +286,12 @@ MonoBehaviour:
       event_trigger:
         data_triggers: []
         dungeon_triggers: []
+        save_triggers: []
     - txt: Talk Mage
       description: 
       event_type: 0
       next_area: 4
-      dialogue: {fileID: 11400000, guid: 3d29246715aa58449bbecde6529958a0, type: 2}
+      dialogue: {fileID: 11400000, guid: d3ac5a4d6bba7c643b07e7577f236423, type: 2}
       feature_type: 0
       feature_int: 0
       event_trigger:
@@ -243,3 +301,4 @@ MonoBehaviour:
           index: 2
           value: 0
         dungeon_triggers: []
+        save_triggers: []

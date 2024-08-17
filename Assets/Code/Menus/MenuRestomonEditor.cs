@@ -59,7 +59,7 @@ public class MenuRestomonEditor : MenuSwapIcon
 
         name_text.text = restomon_base.GetName();
 
-        data_holder.GetRestomonUnlockInfo(restomon_index, out int rank, out int reforges, out int refinements, out bool[] mutations, out basic_attacks, out attacks, out traits);
+        data_holder.GetRestomonUnlockInfo(restomon_index,  out int reforges, out int refinements, out bool[] mutations, out basic_attacks, out attacks, out traits);
         data_holder.GetRestomonInfo(restomon_index, out current_attacks);
 
         CloseMenus();

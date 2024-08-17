@@ -30,6 +30,50 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
   - {fileID: 11400000, guid: 149dbff248f94134a888b31dca1d4d41, type: 2}
   - {fileID: 11400000, guid: 5512ae953da2b3147a9af8f4cc13d5a7, type: 2}
+  attack_cost:
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  refinements_cost:
+  - craft_cost:
+    - {x: 0, y: 1}
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  reforge_cost:
+  - craft_cost:
+    - {x: 0, y: 2}
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  evolution_cost:
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
+  - craft_cost: []
   first_evo:
     base_stats:
       hp: 20
@@ -57,6 +101,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     - {fileID: 11400000, guid: 5cbadff99b5ac2542b3dc83787c2870f, type: 2}
     - {fileID: 11400000, guid: 464c0280846a4364b8c20a9688a83d68, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   second_evos:
@@ -80,6 +126,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 25a3f104d62ddb14e997fd630f05caa9, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 1973129930027680841, guid: 4ef26474f979858479e8631daf57836a, type: 3}
   - base_stats:
@@ -102,6 +150,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 8334389087539164346, guid: dff99c25fafc15d4cbd4092410afb93c, type: 3}
   - base_stats:
@@ -124,6 +174,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 1585346889742929428, guid: 8f0857fcd7804a143ada14b0ec528ea3, type: 3}
   mixed_evos:
@@ -145,6 +197,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
@@ -165,6 +219,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
@@ -185,6 +241,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   third_evos:
@@ -206,6 +264,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
@@ -226,6 +286,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   - base_stats:
@@ -246,5 +308,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    attack_cost: []
+    traits_cost: []
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}

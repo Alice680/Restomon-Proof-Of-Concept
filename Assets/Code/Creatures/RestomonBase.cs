@@ -64,6 +64,8 @@ public class RestomonBase : ScriptableObject
 
         public Attack[] attack;
         public Trait[] traits;
+        public UpgradeCost[] attack_cost;
+        public UpgradeCost[] traits_cost;
 
         public Element element;
 
@@ -76,6 +78,10 @@ public class RestomonBase : ScriptableObject
     [SerializeField] private StatHolder growth_stats;
 
     [SerializeField] private Attack[] base_attack;
+    [SerializeField] private UpgradeCost[] attack_cost;
+    [SerializeField] private UpgradeCost[] refinements_cost;
+    [SerializeField] private UpgradeCost[] reforge_cost;
+    [SerializeField] private UpgradeCost[] evolution_cost;
 
     [SerializeField] private EvolutionStats first_evo;
     [SerializeField] private EvolutionStats[] second_evos;
@@ -152,6 +158,16 @@ public class RestomonBase : ScriptableObject
         return restomon_name;
     }
 
+    public Vector2Int[] GetRefinementsCost(int index)
+    {
+        return refinements_cost[index].GetCost();
+    }
+
+    public Vector2Int[] GetReforgeCost(int index)
+    {
+        return reforge_cost[index].GetCost();
+    }
+
     public Attack[] GetBasicAttacks()
     {
         return base_attack;
@@ -200,6 +216,57 @@ public class RestomonBase : ScriptableObject
         else
         {
             return third_evos[index - 7].traits;
+        }
+    }
+
+    public UpgradeCost[] GetBasicAttacksCost()
+    {
+        return attack_cost;
+    }
+
+    public UpgradeCost[] GetAttacksCost(int index)
+    {
+        if (index < 0 || index >= 10)
+            return null;
+
+        if (index == 0)
+        {
+            return first_evo.attack_cost;
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].attack_cost;
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].attack_cost;
+        }
+        else
+        {
+            return third_evos[index - 7].attack_cost;
+        }
+    }
+
+    public UpgradeCost[] GetTraitsCost(int index)
+    {
+        if (index < 0 || index >= 10)
+            return null;
+
+        if (index == 0)
+        {
+            return first_evo.traits_cost;
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].traits_cost;
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].traits_cost;
+        }
+        else
+        {
+            return third_evos[index - 7].traits_cost;
         }
     }
 }

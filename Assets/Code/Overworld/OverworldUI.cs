@@ -37,6 +37,7 @@ public class OverworldUI : MonoBehaviour
             this.values = values;
         }
     }
+
     [SerializeField] private GameObject[] town_icon_ref;
 
     [SerializeField] private GameObject text_box, choice_box, town_box, cam;
@@ -52,6 +53,7 @@ public class OverworldUI : MonoBehaviour
     [SerializeField] private MenuSmith menu_smith;
     [SerializeField] private MenuAtelier menu_atelier;
     [SerializeField] private MenuWorkshop menu_workshop;
+    [SerializeField] private MenuEnchanter menu_enchanter;
 
     private PermDataHolder data_holder;
 
@@ -97,6 +99,7 @@ public class OverworldUI : MonoBehaviour
         menu_smith.Startup(data_holder);
         menu_atelier.Startup(data_holder);
         menu_workshop.Startup(data_holder);
+        menu_enchanter.Startup(data_holder);
     }
 
     public void SetShop(List<Vector2Int[]> values)
@@ -323,6 +326,13 @@ public class OverworldUI : MonoBehaviour
                     else
                         return false;
                     break;
+
+                case TownFeatureType.Enchanter:
+                    if (menu_enchanter.Change(inputer))
+                        current_feature = TownFeatureType.None;
+                    else
+                        return false;
+                    break;
             }
 
             int temp_int = current_area;
@@ -383,6 +393,9 @@ public class OverworldUI : MonoBehaviour
                                 return false;
                             case TownFeatureType.Workshop:
                                 menu_workshop.Activate();
+                                return false;
+                            case TownFeatureType.Enchanter:
+                                menu_enchanter.Activate();
                                 return false;
                         }
 

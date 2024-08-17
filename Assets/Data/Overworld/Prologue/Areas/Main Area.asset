@@ -5027,6 +5027,7 @@ MonoBehaviour:
         index: 0
         value: 2
       dungeon_triggers: []
+      save_triggers: []
   - location: {x: 26, y: 27}
     model: {fileID: 3125491893750818500, guid: ab9001fe75905684ebc30144b33b7708, type: 3}
     traversable: 0
@@ -5038,6 +5039,7 @@ MonoBehaviour:
         index: 1
         value: 3
       dungeon_triggers: []
+      save_triggers: []
   - location: {x: 26, y: 22}
     model: {fileID: 6111999804054699479, guid: e5a19cc91f133fa439d9fb3e0ab9fd74, type: 3}
     traversable: 1
@@ -5049,6 +5051,19 @@ MonoBehaviour:
         index: 0
         value: 2
       dungeon_triggers: []
+      save_triggers: []
+  - location: {x: 26, y: 22}
+    model: {fileID: 6111999804054699479, guid: e5a19cc91f133fa439d9fb3e0ab9fd74, type: 3}
+    traversable: 1
+    dungeon_layout: 1
+    event_trigger:
+      data_triggers:
+      - event_type: 0
+        is_equal: 1
+        index: 2
+        value: 2
+      dungeon_triggers: []
+      save_triggers: []
   town_nodes:
   - location: {x: 26, y: 26}
     town: {fileID: 11400000, guid: 7457674b88401ab478ad44a47013681a, type: 2}
@@ -5061,6 +5076,7 @@ MonoBehaviour:
         index: 0
         value: 0
       dungeon_triggers: []
+      save_triggers: []
   - dialogue: {fileID: 11400000, guid: be1920a5627eeba40b315aa57e4886c8, type: 2}
     trigger:
       data_triggers:
@@ -5069,6 +5085,7 @@ MonoBehaviour:
         index: 0
         value: 1
       dungeon_triggers: []
+      save_triggers: []
   - dialogue: {fileID: 11400000, guid: 1a3994a3eada7364092fe31d30b53a91, type: 2}
     trigger:
       data_triggers:
@@ -5081,6 +5098,7 @@ MonoBehaviour:
         index: 1
         value: 0
       dungeon_triggers: []
+      save_triggers: []
   shop_info:
   - values:
     - {x: 0, y: 0}

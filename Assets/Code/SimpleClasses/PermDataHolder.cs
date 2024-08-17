@@ -20,7 +20,7 @@ public class PermDataHolder : MonoBehaviour
 
         public GenericUnlocks(int research_length)
         {
-            lv = 20;
+            lv = 0;
             trait_slots = 2;
 
             traits = new bool[5];
@@ -74,19 +74,19 @@ public class PermDataHolder : MonoBehaviour
     private class RestomonUnlocks
     {
         public bool unlocked;
-        public int rank, reforges, refinements;
+        public int reforges, refinements;
 
-        public bool[] mutations, basic_attacks;
+        public bool[] basic_attacks, evolution, mutations;
         public List<bool[]> attacks, traits;
 
         public RestomonUnlocks(RestomonBase base_data)
         {
             unlocked = false;
-            rank = 1;
             reforges = 0;
             refinements = 0;
 
-            mutations = new bool[2] { false, false };
+            evolution = new bool[10];
+            mutations = new bool[2];
 
             basic_attacks = new bool[base_data.GetBasicAttacks().Length];
 
@@ -99,8 +99,7 @@ public class PermDataHolder : MonoBehaviour
                 traits.Add(new bool[base_data.GetTraits(i).Length]);
             }
 
-            //TODO Remove later
-            for (int i = 0; i < basic_attacks.Length; ++i)
+            for (int i = 0; i < 2; ++i)
                 basic_attacks[i] = true;
         }
     }
@@ -191,6 +190,8 @@ public class PermDataHolder : MonoBehaviour
 
     [SerializeField] private ItemHolder item_holder;
 
+    [SerializeField] private UpgradeCost[] RankCost;
+
     //Build Data
     private GenericUnlocks generic_unlocks;
     private ClassUnlocks[] class_unlocks;
@@ -234,6 +235,8 @@ public class PermDataHolder : MonoBehaviour
             restomon_unlocks[i] = new RestomonUnlocks(restomon_bases[i]);
             current_restomon_data[i] = new CurrentRestomonData();
         }
+
+        restomon_unlocks[0].unlocked = true;
 
         for (int i = 0; i < 8; ++i)
         {
@@ -529,9 +532,8 @@ public class PermDataHolder : MonoBehaviour
         return restomon_unlocks[index].unlocked;
     }
 
-    public void GetRestomonUnlockInfo(int index, out int rank, out int reforges, out int refinements, out bool[] mutations, out bool[] basic_attacks, out List<bool[]> attacks, out List<bool[]> traits)
+    public void GetRestomonUnlockInfo(int index, out int reforges, out int refinements, out bool[] mutations, out bool[] basic_attacks, out List<bool[]> attacks, out List<bool[]> traits)
     {
-        rank = restomon_unlocks[index].rank;
         reforges = restomon_unlocks[index].reforges;
         refinements = restomon_unlocks[index].refinements;
         mutations = restomon_unlocks[index].mutations;
@@ -540,9 +542,8 @@ public class PermDataHolder : MonoBehaviour
         traits = restomon_unlocks[index].traits;
     }
 
-    public void SetRestomonUnlockInfo(int index, int rank, int reforges, int refinements, bool[] mutations, bool[] basic_attacks, List<bool[]> attacks, List<bool[]> traits)
+    public void SetRestomonUnlockInfo(int index, int reforges, int refinements, bool[] mutations, bool[] basic_attacks, List<bool[]> attacks, List<bool[]> traits)
     {
-        restomon_unlocks[index].rank = rank;
         restomon_unlocks[index].reforges = reforges;
         restomon_unlocks[index].refinements = refinements;
         restomon_unlocks[index].mutations = mutations;
@@ -962,6 +963,141 @@ public class PermDataHolder : MonoBehaviour
             class_unlocks[temp_class].weapons[temp_slot] = true;
         else
             class_unlocks[temp_class].trinkets[temp_slot] = true;
+    }
+
+    //Upgrades
+    public string GetRankUp(out bool can_get)
+    {
+        if (generic_unlocks.lv == 20)
+        {
+            can_get = false;
+            return "Maxed";
+        }
+
+        can_get = true;
+        string temp_string = "Rank " + generic_unlocks.lv + " -> " + (generic_unlocks.lv + 1) + "\n";
+        Vector2Int[] temp_cost = RankCost[generic_unlocks.lv].GetCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            temp_string += "\n" + ItemHolder.GetItem(temp_cost[i].x).GetInfo(out string none) + " " + temp_cost[i].y + "(" + GetNumberOfItem(temp_cost[i].x) + ")";
+
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                can_get = false;
+        }
+
+        return temp_string;
+    }
+
+    public void PurchasRankUp()
+    {
+        if (generic_unlocks.lv == 20)
+            return;
+
+        Vector2Int[] temp_cost = RankCost[generic_unlocks.lv].GetCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                return;
+
+        ++generic_unlocks.lv;
+    }
+
+    public string GetRefineUp(int index, out bool can_get)
+    {
+        if (restomon_unlocks[index].refinements == 10)
+        {
+            can_get = false;
+            return "Maxed";
+        }
+
+        can_get = true;
+        string temp_string = restomon_bases[index].GetName() + " " + restomon_unlocks[index].refinements + " -> " + (restomon_unlocks[index].refinements + 1) + "\n";
+        Vector2Int[] temp_cost = restomon_bases[index].GetRefinementsCost(restomon_unlocks[index].refinements);
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            temp_string += "\n" + ItemHolder.GetItem(temp_cost[i].x).GetInfo(out string none) + " " + temp_cost[i].y + "(" + GetNumberOfItem(temp_cost[i].x) + ")";
+
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                can_get = false;
+        }
+
+        return temp_string;
+    }
+
+    public void PurchasRefineUp(int index)
+    {
+        if (restomon_unlocks[index].refinements == 10)
+            return;
+
+        Vector2Int[] temp_cost = restomon_bases[index].GetRefinementsCost(restomon_unlocks[index].refinements);
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                return;
+
+        ++generic_unlocks.lv;
+    }
+
+    public string GetReforgeUp(int index, out bool can_get)
+    {
+        if (restomon_unlocks[index].reforges == 15)
+        {
+            can_get = false;
+            return "Maxed";
+        }
+
+        can_get = true;
+        string temp_string = restomon_bases[index].GetName() + " " + restomon_unlocks[index].reforges + " -> " + (restomon_unlocks[index].reforges + 1) + "\n";
+        Vector2Int[] temp_cost = restomon_bases[index].GetReforgeCost(restomon_unlocks[index].reforges);
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+        {
+            temp_string += "\n" + ItemHolder.GetItem(temp_cost[i].x).GetInfo(out string none) + " " + temp_cost[i].y + "(" + GetNumberOfItem(temp_cost[i].x) + ")";
+
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                can_get = false;
+        }
+
+        return temp_string;
+    }
+
+    public void PurchasReforgeUp(int index)
+    {
+        if (restomon_unlocks[index].reforges == 10)
+            return;
+
+        Vector2Int[] temp_cost = restomon_bases[index].GetReforgeCost(restomon_unlocks[index].reforges);
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                return;
+
+        ++generic_unlocks.lv;
+    }
+
+    public string[] GetMoveUnlocks(int index, out string[] names, out string[] description, out Vector2Int[] positions, out bool[] can_get)
+    {
+        List<string> temp_string = new List<string>();
+        List<string> temp_names = new List<string>();
+        List<string> temp_description = new List<string>();
+        List<Vector2Int> temp_position = new List<Vector2Int>();
+        List<bool> temp_get = new List<bool>();
+
+        Attack[] temp_attacks = restomon_bases[index].GetBasicAttacks();
+        bool[] temp_attacks_unlock = restomon_unlocks[index].basic_attacks;
+
+        for (int i = 0; i < temp_attacks_unlock.Length; ++i)
+        {
+
+        }
+
+        can_get = temp_get.ToArray();
+        positions = temp_position.ToArray();
+        description = temp_description.ToArray();
+        names = temp_names.ToArray();
+        return temp_string.ToArray();
     }
 
     //Dungeon
