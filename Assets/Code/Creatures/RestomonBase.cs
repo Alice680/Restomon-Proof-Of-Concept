@@ -60,10 +60,14 @@ public class RestomonBase : ScriptableObject
     {
         public StatHolder base_stats;
 
+        public string description;
+
         public int[] cost;
 
         public Attack[] attack;
         public Trait[] traits;
+
+        public UpgradeCost evolution_cost;
         public UpgradeCost[] attack_cost;
         public UpgradeCost[] traits_cost;
 
@@ -81,7 +85,6 @@ public class RestomonBase : ScriptableObject
     [SerializeField] private UpgradeCost[] attack_cost;
     [SerializeField] private UpgradeCost[] refinements_cost;
     [SerializeField] private UpgradeCost[] reforge_cost;
-    [SerializeField] private UpgradeCost[] evolution_cost;
 
     [SerializeField] private EvolutionStats first_evo;
     [SerializeField] private EvolutionStats[] second_evos;
@@ -158,14 +161,32 @@ public class RestomonBase : ScriptableObject
         return restomon_name;
     }
 
-    public Vector2Int[] GetRefinementsCost(int index)
+    public String GetDescription(int index)
     {
-        return refinements_cost[index].GetCost();
+        if (index < 0 || index >= 10)
+            return null;
+
+        if (index == 0)
+        {
+            return first_evo.description;
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].description;
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].description;
+        }
+        else
+        {
+            return third_evos[index - 7].description;
+        }
     }
 
-    public Vector2Int[] GetReforgeCost(int index)
+    public int GetStatGrowth(int index)
     {
-        return reforge_cost[index].GetCost();
+       return growth_stats.GetStats(index);
     }
 
     public Attack[] GetBasicAttacks()
@@ -216,6 +237,39 @@ public class RestomonBase : ScriptableObject
         else
         {
             return third_evos[index - 7].traits;
+        }
+    }
+
+    public UpgradeCost GetRefinementsCost(int index)
+    {
+        return refinements_cost[index];
+    }
+
+    public UpgradeCost GetReforgeCost(int index)
+    {
+        return reforge_cost[index];
+    }
+
+    public UpgradeCost GetEvolutionUpgradeCost(int index)
+    {
+        if (index < 0 || index >= 10)
+            return null;
+
+        if (index == 0)
+        {
+            return first_evo.evolution_cost;
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].evolution_cost;
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].evolution_cost;
+        }
+        else
+        {
+            return third_evos[index - 7].evolution_cost;
         }
     }
 

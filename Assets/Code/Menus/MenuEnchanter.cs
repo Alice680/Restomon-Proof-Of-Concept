@@ -21,9 +21,11 @@ public class MenuEnchanter : MenuSwapIcon
 
     private int restomon_chosen;
 
-    private bool in_restomon, can_get;
+    private bool in_restomon;
 
-    private string[] restomon_names;
+    private string[] restomon_names, upgrade_costs, upgrade_names, upgrade_description;
+    private Vector2Int[] upgrade_position;
+    private bool[] can_get;
 
     public void Startup(PermDataHolder data_holder)
     {
@@ -70,8 +72,6 @@ public class MenuEnchanter : MenuSwapIcon
         x_value = 0;
         y_value = 0;
 
-        restomon_chosen = -1;
-
         for (int i = 0; i < 3; ++i)
             icons[i].SetActive(false);
 
@@ -92,18 +92,29 @@ public class MenuEnchanter : MenuSwapIcon
         page_text.text = "";
         dialogue_text.text = "";
     }
-   
+
     private void OpenChoice()
     {
         x_value = 0;
         y_value = 0;
 
-        choice_text[0].text = "yes";
-        choice_text[1].text = "no";
+        for (int i = 0; i < 8; ++i)
+        {
+            if (upgrade_names.Length > i)
+                choice_text[i].text = upgrade_names[i];
+            else
+                choice_text[i].text = "";
+        }
+
+        if (upgrade_costs.Length > 0)
+        {
+            cost_text.text = upgrade_costs[0];
+            dialogue_text.text = upgrade_description[0];
+        }
 
         choice_marker[0].SetActive(true);
-
         cost_marker.SetActive(true);
+        page_text.text = "1/" + (upgrade_costs.Length / 8 + 1);
     }
 
     private void OpenRestomon()
@@ -176,57 +187,61 @@ public class MenuEnchanter : MenuSwapIcon
     {
         if (inputer.GetDir() != 0 && inputer.GetMoveKeyUp())
         {
-            GetInputValue(x_value, y_value, 2, 1, inputer.GetDir(), out x_value, out y_value);
+            GetInputValue(x_value, y_value, upgrade_costs.Length / 8 + 1, 8, inputer.GetDir(), out x_value, out y_value);
 
-            for (int i = 0; i < 2; ++i)
+            for (int i = 0; i < 8; ++i)
+            {
                 choice_marker[i].SetActive(false);
 
-            choice_marker[x_value].SetActive(true);
+                if (upgrade_names.Length > i + (x_value * 8))
+                    choice_text[i].text = upgrade_names[i + (x_value * 8)];
+                else
+                    choice_text[i].text = "";
+            }
+
+            if (y_value + (x_value * 8) < upgrade_costs.Length)
+            {
+                cost_text.text = upgrade_costs[y_value + (x_value * 8)];
+                dialogue_text.text = upgrade_description[y_value + (x_value * 8)];
+            }
+            else
+            {
+                cost_text.text = "";
+                dialogue_text.text = "";
+            }
+
+            choice_marker[y_value].SetActive(true);
+            page_text.text = (x_value + 1) + "/" + (upgrade_costs.Length / 8 + 1);
         }
 
         if (inputer.GetEnter())
         {
-            if (x_value == 0)
+            if (can_get.Length > y_value + (x_value * 8) && can_get[y_value + (x_value * 8)])
             {
-                if (can_get)
-                {
-                    switch (current_state)
-                    {
-                        case State.Moves:
-                            data_holder.PurchasRankUp();
-                            cost_text.text = data_holder.GetRankUp(out can_get);
-                            break;
-                        case State.Traits:
-                            data_holder.PurchasRefineUp(restomon_chosen);
-                            cost_text.text = data_holder.GetRefineUp(restomon_chosen, out can_get);
-                            break;
-                        case State.Evolve:
-                            data_holder.PurchasReforgeUp(restomon_chosen);
-                            cost_text.text = data_holder.GetReforgeUp(restomon_chosen, out can_get);
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                CloseEverything();
-
                 switch (current_state)
                 {
                     case State.Moves:
+                        data_holder.PurchasMove(restomon_chosen, upgrade_position[y_value + (x_value * 8)]);
+                        upgrade_costs = data_holder.GetMoveUnlocks(restomon_chosen, out upgrade_names, out upgrade_description, out upgrade_position, out can_get);
+                        CloseEverything();
                         x_value = 0;
                         break;
                     case State.Traits:
+                        data_holder.PurchasTrait(restomon_chosen, upgrade_position[y_value + (x_value * 8)]);
+                        upgrade_costs = data_holder.GetTraitUnlocks(restomon_chosen, out upgrade_names, out upgrade_description, out upgrade_position, out can_get);
+                        CloseEverything();
                         x_value = 1;
                         break;
                     case State.Evolve:
+                        data_holder.PurchasEvolution(restomon_chosen, upgrade_position[y_value + (x_value * 8)]);
+                        upgrade_costs = data_holder.GetEvolutionUnlocks(restomon_chosen, out upgrade_names, out upgrade_description, out upgrade_position, out can_get);
+                        CloseEverything();
                         x_value = 2;
                         break;
                 }
 
-                in_restomon = false;
                 icons[x_value].SetActive(true);
-                current_state = State.Core;
+                OpenChoice();
             }
         }
 
@@ -280,15 +295,15 @@ public class MenuEnchanter : MenuSwapIcon
                 switch (current_state)
                 {
                     case State.Moves:
-                        cost_text.text = data_holder.GetRefineUp(restomon_chosen, out can_get);
+                        upgrade_costs = data_holder.GetMoveUnlocks(restomon_chosen, out upgrade_names, out upgrade_description, out upgrade_position, out can_get);
                         x_value = 0;
                         break;
                     case State.Traits:
-                        cost_text.text = data_holder.GetRefineUp(restomon_chosen, out can_get);
+                        upgrade_costs = data_holder.GetTraitUnlocks(restomon_chosen, out upgrade_names, out upgrade_description, out upgrade_position, out can_get);
                         x_value = 1;
                         break;
                     case State.Evolve:
-                        cost_text.text = data_holder.GetReforgeUp(restomon_chosen, out can_get);
+                        upgrade_costs = data_holder.GetEvolutionUnlocks(restomon_chosen, out upgrade_names, out upgrade_description, out upgrade_position, out can_get);
                         x_value = 2;
                         break;
                 }

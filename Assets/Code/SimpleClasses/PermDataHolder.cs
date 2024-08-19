@@ -106,6 +106,7 @@ public class PermDataHolder : MonoBehaviour
 
     private class CurrenGenericData
     {
+        public int current_chapter;
         public int job;
         public int money, pack_upgrades;
         public List<int> inventory;
@@ -114,6 +115,7 @@ public class PermDataHolder : MonoBehaviour
 
         public CurrenGenericData()
         {
+            current_catalyst = 0;
             job = 0;
             money = 15;
             pack_upgrades = 0;
@@ -142,16 +144,17 @@ public class PermDataHolder : MonoBehaviour
 
     private class CurrentRestomonData
     {
-        public int[] current_refinements;
         public int current_mutation;
         public Vector2Int[] current_attacks;
         public int[] current_traits;
+        public int[] current_refinements;
 
         public CurrentRestomonData()
         {
             current_mutation = 0;
             current_attacks = new Vector2Int[11];
             current_traits = new int[11];
+            current_refinements = new int[7];
 
             for (int i = 0; i < current_attacks.Length; ++i)
             {
@@ -557,9 +560,13 @@ public class PermDataHolder : MonoBehaviour
         return current_team_data[current_generic_data.current_catalyst].restomon_id[index];
     }
 
-    public void GetRestomonInfo(int index, out Vector2Int[] current_attacks)
+    public void GetRestomonInfo(int index, out Vector2Int[] current_attacks, out int[] current_traits, out int[] current_refinements, out int total_refinements, out int reforges)
     {
         current_attacks = current_restomon_data[index].current_attacks;
+        current_traits = current_restomon_data[index].current_traits;
+        current_refinements = current_restomon_data[index].current_refinements;
+        total_refinements = restomon_unlocks[index].refinements * 3;
+        reforges = restomon_unlocks[index].reforges;
     }
 
     public void SetRestomonInfo(int index, Vector2Int[] current_attacks)
@@ -1000,12 +1007,15 @@ public class PermDataHolder : MonoBehaviour
             if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
                 return;
 
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
         ++generic_unlocks.lv;
     }
 
     public string GetRefineUp(int index, out bool can_get)
     {
-        if (restomon_unlocks[index].refinements == 10)
+        if (restomon_unlocks[index].refinements == 15)
         {
             can_get = false;
             return "Maxed";
@@ -1013,7 +1023,7 @@ public class PermDataHolder : MonoBehaviour
 
         can_get = true;
         string temp_string = restomon_bases[index].GetName() + " " + restomon_unlocks[index].refinements + " -> " + (restomon_unlocks[index].refinements + 1) + "\n";
-        Vector2Int[] temp_cost = restomon_bases[index].GetRefinementsCost(restomon_unlocks[index].refinements);
+        Vector2Int[] temp_cost = restomon_bases[index].GetRefinementsCost(restomon_unlocks[index].refinements).GetCost();
 
         for (int i = 0; i < temp_cost.Length; ++i)
         {
@@ -1028,21 +1038,24 @@ public class PermDataHolder : MonoBehaviour
 
     public void PurchasRefineUp(int index)
     {
-        if (restomon_unlocks[index].refinements == 10)
+        if (restomon_unlocks[index].refinements == 15)
             return;
 
-        Vector2Int[] temp_cost = restomon_bases[index].GetRefinementsCost(restomon_unlocks[index].refinements);
+        Vector2Int[] temp_cost = restomon_bases[index].GetRefinementsCost(restomon_unlocks[index].refinements).GetCost();
 
         for (int i = 0; i < temp_cost.Length; ++i)
             if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
                 return;
 
-        ++generic_unlocks.lv;
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
+        ++restomon_unlocks[index].refinements;
     }
 
     public string GetReforgeUp(int index, out bool can_get)
     {
-        if (restomon_unlocks[index].reforges == 15)
+        if (restomon_unlocks[index].reforges == 10)
         {
             can_get = false;
             return "Maxed";
@@ -1050,7 +1063,7 @@ public class PermDataHolder : MonoBehaviour
 
         can_get = true;
         string temp_string = restomon_bases[index].GetName() + " " + restomon_unlocks[index].reforges + " -> " + (restomon_unlocks[index].reforges + 1) + "\n";
-        Vector2Int[] temp_cost = restomon_bases[index].GetReforgeCost(restomon_unlocks[index].reforges);
+        Vector2Int[] temp_cost = restomon_bases[index].GetReforgeCost(restomon_unlocks[index].reforges).GetCost();
 
         for (int i = 0; i < temp_cost.Length; ++i)
         {
@@ -1068,13 +1081,16 @@ public class PermDataHolder : MonoBehaviour
         if (restomon_unlocks[index].reforges == 10)
             return;
 
-        Vector2Int[] temp_cost = restomon_bases[index].GetReforgeCost(restomon_unlocks[index].reforges);
+        Vector2Int[] temp_cost = restomon_bases[index].GetReforgeCost(restomon_unlocks[index].reforges).GetCost();
 
         for (int i = 0; i < temp_cost.Length; ++i)
             if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
                 return;
 
-        ++generic_unlocks.lv;
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
+        ++restomon_unlocks[index].reforges;
     }
 
     public string[] GetMoveUnlocks(int index, out string[] names, out string[] description, out Vector2Int[] positions, out bool[] can_get)
@@ -1087,10 +1103,64 @@ public class PermDataHolder : MonoBehaviour
 
         Attack[] temp_attacks = restomon_bases[index].GetBasicAttacks();
         bool[] temp_attacks_unlock = restomon_unlocks[index].basic_attacks;
+        UpgradeCost[] temp_cost = restomon_bases[index].GetBasicAttacksCost();
 
         for (int i = 0; i < temp_attacks_unlock.Length; ++i)
         {
+            if (temp_attacks_unlock[i])
+                continue;
 
+            temp_names.Add(temp_attacks[i].GetName());
+            temp_description.Add(temp_attacks[i].GetDescription());
+            temp_position.Add(new Vector2Int(-1, i));
+
+            string cost_name_temp = "";
+            bool cost_unlocked_temp = true;
+
+            for (int I = 0; I < temp_cost[i].GetCost().Length; ++I)
+            {
+                cost_name_temp += ItemHolder.GetItem(temp_cost[i].GetCost()[I].x).GetInfo(out string none) + " " + temp_cost[i].GetCost()[I].y + " (" + GetNumberOfItem(temp_cost[i].GetCost()[I].x) + ")" + "\n";
+
+                if (GetNumberOfItem(temp_cost[i].GetCost()[I].x) < temp_cost[i].GetCost()[I].y)
+                    cost_unlocked_temp = false;
+            }
+
+            temp_string.Add(cost_name_temp);
+            temp_get.Add(cost_unlocked_temp);
+        }
+
+        for (int e = 0; e < 10; ++e)
+        {
+            if (!restomon_unlocks[index].evolution[e])
+                continue;
+
+            temp_attacks = restomon_bases[index].GetAttacks(e);
+            temp_attacks_unlock = restomon_unlocks[index].attacks[e];
+            temp_cost = restomon_bases[index].GetAttacksCost(e);
+
+            for (int i = 0; i < temp_attacks_unlock.Length; ++i)
+            {
+                if (temp_attacks_unlock[i])
+                    continue;
+
+                temp_names.Add(temp_attacks[i].GetName());
+                temp_description.Add(temp_attacks[i].GetDescription());
+                temp_position.Add(new Vector2Int(e, i));
+
+                string cost_name_temp = "";
+                bool cost_unlocked_temp = true;
+
+                for (int I = 0; I < temp_cost[i].GetCost().Length; ++I)
+                {
+                    cost_name_temp += ItemHolder.GetItem(temp_cost[i].GetCost()[I].x).GetInfo(out string none) + " " + temp_cost[i].GetCost()[I].y + " (" + GetNumberOfItem(temp_cost[i].GetCost()[I].x) + ")" + "\n";
+
+                    if (GetNumberOfItem(temp_cost[i].GetCost()[I].x) < temp_cost[i].GetCost()[I].y)
+                        cost_unlocked_temp = false;
+                }
+
+                temp_string.Add(cost_name_temp);
+                temp_get.Add(cost_unlocked_temp);
+            }
         }
 
         can_get = temp_get.ToArray();
@@ -1098,6 +1168,182 @@ public class PermDataHolder : MonoBehaviour
         description = temp_description.ToArray();
         names = temp_names.ToArray();
         return temp_string.ToArray();
+    }
+
+    public void PurchasMove(int index, Vector2Int position)
+    {
+        Vector2Int[] temp_cost;
+
+        if (position.x == -1)
+            temp_cost = restomon_bases[index].GetBasicAttacksCost()[position.y].GetCost();
+        else
+            temp_cost = restomon_bases[index].GetAttacksCost(position.x)[position.y].GetCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                return;
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
+        if (position.x == -1)
+            restomon_unlocks[index].basic_attacks[position.y] = true;
+        else
+            (restomon_unlocks[index].attacks[position.x])[position.y] = true;
+    }
+
+    public string[] GetTraitUnlocks(int index, out string[] names, out string[] description, out Vector2Int[] positions, out bool[] can_get)
+    {
+        List<string> temp_string = new List<string>();
+        List<string> temp_names = new List<string>();
+        List<string> temp_description = new List<string>();
+        List<Vector2Int> temp_position = new List<Vector2Int>();
+        List<bool> temp_get = new List<bool>();
+
+        for (int e = 0; e < 10; ++e)
+        {
+            if (!restomon_unlocks[index].evolution[e])
+                continue;
+
+            Trait[] temp_traits = restomon_bases[index].GetTraits(e);
+            bool[] temp_traits_unlock = restomon_unlocks[index].traits[e];
+            UpgradeCost[] temp_cost = restomon_bases[index].GetTraitsCost(e);
+
+            for (int i = 0; i < temp_traits_unlock.Length; ++i)
+            {
+                if (temp_traits_unlock[i])
+                    continue;
+
+                temp_names.Add(temp_traits[i].GetName());
+                temp_description.Add(temp_traits[i].GetDescription());
+                temp_position.Add(new Vector2Int(e, i));
+
+                string cost_name_temp = "";
+                bool cost_unlocked_temp = true;
+
+                for (int I = 0; I < temp_cost[i].GetCost().Length; ++I)
+                {
+                    cost_name_temp += ItemHolder.GetItem(temp_cost[i].GetCost()[I].x).GetInfo(out string none) + " " + temp_cost[i].GetCost()[I].y + " (" + GetNumberOfItem(temp_cost[i].GetCost()[I].x) + ")" + "\n";
+
+                    if (GetNumberOfItem(temp_cost[i].GetCost()[I].x) < temp_cost[i].GetCost()[I].y)
+                        cost_unlocked_temp = false;
+                }
+
+                temp_string.Add(cost_name_temp);
+                temp_get.Add(cost_unlocked_temp);
+            }
+        }
+
+        can_get = temp_get.ToArray();
+        positions = temp_position.ToArray();
+        description = temp_description.ToArray();
+        names = temp_names.ToArray();
+        return temp_string.ToArray();
+    }
+
+    public void PurchasTrait(int index, Vector2Int position)
+    {
+        Vector2Int[] temp_cost;
+
+        temp_cost = restomon_bases[index].GetTraitsCost(position.x)[position.y].GetCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                return;
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
+        restomon_unlocks[index].traits[position.x][position.y] = true;
+    }
+
+    public string[] GetEvolutionUnlocks(int index, out string[] names, out string[] description, out Vector2Int[] positions, out bool[] can_get)
+    {
+        List<string> temp_string = new List<string>();
+        List<string> temp_names = new List<string>();
+        List<string> temp_description = new List<string>();
+        List<Vector2Int> temp_position = new List<Vector2Int>();
+        List<bool> temp_get = new List<bool>();
+
+        string[] temp_form_names = { "Base", "Evolution A", "Evolution B", "Evolution C", "Merge AB", "Merge BC", "Merge AC", "Peak A", "Peak B", "Peak C" };
+
+        for (int e = 0; e < 10; ++e)
+        {
+            if (restomon_unlocks[index].evolution[e])
+                continue;
+
+            if (e > 0 && e < 4 && (!restomon_unlocks[index].evolution[0] || current_generic_data.current_chapter < 1))
+                continue;
+
+            if (e == 4 && (!restomon_unlocks[index].evolution[1] || !restomon_unlocks[index].evolution[2] || current_generic_data.current_chapter < 3))
+                continue;
+
+            if (e == 5 && (!restomon_unlocks[index].evolution[2] || !restomon_unlocks[index].evolution[3] || current_generic_data.current_chapter < 3))
+                continue;
+
+            if (e == 6 && (!restomon_unlocks[index].evolution[1] || !restomon_unlocks[index].evolution[3] || current_generic_data.current_chapter < 3))
+                continue;
+
+            if (e > 6 && (!restomon_unlocks[index].evolution[e - 6] || current_generic_data.current_chapter < 5))
+                continue;
+
+            temp_names.Add(temp_form_names[e]);
+            temp_description.Add(restomon_bases[index].GetDescription(e));
+            temp_position.Add(new Vector2Int(e, 0));
+
+            bool can_get_temp = true;
+            string temp_string_temp = "";
+            Vector2Int[] temp_cost = restomon_bases[index].GetEvolutionUpgradeCost(e).GetCost();
+
+            for (int i = 0; i < temp_cost.Length; ++i)
+            {
+                temp_string_temp += ItemHolder.GetItem(temp_cost[i].x).GetInfo(out string none) + " " + temp_cost[i].y + "(" + GetNumberOfItem(temp_cost[i].x) + ")" + "\n";
+
+                if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                    can_get_temp = false;
+            }
+
+            temp_get.Add(can_get_temp);
+            temp_string.Add(temp_string_temp);
+        }
+
+        can_get = temp_get.ToArray();
+        positions = temp_position.ToArray();
+        description = temp_description.ToArray();
+        names = temp_names.ToArray();
+        return temp_string.ToArray();
+    }
+
+    public void PurchasEvolution(int index, Vector2Int position)
+    {
+        if (restomon_unlocks[index].evolution[position.x])
+            return;
+
+        if (position.x > 0 && position.x < 4 && (!restomon_unlocks[index].evolution[0] || current_generic_data.current_chapter < 1))
+            return;
+
+        if (position.x == 4 && (!restomon_unlocks[index].evolution[1] || !restomon_unlocks[index].evolution[2] || current_generic_data.current_chapter < 3))
+            return;
+
+        if (position.x == 5 && (!restomon_unlocks[index].evolution[2] || !restomon_unlocks[index].evolution[3] || current_generic_data.current_chapter < 3))
+            return;
+
+        if (position.x == 6 && (!restomon_unlocks[index].evolution[1] || !restomon_unlocks[index].evolution[3] || current_generic_data.current_chapter < 3))
+            return;
+
+        if (position.x > 6 && (!restomon_unlocks[index].evolution[position.x - 6] || current_generic_data.current_chapter < 5))
+            return;
+
+        Vector2Int[] temp_cost = restomon_bases[index].GetEvolutionUpgradeCost(position.x).GetCost();
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            if (GetNumberOfItem(temp_cost[i].x) < temp_cost[i].y)
+                return;
+
+        for (int i = 0; i < temp_cost.Length; ++i)
+            RemoveItem(temp_cost[i].x, temp_cost[i].y);
+
+        restomon_unlocks[index].evolution[position.x] = true;
     }
 
     //Dungeon

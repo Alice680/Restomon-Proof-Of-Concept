@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,10 +15,10 @@ public class MenuTeamBuilder : MenuSwapIcon
     [SerializeField] private MenuRestomonEditor edit_menu;
 
     [SerializeField] private Text[] selector_texts, restomon_texts;
-    [SerializeField] private Text selector_box;
+    [SerializeField] private Text selector_box, restomon_page;
     [SerializeField] private GameObject[] selector_stars;
 
-    private int int_variable_a, int_variable_b;
+    private int int_variable_a, int_variable_b, restomon_current_page;
 
     private PermDataHolder data_holder;
 
@@ -57,10 +58,11 @@ public class MenuTeamBuilder : MenuSwapIcon
             selector_stars[i].SetActive(false);
         }
 
-        for (int i = 0; i < 36; ++i)
+        for (int i = 0; i < 18; ++i)
             restomon_texts[i].text = "";
 
         selector_box.text = "";
+        restomon_page.text = "";
     }
 
     private void OpenInitial()
@@ -105,7 +107,7 @@ public class MenuTeamBuilder : MenuSwapIcon
             }
             else
             {
-                selector_texts[i].text = "Void";
+                selector_texts[i].text = "";
             }
         }
 
@@ -120,26 +122,17 @@ public class MenuTeamBuilder : MenuSwapIcon
     {
         restomon_menu.Activate();
 
-        for (int i = 0; i < 36; ++i)
+        restomon_current_page = 1;
+
+        for (int i = 0; i < 18; ++i)
         {
             if (data_holder.GetRestomonUnlocked(i))
                 restomon_texts[i].text = data_holder.GetRestomonData(i).GetName();
             else
                 restomon_texts[i].text = "Locked";
         }
-    }
 
-    private void OpenChoseRestomon()
-    {
-        restomon_menu.Activate();
-
-        for (int i = 0; i < 36; ++i)
-        {
-            if (data_holder.GetRestomonUnlocked(i))
-                restomon_texts[i].text = data_holder.GetRestomonData(i).GetName();
-            else
-                restomon_texts[i].text = "Locked";
-        }
+        restomon_page.text = restomon_current_page + "/2";
     }
 
     private void OpenEditRestomon()
@@ -170,7 +163,7 @@ public class MenuTeamBuilder : MenuSwapIcon
                 SelectRestomon(input);
                 break;
             case State.ChoseRestomon:
-                ChoseRestomon(input);
+                SelectRestomon(input);
                 break;
             case State.EditRestomon:
                 EditRestomon(input);
@@ -199,7 +192,7 @@ public class MenuTeamBuilder : MenuSwapIcon
             else
             {
                 CloseMenus();
-                OpenChoseRestomon();
+                OpenSelectRestomon();
                 current_state = State.ChoseRestomon;
             }
         }
@@ -281,51 +274,65 @@ public class MenuTeamBuilder : MenuSwapIcon
     {
         if (input.GetDir() != Direction.None)
         {
-            restomon_menu.UpdateMenu(input.GetDir());
-        }
-        else if (input.GetEnter())
-        {
-            restomon_menu.GetValues(out int x, out int y);
-            data_holder.SetRestomon(int_variable_b, x + (y * 6));
-
-            CloseMenus();
-            OpenSelectSlot();
-            current_state = State.SelectSlot;
-        }
-        else if (input.GetBack())
-        {
-            data_holder.SetRestomon(int_variable_b, -1);
-
-            CloseMenus();
-            OpenSelectSlot();
-            current_state = State.SelectSlot;
-        }
-    }
-
-    private void ChoseRestomon(Inputer input)
-    {
-        if (input.GetDir() != Direction.None)
-        {
-            restomon_menu.UpdateMenu(input.GetDir());
-        }
-        else if (input.GetEnter())
-        {
             restomon_menu.GetValues(out int x, out int y);
 
-            if (data_holder.GetRestomonUnlocked(x + (y * 6)))
+            if ((x == 0 && input.GetDir() == Direction.Left) || (x == 2 && input.GetDir() == Direction.Right))
+                restomon_current_page = (restomon_current_page == 1 ? 2 : 1);
+
+            restomon_menu.UpdateMenu(input.GetDir());
+
+            int temp_int = (restomon_current_page == 1 ? 0 : 18);
+            for (int i = 0; i < 18; ++i)
             {
-                int_variable_a = x + (y * 6);
+                if (data_holder.GetRestomonUnlocked(i + temp_int))
+                    restomon_texts[i].text = data_holder.GetRestomonData(i + temp_int).GetName();
+                else
+                    restomon_texts[i].text = "Locked";
+            }
 
-                CloseMenus();
-                OpenEditRestomon();
-                current_state = State.EditRestomon;
+            restomon_page.text = restomon_current_page + "/2";
+        }
+        else if (input.GetEnter())
+        {
+            restomon_menu.GetValues(out int x, out int y);
+            int temp_int = (restomon_current_page == 1 ? 0 : 18);
+
+            if (data_holder.GetRestomonUnlocked(x + (y * 6) + temp_int))
+            {
+                if (current_state == State.SelectSlot)
+                {
+                    data_holder.SetRestomon(int_variable_b, x + (y * 6) + temp_int);
+
+                    CloseMenus();
+                    OpenSelectSlot();
+                    current_state = State.SelectSlot;
+                }
+                else
+                {
+                    int_variable_a = x + (y * 6);
+
+                    CloseMenus();
+                    OpenEditRestomon();
+                    current_state = State.EditRestomon;
+                }
             }
         }
         else if (input.GetBack())
         {
-            CloseMenus();
-            OpenInitial();
-            current_state = State.Initial;
+            if (current_state == State.SelectSlot)
+            {
+                data_holder.SetRestomon(int_variable_b, -1);
+
+                CloseMenus();
+                OpenSelectSlot();
+                current_state = State.SelectSlot;
+            }
+            else
+            {
+                CloseMenus();
+                OpenInitial();
+                current_state = State.Initial;
+            }
         }
     }
 

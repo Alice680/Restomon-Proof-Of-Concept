@@ -15,15 +15,15 @@ MonoBehaviour:
   id: 1
   restomon_name: Aith
   growth_stats:
-    hp: 0
-    mp: 0
-    atk: 0
-    mag: 0
-    frc: 0
-    def: 0
-    shd: 0
-    wil: 0
-    spd: 0
+    hp: 3
+    mp: 2
+    atk: 1
+    mag: 1
+    frc: 1
+    def: 1
+    shd: 1
+    wil: 2
+    spd: 2
     mov: 0
     act: 0
   base_attack:
@@ -33,47 +33,60 @@ MonoBehaviour:
   attack_cost:
   - craft_cost: []
   - craft_cost: []
-  - craft_cost: []
-  refinements_cost:
   - craft_cost:
     - {x: 0, y: 1}
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
+  refinements_cost:
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
   reforge_cost:
   - craft_cost:
-    - {x: 0, y: 2}
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  evolution_cost:
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
-  - craft_cost: []
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
+  - craft_cost:
+    - {x: 0, y: 0}
   first_evo:
     base_stats:
       hp: 20
@@ -87,6 +100,7 @@ MonoBehaviour:
       spd: 3
       mov: 6
       act: 1
+    description: The first evolution
     cost: 030000000100000001000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
@@ -101,8 +115,33 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
     - {fileID: 11400000, guid: 5cbadff99b5ac2542b3dc83787c2870f, type: 2}
     - {fileID: 11400000, guid: 464c0280846a4364b8c20a9688a83d68, type: 2}
-    attack_cost: []
-    traits_cost: []
+    evolution_cost:
+      craft_cost:
+      - {x: 0, y: 0}
+    attack_cost:
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    traits_cost:
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
+    - craft_cost:
+      - {x: 0, y: 0}
     element: 1
     model: {fileID: 700202898240439412, guid: 7049b7f68e6222f468ed9dfae6bc890f, type: 3}
   second_evos:
@@ -118,6 +157,7 @@ MonoBehaviour:
       spd: 1
       mov: 1
       act: 1
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
@@ -126,6 +166,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 25a3f104d62ddb14e997fd630f05caa9, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -142,6 +184,7 @@ MonoBehaviour:
       spd: 1
       mov: 1
       act: 1
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
@@ -150,6 +193,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -166,6 +211,7 @@ MonoBehaviour:
       spd: 1
       mov: 1
       act: 1
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
@@ -174,6 +220,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -191,12 +239,15 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -213,12 +264,15 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -235,12 +289,15 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -258,12 +315,15 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -280,12 +340,15 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
@@ -302,12 +365,15 @@ MonoBehaviour:
       spd: 0
       mov: 0
       act: 0
+    description: 
     cost: 000000000000000000000000
     attack:
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
     traits:
     - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+    evolution_cost:
+      craft_cost: []
     attack_cost: []
     traits_cost: []
     element: 1
