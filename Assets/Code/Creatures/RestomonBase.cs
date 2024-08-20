@@ -189,6 +189,29 @@ public class RestomonBase : ScriptableObject
        return growth_stats.GetStats(index);
     }
 
+    public int GetStat(int index, int i)
+    {
+        if (index < 0 || index >= 10)
+            return -1;
+
+        if (index == 0)
+        {
+            return first_evo.base_stats.GetStats(i);
+        }
+        else if (index < 4)
+        {
+            return second_evos[index - 1].base_stats.GetStats(i);
+        }
+        else if (index < 7)
+        {
+            return mixed_evos[index - 4].base_stats.GetStats(i);
+        }
+        else
+        {
+            return third_evos[index - 7].base_stats.GetStats(i);
+        }
+    }
+
     public Attack[] GetBasicAttacks()
     {
         return base_attack;

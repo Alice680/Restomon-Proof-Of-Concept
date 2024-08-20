@@ -13,7 +13,7 @@ public class MenuRestomonEditor : MenuSwapIcon
     [SerializeField] private Text name_text;
     [SerializeField] private Text choice_description;
     [SerializeField] private Text[] core_text, sub_text, choice_text;
-    [SerializeField] private GameObject core_menu, sub_menu, choice_menu;
+    [SerializeField] private GameObject core_menu, sub_menu, choice_menu, locked_evolution;
     [SerializeField] private GameObject[] core_icons, sub_icons, choice_icons;
 
     private int restomon_index;
@@ -34,6 +34,7 @@ public class MenuRestomonEditor : MenuSwapIcon
     private State current_state;
 
     //Restomon Current Data
+    private bool[] evolution_unlocked;
     private Vector2Int[] current_attacks;
     private int[] current_traits;
     private int[] current_points;
@@ -63,7 +64,7 @@ public class MenuRestomonEditor : MenuSwapIcon
 
         name_text.text = restomon_base.GetName();
 
-        data_holder.GetRestomonUnlockInfo(restomon_index, out int reforges, out int refinements, out bool[] mutations, out basic_attacks, out attacks, out traits);
+        data_holder.GetRestomonUnlockInfo(restomon_index, out int reforges, out int refinements, out bool[] mutations, out basic_attacks, out evolution_unlocked, out attacks, out traits);
         data_holder.GetRestomonInfo(restomon_index, out current_attacks, out current_traits, out current_points, out current_point_total, out current_reforges);
 
         CloseMenus();
@@ -85,14 +86,21 @@ public class MenuRestomonEditor : MenuSwapIcon
         core_menu.SetActive(false);
         sub_menu.SetActive(false);
 
-
         for (int i = 0; i < 17; ++i)
         {
             core_text[i].text = "";
             core_icons[i].SetActive(false);
         }
 
-        data_holder.SetRestomonInfo(restomon_index, current_attacks);
+        for (int i = 0; i < 14; ++i)
+            sub_text[i].text = "";
+
+        for (int i = 0; i < 3; ++i)
+            sub_icons[i].SetActive(false);
+
+        locked_evolution.SetActive(false);
+
+        data_holder.SetRestomonInfo(restomon_index, current_attacks, current_traits, current_points);
 
         CloseChoice();
     }
@@ -113,7 +121,7 @@ public class MenuRestomonEditor : MenuSwapIcon
         {
             core_text[i % 3 + (i / 3 * 6) + 1].text = stat_icons[i + 2] + " (" + current_points[i] + ") " + (current_reforges * restomon_base.GetStatGrowth(i + 2) + (current_points[i] * restomon_base.GetStatGrowth(i + 2)));
         }
-        core_text[4].text = stat_icons[8] + " (" + current_points[6]+ ") " + (current_reforges * restomon_base.GetStatGrowth(8)+ (current_points[6] * restomon_base.GetStatGrowth(8)));
+        core_text[4].text = stat_icons[8] + " (" + current_points[6] + ") " + (current_reforges * restomon_base.GetStatGrowth(8) + (current_points[6] * restomon_base.GetStatGrowth(8)));
 
         int temp_points = 0;
         for (int i = 0; i < 7; ++i)
@@ -129,7 +137,33 @@ public class MenuRestomonEditor : MenuSwapIcon
 
     private void OpenSub()
     {
+        sub_menu.SetActive(true);
 
+        if (evolution_unlocked[y_value - 1])
+        {
+            for (int i = 0; i < 2; ++i)
+            {
+                sub_text[i * 6].text = stat_icons[i] + " " + restomon_base.GetStat(y_value - 1, i);
+            }
+            for (int i = 0; i < 3; ++i)
+            {
+                sub_text[i % 2 + (i / 2 * 6) + 4].text = stat_icons[i + 8] + " " + restomon_base.GetStat(y_value - 1, i + 8);
+            }
+            for (int i = 0; i < 6; ++i)
+            {
+                sub_text[i % 3 + (i / 3 * 6) + 1].text = stat_icons[i + 2] + restomon_base.GetStat(y_value - 1, i + 2);
+            }
+
+            sub_text[4].text = stat_icons[8] + restomon_base.GetStat(y_value - 1, 8);
+
+            sub_text[11].text = restomon_base.GetAttacks(y_value - 1)[current_attacks[y_value - 1].x].GetName();
+            sub_text[12].text = restomon_base.GetAttacks(y_value - 1)[current_attacks[y_value - 1].y].GetName();
+            sub_text[13].text = restomon_base.GetTraits(y_value - 1)[current_traits[y_value - 1]].GetName();
+        }
+        else
+        {
+            locked_evolution.SetActive(true);
+        }
     }
 
     private void CloseChoice()
@@ -189,12 +223,17 @@ public class MenuRestomonEditor : MenuSwapIcon
     {
         if (input.GetDir() != Direction.None)
         {
-            base.UpdateMenu(input.GetDir());
+            if (input.GetDir() == Direction.Up || input.GetDir() == Direction.Down)
+            {
+                base.UpdateMenu(input.GetDir());
 
-            if (y_value == 0)
-                OpenCore();
-            else
-                Debug.Log("Finish Menu");
+                CloseMenus();
+
+                if (y_value == 0)
+                    OpenCore();
+                else
+                    OpenSub();
+            }
         }
         else if (input.GetEnter())
         {
@@ -206,7 +245,12 @@ public class MenuRestomonEditor : MenuSwapIcon
             }
             else
             {
+                if (!evolution_unlocked[y_value - 1])
+                    return;
 
+                menu_a_index = 0;
+                sub_icons[menu_a_index].SetActive(true);
+                current_state = State.Sub;
             }
         }
         else if (input.GetBack())
@@ -250,10 +294,10 @@ public class MenuRestomonEditor : MenuSwapIcon
                 {
                     if (input.GetDir() == Direction.Left && current_points[temp_y_value + 2] > 0)
                         --current_points[temp_y_value + 2];
-                    else if (input.GetDir() == Direction.Right && temp_points > 0 && current_points[temp_y_value+2] < 20)
+                    else if (input.GetDir() == Direction.Right && temp_points > 0 && current_points[temp_y_value + 2] < 20)
                         ++current_points[temp_y_value + 2];
 
-                    core_text[temp_y_value + (temp_x_value * 6)].text = stat_icons[temp_y_value + 4] + " < (" + current_points[temp_y_value + 2]  + ") > " + (current_reforges * restomon_base.GetStatGrowth(temp_y_value + 4) + (current_points[temp_y_value + 2] * restomon_base.GetStatGrowth(temp_y_value + 4)));
+                    core_text[temp_y_value + (temp_x_value * 6)].text = stat_icons[temp_y_value + 4] + " < (" + current_points[temp_y_value + 2] + ") > " + (current_reforges * restomon_base.GetStatGrowth(temp_y_value + 4) + (current_points[temp_y_value + 2] * restomon_base.GetStatGrowth(temp_y_value + 4)));
                 }
 
                 temp_points = 0;
@@ -394,7 +438,6 @@ public class MenuRestomonEditor : MenuSwapIcon
                     current_state = State.Choice;
                 }
             }
-
         }
         else if (input.GetBack())
         {
@@ -407,7 +450,7 @@ public class MenuRestomonEditor : MenuSwapIcon
 
                 if (temp_x_value == 0 && temp_y_value == 4)
                     core_text[temp_y_value + (temp_x_value * 6)].text = stat_icons[8] + " (" + current_points[6] + ") " + (current_reforges * restomon_base.GetStatGrowth(8) + (current_points[6] * restomon_base.GetStatGrowth(8)));
-                else if (temp_x_value == 0) 
+                else if (temp_x_value == 0)
                     core_text[temp_y_value + (temp_x_value * 6)].text = stat_icons[temp_y_value + 1] + " (" + current_points[temp_y_value] + ") " + (current_reforges * restomon_base.GetStatGrowth(temp_y_value + 1) + (current_points[temp_y_value] * restomon_base.GetStatGrowth(temp_y_value)));
                 else
                     core_text[temp_y_value + (temp_x_value * 6)].text = stat_icons[temp_y_value + 4] + " (" + current_points[temp_y_value + 2] + ") " + (current_reforges * restomon_base.GetStatGrowth(temp_y_value + 4) + (current_points[temp_y_value + 2] * restomon_base.GetStatGrowth(temp_y_value + 4)));
@@ -426,15 +469,75 @@ public class MenuRestomonEditor : MenuSwapIcon
     {
         if (input.GetDir() != Direction.None)
         {
+            for (int i = 0; i < 3; ++i)
+                sub_icons[i].SetActive(false);
 
+            GetInputValue(1, menu_a_index, 1, 3, input.GetDir(), out int eat_int, out menu_a_index);
+
+            sub_icons[menu_a_index].SetActive(true);
         }
         else if (input.GetEnter())
         {
+            CloseMenus();
 
+            for (int i = 0; i < 11; i++)
+                icons[i].SetActive(false);
+
+            OpenChoice();
+
+            if (menu_a_index == 0)
+                choice_value = 0;
+            else if (menu_a_index == 1)
+                choice_value = 1;
+            else if (menu_a_index == 2)
+                choice_value = 2;
+
+            for (int i = 0; i < 18; i++)
+            {
+                choice_text[i].text = "";
+                choice_descriptions_values[i] = "";
+            }
+
+            if (choice_value == 0 || choice_value == 1)
+                for (int i = 0; i < attacks[y_value - 1].Length; ++i)
+                {
+                    if (attacks[y_value - 1][i])
+                    {
+                        choice_text[i].text = restomon_base.GetAttacks(y_value - 1)[i].GetName();
+                        choice_descriptions_values[i] = restomon_base.GetAttacks(y_value - 1)[i].GetDescription();
+                    }
+                    else
+                    {
+                        choice_text[i].text = "Locked";
+                        choice_descriptions_values[i] = "Unlock this move to view more info";
+                    }
+                }
+            else if (choice_value == 2)
+                for (int i = 0; i < traits[y_value - 1].Length; ++i)
+                {
+                    if (traits[y_value - 1][i])
+                    {
+                        choice_text[i].text = restomon_base.GetTraits(y_value - 1)[i].GetName();
+                        choice_descriptions_values[i] = restomon_base.GetTraits(y_value - 1)[i].GetDescription();
+                    }
+                    else
+                    {
+                        choice_text[i].text = "Locked";
+                        choice_descriptions_values[i] = "Unlock this trait to view more info";
+                    }
+                }
+
+            choice_description.text = choice_descriptions_values[0];
+
+            previous_state = current_state;
+            current_state = State.Choice;
         }
         else if (input.GetBack())
         {
+            for (int i = 0; i < 3; ++i)
+                sub_icons[i].SetActive(false);
 
+            current_state = State.Initial;
         }
     }
 
@@ -454,7 +557,7 @@ public class MenuRestomonEditor : MenuSwapIcon
         {
             if (previous_state == State.Core && choice_value <= 1)
             {
-                if (!basic_attacks[choice_x + (choice_y * 3)])
+                if (basic_attacks.Length <= choice_x + (choice_y * 3) || !basic_attacks[choice_x + (choice_y * 3)])
                     return;
 
                 if (choice_value == 0)
@@ -474,7 +577,7 @@ public class MenuRestomonEditor : MenuSwapIcon
             }
             else if (previous_state == State.Core && choice_value == 2)
             {
-                if (!traits[0][choice_x + (choice_y * 3)])
+                if (traits[0].Length <= choice_x + (choice_y * 3) || !traits[0][choice_x + (choice_y * 3)])
                     return;
 
                 if (choice_x + (choice_y * 3) != 0 && current_traits[1] == choice_x + (choice_y * 3))
@@ -482,19 +585,68 @@ public class MenuRestomonEditor : MenuSwapIcon
 
                 current_traits[0] = choice_x + (choice_y * 3);
             }
+            else if (previous_state == State.Sub && choice_value <= 1)
+            {
+                if (attacks[y_value - 1].Length <= choice_x + (choice_y * 3) || !attacks[y_value - 1][choice_x + (choice_y * 3)])
+                    return;
+
+                if (choice_value == 0)
+                {
+                    if (current_attacks[y_value].y == choice_x + (choice_y * 3))
+                        current_attacks[y_value].y = current_attacks[y_value].x;
+
+                    current_attacks[y_value].x = choice_x + (choice_y * 3);
+                }
+                else
+                {
+                    if (current_attacks[y_value].x == choice_x + (choice_y * 3))
+                        current_attacks[y_value].x = current_attacks[y_value].y;
+
+                    current_attacks[y_value].y = choice_x + (choice_y * 3);
+                }
+            }
+            else if (previous_state == State.Sub && choice_value == 2)
+            {
+                if (traits[y_value - 1].Length <= choice_x + (choice_y * 3) || !traits[y_value - 1][choice_x + (choice_y * 3)])
+                    return;
+
+                if (y_value == 1 && choice_x + (choice_y * 3) != 0 && current_traits[0] == choice_x + (choice_y * 3))
+                    current_traits[0] = current_traits[1];
+
+                current_traits[y_value - 1] = choice_x + (choice_y * 3);
+            }
 
             current_state = previous_state;
             previous_state = State.None;
             CloseChoice();
-            OpenCore();
-            core_icons[menu_a_index].SetActive(true);
-            icons[0].SetActive(true);
+            if (current_state == State.Core)
+            {
+                OpenCore();
+                core_icons[menu_a_index].SetActive(true);
+            }
+            else
+            {
+                OpenSub();
+                sub_icons[menu_a_index].SetActive(true);
+            }
+            icons[y_value].SetActive(true);
         }
         else if (input.GetBack())
         {
             current_state = previous_state;
             previous_state = State.None;
             CloseChoice();
+            if (current_state == State.Core)
+            {
+                OpenCore();
+                core_icons[menu_a_index].SetActive(true);
+            }
+            else
+            {
+                OpenSub();
+                sub_icons[menu_a_index].SetActive(true);
+            }
+            icons[y_value].SetActive(true);
         }
     }
 }

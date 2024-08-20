@@ -535,12 +535,13 @@ public class PermDataHolder : MonoBehaviour
         return restomon_unlocks[index].unlocked;
     }
 
-    public void GetRestomonUnlockInfo(int index, out int reforges, out int refinements, out bool[] mutations, out bool[] basic_attacks, out List<bool[]> attacks, out List<bool[]> traits)
+    public void GetRestomonUnlockInfo(int index, out int reforges, out int refinements, out bool[] mutations, out bool[] basic_attacks, out bool[] evolutions, out List<bool[]> attacks, out List<bool[]> traits)
     {
         reforges = restomon_unlocks[index].reforges;
         refinements = restomon_unlocks[index].refinements;
         mutations = restomon_unlocks[index].mutations;
         basic_attacks = restomon_unlocks[index].basic_attacks;
+        evolutions = restomon_unlocks[index].evolution;
         attacks = restomon_unlocks[index].attacks;
         traits = restomon_unlocks[index].traits;
     }
@@ -569,9 +570,11 @@ public class PermDataHolder : MonoBehaviour
         reforges = restomon_unlocks[index].reforges;
     }
 
-    public void SetRestomonInfo(int index, Vector2Int[] current_attacks)
+    public void SetRestomonInfo(int index, Vector2Int[] current_attacks, int[] current_traits, int[] current_points)
     {
         current_restomon_data[index].current_attacks = current_attacks;
+        current_restomon_data[index].current_traits = current_traits;
+        current_restomon_data[index].current_refinements = current_points;
     }
 
     public RestomonBase GetRestomonData(int index)
