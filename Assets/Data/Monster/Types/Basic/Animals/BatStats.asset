@@ -10,30 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdc7dcf59c6821a49949e5a3a6802dfa, type: 3}
-  m_Name: SnakeStats
+  m_Name: BatStats
   m_EditorClassIdentifier: 
-  monster_name: Snake
+  monster_name: Bat
+  id: 100
   lv: 3
   traits:
   - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
   attacks:
   - {fileID: 11400000, guid: 75695ef3b417a024c8698bd3daafa1b6, type: 2}
-  - {fileID: 11400000, guid: 3e5b316635a8bd949b17a3ba85e50d1b, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
   - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  - {fileID: 11400000, guid: 370cc2a1629c97b42bd4e356a0f2380e, type: 2}
+  elements: 000000000000000000000000
   stats:
     Hp: 5
-    Atk: 2
+    Atk: 3
     Mag: 2
     Frc: 2
     Def: 2
     Shd: 2
     Wil: 2
-    Spd: 5
-    Mov: 5
+    Spd: 4
+    Mov: 3
     Act: 1
-  model: {fileID: 1462348107045490374, guid: 16c50af50876f1447b7683f087c3119b, type: 3}
+  model: {fileID: 1462348107045490374, guid: bbec5dbd78ae97b45a1f0a5e9b4ade67, type: 3}

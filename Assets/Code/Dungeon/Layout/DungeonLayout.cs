@@ -24,6 +24,7 @@ public class DungeonLayout : ScriptableObject
     }
 
     [SerializeField] private string dungeon_name;
+    [SerializeField] private int corruption_chance, corruption_range;
     [SerializeField] private DungeonFloor[] floor_options;
     [SerializeField] private VictoryCondition lose_condition, win_condition;
     [SerializeField] private TextOption[] text_options;
@@ -40,6 +41,12 @@ public class DungeonLayout : ScriptableObject
                 return option.dialogue_tree;
 
         return null;
+    }
+
+    public int GetCorruptionChance(out int corruption_range)
+    {
+        corruption_range = this.corruption_range;
+        return corruption_chance;
     }
 
     public int GetNumberOfFloor()

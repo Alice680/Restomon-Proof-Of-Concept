@@ -379,7 +379,23 @@ public class Player : Actor
             if (manager_ref.PositionValid(target + DirectionMath.GetVectorChange(inputer.GetDir())))
                 target += DirectionMath.GetVectorChange(inputer.GetDir());
 
-            manager_ref.ShowEvolutionTarget(temp_target, target, action_num);
+            int temp_loops = 0;
+            while (true)
+            {
+                if(temp_loops == 3)
+                    break;
+
+                if (manager_ref.EvolutionUnlocked(target, action_num))
+                    break;
+
+                action_num = (action_num + 1) % 3;
+                temp_loops++;
+            }
+
+            if(temp_loops != 3)
+                manager_ref.ShowEvolutionTarget(temp_target, target, action_num);
+            else
+                manager_ref.ShowEvolutionTarget(temp_target, target, -1);
 
             return;
         }
@@ -387,7 +403,7 @@ public class Player : Actor
         if (inputer.GetActionOne())
         {
             action_num = (action_num + 1) % 3;
-
+            
             manager_ref.ShowEvolutionTarget(target, target, action_num);
         }
 

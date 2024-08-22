@@ -97,6 +97,8 @@ public class PermDataHolder : MonoBehaviour
             {
                 attacks.Add(new bool[base_data.GetAttacks(i).Length]);
                 traits.Add(new bool[base_data.GetTraits(i).Length]);
+                attacks[i][0] = true;
+                traits[i][0] = true;
             }
 
             for (int i = 0; i < 2; ++i)
@@ -177,6 +179,9 @@ public class PermDataHolder : MonoBehaviour
 
             for (int i = 0; i < size; ++i)
                 restomon_id[i] = -1;
+
+            //TODO remove
+            restomon_id[0] = 0;
         }
     }
 
@@ -204,6 +209,11 @@ public class PermDataHolder : MonoBehaviour
     private CurrentClassData[] current_class_data;
     private CurrentRestomonData[] current_restomon_data;
     private CurrentTeamData[] current_team_data;
+
+    private int corruption_count;
+    private Trait[] corruption_effect;
+
+    private int[] core_damage;
 
     private int current_dungeon;
     private int current_overworld;
@@ -261,7 +271,7 @@ public class PermDataHolder : MonoBehaviour
         dungeon_unlocked = new bool[2];
         dungeon_cleared = new bool[2];
 
-        dungeon_unlocked[0] = true;
+        Rest();
     }
 
     public void LoadData()
@@ -274,11 +284,39 @@ public class PermDataHolder : MonoBehaviour
 
     }
 
-    //Core methods
+    //Antropy Methods
     public void Rest()
     {
-        // TODO add rest
-        Debug.Log("Rest");
+        corruption_count = 0;
+
+        core_damage = new int[8];
+        for (int i = 0; i < 8; ++i)
+            core_damage[i] = 10;
+    }
+
+    public Trait GetCorruptionTrait()
+    {
+        return null;
+    }
+
+    public int GetCorruption()
+    {
+        return corruption_count;
+    }
+
+    public int GetCoreDamage(int index)
+    {
+        return core_damage[index];
+    }
+
+    public void ModifyCorruption(int value)
+    {
+        corruption_count = Mathf.Clamp(value + corruption_count, 0, 100);
+    }
+
+    public int ModifyCoreDamage(int index, int value)
+    {
+        return core_damage[index] = Mathf.Clamp(value + core_damage[index], 0, 10);
     }
 
     //Class Data
@@ -575,6 +613,43 @@ public class PermDataHolder : MonoBehaviour
         current_restomon_data[index].current_attacks = current_attacks;
         current_restomon_data[index].current_traits = current_traits;
         current_restomon_data[index].current_refinements = current_points;
+    }
+
+    public bool EvolutionUnlocked(int index, RestomonEvolution current_evolution, int change)
+    {
+        int temp_evolution = 0;
+
+        if (current_evolution == RestomonEvolution.None)
+            temp_evolution = change + 1;
+        else if (current_evolution == RestomonEvolution.FormA)
+        {
+            if (change == 0)
+                temp_evolution = 6;
+            else if (change == 1)
+                temp_evolution = 7;
+            else if (change == 2)
+                temp_evolution = 4;
+        }
+        else if (current_evolution == RestomonEvolution.FormB)
+        {
+            if (change == 0)
+                temp_evolution = 4;
+            else if (change == 1)
+                temp_evolution = 8;
+            else if (change == 2)
+                temp_evolution = 5;
+        }
+        else if (current_evolution == RestomonEvolution.FormC)
+        {
+            if (change == 0)
+                temp_evolution = 5;
+            else if (change == 1)
+                temp_evolution = 9;
+            else if (change == 2)
+                temp_evolution = 6;
+        }
+
+        return restomon_unlocks[index].evolution[temp_evolution];
     }
 
     public RestomonBase GetRestomonData(int index)

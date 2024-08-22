@@ -48,6 +48,11 @@ public class Creature
             return Element.None;
     }
 
+    public virtual int GetID()
+    {
+        return -1;
+    }
+
     public virtual int GetLV()
     {
         return -1;

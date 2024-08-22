@@ -189,6 +189,8 @@ public class DungeonManager : MonoBehaviour
 
         AddUnit(temp_unit, position);
 
+        data_holder.ModifyCoreDamage(index, -1);
+
         performed_action = true;
     }
 
@@ -444,6 +446,10 @@ public class DungeonManager : MonoBehaviour
 
     private void SetUpUnit()
     {
+        if (current_unit.GetCreatureType() == CreatureType.Human)
+            if (Random.Range(0, 100) < data_holder.GetDungeon().GetCorruptionChance(out int corruption_range))
+                data_holder.ModifyCorruption(Random.Range(0, corruption_range + 1));
+
         current_unit.StartTurn();
 
         moves = current_unit.GetStat(7);
@@ -620,7 +626,7 @@ public class DungeonManager : MonoBehaviour
 
         Catalyst temp_catalyst = data_holder.GetCatalyst();
 
-        if (temp_unit != null && temp_unit.GetCreatureType() == CreatureType.Restomon && temp_unit.GetCurrentEvolution() == RestomonEvolution.None)
+        if (EvolutionValid(target, new_form))
         {
             temp_unit.ShowEvolution(new_form);
             dungeon_ui.UpdateUnitStatus(temp_unit.GetEvolution(new_form), temp_catalyst.GetEvolutionCost(temp_unit.GetEvolutionCost(new_form)));
@@ -734,6 +740,9 @@ public class DungeonManager : MonoBehaviour
         if (current_unit.GetHp() < temp_catalyst.GetSummonCost(temp_restomon.GetSummonCost(RestomonEvolution.None, -1)))
             return false;
 
+        if (data_holder.GetCoreDamage(index) == 0)
+            return false;
+
         return true;
     }
 
@@ -754,6 +763,24 @@ public class DungeonManager : MonoBehaviour
         return false;
     }
 
+    public bool EvolutionUnlocked(Vector3Int position, int new_form)
+    {
+        if (new_form < 0 || new_form > 2 || !map.IsInMap(position))
+            return false;
+
+        Unit temp_unit = map.GetUnit(position);
+
+        if (temp_unit == null || temp_unit.GetCreatureType() != CreatureType.Restomon)
+            return false;
+
+        RestomonEvolution temp_evo = temp_unit.GetCurrentEvolution();
+
+        if (temp_evo != RestomonEvolution.None && temp_evo != RestomonEvolution.FormA && temp_evo != RestomonEvolution.FormB && temp_evo != RestomonEvolution.FormC)
+            return false;
+
+        return data_holder.EvolutionUnlocked(temp_unit.GetBaseID(), temp_evo, new_form);
+    }
+
     public bool EvolutionValid(Vector3Int position, int new_form)
     {
         Catalyst temp_catalyst = data_holder.GetCatalyst();
@@ -761,10 +788,10 @@ public class DungeonManager : MonoBehaviour
         if (new_form < 0 || new_form > 2 || !map.IsInMap(position))
             return false;
 
-        Unit temp_unit = map.GetUnit(position);
-
-        if (temp_unit == null || temp_unit.GetCreatureType() != CreatureType.Restomon || temp_unit.GetCurrentEvolution() != RestomonEvolution.None)
+        if (!EvolutionUnlocked(position, new_form))
             return false;
+
+        Unit temp_unit = map.GetUnit(position);
 
         if (temp_catalyst.GetEvolutionCost(temp_unit.GetEvolutionCost(new_form)) > current_unit.GetHp())
             return false;

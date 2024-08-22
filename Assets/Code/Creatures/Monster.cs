@@ -12,16 +12,17 @@ using UnityEngine;
 public class Monster : Creature
 {
     private string monster_name;
-    private int lv;
+    private int id,lv;
     private int[] stats; //Hp, Atk, Mag, Frc, Def, Shd, Wil, Spd, Mov, Act
     private Trait[] traits;
     private Attack[] attacks;
     private Element[] elements;
     private GameObject model;
 
-    public Monster(string monster_name, int lv, int[] stats, Trait[] traits, Attack[] attacks,Element[] elements, GameObject model)
+    public Monster(string monster_name, int id, int lv, int[] stats, Trait[] traits, Attack[] attacks, Element[] elements, GameObject model)
     {
         this.monster_name = monster_name;
+        this.id = id;
         this.lv = lv;
         this.stats = stats;
         this.traits = traits;
@@ -37,6 +38,11 @@ public class Monster : Creature
     public override CreatureType GetCreatureType()
     {
         return CreatureType.Monster;
+    }
+
+    public override int GetID()
+    {
+        return id;
     }
 
     public override int GetLV()

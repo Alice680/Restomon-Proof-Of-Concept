@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f2c9fd86e54048917ad236a066532, type: 3}
   m_Name: Ather
   m_EditorClassIdentifier: 
-  id: 1
+  id: 0
   restomon_name: Aith
   growth_stats:
     hp: 3

@@ -16,7 +16,8 @@ using UnityEngine;
  * 
  * Refer to Creature class for a breakdown of how creatures function.
  */
-public enum RestomonEvolution { None, FormA, FormB, FormC };
+public enum RestomonEvolution { None, FormA, FormB, FormC, FormAB, FormBA, FormBC, FormCB, FormAC, FormCA, FormA2, FormB2, FormC2 };
+
 public class Restomon : Creature
 {
     private string restomon_name, restomon_description;
@@ -49,6 +50,11 @@ public class Restomon : Creature
     public string GetName()
     {
         return restomon_name;
+    }
+
+    public override int GetID()
+    {
+        return id;
     }
 
     public string GetDescription()

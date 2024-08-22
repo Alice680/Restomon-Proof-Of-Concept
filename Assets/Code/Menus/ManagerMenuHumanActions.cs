@@ -84,7 +84,7 @@ public class ManagerMenuHumanActions : MonoBehaviour
                     for (int i = 0; i < 8; ++i)
                     {
                         if (i < temp_catalyst.GetRestomonAmount() && data_holder.GetTeam(i) != null)
-                            summon_text[i].text = data_holder.GetTeam(i).ToString();
+                            summon_text[i].text = data_holder.GetTeam(i).ToString() + "\n" + data_holder.GetCoreDamage(i) + "/10";
                         else
                             summon_text[i].text = "Empty";
                     }

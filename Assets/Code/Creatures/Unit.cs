@@ -237,6 +237,16 @@ public class Unit
         return owner;
     }
 
+    public int GetBaseID()
+    {
+        if(creature_type == CreatureType.Monster)
+            return creature.GetID();
+        else if (creature_type == CreatureType.Restomon)
+            return creature.GetID();
+
+        return -1;
+    }
+
     public int GetID()
     {
         return id;

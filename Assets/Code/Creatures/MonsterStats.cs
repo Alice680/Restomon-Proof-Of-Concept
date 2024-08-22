@@ -21,7 +21,7 @@ public class MonsterStats : ScriptableObject
     }
 
     [SerializeField] private string monster_name;
-    [SerializeField] private int lv;
+    [SerializeField] private int id, lv;
     [SerializeField] private Trait[] traits = new Trait[9];
     [SerializeField] private Attack[] attacks = new Attack[8];
     [SerializeField] private Element[] elements = new Element[3];
@@ -32,6 +32,11 @@ public class MonsterStats : ScriptableObject
     {
         int[] core_stats = new int[] { stats.Hp, stats.Atk, stats.Mag, stats.Frc, stats.Def, stats.Shd, stats.Wil, stats.Spd, stats.Mov, stats.Act };
 
-        return new Monster(monster_name, lv, core_stats, traits, attacks, elements, model);
+        return new Monster(monster_name, id, lv, core_stats, traits, attacks, elements, model);
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 }
