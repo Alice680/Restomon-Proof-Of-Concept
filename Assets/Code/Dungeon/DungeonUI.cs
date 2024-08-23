@@ -16,6 +16,7 @@ public class DungeonUI : MonoBehaviour
 {
     public GameObject cam;
 
+    public GameObject[] corruption_icon;
     public GameObject[] move_normal;
     public GameObject[] move_end;
     public GameObject[] action_marker;
@@ -84,8 +85,16 @@ public class DungeonUI : MonoBehaviour
         cam.transform.position = vec + new Vector3(0.5f, 0, 0);
     }
 
-    public void UpdatePlayerStats(Unit player, List<Unit> player_units)
+    public void UpdatePlayerStats(PermDataHolder data_holder, Unit player, List<Unit> player_units)
     {
+        for (int i = 0; i < 20; ++i)
+        {
+            if (data_holder.GetCorruption() / 5 > i)
+                corruption_icon[i].SetActive(true);
+            else
+                corruption_icon[i].SetActive(false);
+        }
+
         ap_text.text = player.GetHp() + "/" + player.GetMaxHP();
         player_name_text.text = "Player";
 
@@ -108,7 +117,7 @@ public class DungeonUI : MonoBehaviour
         }
     }
 
-    public void UpdateUnitStatus(Unit target , int show_cost)
+    public void UpdateUnitStatus(Unit target, int show_cost)
     {
         if (condition_model != null)
             Destroy(condition_model);
@@ -128,12 +137,12 @@ public class DungeonUI : MonoBehaviour
 
         condition_icon.SetActive(true);
 
-        if(show_cost >= 0)
+        if (show_cost >= 0)
             condition_cost.text = "Cost: " + show_cost;
 
         condition_model = target.GetModel();
         condition_model.transform.parent = cam.transform;
-        condition_model.transform.localPosition = new Vector3(5.4f ,-0.8f,10);
+        condition_model.transform.localPosition = new Vector3(5.4f, -0.8f, 10);
         condition_model.GetComponent<Renderer>().sortingLayerName = "UI";
         condition_model.GetComponent<Renderer>().sortingOrder = 15;
 
@@ -151,7 +160,7 @@ public class DungeonUI : MonoBehaviour
         condition_text[0].text = "" + target.GetMaxHP();
 
         for (int i = 0; i < 9; ++i)
-            condition_text[i+2].text = "" + target.GetStat(i);
+            condition_text[i + 2].text = "" + target.GetStat(i);
 
         condition_name.text = target.ToString();
         for (int i = 0; i < target.GetNumConditions(); ++i)

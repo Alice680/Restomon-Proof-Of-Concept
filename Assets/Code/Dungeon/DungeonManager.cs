@@ -496,7 +496,7 @@ public class DungeonManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        dungeon_ui.UpdatePlayerStats(player, player_units);
+        dungeon_ui.UpdatePlayerStats(data_holder,player, player_units);
     }
 
     private void ActionCleanup()
@@ -889,6 +889,8 @@ public class DungeonManager : MonoBehaviour
             trait_list.Add(condition_list.GetTrait(index, rank));
         }
 
+        if (unit.GetCreatureType() == CreatureType.Human)
+            trait_list.Add(data_holder.GetCorruptionTrait());
 
         return trait_list.ToArray();
     }

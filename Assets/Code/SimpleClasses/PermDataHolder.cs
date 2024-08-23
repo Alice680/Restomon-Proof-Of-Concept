@@ -196,6 +196,8 @@ public class PermDataHolder : MonoBehaviour
     [SerializeField] private GearData[] weapon_data;
     [SerializeField] private GearData[] trinket_data;
 
+    [SerializeField] private Trait[] corruption_effect;
+
     [SerializeField] private ItemHolder item_holder;
 
     [SerializeField] private UpgradeCost[] RankCost;
@@ -211,7 +213,6 @@ public class PermDataHolder : MonoBehaviour
     private CurrentTeamData[] current_team_data;
 
     private int corruption_count;
-    private Trait[] corruption_effect;
 
     private int[] core_damage;
 
@@ -296,7 +297,7 @@ public class PermDataHolder : MonoBehaviour
 
     public Trait GetCorruptionTrait()
     {
-        return null;
+        return corruption_effect[0];
     }
 
     public int GetCorruption()

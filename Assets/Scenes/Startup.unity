@@ -325,6 +325,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7248e35923dab2043a4e04da3066377b, type: 2}
   - {fileID: 11400000, guid: 3ee8c9988ab46d04087a2017d05ba3ad, type: 2}
   trinket_data: []
+  corruption_effect:
+  - {fileID: 11400000, guid: 1522d1ef88c835947bb6bff58785fc21, type: 2}
+  - {fileID: 11400000, guid: 7a32cb090e9480d49be6b747959a2171, type: 2}
+  - {fileID: 11400000, guid: bf4f350665fb47449a7f412afb03aa24, type: 2}
+  - {fileID: 11400000, guid: 204886ea16de7d347b840b846d32150f, type: 2}
+  - {fileID: 11400000, guid: 41963ab2f4fb5b642837617746a69512, type: 2}
+  - {fileID: 11400000, guid: 3356a076f3b24d648956378413c0be5c, type: 2}
   item_holder: {fileID: 11400000, guid: 7ba60b3f702e12645a9d0426f5f62ecf, type: 2}
   RankCost:
   - craft_cost:
