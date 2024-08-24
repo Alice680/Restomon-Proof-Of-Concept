@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: 5681910152047925995
     second: NatureRestomonA_0
-  - first:
-      213: -4933946499680566661
-    second: NatureRestomonA_1
-  - first:
-      213: 1868592433471434659
-    second: NatureRestomonA_2
-  - first:
-      213: 8301351040898165662
-    second: NatureRestomonA_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,18 +90,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -131,69 +110,6 @@ TextureImporter:
       bones: []
       spriteID: bea9082ed233ade40800000000000000
       internalID: 5681910152047925995
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NatureRestomonA_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7202c9bcc9178bb0800000000000000
-      internalID: -4933946499680566661
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NatureRestomonA_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3af2c030be29ee910800000000000000
-      internalID: 1868592433471434659
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NatureRestomonA_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9bed8c0ac2543370800000000000000
-      internalID: 8301351040898165662
       vertices: []
       indices: 
       edges: []

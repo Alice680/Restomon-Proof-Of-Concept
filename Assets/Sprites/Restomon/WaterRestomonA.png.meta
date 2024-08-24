@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: -4386797205707830330
     second: WaterRestomonA_0
-  - first:
-      213: 9082553644223802681
-    second: WaterRestomonA_1
-  - first:
-      213: -6452282393708308567
-    second: WaterRestomonA_2
-  - first:
-      213: -5027003140065452251
-    second: WaterRestomonA_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,18 +90,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -131,69 +110,6 @@ TextureImporter:
       bones: []
       spriteID: 6cbcb140f27fe13c0800000000000000
       internalID: -4386797205707830330
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WaterRestomonA_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93da3610b66bb0e70800000000000000
-      internalID: 9082553644223802681
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WaterRestomonA_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a7528c3953e476a0800000000000000
-      internalID: -6452282393708308567
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WaterRestomonA_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 52f10af374f7c3ab0800000000000000
-      internalID: -5027003140065452251
       vertices: []
       indices: 
       edges: []

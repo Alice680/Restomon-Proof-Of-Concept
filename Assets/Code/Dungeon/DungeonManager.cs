@@ -80,6 +80,8 @@ public class DungeonManager : MonoBehaviour
 
     private void Update()
     {
+        Steamworks.SteamClient.RunCallbacks();
+
         if (attack_time != -1 && Time.time - attack_time > 0.1f)
             RemoveAttackModels();
 

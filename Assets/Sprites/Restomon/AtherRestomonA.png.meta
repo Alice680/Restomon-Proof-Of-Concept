@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: 3963406171582400921
     second: AtherRestomonA_0
-  - first:
-      213: 6765582627641601626
-    second: AtherRestomonA_1
-  - first:
-      213: -5235950113306076499
-    second: AtherRestomonA_2
-  - first:
-      213: -2761891512268610963
-    second: AtherRestomonA_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,18 +90,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -131,69 +110,6 @@ TextureImporter:
       bones: []
       spriteID: 99982cdf9e8d00730800000000000000
       internalID: 3963406171582400921
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AtherRestomonA_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5ea123ed8d24ed50800000000000000
-      internalID: 6765582627641601626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AtherRestomonA_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: daa99bafc1b2657b0800000000000000
-      internalID: -5235950113306076499
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AtherRestomonA_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d62201f7d4acba9d0800000000000000
-      internalID: -2761891512268610963
       vertices: []
       indices: 
       edges: []

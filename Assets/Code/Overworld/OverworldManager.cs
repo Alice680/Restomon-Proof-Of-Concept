@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class OverworldManager : MonoBehaviour
 {
-    private enum State { idle, enter_dungeon, dialogue, town };
+    private enum State { idle, enter_dungeon, dialogue, town, menu };
 
     private OverworldEntity player_entity;
 
@@ -16,6 +16,8 @@ public class OverworldManager : MonoBehaviour
     private GameObject cam;
     private OverworldUI overworld_ui;
     private PermDataHolder data_holder;
+
+    [SerializeField] private MenuOverworld menu_overworld;
 
     private State current_state;
 
@@ -40,6 +42,8 @@ public class OverworldManager : MonoBehaviour
         UpdateCamera();
         overworld_ui.Startup(data_holder);
 
+        menu_overworld.SetData(data_holder, cam);
+
         if (dialogue != null)
         {
             overworld_ui.ActivateDialogue(dialogue);
@@ -49,6 +53,8 @@ public class OverworldManager : MonoBehaviour
 
     private void Update()
     {
+        Steamworks.SteamClient.RunCallbacks();
+
         inputer.Run();
 
         switch (current_state)
@@ -65,13 +71,19 @@ public class OverworldManager : MonoBehaviour
             case State.town:
                 Town();
                 break;
+            case State.menu:
+                Menu();
+                break;
         }
     }
 
     private void Idle()
     {
-        if (inputer.GetBack())
-            Debug.Log("Menu");
+        if (inputer.GetActionOne())
+        {
+            menu_overworld.Activate();
+            current_state = State.menu;
+        }
         else if (inputer.GetEnter())
             Interact();
         else if (inputer.GetDir() != Direction.None)
@@ -110,6 +122,15 @@ public class OverworldManager : MonoBehaviour
         }
     }
 
+    private void Menu()
+    {
+        if (menu_overworld.Run(inputer))
+        {
+            menu_overworld.DeActivate();
+            current_state = State.idle;
+        }
+    }
+
     private void UpdateCamera()
     {
         Vector3 temp_positon = new Vector3(0, 0, -10);
@@ -134,7 +155,7 @@ public class OverworldManager : MonoBehaviour
 
             current_state = State.enter_dungeon;
         }
-        else if(town != null)
+        else if (town != null)
         {
             overworld_ui.ActivateTown(town);
 

@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: -6390228953551901022
     second: EarthRestomonA_0
-  - first:
-      213: 5962064620379752061
-    second: EarthRestomonA_1
-  - first:
-      213: 5801277085206055798
-    second: EarthRestomonA_2
-  - first:
-      213: 8572857656675214989
-    second: EarthRestomonA_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,18 +90,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -131,69 +110,6 @@ TextureImporter:
       bones: []
       spriteID: 2ae6f16af985157a0800000000000000
       internalID: -6390228953551901022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EarthRestomonA_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d76c8a11f228db250800000000000000
-      internalID: 5962064620379752061
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EarthRestomonA_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67b0253c5c6428050800000000000000
-      internalID: 5801277085206055798
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EarthRestomonA_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d862d182e98e8f670800000000000000
-      internalID: 8572857656675214989
       vertices: []
       indices: 
       edges: []

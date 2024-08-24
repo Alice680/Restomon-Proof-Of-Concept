@@ -14,6 +14,15 @@ public class StartupManager : MonoBehaviour
 {
     private void Start()
     {
+        try
+        {
+            Steamworks.SteamClient.Init(252490);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+        }
+
         PermDataHolder data = GameObject.Find("DataHolder").GetComponent<PermDataHolder>();
 
         data.SetupData();
