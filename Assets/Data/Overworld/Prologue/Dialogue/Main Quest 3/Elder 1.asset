@@ -14,11 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: Elder
+    text: Seems you managed to get some gear from all three of them.
+    choice_text: 
+  - is_choice: 0
+    next_node: 2
+    optinal_node: 0
+    speaker_name: Elder
+    text: You should head home, rest, and decide what you want to use. Then, once
+      you're done, return to me.
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
     speaker_name: Elder
-    text: Welcome back, it seems you have been throught a lot. Come to my house to
-      talk about it.
+    text: "And don\u2019t worry too much about your decision, you can change it at
+      any time."
     choice_text: 
   event_effects:
   - data_effect:

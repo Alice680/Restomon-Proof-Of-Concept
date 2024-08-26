@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: 
+    text: Your first summon was added, you can look at them at home.
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Elder
-    text: Got a summon and the tutorial is over.
+    speaker_name: 
+    text: This is the end of the current demo, 5 dungeons can be entered if you want.
     choice_text: 
   event_effects:
   - data_effect:
@@ -36,4 +42,7 @@ MonoBehaviour:
       value: 1
     - event_type: 0
       index: 3
+      value: 1
+    - event_type: 1
+      index: 0
       value: 1

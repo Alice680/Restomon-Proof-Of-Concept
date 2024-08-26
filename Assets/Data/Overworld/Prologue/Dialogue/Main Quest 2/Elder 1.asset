@@ -17,8 +17,8 @@ MonoBehaviour:
     next_node: -1
     optinal_node: 0
     speaker_name: Elder
-    text: Welcome back, it seems you have been throught a lot. Come to my house to
-      talk about it.
+    text: Welcome back, it seems you have been through a lot. Would you mind coming
+      to my house to discuss it?
     choice_text: 
   event_effects:
   - data_effect:

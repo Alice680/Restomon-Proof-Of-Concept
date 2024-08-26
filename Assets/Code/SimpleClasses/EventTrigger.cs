@@ -6,7 +6,6 @@ using UnityEngine;
 [Serializable]
 public class EventTrigger
 {
-    [Serializable] private enum DataType { Class };
 
     [Serializable]
     private class DataTriggers
@@ -28,7 +27,7 @@ public class EventTrigger
     [Serializable]
     private class SaveTriggers
     {
-        public DataType data_type;
+        public TriggerDataType data_type;
         public bool is_equal;
         public int index, value;
     }
@@ -66,7 +65,7 @@ public class EventTrigger
 
     private bool CheckSaveTrigger(PermDataHolder data_holder, SaveTriggers trigger)
     {
-        if (trigger.data_type == DataType.Class)
+        if (trigger.data_type == TriggerDataType.Class)
         {
            
             return (trigger.value == data_holder.GetPlayerClass()) ^ !trigger.is_equal;

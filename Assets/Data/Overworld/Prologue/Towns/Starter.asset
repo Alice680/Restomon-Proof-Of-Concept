@@ -20,7 +20,7 @@ MonoBehaviour:
     back_int: -1
     area_events:
     - txt: Go to Elder
-      description: 
+      description: Go vist the Elder at thier home.
       event_type: 0
       next_area: 1
       dialogue: {fileID: 0}
@@ -29,9 +29,9 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 0
-          is_equal: 1
+          is_equal: 0
           index: 1
-          value: 2
+          value: 0
         dungeon_triggers: []
         save_triggers: []
     - txt: Market
@@ -87,11 +87,17 @@ MonoBehaviour:
       feature_type: 1
       feature_int: 0
       event_trigger:
-        data_triggers: []
+        data_triggers:
+        - event_type: 0
+          is_equal: 0
+          index: 2
+          value: 0
         dungeon_triggers: []
         save_triggers: []
     - txt: Vist Elder
-      description: The elder is looking to speak with you.
+      description: Returning to town, you see that the kids have already been found
+        and the people have dispersed. The only one left is the town elder, who seems
+        to be waiting for you
       event_type: 3
       next_area: 1
       dialogue: {fileID: 11400000, guid: 5ba358004fc5bea44bd92526b6644c90, type: 2}
@@ -115,8 +121,38 @@ MonoBehaviour:
     back_description: 
     back_int: 0
     area_events:
+    - txt: Use Workshop
+      description: Use the Elders workshop.
+      event_type: 0
+      next_area: 1
+      dialogue: {fileID: 0}
+      feature_type: 5
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          is_equal: 1
+          index: 0
+          value: 5
+        dungeon_triggers: []
+        save_triggers: []
+    - txt: Use Enchanter
+      description: Use the Elders workshop.
+      event_type: 0
+      next_area: 1
+      dialogue: {fileID: 0}
+      feature_type: 6
+      feature_int: 0
+      event_trigger:
+        data_triggers:
+        - event_type: 0
+          is_equal: 1
+          index: 0
+          value: 5
+        dungeon_triggers: []
+        save_triggers: []
     - txt: Talk to Elder
-      description: 'Tell the Elder you '
+      description: He seems worried
       event_type: 3
       next_area: 1
       dialogue: {fileID: 11400000, guid: 280eb552de281da4c93492f395e843ff, type: 2}
@@ -131,7 +167,7 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
     - txt: Talk to Elder
-      description: 'Tell the Elder you '
+      description: Return to the Elder.
       event_type: 3
       next_area: 1
       dialogue: {fileID: 11400000, guid: 18177ac7fa49acd448c1b28588e07931, type: 2}
@@ -158,7 +194,7 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
     - txt: Meet Elder
-      description: 'Tell the Elder you '
+      description: Once more return to the elder.
       event_type: 3
       next_area: 1
       dialogue: {fileID: 11400000, guid: 3d29246715aa58449bbecde6529958a0, type: 2}
@@ -167,7 +203,7 @@ MonoBehaviour:
       event_trigger:
         data_triggers:
         - event_type: 0
-          is_equal: 0
+          is_equal: 1
           index: 2
           value: 1
         dungeon_triggers: []
@@ -176,36 +212,21 @@ MonoBehaviour:
           is_equal: 0
           index: 0
           value: 3
-    - txt: Use Workshop
-      description: Use the Elders workshop.
-      event_type: 0
+    - txt: Return
+      description: Tell the Elder you cleared the Dungeon.
+      event_type: 3
       next_area: 1
-      dialogue: {fileID: 0}
-      feature_type: 5
+      dialogue: {fileID: 11400000, guid: d30b6c7563114a74ea8e58bc0e06e4ee, type: 2}
+      feature_type: 0
       feature_int: 0
       event_trigger:
-        data_triggers: []
-        dungeon_triggers: []
-        save_triggers:
-        - data_type: 0
-          is_equal: 0
-          index: 0
+        data_triggers:
+        - event_type: 0
+          is_equal: 1
+          index: 2
           value: 3
-    - txt: Use Enchanter
-      description: Use the Elders workshop.
-      event_type: 0
-      next_area: 1
-      dialogue: {fileID: 0}
-      feature_type: 6
-      feature_int: 0
-      event_trigger:
-        data_triggers: []
         dungeon_triggers: []
-        save_triggers:
-        - data_type: 0
-          is_equal: 0
-          index: 0
-          value: 3
+        save_triggers: []
   - area_name: Market
     area_description: 
     back_txt: Town Center
@@ -213,7 +234,7 @@ MonoBehaviour:
     back_int: 0
     area_events:
     - txt: Shop
-      description: 
+      description: Look around and buy some things.
       event_type: 0
       next_area: 2
       dialogue: {fileID: 0}
@@ -223,8 +244,9 @@ MonoBehaviour:
         data_triggers: []
         dungeon_triggers: []
         save_triggers: []
-    - txt: Talk Ranger
-      description: 
+    - txt: Joshua
+      description: Joshua is organizing things in his shop but looks relatively free.
+        You should ask him what he knows about Aether Knights.
       event_type: 2
       next_area: 2
       dialogue: {fileID: 11400000, guid: 957a49fdc7e44f64eb6e748f9c48524e, type: 2}
@@ -244,8 +266,8 @@ MonoBehaviour:
     back_description: 
     back_int: 0
     area_events:
-    - txt: Smith
-      description: 
+    - txt: Forge
+      description: See if you can get something made for you.
       event_type: 0
       next_area: 3
       dialogue: {fileID: 0}
@@ -255,8 +277,9 @@ MonoBehaviour:
         data_triggers: []
         dungeon_triggers: []
         save_triggers: []
-    - txt: Talk Warrior
-      description: 
+    - txt: Ulric
+      description: Ulric seems to be letting something cool off. Now would be a good
+        time to ask him what he knows about Aether Knights.
       event_type: 2
       next_area: 3
       dialogue: {fileID: 11400000, guid: f5290bb0f52b12a4ca1afa3981edae20, type: 2}
@@ -277,8 +300,8 @@ MonoBehaviour:
     back_int: 0
     area_events:
     - txt: Atelier
-      description: 
-      event_type: 0
+      description: Craft or research items.
+      event_type: 9
       next_area: 4
       dialogue: {fileID: 0}
       feature_type: 4
@@ -287,9 +310,11 @@ MonoBehaviour:
         data_triggers: []
         dungeon_triggers: []
         save_triggers: []
-    - txt: Talk Mage
-      description: 
-      event_type: 0
+    - txt: Adele
+      description: A strange green mixture is boiling in the cauldron, but Adele
+        seems free. It would be best to ask them what they know about Aether Knights
+        while they are still free.
+      event_type: 2
       next_area: 4
       dialogue: {fileID: 11400000, guid: d3ac5a4d6bba7c643b07e7577f236423, type: 2}
       feature_type: 0

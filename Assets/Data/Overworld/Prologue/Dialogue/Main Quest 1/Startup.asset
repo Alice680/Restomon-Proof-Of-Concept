@@ -17,19 +17,28 @@ MonoBehaviour:
     next_node: 1
     optinal_node: 0
     speaker_name: 
-    text: Welcome to the Restomon Demo.
+    text: Welcome to the Restomon Demo. At this stage, it just covers the basic gameplay
+      loop.
     choice_text: 
   - is_choice: 0
     next_node: 2
     optinal_node: 0
     speaker_name: 
-    text: Some kids have gone missing from your home town of Oldthistle.
+    text: The controls are WASD to move, Enter to interact, e to open your menu,
+      and Backspace to return.
+    choice_text: 
+  - is_choice: 0
+    next_node: 3
+    optinal_node: 0
+    speaker_name: 
+    text: Some kids have gone missing from your hometown of Oldthistle. You are out
+      looking for them at an old dungeon south of town.
     choice_text: 
   - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Tester
-    text: Head south and enter the dungeon to search for the.
+    speaker_name: 
+    text: Head south and enter the dungeon to search for them.
     choice_text: 
   event_effects:
   - data_effect: []

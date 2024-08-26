@@ -14,10 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: Joshua
+    text: You want to know if I have any gear from when I was an active Aether Knight?
+      I have my old dagger and gear still lying around.
+    choice_text: 
+  - is_choice: 0
+    next_node: 2
+    optinal_node: 0
+    speaker_name: Joshua
+    text: All I got is a dagger and some leather armor. It does not provide the best
+      attack or defense, but it does let you move around quickly at attack from afar.
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Ranger
-    text: I got some old gear to spare.
+    speaker_name: Joshua
+    text: You can have it, I no longer have any use for it. Just make sure to sell
+      me anything you find in the dungeons you don't have a use for.
     choice_text: 
   event_effects:
   - data_effect:

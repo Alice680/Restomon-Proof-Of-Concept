@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28a8ba54812124e46adfffcfd81540f8, type: 3}
-  m_Name: Win
+  m_Name: EndOfDungeonA
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
     next_node: -1
     optinal_node: 0
     speaker_name: 
-    text: Head back to town and see if they have been found.
+    text: You have reached the end of the dungeon but there is no sign of the kids
+      here. Head back to town and see if someone has found them.
     choice_text: 
   event_effects:
-  - data_effect: []
+  - data_effect:
+    - event_type: 0
+      index: 0
+      value: 3
     dungeon_effect: []

@@ -18,7 +18,7 @@ public class MenuSmith : MenuSwapIcon
 
     private bool weapons_accessories;
 
-    private int y_overflow, y_max_overflow;
+    private int y_overflow;
 
     private int[] weapon_values, accessory_values;
 
@@ -193,7 +193,6 @@ public class MenuSmith : MenuSwapIcon
         if (current_state == State.Core)
         {
             y_overflow = 0;
-            y_max_overflow = 0;
 
             current_names = new string[0];
             current_descriptions = new string[0];

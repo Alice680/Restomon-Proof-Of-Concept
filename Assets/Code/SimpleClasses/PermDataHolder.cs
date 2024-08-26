@@ -13,6 +13,7 @@ using UnityEngine;
 public class PermDataHolder : MonoBehaviour
 {
     //Data classes
+    [Serializable]
     private class GenericUnlocks
     {
         public int lv, trait_slots;
@@ -40,6 +41,7 @@ public class PermDataHolder : MonoBehaviour
         }
     }
 
+    [Serializable]
     private class ClassUnlocks
     {
         public bool[] sub_classes, weapons, trinkets, loops, traits;
@@ -71,6 +73,7 @@ public class PermDataHolder : MonoBehaviour
         }
     }
 
+    [Serializable]
     private class RestomonUnlocks
     {
         public bool unlocked;
@@ -106,8 +109,28 @@ public class PermDataHolder : MonoBehaviour
         }
     }
 
+    [Serializable]
+    private class CurrentQuestData
+    {
+        public int[] main_quest_markers;
+        public int[] side_quest_markers;
+        public bool[] dungeon_unlocked;
+        public bool[] dungeon_cleared;
+
+        public CurrentQuestData()
+        {
+            main_quest_markers = new int[10];
+            side_quest_markers = new int[10];
+            dungeon_unlocked = new bool[10];
+            dungeon_cleared = new bool[10];
+        }
+    }
+
+    [Serializable]
     private class CurrenGenericData
     {
+        public bool save_data;
+        public string player_name;
         public int current_chapter;
         public int job;
         public int money, pack_upgrades;
@@ -115,8 +138,17 @@ public class PermDataHolder : MonoBehaviour
         public int[] storage;
         public int current_class, current_catalyst;
 
+        public int corruption_count;
+        public int[] core_damage;
+
+        public int current_dungeon;
+        public int current_overworld;
+        public Vector2Int current_position;
+
         public CurrenGenericData()
         {
+            save_data = false;
+            player_name = "player";
             current_catalyst = 0;
             job = 0;
             money = 15;
@@ -125,9 +157,15 @@ public class PermDataHolder : MonoBehaviour
             storage = new int[5];
             current_class = 3;
             current_catalyst = 0;
+            corruption_count = 0;
+            core_damage = new int[8];
+            current_dungeon = 0;
+            current_overworld = 0;
+            current_position = new Vector2Int(26, 25);
         }
     }
 
+    [Serializable]
     private class CurrentClassData
     {
         public int current_sub, current_weapon, current_trinket_a, current_trinket_b;
@@ -144,6 +182,7 @@ public class PermDataHolder : MonoBehaviour
         }
     }
 
+    [Serializable]
     private class CurrentRestomonData
     {
         public int current_mutation;
@@ -167,6 +206,7 @@ public class PermDataHolder : MonoBehaviour
         }
     }
 
+    [Serializable]
     private class CurrentTeamData
     {
         public int size;
@@ -184,6 +224,7 @@ public class PermDataHolder : MonoBehaviour
             restomon_id[0] = 0;
         }
     }
+
 
     //Console Data
     [SerializeField] private HumanClass[] classes;
@@ -203,36 +244,61 @@ public class PermDataHolder : MonoBehaviour
     [SerializeField] private UpgradeCost[] RankCost;
 
     //Build Data
+    private int current_save_file;
+
     private GenericUnlocks generic_unlocks;
     private ClassUnlocks[] class_unlocks;
     private RestomonUnlocks[] restomon_unlocks;
 
+    private CurrentQuestData current_quest_data;
     private CurrenGenericData current_generic_data;
     private CurrentClassData[] current_class_data;
     private CurrentRestomonData[] current_restomon_data;
     private CurrentTeamData[] current_team_data;
 
-    private int corruption_count;
+    //Save Data
+    public void SetSaveFile(int index)
+    {
+        current_save_file = Mathf.Clamp(index, 0, 2);
+    }
 
-    private int[] core_damage;
+    public void CreateSaveFile(int index, string name)
+    {
+        SetupData();
+        SetSaveFile(index);
+        current_generic_data.player_name = name;
+        current_generic_data.save_data = true;
+        SaveData();
+    }
 
-    private int current_dungeon;
-    private int current_overworld;
-    private Vector2Int current_position;
+    public string[] GetFiles(out bool[] has_data)
+    {
+        string[] temp_files = new string[9];
+        has_data = new bool[3];
 
-    //Quest Data
-    private int[] main_quest_markers;
-    private int[] side_quest_markers;
-    private bool[] dungeon_unlocked;
-    private bool[] dungeon_cleared;
+        string[] chapter_names = new string[1] { "Demo" };
+        string[] class_names = new string[4] { "", "", "", "Pesant" };
 
-    //Methods
+        for (int i = 0; i < 3; ++i)
+        {
+            current_save_file = i;
+            LoadData();
+            has_data[i] = current_generic_data.save_data;
+            temp_files[i * 3] = current_generic_data.player_name;
+            temp_files[i * 3 + 1] = chapter_names[current_generic_data.current_chapter];
+            temp_files[i * 3 + 2] = class_names[current_generic_data.current_class];
+        }
+
+        return temp_files;
+    }
+
     public void SetupData()
     {
         generic_unlocks = new GenericUnlocks(research_data.Length);
         class_unlocks = new ClassUnlocks[3];
         restomon_unlocks = new RestomonUnlocks[36];
 
+        current_quest_data = new CurrentQuestData();
         current_generic_data = new CurrenGenericData();
         current_class_data = new CurrentClassData[3];
         current_restomon_data = new CurrentRestomonData[36];
@@ -261,38 +327,159 @@ public class PermDataHolder : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        current_dungeon = 0;
-
-        current_overworld = 0;
-
-        current_position = new Vector2Int(26, 25);
-
-        main_quest_markers = new int[5];
-        side_quest_markers = new int[3];
-        dungeon_unlocked = new bool[2];
-        dungeon_cleared = new bool[2];
-
         Rest();
     }
 
     public void LoadData()
     {
+        string file_path = "";
+        string temp_save = "";
 
+        try
+        {
+            file_path = Application.persistentDataPath + "/hasdata.jason";
+            temp_save = System.IO.File.ReadAllText(file_path);
+            string temp = temp_save;
+        }
+        catch (Exception e)
+        {
+            WipeData();
+            Debug.Log(e);
+        }
+
+        try
+        {
+            file_path = Application.persistentDataPath + "/genericunlocks" + current_save_file + ".jason";
+            temp_save = System.IO.File.ReadAllText(file_path);
+            generic_unlocks = JsonUtility.FromJson<GenericUnlocks>(temp_save);
+
+            for (int i = 0; i < 3; ++i)
+            {
+                file_path = Application.persistentDataPath + "/classunlocks" + i + "x" + current_save_file + ".jason";
+                temp_save = System.IO.File.ReadAllText(file_path);
+                class_unlocks[i] = JsonUtility.FromJson<ClassUnlocks>(temp_save);
+            }
+
+            for (int i = 0; i < 36; ++i)
+            {
+                file_path = Application.persistentDataPath + "/restomonunlocks" + i + "x" + current_save_file + ".jason";
+                temp_save = System.IO.File.ReadAllText(file_path);
+                restomon_unlocks[i] = JsonUtility.FromJson<RestomonUnlocks>(temp_save);
+            }
+
+            file_path = Application.persistentDataPath + "/currentquestdata" + current_save_file + ".jason";
+            temp_save = System.IO.File.ReadAllText(file_path);
+            current_quest_data = JsonUtility.FromJson<CurrentQuestData>(temp_save);
+
+            file_path = Application.persistentDataPath + "/currentgenericdata" + current_save_file + ".jason";
+            temp_save = System.IO.File.ReadAllText(file_path);
+            current_generic_data = JsonUtility.FromJson<CurrenGenericData>(temp_save);
+
+            for (int i = 0; i < 3; ++i)
+            {
+                file_path = Application.persistentDataPath + "/currentclassdata" + i + "x" + current_save_file + ".jason";
+                temp_save = System.IO.File.ReadAllText(file_path);
+                current_class_data[i] = JsonUtility.FromJson<CurrentClassData>(temp_save);
+            }
+
+            for (int i = 0; i < 36; ++i)
+            {
+                file_path = Application.persistentDataPath + "/currentrestomondata" + i + "x" + current_save_file + ".jason";
+                temp_save = System.IO.File.ReadAllText(file_path);
+                current_restomon_data[i] = JsonUtility.FromJson<CurrentRestomonData>(temp_save);
+            }
+
+            for (int i = 0; i < 8; ++i)
+            {
+                file_path = Application.persistentDataPath + "/currentteamdata" + i + "x" + current_save_file + ".jason";
+                temp_save = System.IO.File.ReadAllText(file_path);
+                current_team_data[i] = JsonUtility.FromJson<CurrentTeamData>(temp_save);
+            }
+        }
+        catch (Exception e)
+        {
+            WipeData();
+            LoadData();
+            Debug.Log("Damaged Save");
+            Debug.Log(e);
+        }
     }
 
     public void SaveData()
     {
+        string file_path;
+        string temp_save;
 
+        file_path = Application.persistentDataPath + "/hasdata.jason";
+        temp_save = "Version 0.0.1";
+        System.IO.File.WriteAllText(file_path, temp_save);
+
+        file_path = Application.persistentDataPath + "/genericunlocks" + current_save_file + ".jason";
+        temp_save = JsonUtility.ToJson(generic_unlocks);
+        System.IO.File.WriteAllText(file_path, temp_save);
+
+        for (int i = 0; i < 3; ++i)
+        {
+            file_path = Application.persistentDataPath + "/classunlocks" + i + "x" + current_save_file + ".jason";
+            temp_save = JsonUtility.ToJson(class_unlocks[i]);
+            System.IO.File.WriteAllText(file_path, temp_save);
+        }
+
+        for (int i = 0; i < 36; ++i)
+        {
+            file_path = Application.persistentDataPath + "/restomonunlocks" + i + "x" + current_save_file + ".jason";
+            temp_save = JsonUtility.ToJson(restomon_unlocks[i]);
+            System.IO.File.WriteAllText(file_path, temp_save);
+        }
+
+        file_path = Application.persistentDataPath + "/currentquestdata" + current_save_file + ".jason";
+        temp_save = JsonUtility.ToJson(current_quest_data);
+        System.IO.File.WriteAllText(file_path, temp_save);
+
+        file_path = Application.persistentDataPath + "/currentgenericdata" + current_save_file + ".jason";
+        temp_save = JsonUtility.ToJson(current_generic_data);
+        System.IO.File.WriteAllText(file_path, temp_save);
+
+        for (int i = 0; i < 3; ++i)
+        {
+            file_path = Application.persistentDataPath + "/currentclassdata" + i + "x" + current_save_file + ".jason";
+            temp_save = JsonUtility.ToJson(current_class_data[i]);
+            System.IO.File.WriteAllText(file_path, temp_save);
+        }
+
+        for (int i = 0; i < 36; ++i)
+        {
+            file_path = Application.persistentDataPath + "/currentrestomondata" + i + "x" + current_save_file + ".jason";
+            temp_save = JsonUtility.ToJson(current_restomon_data[i]);
+            System.IO.File.WriteAllText(file_path, temp_save);
+        }
+
+        for (int i = 0; i < 8; ++i)
+        {
+            file_path = Application.persistentDataPath + "/currentteamdata" + i + "x" + current_save_file + ".jason";
+            temp_save = JsonUtility.ToJson(current_team_data[i]);
+            System.IO.File.WriteAllText(file_path, temp_save);
+        }
     }
 
-    //Antropy Methods
+    public void WipeData()
+    {
+        SetupData();
+        for (int i = 0; i < 3; ++i)
+        {
+            current_save_file = i;
+            SaveData();
+        }
+    }
+
+    //Corruption
     public void Rest()
     {
-        corruption_count = 0;
+        current_generic_data.corruption_count = 0;
 
-        core_damage = new int[8];
+        current_generic_data.core_damage = new int[8];
         for (int i = 0; i < 8; ++i)
-            core_damage[i] = 10;
+            current_generic_data.core_damage[i] = 10;
     }
 
     public Trait GetCorruptionTrait()
@@ -302,22 +489,22 @@ public class PermDataHolder : MonoBehaviour
 
     public int GetCorruption()
     {
-        return corruption_count;
+        return current_generic_data.corruption_count;
     }
 
     public int GetCoreDamage(int index)
     {
-        return core_damage[index];
+        return current_generic_data.core_damage[index];
     }
 
     public void ModifyCorruption(int value)
     {
-        corruption_count = Mathf.Clamp(value + corruption_count, 0, 100);
+        current_generic_data.corruption_count = Mathf.Clamp(value + current_generic_data.corruption_count, 0, 100);
     }
 
     public int ModifyCoreDamage(int index, int value)
     {
-        return core_damage[index] = Mathf.Clamp(value + core_damage[index], 0, 10);
+        return current_generic_data.core_damage[index] = Mathf.Clamp(value + current_generic_data.core_damage[index], 0, 10);
     }
 
     //Class Data
@@ -1428,35 +1615,35 @@ public class PermDataHolder : MonoBehaviour
     //Dungeon
     public void SetDungeon(int index)
     {
-        current_dungeon = index;
+        current_generic_data.current_dungeon = index;
     }
 
     public int GetDungeonInt()
     {
-        return current_dungeon;
+        return current_generic_data.current_dungeon;
     }
 
     public DungeonLayout GetDungeon()
     {
-        return dungeons[current_dungeon];
+        return dungeons[current_generic_data.current_dungeon];
     }
 
     //Overworld
     public void SetOverworld(int index, Vector2Int position)
     {
-        current_overworld = index;
-        current_position = position;
+        current_generic_data.current_overworld = index;
+        current_generic_data.current_position = position;
     }
 
     public int GetOverworldInt()
     {
-        return current_overworld;
+        return current_generic_data.current_overworld;
     }
 
     public OverworldLayout GetOverworld(out Vector2Int position)
     {
-        position = current_position;
-        return overworlds[current_overworld];
+        position = current_generic_data.current_position;
+        return overworlds[current_generic_data.current_overworld];
     }
 
     //Quest Data
@@ -1465,9 +1652,9 @@ public class PermDataHolder : MonoBehaviour
         switch (data_type)
         {
             case EventDataType.MainQuest:
-                return main_quest_markers[index];
+                return current_quest_data.main_quest_markers[index];
             case EventDataType.SideQuest:
-                return side_quest_markers[index];
+                return current_quest_data.side_quest_markers[index];
         }
 
         return -1;
@@ -1478,10 +1665,10 @@ public class PermDataHolder : MonoBehaviour
         switch (data_type)
         {
             case EventDataType.MainQuest:
-                main_quest_markers[index] = value;
+                current_quest_data.main_quest_markers[index] = value;
                 return;
             case EventDataType.SideQuest:
-                side_quest_markers[index] = value;
+                current_quest_data.side_quest_markers[index] = value;
                 return;
         }
     }
@@ -1491,9 +1678,9 @@ public class PermDataHolder : MonoBehaviour
         switch (data_type)
         {
             case DungeonDataType.DungeonUnlocked:
-                return dungeon_unlocked[index];
+                return current_quest_data.dungeon_unlocked[index];
             case DungeonDataType.DungeonCleared:
-                return dungeon_cleared[index];
+                return current_quest_data.dungeon_cleared[index];
         }
 
         return false;
@@ -1504,10 +1691,10 @@ public class PermDataHolder : MonoBehaviour
         switch (data_type)
         {
             case DungeonDataType.DungeonUnlocked:
-                dungeon_unlocked[index] = value;
+                current_quest_data.dungeon_unlocked[index] = value;
                 return;
             case DungeonDataType.DungeonCleared:
-                dungeon_cleared[index] = value;
+                current_quest_data.dungeon_cleared[index] = value;
                 return;
         }
     }

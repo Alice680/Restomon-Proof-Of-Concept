@@ -20,7 +20,7 @@ public class MenuAtelier : MenuSwapIcon
 
     private bool crafting_reseraching;
 
-    private int y_overflow, y_max_overflow;
+    private int y_overflow;
 
     private string[] current_names, current_descriptions, current_costs;
     private int[] current_index;
@@ -192,7 +192,6 @@ public class MenuAtelier : MenuSwapIcon
         if (current_state == State.Core)
         {
             y_overflow = 0;
-            y_max_overflow = 0;
 
             current_names = new string[0];
             current_descriptions = new string[0];

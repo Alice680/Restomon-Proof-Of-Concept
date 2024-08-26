@@ -17,7 +17,7 @@ MonoBehaviour:
     next_node: -1
     optinal_node: 0
     speaker_name: 
-    text: Be more carefull and try agian.
+    text: Be more careful and try again.
     choice_text: 
   event_effects:
   - data_effect: []

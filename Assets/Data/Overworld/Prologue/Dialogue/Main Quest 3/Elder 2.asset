@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: Elder
+    text: You look much more prepared for dungeon diving now.
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
     speaker_name: Elder
-    text: I got some old gear to spare.
+    text: Why not try taking on the same dungeon as you did before now that you're
+      properly equipped before trying to head out of town.
     choice_text: 
   event_effects:
   - data_effect:

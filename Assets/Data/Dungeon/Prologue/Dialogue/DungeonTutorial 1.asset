@@ -30,8 +30,8 @@ MonoBehaviour:
     next_node: -1
     optinal_node: 0
     speaker_name: 
-    text: The end of each floor is marked by a magic rift, reach the end of the dungeon
-      without your life force hitting zero.
+    text: The end of each floor is marked by a magic rift. Reach the end of the dungeon
+      without your energy force hitting zero.
     choice_text: 
   event_effects:
   - data_effect:

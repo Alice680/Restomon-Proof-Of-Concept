@@ -14,10 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: Ulric
+    text: You are looking to get my old adventuring gear?
+    choice_text: 
+  - is_choice: 0
+    next_node: 2
+    optinal_node: 0
+    speaker_name: Ulric
+    text: I got some old stuff that's still functional you can use.
+    choice_text: 
+  - is_choice: 0
+    next_node: 3
+    optinal_node: 0
+    speaker_name: Ulric
+    text: I got a shortsword and some armor. It will help you strengthen your body
+      and channel Aether into your weapon.
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Warrior
-    text: I got some old gear to spare.
+    speaker_name: Ulric
+    text: But if you want something better, then you are going to have to bring me
+      some materials to repair it.
     choice_text: 
   event_effects:
   - data_effect:

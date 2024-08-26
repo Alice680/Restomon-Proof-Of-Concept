@@ -14,10 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: Adele
+    text: "So the old man asked you to see if I\u2019d give you my old gear?"
+    choice_text: 
+  - is_choice: 0
+    next_node: 2
+    optinal_node: 0
+    speaker_name: Adele
+    text: Sure, help yourself to whatever is still functional.
+    choice_text: 
+  - is_choice: 0
+    next_node: 3
+    optinal_node: 0
+    speaker_name: Adele
+    text: I got an old wand and some robes. They help you gather large quantities
+      of Aether to cast powerful spells at your enemies. Just be careful as your
+      defense will be lacking.
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Mage
-    text: I got some old gear to spare.
+    speaker_name: Adele
+    text: And make sure to bring me any spare materials you find. There are some
+      experiments I want to try out. I will even share any new recipes I discover
+      with you.
     choice_text: 
   event_effects:
   - data_effect:

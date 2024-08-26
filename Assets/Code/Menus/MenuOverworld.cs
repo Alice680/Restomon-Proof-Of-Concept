@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using static UnityEngine.GraphicsBuffer;
 
 [Serializable]
 public class MenuOverworld : MenuSwapIcon
@@ -54,7 +53,7 @@ public class MenuOverworld : MenuSwapIcon
         menu.SetActive(false);
     }
 
-    public bool Run(Inputer inputer)
+    public bool Run(Inputer inputer, Vector2Int player_position)
     {
         switch (current_state)
         {
@@ -67,7 +66,7 @@ public class MenuOverworld : MenuSwapIcon
                 Inventory(inputer);
                 break;
             case State.Quit:
-                Quit(inputer);
+                Quit(inputer, player_position);
                 break;
         }
 
@@ -282,7 +281,7 @@ public class MenuOverworld : MenuSwapIcon
         }
     }
 
-    private void Quit(Inputer inputer)
+    private void Quit(Inputer inputer, Vector2Int player_position)
     {
         if (inputer.GetDir() != Direction.None && inputer.GetMoveKeyUp())
         {
@@ -298,12 +297,15 @@ public class MenuOverworld : MenuSwapIcon
             switch (y_value)
             {
                 case 0:
+                    data_holder.SetOverworld(data_holder.GetOverworldInt(), player_position);
+                    data_holder.SaveData();
                     Steamworks.SteamClient.Shutdown();
                     Application.Quit();
-                    Debug.Log("Close");
                     break;
                 case 1:
-                    Debug.Log("Main Menu");
+                    data_holder.SetOverworld(data_holder.GetOverworldInt(), player_position);
+                    data_holder.SaveData();
+                    SceneManager.LoadScene(1);
                     break;
                 case 2:
                     CloseMenus();

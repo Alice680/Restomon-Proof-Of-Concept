@@ -14,10 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: 
+    text: 'Welcome back, some people said they saw you poking around the caves. I
+      was worried we were going to have to arrange a search party for you as well. '
+    choice_text: 
+  - is_choice: 0
+    next_node: 2
+    optinal_node: 0
+    speaker_name: 
+    text: But I am glad to see you managed to get back. And seeing as you're relatively
+      unharmed, I guess you must have the ability to manipulate Ather.
+    choice_text: 
+  - is_choice: 0
+    next_node: 3
+    optinal_node: 0
+    speaker_name: 
+    text: "Even so, we can\u2019t have you recklessly diving into dungeons like that
+      unarmed."
+    choice_text: 
+  - is_choice: 0
+    next_node: 4
+    optinal_node: 0
+    speaker_name: 
+    text: 'You should speak with: Joshua in his shop, Ulric at his forge, and Adele
+      at her atelier.'
+    choice_text: 
+  - is_choice: 0
     next_node: -1
     optinal_node: 0
     speaker_name: 
-    text: Welcome back...
+    text: All three of them have experience as Aether Knights from when they were
+      younger and should be able to help you out.
     choice_text: 
   event_effects:
   - data_effect:
