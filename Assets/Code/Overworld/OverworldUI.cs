@@ -403,7 +403,7 @@ public class OverworldUI : MonoBehaviour
                     }
                 }
             }
-        
+
             else if (inputer.GetBack())
             {
                 current_area = current_town.GetSelection(data_holder, current_area, 7, out DialogueTree temp_dialogue, out TownFeatureType feature_type, out int feature_int);
@@ -417,23 +417,23 @@ public class OverworldUI : MonoBehaviour
             }
         }
 
-        town_description.text= current_town.GetBodyText(current_area, out string area_name);
+        town_description.text = current_town.GetBodyText(current_area, out string area_name);
         town_name.text = area_name;
 
         for (int i = 0; i < 8; ++i)
         {
             town_bars[i].SetActive(false);
-            town_options[i].text = current_town.GetChoiceText(current_area, data_holder,out int[] temp_icon, out string[] temp_descriptions)[i];
+            town_options[i].text = current_town.GetChoiceText(current_area, data_holder, out int[] temp_icon, out string[] temp_descriptions)[i];
 
             if (town_icon_objects[i] != null)
                 Destroy(town_icon_objects[i]);
 
-            if (i == current_selection)
+            if (i == (current_selection / 2) + (current_selection % 2 * 4))
                 town_current_option.text = temp_descriptions[i];
 
             if (temp_icon[i] != 0)
             {
-                town_icon_objects[i] = Instantiate(town_icon_ref[temp_icon[i]-1]);
+                town_icon_objects[i] = Instantiate(town_icon_ref[temp_icon[i] - 1]);
                 town_icon_objects[i].transform.parent = cam.transform;
                 town_icon_objects[i].transform.position = town_icons[i].transform.position;
             }

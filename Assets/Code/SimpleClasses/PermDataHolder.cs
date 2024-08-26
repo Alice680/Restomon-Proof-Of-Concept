@@ -219,12 +219,8 @@ public class PermDataHolder : MonoBehaviour
 
             for (int i = 0; i < size; ++i)
                 restomon_id[i] = -1;
-
-            //TODO remove
-            restomon_id[0] = 0;
         }
     }
-
 
     //Console Data
     [SerializeField] private HumanClass[] classes;
@@ -315,8 +311,6 @@ public class PermDataHolder : MonoBehaviour
             restomon_unlocks[i] = new RestomonUnlocks(restomon_bases[i]);
             current_restomon_data[i] = new CurrentRestomonData();
         }
-
-        restomon_unlocks[0].unlocked = true;
 
         for (int i = 0; i < 8; ++i)
         {
@@ -759,6 +753,11 @@ public class PermDataHolder : MonoBehaviour
     public bool GetRestomonUnlocked(int index)
     {
         return restomon_unlocks[index].unlocked;
+    }
+
+    public void SetRestomonUnlocked(int index)
+    {
+        restomon_unlocks[index].unlocked = true;
     }
 
     public void GetRestomonUnlockInfo(int index, out int reforges, out int refinements, out bool[] mutations, out bool[] basic_attacks, out bool[] evolutions, out List<bool[]> attacks, out List<bool[]> traits)

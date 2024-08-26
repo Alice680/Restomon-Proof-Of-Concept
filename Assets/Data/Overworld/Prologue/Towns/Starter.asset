@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   town_areas:
   - area_name: Town Center
-    area_description: The center of town
+    area_description: A small clearing at the center of town. People can be seen
+      rushing about.
     back_txt: Leave Town
-    back_description: 
+    back_description: Head out of town.
     back_int: -1
     area_events:
     - txt: Go to Elder
@@ -35,7 +36,7 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
     - txt: Market
-      description: 
+      description: Head over to the market district.
       event_type: 7
       next_area: 2
       dialogue: {fileID: 0}
@@ -50,7 +51,7 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
     - txt: Smith
-      description: 
+      description: Head over to the blacksmith.
       event_type: 8
       next_area: 3
       dialogue: {fileID: 0}
@@ -65,7 +66,7 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
     - txt: Atelier
-      description: 
+      description: Head over to the Atelier.
       event_type: 9
       next_area: 4
       dialogue: {fileID: 0}
@@ -80,7 +81,8 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
     - txt: Go Home
-      description: 
+      description: "A small building on the edge of town, it\u2019s not much, but
+        it's yours."
       event_type: 5
       next_area: 0
       dialogue: {fileID: 0}
@@ -116,9 +118,9 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
   - area_name: Elders Home
-    area_description: 
+    area_description: A larger home near the center of town lit by a small fire.
     back_txt: Town Center
-    back_description: 
+    back_description: Return to the center of town.
     back_int: 0
     area_events:
     - txt: Use Workshop
@@ -228,9 +230,10 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
   - area_name: Market
-    area_description: 
+    area_description: The town market, many stalls are set up selling various goods.
+      From meats and bread to clothes and tools.
     back_txt: Town Center
-    back_description: 
+    back_description: Return to the center of town.
     back_int: 0
     area_events:
     - txt: Shop
@@ -261,9 +264,10 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
   - area_name: Smith
-    area_description: 
+    area_description: The town's one and only blacksmith, the walls are lined with
+      farming equipment and utensils.
     back_txt: Town Center
-    back_description: 
+    back_description: Return to the center of town.
     back_int: 0
     area_events:
     - txt: Forge
@@ -294,9 +298,9 @@ MonoBehaviour:
         dungeon_triggers: []
         save_triggers: []
   - area_name: Atelier
-    area_description: 
+    area_description: A shop filled with potions, bubbling cauldrons, and old tomes.
     back_txt: Town Center
-    back_description: 
+    back_description: Return to the center of town.
     back_int: 0
     area_events:
     - txt: Atelier

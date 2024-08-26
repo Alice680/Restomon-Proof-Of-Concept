@@ -298,7 +298,7 @@ public class MenuTeamBuilder : MenuSwapIcon
 
             if (data_holder.GetRestomonUnlocked(x + (y * 6) + temp_int))
             {
-                if (current_state == State.SelectSlot)
+                if (current_state == State.SelectRestomon)
                 {
                     data_holder.SetRestomon(int_variable_b, x + (y * 6) + temp_int);
 

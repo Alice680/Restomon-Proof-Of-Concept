@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63506fc4d25e3f54c8a41605877b75d9, type: 3}
-  m_Name: Main1A
+  m_Name: MainB
   m_EditorClassIdentifier: 
   dungeon_name: Dungeon Name
   corruption_chance: 0
@@ -19,12 +19,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 76ffc353e25c1ed418375b066b77c76f, type: 2}
   lose_condition:
     overworld_id: 0
-    position: {x: 26, y: 23}
+    position: {x: 26, y: 19}
     event_effect:
-      data_effect:
-      - event_type: 0
-        index: 0
-        value: 1
+      data_effect: []
       dungeon_effect: []
   win_condition:
     overworld_id: 0
@@ -32,22 +29,12 @@ MonoBehaviour:
     event_effect:
       data_effect:
       - event_type: 0
-        index: 0
-        value: 2
+        index: 2
+        value: 3
       dungeon_effect: []
   text_options:
   - floor: 0
-    dialogue_tree: {fileID: 11400000, guid: ae3e5f2812a7cbf46af56c107b7a3796, type: 2}
-    trigger:
-      data_triggers:
-      - event_type: 0
-        is_equal: 1
-        index: 0
-        value: 0
-      dungeon_triggers: []
-      save_triggers: []
-  - floor: 1
-    dialogue_tree: {fileID: 11400000, guid: f2c6dcd7578efc147b684da68cd5f237, type: 2}
+    dialogue_tree: {fileID: 11400000, guid: ce73a1e25f751fb4a99fa169de5a93a8, type: 2}
     trigger:
       data_triggers: []
       dungeon_triggers: []

@@ -21,11 +21,12 @@ public class EventEffect
         public bool value;
     }
 
+    [Serializable]
     private class SaveEffect
     {
-        public DungeonDataType event_type;
+        public EffectDataType event_type;
         public int index;
-        public bool value;
+        public int value;
     }
 
     [SerializeField] private DataEffect[] data_effect;
@@ -56,6 +57,7 @@ public class EventEffect
 
     private void ApplySaveEffect(PermDataHolder data_holder, SaveEffect effect)
     {
-        
+        if(effect.event_type == EffectDataType.Restomon)
+            data_holder.SetRestomonUnlocked(effect.value);
     }
 }
