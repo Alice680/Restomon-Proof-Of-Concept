@@ -27,6 +27,7 @@ public class OverworldLayout : ScriptableObject
         public GameObject model;
         public bool traversable;
         public int dungeon_layout;
+        public DialogueTree dialouge;
 
         public EventTrigger event_trigger;
     }
@@ -92,7 +93,7 @@ public class OverworldLayout : ScriptableObject
         nodes[x + (y * x_size)].traversable = traversable;
     }
 
-    public void UpdateTile (int x, int y, GameObject model, bool traversable)
+    public void UpdateTile(int x, int y, GameObject model, bool traversable)
     {
         nodes[x + (y * x_size)].model = model;
         nodes[x + (y * x_size)].traversable = traversable;
@@ -108,7 +109,7 @@ public class OverworldLayout : ScriptableObject
 
                 if (!nodes[i + (e * x_size)].traversable)
                 {
-                    Debug.DrawLine(new Vector3(i-0.5F, e - 0.5F, 0), new Vector3(i + 0.5F, e - 0.5F, 0), Color.red, 10);
+                    Debug.DrawLine(new Vector3(i - 0.5F, e - 0.5F, 0), new Vector3(i + 0.5F, e - 0.5F, 0), Color.red, 10);
                     Debug.DrawLine(new Vector3(i - 0.5F, e - 0.5F, 0), new Vector3(i - 0.5F, e + 0.5F, 0), Color.red, 10);
                     Debug.DrawLine(new Vector3(i + 0.5F, e + 0.5F, 0), new Vector3(i + 0.5F, e - 0.5F, 0), Color.red, 10);
                     Debug.DrawLine(new Vector3(i + 0.5F, e + 0.5F, 0), new Vector3(i - 0.5F, e + 0.5F, 0), Color.red, 10);
@@ -126,7 +127,10 @@ public class OverworldLayout : ScriptableObject
 
         foreach (VariantNode node in variant_nodes)
             if (node.event_trigger.Check(dataHolder))
+            {
                 temp_map.SetTile(node.location.x, node.location.y, node.traversable, node.model, node.dungeon_layout);
+                temp_map.SetDialogue(node.location.x, node.location.y, node.dialouge);
+            }
 
         foreach (TownNode node in town_nodes)
             temp_map.SetTown(node.location.x, node.location.y, node.town);

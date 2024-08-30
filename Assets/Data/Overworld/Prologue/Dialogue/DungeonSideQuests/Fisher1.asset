@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a8ba54812124e46adfffcfd81540f8, type: 3}
+  m_Name: Fisher1
+  m_EditorClassIdentifier: 
+  dialouge:
+  - is_choice: 0
+    next_node: 1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: 'Hello there, it has been a while since I last had a guest. '
+    choice_text: 
+  - is_choice: 0
+    next_node: 2
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: Judging by your appearance, I am guessing you're here to visit the island
+      and not an old fisherman?
+    choice_text: 
+  - is_choice: 0
+    next_node: 3
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: 'Wait, is that now why you are here? '
+    choice_text: 
+  - is_choice: 0
+    next_node: 4
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: Well, then. I feel a test is in order.
+    choice_text: 
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: A bit above my house, you can find an entrance to a dungeon. Reach the
+      end and return to me and I will tell you about the mysterious island.
+    choice_text: 
+  event_effects:
+  - data_effect:
+    - event_type: 1
+      index: 3
+      value: 1
+    dungeon_effect:
+    - event_type: 0
+      index: 1
+      value: 1
+    save_effect: []

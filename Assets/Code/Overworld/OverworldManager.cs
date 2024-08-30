@@ -107,10 +107,18 @@ public class OverworldManager : MonoBehaviour
     {
         if (overworld_ui.ChangeDialogue(inputer))
         {
+            Vector3Int temp_pos = player_entity.GetPosition();
+
+            player_entity.Remove();
+            map.Clear();
+
+            map = data_holder.GetOverworld(out Vector2Int position).GetMap(data_holder, out DialogueTree dialogue);
+            player_entity = new OverworldEntity(data_holder.GetPlayer().GetModel());
+            map.Move(player_entity, temp_pos);
+
             data_holder.SaveData();
             current_state = State.idle;
         }
-
     }
 
     private void Town()
@@ -154,7 +162,7 @@ public class OverworldManager : MonoBehaviour
 
     private void Interact()
     {
-        map.Interact(player_entity.GetPosition().x, player_entity.GetPosition().y, out int dungeon_layout, out OverworldTown town);
+        map.Interact(player_entity.GetPosition().x, player_entity.GetPosition().y, out int dungeon_layout, out DialogueTree dialogue, out OverworldTown town);
 
         if (dungeon_layout != -1)
         {
@@ -163,6 +171,11 @@ public class OverworldManager : MonoBehaviour
             overworld_ui.ActivateChoice("Enter", data_holder.GetDungeon() + "?");
 
             current_state = State.enter_dungeon;
+        }
+        else if(dialogue != null)
+        {
+            overworld_ui.ActivateDialogue(dialogue);
+            current_state = State.dialogue;
         }
         else if (town != null)
         {

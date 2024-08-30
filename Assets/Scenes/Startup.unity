@@ -317,6 +317,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 930a3def9dd5360479843590e9ea4a4d, type: 2}
   - {fileID: 11400000, guid: d0ebe33401fe8f44daa979b381e3dec5, type: 2}
   - {fileID: 11400000, guid: 732cffc016cb6624b9efbbedc5b7dabe, type: 2}
+  - {fileID: 11400000, guid: b85b8ff4340612b40ac7fdbf60546850, type: 2}
   overworlds:
   - {fileID: 11400000, guid: 422c651a187a31b48b1236126a7fcb02, type: 2}
   research_data:

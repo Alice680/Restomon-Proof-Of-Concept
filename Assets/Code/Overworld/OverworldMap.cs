@@ -14,6 +14,8 @@ public class OverworldMap
 
         public int dungeon_layout;
 
+        public DialogueTree dialogue_tree;
+
         public OverworldTown town;
 
         public GameObject model;
@@ -50,12 +52,17 @@ public class OverworldMap
             dungeon_layout = -1;
             town = null;
 
-            GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion()).transform.parent  = this.model.transform;
+            GameObject.Instantiate(model, new Vector3(x, y, 0), new Quaternion()).transform.parent = this.model.transform;
         }
 
         public void SetDungeon(int dungeon_layout)
         {
             this.dungeon_layout = dungeon_layout;
+        }
+
+        public void SetDialouge(DialogueTree dialogue)
+        {
+            dialogue_tree = dialogue;
         }
 
         public void SetTown(OverworldTown town)
@@ -121,9 +128,10 @@ public class OverworldMap
                     map[i, e].entity = null;
     }
 
-    public void Interact(int x, int y, out int dungeon_layout, out OverworldTown town)
+    public void Interact(int x, int y, out int dungeon_layout, out DialogueTree dialogue, out OverworldTown town)
     {
         dungeon_layout = map[x, y].dungeon_layout;
+        dialogue = map[x, y].dialogue_tree;
         town = map[x, y].town;
     }
 
@@ -152,6 +160,11 @@ public class OverworldMap
     public void SetDungeon(int x, int y, int dungeon_layout)
     {
         map[x, y].SetDungeon(dungeon_layout);
+    }
+
+    public void SetDialogue(int x, int y, DialogueTree dialogue)
+    {
+        map[x, y].SetDialouge(dialogue);
     }
 
     public void SetTown(int x, int y, OverworldTown town)

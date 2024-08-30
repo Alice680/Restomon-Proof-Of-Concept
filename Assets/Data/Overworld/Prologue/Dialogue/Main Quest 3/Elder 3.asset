@@ -34,18 +34,6 @@ MonoBehaviour:
     - event_type: 0
       index: 0
       value: 1
-    - event_type: 0
-      index: 1
-      value: 1
-    - event_type: 0
-      index: 2
-      value: 1
-    - event_type: 0
-      index: 3
-      value: 1
-    - event_type: 1
-      index: 0
-      value: 1
     save_effect:
     - event_type: 0
       index: 0

@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a8ba54812124e46adfffcfd81540f8, type: 3}
+  m_Name: Fisher3
+  m_EditorClassIdentifier: 
+  dialouge:
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: Seems you managed to reach the end.
+    choice_text: 
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: The island I speak of can only be reached by clearing a second dungeon
+      below my house.
+    choice_text: 
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: This shack was once used by Aether Kngihts planning to venture out to it.
+    choice_text: 
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: People have tried to get to it by boat and Restomon, but no one has managed
+      to find it. Where it is located remains a mystery.
+    choice_text: 
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: What is known is that it is filled with rare materials and powerful monsters.
+    choice_text: 
+  - is_choice: 0
+    next_node: -1
+    optinal_node: 0
+    speaker_name: Fishermen
+    text: So if you plan to head out there, make sure you are prepared, as once you
+      get there, the only way back will be through another dungeon.
+    choice_text: 
+  event_effects:
+  - data_effect:
+    - event_type: 1
+      index: 3
+      value: 3
+    dungeon_effect: []
+    save_effect: []
