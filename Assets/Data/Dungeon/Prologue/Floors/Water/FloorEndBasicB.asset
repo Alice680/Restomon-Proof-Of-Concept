@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdc599673aa92164f84f3795dd183174, type: 3}
-  m_Name: FloorEndBasic
+  m_Name: FloorEndBasicB
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 9869a6c4913ff6b479d4cb33b4222847, type: 2}
-  tile_set: {fileID: 11400000, guid: 9c7c9de6cb953be4183d35dadbb010df, type: 2}
+  tile_set: {fileID: 11400000, guid: 6d81a987e0a730140983f3679cfe8118, type: 2}

@@ -16,32 +16,32 @@ MonoBehaviour:
   - is_choice: 0
     next_node: 1
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: 'Hello there, it has been a while since I last had a guest. '
     choice_text: 
   - is_choice: 0
     next_node: 2
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: Judging by your appearance, I am guessing you're here to visit the island
       and not an old fisherman?
     choice_text: 
   - is_choice: 0
     next_node: 3
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: 'Wait, is that now why you are here? '
     choice_text: 
   - is_choice: 0
     next_node: 4
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: Well, then. I feel a test is in order.
     choice_text: 
   - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: A bit above my house, you can find an entrance to a dungeon. Reach the
       end and return to me and I will tell you about the mysterious island.
     choice_text: 

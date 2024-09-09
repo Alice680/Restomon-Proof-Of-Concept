@@ -16,10 +16,10 @@ MonoBehaviour:
   - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Fishermen
-    text: Head back to town and see if they have been found.
-    choice_text: If you plan to visit the island, be safe and only bring what you're
-      willing to lose.
+    speaker_name: Fisher
+    text: 'If you plan to visit the island, be safe and only bring what you''re willing
+      to lose. '
+    choice_text: 
   event_effects:
   - data_effect: []
     dungeon_effect: []

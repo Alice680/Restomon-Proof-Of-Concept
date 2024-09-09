@@ -16,10 +16,10 @@ MonoBehaviour:
   corruption_chance: 0
   corruption_range: 0
   floor_options:
-  - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
-  - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
-  - {fileID: 11400000, guid: a65ff9bd616a39a489c6e92a4dc00a86, type: 2}
-  - {fileID: 11400000, guid: b18734f5db8e9d64c85c600c5ea857e3, type: 2}
+  - {fileID: 11400000, guid: caacfd4317e19244b87f4ed240c223ad, type: 2}
+  - {fileID: 11400000, guid: caacfd4317e19244b87f4ed240c223ad, type: 2}
+  - {fileID: 11400000, guid: caacfd4317e19244b87f4ed240c223ad, type: 2}
+  - {fileID: 11400000, guid: c29561b16625ec24f8249baa68d133d1, type: 2}
   lose_condition:
     overworld_id: 0
     position: {x: 26, y: 26}
@@ -33,9 +33,12 @@ MonoBehaviour:
     event_effect:
       data_effect:
       - event_type: 1
-        index: 2
-        value: 3
-      dungeon_effect: []
+        index: 3
+        value: 2
+      dungeon_effect:
+      - event_type: 0
+        index: 1
+        value: 1
       save_effect: []
   text_options:
   - floor: 3

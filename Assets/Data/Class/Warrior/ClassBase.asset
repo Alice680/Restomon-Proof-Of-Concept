@@ -17,7 +17,7 @@ MonoBehaviour:
   base_stats:
     hp: 25
     apr: 2
-    atk: 5
+    atk: 15
     mag: 1
     frc: 3
     def: 4

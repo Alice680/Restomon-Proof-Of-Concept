@@ -16,7 +16,7 @@ MonoBehaviour:
   - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: Good luck out there.
     choice_text: 
   event_effects:

@@ -232,9 +232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  layout: {fileID: 11400000, guid: 422c651a187a31b48b1236126a7fcb02, type: 2}
+  layout: {fileID: 11400000, guid: c569093ba88d5a74ea9c4e72e1882f79, type: 2}
   new_layout: 0
-  x_size: 50
-  y_size: 50
-  traversable: 1
-  current_model: {fileID: 3125491893750818500, guid: ab9001fe75905684ebc30144b33b7708, type: 3}
+  x_size: 25
+  y_size: 25
+  traversable: 0
+  current_model: {fileID: 8295039149031947486, guid: 60eb7b794ad276246b74b8ebb7055274, type: 3}

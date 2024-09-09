@@ -57,7 +57,7 @@ public class EventEffect
 
     private void ApplySaveEffect(PermDataHolder data_holder, SaveEffect effect)
     {
-        if(effect.event_type == EffectDataType.Restomon)
+        if (effect.event_type == EffectDataType.Restomon)
             data_holder.SetRestomonUnlocked(effect.value);
     }
 }

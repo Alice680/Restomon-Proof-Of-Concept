@@ -14,41 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialouge:
   - is_choice: 0
-    next_node: -1
+    next_node: 1
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: Seems you managed to reach the end.
     choice_text: 
   - is_choice: 0
-    next_node: -1
+    next_node: 2
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: The island I speak of can only be reached by clearing a second dungeon
       below my house.
     choice_text: 
   - is_choice: 0
-    next_node: -1
+    next_node: 3
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: This shack was once used by Aether Kngihts planning to venture out to it.
     choice_text: 
   - is_choice: 0
-    next_node: -1
+    next_node: 4
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: People have tried to get to it by boat and Restomon, but no one has managed
       to find it. Where it is located remains a mystery.
     choice_text: 
   - is_choice: 0
-    next_node: -1
+    next_node: 5
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: What is known is that it is filled with rare materials and powerful monsters.
     choice_text: 
   - is_choice: 0
     next_node: -1
     optinal_node: 0
-    speaker_name: Fishermen
+    speaker_name: Fisher
     text: So if you plan to head out there, make sure you are prepared, as once you
       get there, the only way back will be through another dungeon.
     choice_text: 
@@ -57,5 +57,8 @@ MonoBehaviour:
     - event_type: 1
       index: 3
       value: 3
-    dungeon_effect: []
+    dungeon_effect:
+    - event_type: 0
+      index: 2
+      value: 1
     save_effect: []

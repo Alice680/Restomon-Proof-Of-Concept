@@ -5142,6 +5142,19 @@ MonoBehaviour:
         index: 1
         value: 1
       save_triggers: []
+  - location: {x: 46, y: 38}
+    model: {fileID: 6111999804054699479, guid: e5a19cc91f133fa439d9fb3e0ab9fd74, type: 3}
+    traversable: 1
+    dungeon_layout: 4
+    dialouge: {fileID: 0}
+    event_trigger:
+      data_triggers: []
+      dungeon_triggers:
+      - event_type: 0
+        is_equal: 1
+        index: 2
+        value: 1
+      save_triggers: []
   town_nodes:
   - location: {x: 26, y: 26}
     town: {fileID: 11400000, guid: 7457674b88401ab478ad44a47013681a, type: 2}
